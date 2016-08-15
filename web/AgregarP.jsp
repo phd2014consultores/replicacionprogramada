@@ -116,7 +116,7 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicador">Gestionar Tiendas</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicador">Eliminar</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Crear">Crear</a></li>
 <li class="page_item page-item-26084"><a href="/PublicacionySuscripcion/Modificar">Modificar</a></li>
 <li class="page_item page-item-10"><a href="/PublicacionySuscripcion/Detalle">Detalle</a></li>
