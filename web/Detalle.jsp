@@ -116,13 +116,13 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicador.jsp">Gestionar Tiendas</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Crear.jsp">Crear</a></li>
-<li class="page_item page-item-26084"><a href="/PublicacionySuscripcion/Modificar.jsp">Modificar</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/Detalle.jsp">Detalle</a></li>
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/AgregarP.jsp">Agregar Publicador</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicar.jsp">Publicar</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor.jsp">Publicaciones</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicador">Gestionar Tiendas</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Crear">Crear</a></li>
+<li class="page_item page-item-26084"><a href="/PublicacionySuscripcion/Modificar">Modificar</a></li>
+<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/Detalle">Detalle</a></li>
+<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/AgregarP">Agregar Publicador</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicar">Publicar</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Publicaciones</a></li>
 
 							</ul>
 						</div>
