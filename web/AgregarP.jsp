@@ -116,13 +116,13 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicador.jsp">Gestionar Tiendas</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Crear.jsp">Crear</a></li>
-<li class="page_item page-item-26084"><a href="/PublicacionySuscripcion/Modificar.jsp">Modificar</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/Detalle.jsp">Detalle</a></li>
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/AgregarP.jsp">Agregar Publicador</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicar.jsp">Publicar</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor.jsp">Publicaciones</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicador">Gestionar Tiendas</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Crear">Crear</a></li>
+<li class="page_item page-item-26084"><a href="/PublicacionySuscripcion/Modificar">Modificar</a></li>
+<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/Detalle">Detalle</a></li>
+<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/AgregarP">Agregar Publicador</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicar">Publicar</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Publicaciones</a></li>
 
 							</ul>
 						</div>
@@ -136,34 +136,89 @@
 <div id="Bandejas" >
 	<h2>Listar Publicadores</h2>
 	<br>
-	<label for="message">Nombre de Tienda :</label>
-	 <input type="text" placeholder="Nombre" required /><span><input type="submit" value="Listar"/> </span>
-	<br>
-	<textarea id="message2" cols="30" rows="15" required></textarea>
+	<div>
+                <form class="form-horizontal" action="AgregarP" method="POST">
+                    <select  name="listString" class="form-control" onchange="this.form.submit()">
+                        <option value="NONE">Seleccione una tienda...</option>
+                        <c:forEach items="${tienda}" var="item">
+                            ${item}
+                        </c:forEach>
+                    </select>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+            </div>
+               
+            <c:if test="${not empty publicacion}">   
+             <h3>Publicadores</h3>
+                <textarea id="message2" cols="30" rows="15" >
+                    
+                    <c:forEach items="${publicacion}" var="item2">
+                            ${item2}
+                    </c:forEach>
+                </textarea>
+            </c:if>
 	<br>
 
     <br>
     <!--div id="Bandeja1"-->
-    	<h2 color="red">Agregar Publicador</h2>
-    	<label for="message">Nombre de Tienda :</label><span> <input type="text" placeholder="Nombre Tienda" required />
-	<br></span>
-	    	<label for="message">Nombre de Publicador :</label><span> <input type="text" placeholder="Nombre Publicador" required />
-	<br></span>
+    	<h2 >Agregar Publicador</h2>
+          
+             <h4>${mensaje}</h4>
+              <h4>${error}</h4>
+             <h4>${parametro1}</h4>   
+             <h4>${parametro2}</h4>   
+             
+        <form class="form-horizontal" method="POST" action="AgregarPub">
+         <select  name="nameTienda" class="form-control"  required>
+                        <option value="NONE">Seleccione una tienda...</option>
+                        <c:forEach items="${tienda2}" var="item3">
+                            ${item3}
+                        </c:forEach>
+        </select>
+            
+             <select  name="namePub" class="form-control"  required>
+                        <option value="NONE">seleccione un publicador...</option>
+                        <c:forEach items="${publicador}" var="item4">
+                            ${item4}
+                        </c:forEach>
+            </select>
+    	
+            <input type="submit" class="btn btn-primary" value="Agregar"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                
+        </form>
+	
 
-	<input type="submit" value="Aceptar"/>  <span><input type="submit" value="Cancelar"/>  </span>  
+	
     <!--/div-->
 	<br>
 	<br>
 	<br>
     <!--div id="Bandeja2"-->
     	<h2 color="red">Retirar Publicador</h2>
-    	<label for="message">Nombre de Tienda :</label><span> <input type="text" placeholder="Nombre Tienda" required />
-	<br></span>
-
-	    	<label for="message">Nombre de Publicador :</label><span> <input type="text" placeholder="Nombre Publicador" required />
-	<br></span>
-
-	<input type="submit" value="Aceptar"/>  <span><input type="submit" value="Cancelar"/>  </span>   
+        
+            <h4>${mensaje2}</h4>
+              <h4>${error2}</h4>
+        
+    	<form class="form-horizontal" method="POST" action="EliminarPub">
+         <select  name="nameTienda2" class="form-control"  required>
+                        <option value="NONE">Seleccione una tienda...</option>
+                        <c:forEach items="${tienda2}" var="item3">
+                            ${item3}
+                        </c:forEach>
+        </select>
+            
+             <select  name="namePub2" class="form-control"  required>
+                        <option value="NONE">seleccione un publicador...</option>
+                        <c:forEach items="${publicador2}" var="item4">
+                            ${item4}
+                        </c:forEach>
+            </select>
+    	
+            <input type="submit" class="btn btn-danger" value="Retirar"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                
+        </form>
     <!--/div-->
     
 
@@ -175,10 +230,9 @@
 				<div class="span12">
 					<div id="copy" align="bottom">
 						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
-                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
 					</div>
 				</div>
-			</div>  
+			</div>
 	
 
 
