@@ -130,6 +130,7 @@ public class suscriptorController {
                 valor="";
                 result="";
             }
+            model.addObject("tienda",nameTienda);
             model.addObject("publicacion3",listString3);
             model.addObject("publicacion2", nameTienda);
             model.addObject("publicacion", listString2);
