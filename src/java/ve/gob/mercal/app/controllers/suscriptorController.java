@@ -31,7 +31,7 @@ import ve.gob.mercal.app.services.WsQuery;
 @Controller
 @Scope("request")
 public class suscriptorController {
-    
+   
     @Autowired
     public WsQuery wsQuery;
     private String tienda = "";
@@ -40,8 +40,8 @@ public class suscriptorController {
     public List<String> listString3 = new ArrayList<>();
     public List<String> listString4 = new ArrayList<>();
     public Model prueba;
-    
-    
+   
+   
     @RequestMapping(value = {"/Suscriptor"}, method = {RequestMethod.GET})
     public ModelAndView getTienda(){
         ModelAndView model= new ModelAndView();
@@ -56,7 +56,7 @@ public class suscriptorController {
         } catch (ExcepcionServicio e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }              
+        }             
         JsonParser parser = new JsonParser();
         JsonElement elementObject;
         s = s.substring(1, s.length()-1);
@@ -67,16 +67,16 @@ public class suscriptorController {
             this.tienda = elementObject.getAsJsonObject()
                     .get("tienda").getAsString();
             listString.add("<option value="+this.tienda+ "type=\"submit\">"+
-                                    this.tienda+"</option>");            
-        }                          
+                                    this.tienda+"</option>");           
+        }                         
         model.addObject("tienda", listString);
         model.setViewName("Suscriptor");
         return model;
     }
-        
-        
+       
+       
         @RequestMapping(value = {"/Suscriptor"}, method = RequestMethod.POST)
-    public ModelAndView publicacionesEjecutadas(@RequestParam (value = "listString", required = false) 
+    public ModelAndView publicacionesEjecutadas(@RequestParam (value = "listString", required = false)
                                                     String nameTienda){
         ModelAndView model = new ModelAndView();
         model=getTienda();
@@ -104,7 +104,7 @@ public class suscriptorController {
             while (st.hasMoreTokens()) {
                 s2 = st.nextToken()+"}";
                 if (s2.substring(0,1).equals(",")){
-                    s2 = s2.substring(1);                           
+                    s2 = s2.substring(1);                          
                 }
                 elementObject = parser.parse(s2);
                 result= result + "Planificación: "+planif+"\n";
@@ -138,9 +138,9 @@ public class suscriptorController {
  
         return model;
     }
-        
+       
         @RequestMapping(value = {"/Suscriptor2"}, method = RequestMethod.POST)
-    public ModelAndView detalle(@RequestParam (value = "listString2", required = false) 
+    public ModelAndView detalle(@RequestParam (value = "listString2", required = false)
                                                     String nroControl){
         ModelAndView model = new ModelAndView();
         model=getTienda();
@@ -160,49 +160,49 @@ public class suscriptorController {
         JsonElement elementObject;
         elementObject = parser.parse(s2);
         String result="Datos:\n";
-        result = result + "Id del ETL = " + elementObject.getAsJsonObject().get("id_etl").getAsString() + "\n";
+        result = result + "Número de Control = " + elementObject.getAsJsonObject().get("id_etl").getAsString() + "\n";
         result = result + "ETL = "+elementObject.getAsJsonObject().get("etl").getAsString()+"\n";
         result = result + "Estatus Ejecución = "+elementObject.getAsJsonObject().get("status_ejec").getAsString()+"\n";
         result = result + "Registros Insertados = "+elementObject.getAsJsonObject().get("reg_insertados").getAsString()+"\n";
         result = result + "Registros Actualizados = "+elementObject.getAsJsonObject().get("reg_actualizados").getAsString()+"\n";
-        
+       
         model.addObject("detalle", result);
         model.setViewName("Suscriptor");
         return model;
     }
-    
+   
     @RequestMapping(value = {"/Consulta"}, method = RequestMethod.GET)
     public ModelAndView getConsulta(){
-        ModelAndView model = new ModelAndView();        
-        
+        ModelAndView model = new ModelAndView();       
+       
         model.setViewName("Consulta");
         return model;
     }
-    
+   
     @RequestMapping(value = {"/Consulta"}, method = RequestMethod.POST)
-    public ModelAndView postConsulta(@RequestParam (value = "query", required = false) String query, 
-                                        @RequestParam (value = "fechaIni", required = false) String fechaIni, 
+    public ModelAndView postConsulta(@RequestParam (value = "query", required = false) String query,
+                                        @RequestParam (value = "fechaIni", required = false) String fechaIni,
                                         @RequestParam (value = "fechaFin", required = false) String fechaFin){
-        ModelAndView model = new ModelAndView();        
+        ModelAndView model = new ModelAndView();       
         String s = "NULL";
         if(fechaIni.equals("") && fechaFin.equals("")){
-        
+       
             s = "ejecuto el query sin fechas";
-            
+           
         }else{
             if(!fechaIni.equals("") && !fechaFin.equals("")){
-            
+           
                 s = "Ejecuto el query con ambas fechas";
-                
+               
             }else{
                 if(!fechaIni.equals("")){
-                
+               
                     s = "ejecuto el query con fecha de inicio";
-                
+               
                 }else{
-                
+               
                     s = "ejecuto el query con fecha de fin";
-                    
+                   
                 }
             }
         }
@@ -210,5 +210,5 @@ public class suscriptorController {
         model.setViewName("Consulta");
         return model;
     }
-    
+   
 }

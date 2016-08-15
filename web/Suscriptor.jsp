@@ -1,4 +1,3 @@
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
@@ -10,7 +9,7 @@
     <!-- Bootstrap -->
     <style type="text/css">
             <%@include file="css/bootstrap.css" %>
-        </style>    
+        </style>   
     <!-- CSS para el Responsive Slider-->
         <style type="text/css">
             <%@include file="css/flexslider.css" %>
@@ -26,7 +25,7 @@
         <style type="text/css">
             <%@include file="css/miscss.css" %>
         </style>
-       
+      
         <!-- Jquery -->
         <script type="text/javascript" language="JavaScript">
             <%@ include file="jss/jquery-1.8.3.js" %>
@@ -35,7 +34,7 @@
         <script type="text/javascript" language="JavaScript">
         <%@ include file="jss/jquery.flexslider.js" %>
         </script>
-    <!-- Bootstrap    -->  
+    <!-- Bootstrap    --> 
         <script type="text/javascript" language="JavaScript">
          <%@ include file="jss/bootstrap.js" %>
         </script>
@@ -48,9 +47,9 @@
                 }
             });
         });
-    </script>      
+    </script>     
     </head>
-    <body>  
+    <body> 
         <div class="row-fluid encabezado">
             <div class="span12">
                 <div class="row-fluid">
@@ -109,17 +108,17 @@
                             <div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
                                 <ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
                                     <li class="page_item page-item-5">
-                                        <a href="/PublicacionySuscripcion/Suscriptor">Gestionar Publicaciones</a>
+                                        <a href="/PublicacionySuscripcion/Suscriptor">Consultar Publicación</a>
                                     </li>
-                                    <li class="page_item page-item-5">
+<!--                                    <li class="page_item page-item-5">
                                         <a href="/PublicacionySuscripcion/Consulta">Consultar</a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </div>
-                        </div>        
+                        </div>       
                     </div>
                 </div>
-            </div>        
+            </div>       
         </div>
         <div id="Bandejas">
             <h2>Tiendas Suscritas</h2>
@@ -132,21 +131,21 @@
                         </c:forEach>
                     </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form> 
+                </form>
             </div>
-            
-            <c:if test="${not empty publicacion}">    
-                
-                <h2>Publicaciones Ejecutadas</h2> 
+           
+            <c:if test="${not empty publicacion}">   
+               
+                <h2>Publicaciones Ejecutadas</h2>
                 <textarea id="message2" cols="30" rows="15" >
                     Tienda: ${publicacion2}
                     <c:forEach items="${publicacion}" var="item2">
                             ${item2}
                     </c:forEach>
                 </textarea>
-                
+               
             <h2>Detalle de Publicación</h2>
-            <form class="form-horizontal" action="Suscriptor2" method="POST">             
+            <form class="form-horizontal" action="Suscriptor2" method="POST">            
                 <select  name="listString2" class="form-control" onchange="this.form.submit()">
                     <option value="NONE">Seleccione una opción...</option>
                     <c:forEach items="${publicacion3}" var="item3">
@@ -154,7 +153,7 @@
                     </c:forEach>
                 </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-      
+     
             </form>
             </c:if>
 
@@ -162,19 +161,20 @@
                 <h2>Listado de ETL</h2>
                 <textarea id="message2" cols="30" rows="15" >
                     ${detalle}
-                </textarea>      
+                </textarea>     
             </c:if>
         </div>
-            
-                           
+           
+                          
 
-    		<div class="row-fluid">
-				<div class="span12">
-					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4><a href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a>
-					</div>
-				</div>
-			</div>  
+        <div class="row-fluid">
+            <div class="span12">
+                <div id="copy" align="bottom">
+                    <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                    <a href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a>
+                </div>
+            </div>
+        </div>
         <c:url value="/logout" var="logoutUrl" />
         <form action="${logoutUrl}" method="post" id="logoutForm">
                 <input type="hidden" name="${_csrf.parameterName}"

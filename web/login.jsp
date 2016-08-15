@@ -49,7 +49,7 @@
 		});
 	</script>
         
-<title>Login</title>
+<title>Publicación y Suscripción</title>
 <style>
 .error {
 	padding: 15px;
@@ -134,9 +134,12 @@
 		    </div>
 		</div>
 	</div>
+    
+        <br>
+                <h1 align="center">${title}</h1>	
+                <h1 align="center">${message}</h1>
 
 	    <div id="contenido" class="container-fluid">
-                <h1 align="center">Publicacion y Suscripcion</h1>
 
 	<div id="login-box">
 
@@ -149,8 +152,7 @@
 			<div class="msg">${msg}</div>
 		</c:if>
                         
-                <h1 align="center">${title}</h1>	
-                <h1 align="center">${message}</h1>
+
       
 		<form name='loginForm' action="<c:url value='/login' />" method='POST'>
 
@@ -176,7 +178,8 @@
     		<div class="row-fluid">
 				<div class="span12">
 					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4><a href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a>
+						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                                                <a align="center" href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a>
 					</div>
 				</div>
 			</div>                           
