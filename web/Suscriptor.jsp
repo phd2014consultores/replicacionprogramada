@@ -143,7 +143,7 @@
                             ${item2}
                     </c:forEach>
                 </textarea>
-               
+            <h2>En caso de no existir la publicación requerida debe comunicarse con el Publicador</h2>   
             <h2>Detalle de Publicación</h2>
             <form class="form-horizontal" action="Suscriptor2" method="POST">            
                 <select  name="listString2" class="form-control" onchange="this.form.submit()">
