@@ -167,10 +167,10 @@
     		<div class="row-fluid">
 				<div class="span12">
 					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4><a href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a>
 					</div>
 				</div>
-			</div>
+			</div>  
 	
 
 
