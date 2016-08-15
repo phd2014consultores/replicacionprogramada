@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gestionar Tiendas</title>
+	<title>Eliminar Tiendas</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -143,6 +143,9 @@
 
                     <br>
                     <h2>Eliminar Tiendas</h2>
+                    
+                
+                    <p>¿Desea eliminar una tienda?</p>
                     
                 <form class="form-horizontal" action="Publicador" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
