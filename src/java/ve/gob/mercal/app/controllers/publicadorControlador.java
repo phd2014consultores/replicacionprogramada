@@ -385,10 +385,50 @@ public class publicadorControlador {
 //     
 
      @RequestMapping(value = {"/Detalle"}, method = {RequestMethod.GET})
-    public ModelAndView detalles(){
+    public ModelAndView detalles(@RequestParam (value = "listTienda", required = false)
+                                                    String nameTienda){
         ModelAndView model= new ModelAndView();
+        model=getTienda();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        String id="";
+        String tien="";
+        String host="";
+        String user="";
+        String pass="";
+        String bd="";
+        String idm="";
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        nameTienda = nameTienda.substring(0,nameTienda.length()-13);
         
-        
+         try {
+                nameTienda = wsQuery.getConsulta("SELECT id_tienda, tienda, host_bd_oracle, usuario_bd_oracle, pass_usuario_bd_oracle, \n" +
+"       bd_oracle, id_manager FROM tiendas\n" +
+"  WHERE activo=true and tienda='"+nameTienda +"';");
+                
+        nameTienda = nameTienda.substring(1, nameTienda.length()-1);
+        elementObject = parser.parse(nameTienda);
+
+             id = elementObject.getAsJsonObject().get("id_tienda").getAsString();
+             tien = elementObject.getAsJsonObject().get("tienda").getAsString();
+             host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
+             user = elementObject.getAsJsonObject().get("usuario_bd_oracle").getAsString();
+             pass = elementObject.getAsJsonObject().get("pass_usuario_bd_oracle").getAsString();
+             bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
+             idm = elementObject.getAsJsonObject().get("id_manager").getAsString();
+            } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
+
+            model.addObject("idt",id);
+            model.addObject("tienda",tien);
+            model.addObject("host",host);
+            model.addObject("user",user);
+            model.addObject("pass",pass);
+            model.addObject("bd",bd);
+            model.addObject("idm",idm);
         
         model.setViewName("Detalle");
         return model;

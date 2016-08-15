@@ -135,7 +135,15 @@
 
 <div id="Bandejas" >
 	<label for="message">Nombre de Tienda :</label>
-	 <input type="text" placeholder="Nombre" required /><span><input type="submit" value="Cargar"/> </span>
+	 <form class="form-horizontal" action="Detalle" method="POST">
+                    <select  name="listTienda" class="form-control" onchange="this.form.submit()">
+                        <option value="NONE">Seleccione una tienda...</option>
+                        <c:forEach items="${tienda}" var="item">
+                            ${item}
+                        </c:forEach>
+                    </select>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+         </form>
 	<br>
     <br>
 
