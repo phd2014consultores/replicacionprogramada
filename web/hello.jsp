@@ -1,4 +1,7 @@
 <%@page session="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:redirect url="/login"/>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -139,27 +142,6 @@
     
 	<h1 align="center">${title}</h1>	
 	<h1 align="center">${message}</h1>
-        
-        	<form name='loginForm' action="<c:url value='/login' />" method='POST'>
-
-			<table>
-				<tr>
-					<td>Usuario:</td>
-					<td><input id="u" type='text' name='username' value=''></td>
-				</tr>
-				<tr>
-					<td>Contraseña:</td>
-					<td><input id="p" type='password' name='password' /></td>
-				</tr>
-				<tr>
-                                    <td colspan='2'><div class="buttonHolder"><input name="submit" type="submit"value="submit"></div></td> <!--//OJOOOOOOOOO onclick=" location.href='/PublicacionySuscripcion/admin.jsp'-->
-				</tr>
-			</table>
-
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-
-		</form>
         
         <br>
         <br>

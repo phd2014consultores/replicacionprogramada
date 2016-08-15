@@ -34,12 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/Publicador","/AgregarP","/Crear","/Detalle","/Modificar","/Publicar","/Psuscriptor").hasRole("publicador")
                 .antMatchers("/Suscriptor","/Consulta").hasRole("suscriptor")
                 .and()
-		.formLogin().loginPage("/hello").permitAll()
-                .failureUrl("/hello")
+		.formLogin().loginPage("/login").permitAll()
+                .failureUrl("/login")
 		.usernameParameter("username").passwordParameter("password")
 		.successHandler(ra)
                 .and()
-		.logout().logoutSuccessUrl("/hello")
+		.logout().logoutSuccessUrl("/login")
 		.and()
 		.csrf();	
 	}
