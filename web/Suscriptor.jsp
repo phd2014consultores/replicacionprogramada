@@ -124,8 +124,8 @@
             <h2>Tiendas Suscritas</h2>
             <div>
                 <form class="form-horizontal" action="Suscriptor" method="POST">
-                    <select  name="listString" class="form-control" onchange="this.form.submit()">
-                        <option value="NONE">Seleccione una opción...</option>
+                    <select  name="listString" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
+                        <option value="NONE" selected="selected">Seleccione una opción...</option>
                         <c:forEach items="${tienda}" var="item">
                             ${item}
                         </c:forEach>
@@ -136,9 +136,11 @@
            
             <c:if test="${not empty publicacion}">   
                
-                <h2>Publicaciones Ejecutadas</h2>
+                <h2>Publicaciones Disponibles</h2>
+                <br>
+                <h4>Tienda:</h4> <span><h3>${publicacion2}</h3></span>
+                <br>
                 <textarea id="message2" cols="30" rows="15" >
-                    Tienda: ${publicacion2}
                     <c:forEach items="${publicacion}" var="item2">
                             ${item2}
                     </c:forEach>
@@ -150,7 +152,7 @@
                 <select  name="listString2" class="form-control" onchange="this.form.submit()">
                     <option value="NONE">Seleccione una opción...</option>
                     <c:forEach items="${publicacion3}" var="item3">
-                        <option value="${item3}" type="submit">Etl: ${item3}</option>
+                        <option value="${item3}" type="submit">Numero de Control: ${item3}</option>
                     </c:forEach>
                 </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
