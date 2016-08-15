@@ -1,0 +1,128 @@
+/*
+Copyright 2016 Prato.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+/* 
+    Created on : 14/06/2016, 11:57:44 AM
+    Author     : Prato
+*/
+
+
+#div_slider_encabezado .flex-direction-nav {
+  display: none;
+}
+#contenido {
+  margin-top: 5px;
+  padding: 0;
+}
+  #contenido {
+    padding: 1%;
+  }
+  #barra_navegacion_desk {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  background-color: #da291c;
+  margin-bottom: 10px;
+  z-index: 1;
+  max-width: 1024px;
+}
+#dropmenu a {
+  display: inline-block;
+  width: auto;
+  min-width: 70px;
+  height: 30px;
+  display: block;
+  padding: 5px 17px;
+  color: white;
+  text-decoration: none;
+  text-align: left;
+  text-align: center;
+  background-color: #da291c;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  line-height: 2.6em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#dropmenu ul > li > a {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background: white;
+  background-color: #da291c;
+}
+#dropmenu a:hover {
+  background: white;
+  color: #363636;
+  z-index: 12;
+}
+#dropmenu li {
+  float: left;
+  position: relative;
+  list-style: none;
+}
+#dropmenu ul {
+  position: absolute;
+
+}
+#dropmenu li ul a {
+  width: auto;
+  height: auto;
+  float: left;
+  font-size: 9px;
+  text-align: left;
+}
+#dropmenu ul ul {
+  top: auto;
+}
+#dropmenu li ul ul {
+  left: 120px;
+  margin: 0px 0 0 10px;
+}
+#dropmenu li:hover ul,
+#dropmenu li:hover ul ul,
+#dropmenu li:hover ul ul ul,
+#dropmenu li:hover ul ul ul ul {
+  display: none;
+  background-color: #da291c;
+  z-index: 12;
+}
+#dropmenu li li:hover ul #dropmenu li li li:hover ul,
+#dropmenu li li li li:hover ul {
+  display: block;
+  background-color: #FFF;
+  z-index: 12;
+}
+#dropmenu li li:hover ul {
+  color: #FFF;
+}
+#dropmenu li:hover a,
+#dropmenu li li li:hover a,
+#dropmenu li li li li:hover a {
+  background-color: #da291c;
+  z-index: 12;
+  color: black;
+}
+#dropmenu li li:hover a {
+  color: #FFF;
+}
+.current_page_item {
+  position: relative;
+  z-index: 12;
+}
+#dropmenu .current_page_item a {
+  background-color: #BE0000;
+  color: white;
+}

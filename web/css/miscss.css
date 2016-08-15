@@ -1,0 +1,107 @@
+/*
+Copyright 2016 Prato.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+/* 
+    Created on : 14/06/2016, 12:01:48 PM
+    Author     : Prato
+*/
+
+
+
+#cantcargas {
+  position: center;
+  text-align:center;
+}
+
+#message1 {
+width: 320px;
+}
+
+#message2 {
+width: 320px;
+}
+
+#lnodos {
+width: 520px;
+}
+
+#parametros {
+  text-align:center;
+}
+
+#parametros1 {
+  float:left;
+  margin-left: 250px;
+  position: left;
+  text-align:center;
+}
+
+#parametros2 {
+  float:center;
+  margin-right: 150px;
+  position: center;
+  text-align:center;
+}
+
+#Bandejas {
+  margin:0 auto;
+  position: center;
+  text-align:center;
+}
+
+#Bandeja1 {
+  border: 1px solid #000000;
+  float:left;
+  margin-left: 100px;
+  position: left;
+  text-align:center;
+}
+
+#Bandeja2 {
+  border: 1px solid #000000;
+  float: right;
+  margin-right: 100px;
+  position: right;
+  text-align:center;
+}
+
+#Nodos {
+  border: 1px solid #000000;
+  margin-left: 100px;
+  margin-right: 100px;
+  float:center;
+  position: left;
+  text-align:center;
+}
+
+#agregarnodos {
+  border: 1px solid #000000;
+  margin-left: 100px;
+  margin-right: 100px;
+  float:center;
+  position: center;
+  text-align:center;
+}
+
+#copy h4 {
+  margin-top:50px;
+  bottom: 0px;
+  text-align: center;
+  font-size: 14px;
+  color: #FFF;
+  background-color: #004C97;
+  padding: 25px;
+  vertical-align: center;
+}
