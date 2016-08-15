@@ -49,7 +49,7 @@
 		});
 	</script>
         
-<title>Inicio</title>
+<title>Publicación y Suscripción</title>
 <style>
 .error {
 	padding: 15px;
@@ -140,15 +140,34 @@
 	<h1 align="center">${title}</h1>	
 	<h1 align="center">${message}</h1>
         
-        <br>
-        <br>
+        	<form name='loginForm' action="<c:url value='/login' />" method='POST'>
+
+			<table>
+				<tr>
+					<td>Usuario:</td>
+					<td><input id="u" type='text' name='username' value=''></td>
+				</tr>
+				<tr>
+					<td>Contraseña:</td>
+					<td><input id="p" type='password' name='password' /></td>
+				</tr>
+				<tr>
+                                    <td colspan='2'><div class="buttonHolder"><input name="submit" type="submit"value="submit"></div></td> <!--//OJOOOOOOOOO onclick=" location.href='/PublicacionySuscripcion/admin.jsp'-->
+				</tr>
+			</table>
+
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+
+		</form>
         
-        <p align="center"><a href="/PublicacionySuscripcion/login" align="center">Ingresar</a></p>
+        <br>
+        <br>
          
             		<div class="row-fluid">
 				<div class="span12">
 					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919 </h4><a href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a>
 					</div>
 				</div>
 			</div>   

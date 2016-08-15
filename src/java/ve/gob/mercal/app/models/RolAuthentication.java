@@ -70,7 +70,7 @@ public class RolAuthentication implements AuthenticationSuccessHandler {
         }else if (isSUS) {
             return "/Suscriptor";
         }else {
-        	return "/login";
+        	return "/hello";
             //throw new IllegalStateException();
         }
     }

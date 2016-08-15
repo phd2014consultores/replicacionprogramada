@@ -13,8 +13,8 @@ public class HelloController {
 	public ModelAndView welcomePage() {
 
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "!Bienvenido al servicio!");
-		model.addObject("message", "Publicación y Suscripción");
+		model.addObject("title", "Bienvenido al Sistema Centralizado de");
+		model.addObject("message", "Publicación y Suscripción de Tiendas ");
 		model.setViewName("hello");
 		return model;
 
