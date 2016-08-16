@@ -166,34 +166,6 @@
             </div>
         </div>
         <br>
-        <div>
-            <br>
-            <h2 color="red">Publicación CargaInicial</h2>
-            <br>
-            <label for="message">Planificada :</label> 
-            <label for="message">Fecha :</label>
-            <input type="text" placeholder="Fecha" required />
-            <label for="message">Hora :</label>
-            <input type="text" placeholder="Hora" required />
-            <br>
-            <input type="submit" value="Aceptar"/>  
-            <br>          
-        </div>
-  
-        <div>
-            <br>
-            <h2 color="red">Publicación Mediación</h2>
-            <br>
-            <label for="message">Planificada :</label> 
-            <label for="message">Fecha :</label>
-            <input type="text" placeholder="Fecha" required />
-            <label for="message">Hora :</label>
-            <input type="text" placeholder="Hora" required />
-            <br>
-            <input type="submit" value="Aceptar"/> 
-            <br>
-            <br>
-        </div>
      </div>
                 
 

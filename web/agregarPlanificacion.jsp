@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>AgregarPlanificacion</title>
+	<title>Planificacion</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -134,9 +134,9 @@
             <h4 color="red">Seleccione una Tienda</h4>
             <select  name="listString" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
                 <option value="NONE" selected="selected">Seleccione una tienda...</option>
-                <%--<c:forEach items="${tienda}" var="item">--%>
-                    <!--${item}-->
-                <%--</c:forEach>--%>
+                <c:forEach items="${tienda}" var="item">
+                    ${item}
+                </c:forEach>
             </select>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
