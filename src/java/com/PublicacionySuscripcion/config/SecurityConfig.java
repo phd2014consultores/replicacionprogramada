@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	http.authorizeRequests() 
                 .antMatchers("/admin","/pdi","/confcargas","/gestioncargas","/tiendaadmin","/gusuarios").hasRole("administrador")   
-                .antMatchers("/Publicador","/AgregarP","/Crear","/Detalle","/Modificar","/Publicar","/Psuscriptor").hasRole("publicador")
+                .antMatchers("/Publicador","/AgregarP","/Crear","/Detalle","/Modificar","/Publicar","/Psuscriptor","/GestionTienda").hasRole("publicador")
                 .antMatchers("/Suscriptor","/Consulta").hasRole("suscriptor")
                 .and()
 		.formLogin().loginPage("/login").permitAll()

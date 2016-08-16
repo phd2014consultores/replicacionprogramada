@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Agregar Publicador</title>
+	<title>Eliminar Tiendas</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -120,7 +120,6 @@
 <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/AgregarP">Agregar Publicador</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicar">Publicar</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Publicaciones</a></li>
-
 							</ul>
 						</div>
 					</div>		
@@ -129,107 +128,30 @@
     	</div>    	
     </div>
 	    	<br>
+	<div id="Bandejas">
+            <h2>Seleccione acción a realizar</h2>
 
-<div id="Bandejas" >
-	<h2>Listar Publicadores</h2>
-	<br>
-	<div>
-                <form class="form-horizontal" action="AgregarP" method="POST">
+                 <form class="form-horizontal" action="GestionTienda" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
-                        <option value="NONE">Seleccione una tienda...</option>
-                        <c:forEach items="${tienda}" var="item">
-                            ${item}
-                        </c:forEach>
+                        <option value="NONE">Seleccione una opción...</option>
+                        <option value="Crear">Crear Tienda</option>
+                        <option value="Modificar">Modificar Tienda</option>
+                        <option value="Publicador">Eliminar Tienda</option>
+                        <option value="Detalle">Ver Detalle Tienda</option>
                     </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
-            </div>
-               
-            <c:if test="${not empty publicacion}">   
-             <h3>Publicadores</h3>
-                <textarea id="message2" cols="30" rows="15" >
-                    
-                    <c:forEach items="${publicacion}" var="item2">
-                            ${item2}
-                    </c:forEach>
-                </textarea>
-            </c:if>
-	<br>
-
-    <br>
-    <!--div id="Bandeja1"-->
-    	<h2 >Agregar Publicador</h2>
-          
-             <h4>${mensaje}</h4>
-              <h4>${error}</h4>
-             <h4>${parametro1}</h4>   
-             <h4>${parametro2}</h4>   
-             
-        <form class="form-horizontal" method="POST" action="AgregarPub">
-         <select  name="nameTienda" class="form-control"  required>
-                        <option value="NONE">Seleccione una tienda...</option>
-                        <c:forEach items="${tienda2}" var="item3">
-                            ${item3}
-                        </c:forEach>
-        </select>
-            
-             <select  name="namePub" class="form-control"  required>
-                        <option value="NONE">seleccione un publicador...</option>
-                        <c:forEach items="${publicador}" var="item4">
-                            ${item4}
-                        </c:forEach>
-            </select>
-    	
-            <input type="submit" class="btn btn-primary" value="Agregar"/>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 
-        </form>
-	
+ 	</div>
 
-	
-    <!--/div-->
-	<br>
-	<br>
-	<br>
-    <!--div id="Bandeja2"-->
-    	<h2 color="red">Retirar Publicador</h2>
-        
-            <h4>${mensaje2}</h4>
-              <h4>${error2}</h4>
-        
-    	<form class="form-horizontal" method="POST" action="EliminarPub">
-         <select  name="nameTienda2" class="form-control"  required>
-                        <option value="NONE">Seleccione una tienda...</option>
-                        <c:forEach items="${tienda2}" var="item3">
-                            ${item3}
-                        </c:forEach>
-        </select>
-            
-             <select  name="namePub2" class="form-control"  required>
-                        <option value="NONE">seleccione un publicador...</option>
-                        <c:forEach items="${publicador2}" var="item4">
-                            ${item4}
-                        </c:forEach>
-            </select>
-    	
-            <input type="submit" class="btn btn-danger" value="Retirar"/>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                
-        </form>
-    <!--/div-->
-    
-
-
-</div>
-
-<br>
     		<div class="row-fluid">
 				<div class="span12">
 					<div id="copy" align="bottom">
 						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
 					</div>
 				</div>
-			</div>
+			</div> 
 	
 
 

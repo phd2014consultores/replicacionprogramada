@@ -116,10 +116,7 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicador">Eliminar</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Crear">Crear</a></li>
-<li class="page_item page-item-26084"><a href="/PublicacionySuscripcion/Modificar">Modificar</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/Detalle">Detalle</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
 <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/AgregarP">Agregar Publicador</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicar">Publicar</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Publicaciones</a></li>
@@ -132,24 +129,12 @@
     </div>
 	    	<br>
 	    	<div id="Bandejas">
-                    <h2>Tiendas Publicadas</h2>
-                    
-                    
-                    <ul >
-                    <c:forEach items="${tienda}" var="item">
-                    <li type="disc">${item}</li>
-                    </c:forEach>
-                    </ul>
-
-                    <br>
-                    <h2>Eliminar Tiendas</h2>
-                    
-                
-                    <p>¿Desea eliminar una tienda?</p>
+                <h2>Eliminar Tienda</h2>
+                <br>
                     
                 <form class="form-horizontal" action="Publicador" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
-                        <option value="NONE">Seleccione una opción...</option>
+                        <option value="NONE">Seleccione tienda a eliminar...</option>
                         <c:forEach items="${tienda2}" var="item">
                             ${item}
                         </c:forEach>

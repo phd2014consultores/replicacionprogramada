@@ -424,80 +424,96 @@ public class publicadorController {
         return model;
     }
     
-     @RequestMapping(value = {"/Detalle"}, method = RequestMethod.GET)
-    public ModelAndView getdetallePublicador(){
-        ModelAndView model= new ModelAndView();
-        String s = "NULL";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
-        try {
-            s = wsQuery.getConsulta("SELECT t.tienda FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and t.activo=true and pt.id_usuario=u.id_usuario and u.usuario='"+name+"';");
-        } catch (ExcepcionServicio e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }         
-        JsonParser parser = new JsonParser();
-        JsonElement elementObject;
-        s = s.substring(1, s.length()-1);
-        StringTokenizer st = new StringTokenizer(s,",");
-        while (st.hasMoreTokens()) {
-            s = st.nextToken();
-            elementObject = parser.parse(s);
-            this.tienda = elementObject.getAsJsonObject()
-                    .get("tienda").getAsString();
-            listString2.add("<option value="+this.tienda+ "type=\"submit\">"+
-                                    this.tienda+"</option>"); 
-        }                         
-        model.addObject("tienda2", listString2);
-        model.setViewName("Detalle");
+    @RequestMapping(value = {"/GestionTienda"}, method = RequestMethod.GET)
+    public ModelAndView getgestiontiendaPublicacion(){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tienda","prueba");
+        model.setViewName("GestionTienda");
         return model;
     }
     
-    @RequestMapping(value = {"/Detalle"}, method = RequestMethod.POST)
-    public ModelAndView postdetallePublicador(@RequestParam (value = "listString", required = false)
-                                                    String nameTienda){
-        ModelAndView model = new ModelAndView();
-        model=getdetallePublicador();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
-        String id="";
-        String tien="";
-        String host="";
-        String user="";
-        String pass="";
-        String bd="";
-        String idm="";
-        JsonParser parser = new JsonParser();
-        JsonElement elementObject;
-        nameTienda = nameTienda.substring(0,nameTienda.length()-13);
-        try {
-                nameTienda = wsQuery.getConsulta("SELECT id_tienda, tienda, host_bd_oracle, usuario_bd_oracle, pass_usuario_bd_oracle, \n" +
-"       bd_oracle, id_manager FROM tiendas\n" +
-"  WHERE activo=true and tienda='"+nameTienda +"';");
-                
-        nameTienda = nameTienda.substring(1, nameTienda.length()-1);
-        elementObject = parser.parse(nameTienda);
-
-             id = elementObject.getAsJsonObject().get("id_tienda").getAsString();
-             tien = elementObject.getAsJsonObject().get("tienda").getAsString();
-             host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
-             user = elementObject.getAsJsonObject().get("usuario_bd_oracle").getAsString();
-             pass = elementObject.getAsJsonObject().get("pass_usuario_bd_oracle").getAsString();
-             bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
-             idm = elementObject.getAsJsonObject().get("id_manager").getAsString();
-            } catch (ExcepcionServicio e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            }
-
-            model.addObject("idt",id);
-            model.addObject("tienda",tien);
-            model.addObject("host",host);
-            model.addObject("user",user);
-            model.addObject("pass",pass);
-            model.addObject("bd",bd);
-            model.addObject("idm",idm);
-            model.setViewName("Detalle");
+    @RequestMapping(value = {"/GestionTienda"}, method = RequestMethod.POST)
+    public ModelAndView postgestiontiendaPublicacion(@RequestParam(value = "listString", 
+                                                    required = false) String nombre){
+        ModelAndView model = new ModelAndView(nombre);
+        model.setViewName(nombre);
         return model;
     }
+    
+//     @RequestMapping(value = {"/Detalle"}, method = RequestMethod.GET)
+//    public ModelAndView getdetallePublicador(){
+//        ModelAndView model= new ModelAndView();
+//        String s = "NULL";
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String name = auth.getName(); //get logged in username
+//        try {
+//            s = wsQuery.getConsulta("SELECT t.tienda FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and t.activo=true and pt.id_usuario=u.id_usuario and u.usuario='"+name+"';");
+//        } catch (ExcepcionServicio e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }         
+//        JsonParser parser = new JsonParser();
+//        JsonElement elementObject;
+//        s = s.substring(1, s.length()-1);
+//        StringTokenizer st = new StringTokenizer(s,",");
+//        while (st.hasMoreTokens()) {
+//            s = st.nextToken();
+//            elementObject = parser.parse(s);
+//            this.tienda = elementObject.getAsJsonObject()
+//                    .get("tienda").getAsString();
+//            listString2.add("<option value="+this.tienda+ "type=\"submit\">"+
+//                                    this.tienda+"</option>"); 
+//        }                         
+//        model.addObject("tienda2", listString2);
+//        model.setViewName("Detalle");
+//        return model;
+//    }
+    
+//    @RequestMapping(value = {"/Detalle"}, method = RequestMethod.POST)
+//    public ModelAndView postdetallePublicador(@RequestParam (value = "listString", required = false)
+//                                                    String nameTienda){
+//        ModelAndView model = new ModelAndView();
+//        model=getdetallePublicador();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String name = auth.getName(); //get logged in username
+//        String id="";
+//        String tien="";
+//        String host="";
+//        String user="";
+//        String pass="";
+//        String bd="";
+//        String idm="";
+//        JsonParser parser = new JsonParser();
+//        JsonElement elementObject;
+//        nameTienda = nameTienda.substring(0,nameTienda.length()-13);
+//        try {
+//                nameTienda = wsQuery.getConsulta("SELECT id_tienda, tienda, host_bd_oracle, usuario_bd_oracle, pass_usuario_bd_oracle, \n" +
+//"       bd_oracle, id_manager FROM tiendas\n" +
+//"  WHERE activo=true and tienda='"+nameTienda +"';");
+//                
+//        nameTienda = nameTienda.substring(1, nameTienda.length()-1);
+//        elementObject = parser.parse(nameTienda);
+//
+//             id = elementObject.getAsJsonObject().get("id_tienda").getAsString();
+//             tien = elementObject.getAsJsonObject().get("tienda").getAsString();
+//             host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
+//             user = elementObject.getAsJsonObject().get("usuario_bd_oracle").getAsString();
+//             pass = elementObject.getAsJsonObject().get("pass_usuario_bd_oracle").getAsString();
+//             bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
+//             idm = elementObject.getAsJsonObject().get("id_manager").getAsString();
+//            } catch (ExcepcionServicio e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//            }
+//
+//            model.addObject("idt",id);
+//            model.addObject("tienda",tien);
+//            model.addObject("host",host);
+//            model.addObject("user",user);
+//            model.addObject("pass",pass);
+//            model.addObject("bd",bd);
+//            model.addObject("idm",idm);
+//            model.setViewName("Detalle");
+//        return model;
+//    }
 }
