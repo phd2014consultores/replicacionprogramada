@@ -1,7 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
-        <head>
+    <head>
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,7 +50,14 @@
 			});
 		});
 	</script>
-        
+            <title>Confirmación de envío de formulario</title>
+            <script language="JavaScript">
+                function pregunta(){
+                    if (confirm('¿Estas seguro de enviar este formulario?')){
+                       document.eliminar.submit()
+                    }
+                }
+            </script> 
     </head>
     
 <body>  
@@ -139,7 +146,12 @@
                             ${item}
                         </c:forEach>
                     </select>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <input type="hidden" onclick="pregunta()" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                
+                </form>
+                
+                <form name="eliminar" class="form-horizontal" action="Publicador" method="POST">
+                    
                 </form>
                 
             <c:if test="${not empty exito}">
