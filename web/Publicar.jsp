@@ -144,7 +144,13 @@
         <div>
             <div id="Bandeja1">
                 <h4 color="red">Tareas planificadas: </h4>
-                <textarea id="message1" cols="30" rows="15" required></textarea>
+                <h3>Publicadores</h3>
+                <textarea id="message2" cols="30" rows="15" >
+                    
+                    <c:forEach items="${publicacion}" var="item2">
+                            ${item2}
+                    </c:forEach>
+                </textarea>
                 <br>
                 <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
                 <a href="/PublicacionySuscripcion/agregarPlanificacion">

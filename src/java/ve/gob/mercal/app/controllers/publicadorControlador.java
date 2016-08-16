@@ -384,61 +384,74 @@ public class publicadorControlador {
 //WHERE u.id_tipo_usuario = 2 AND u.usuario != '"+name+"' AND actual.usuario = '"+name+"' AND pt.id_usuario = u.id_usuario AND pt.id_creado_por = actual.id_usuario ;
 //     
 
-     @RequestMapping(value = {"/Detalle"}, method = {RequestMethod.GET})
-    public ModelAndView detalles(@RequestParam (value = "listTienda", required = false)
-                                                    String nameTienda){
-        ModelAndView model= new ModelAndView();
-        model=getTienda();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
-        String id="";
-        String tien="";
-        String host="";
-        String user="";
-        String pass="";
-        String bd="";
-        String idm="";
-        JsonParser parser = new JsonParser();
-        JsonElement elementObject;
-        nameTienda = nameTienda.substring(0,nameTienda.length()-13);
-        
-         try {
-                nameTienda = wsQuery.getConsulta("SELECT id_tienda, tienda, host_bd_oracle, usuario_bd_oracle, pass_usuario_bd_oracle, \n" +
-"       bd_oracle, id_manager FROM tiendas\n" +
-"  WHERE activo=true and tienda='"+nameTienda +"';");
-                
-        nameTienda = nameTienda.substring(1, nameTienda.length()-1);
-        elementObject = parser.parse(nameTienda);
-
-             id = elementObject.getAsJsonObject().get("id_tienda").getAsString();
-             tien = elementObject.getAsJsonObject().get("tienda").getAsString();
-             host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
-             user = elementObject.getAsJsonObject().get("usuario_bd_oracle").getAsString();
-             pass = elementObject.getAsJsonObject().get("pass_usuario_bd_oracle").getAsString();
-             bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
-             idm = elementObject.getAsJsonObject().get("id_manager").getAsString();
-            } catch (ExcepcionServicio e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            }
-
-            model.addObject("idt",id);
-            model.addObject("tienda",tien);
-            model.addObject("host",host);
-            model.addObject("user",user);
-            model.addObject("pass",pass);
-            model.addObject("bd",bd);
-            model.addObject("idm",idm);
-        
-        model.setViewName("Detalle");
-        return model;
-    }
+//     @RequestMapping(value = {"/Detalle"}, method = {RequestMethod.GET})
+//    public ModelAndView detalles(@RequestParam (value = "listTienda", required = false)
+//                                                    String nameTienda){
+//        ModelAndView model= new ModelAndView();
+//        model=getTienda();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String name = auth.getName(); //get logged in username
+//        String id="";
+//        String tien="";
+//        String host="";
+//        String user="";
+//        String pass="";
+//        String bd="";
+//        String idm="";
+//        JsonParser parser = new JsonParser();
+//        JsonElement elementObject;
+//        nameTienda = nameTienda.substring(0,nameTienda.length()-13);
+//        
+//         try {
+//                nameTienda = wsQuery.getConsulta("SELECT id_tienda, tienda, host_bd_oracle, usuario_bd_oracle, pass_usuario_bd_oracle, \n" +
+//"       bd_oracle, id_manager FROM tiendas\n" +
+//"  WHERE activo=true and tienda='"+nameTienda +"';");
+//                
+//        nameTienda = nameTienda.substring(1, nameTienda.length()-1);
+//        elementObject = parser.parse(nameTienda);
+//
+//             id = elementObject.getAsJsonObject().get("id_tienda").getAsString();
+//             tien = elementObject.getAsJsonObject().get("tienda").getAsString();
+//             host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
+//             user = elementObject.getAsJsonObject().get("usuario_bd_oracle").getAsString();
+//             pass = elementObject.getAsJsonObject().get("pass_usuario_bd_oracle").getAsString();
+//             bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
+//             idm = elementObject.getAsJsonObject().get("id_manager").getAsString();
+//            } catch (ExcepcionServicio e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//            }
+//
+//            model.addObject("idt",id);
+//            model.addObject("tienda",tien);
+//            model.addObject("host",host);
+//            model.addObject("user",user);
+//            model.addObject("pass",pass);
+//            model.addObject("bd",bd);
+//            model.addObject("idm",idm);
+//        
+//        model.setViewName("Detalle");
+//        return model;
+//    }
     
         @RequestMapping(value = {"/Publicar"}, method = {RequestMethod.GET})
-    public ModelAndView publicar(){
+    public ModelAndView publicar(@RequestParam (value = "nameTienda", required = false) String nameTienda){
         ModelAndView model= new ModelAndView();
+        model = getTienda();
+        String plan="";
+        String valor="";
+        if(!nameTienda.equals("NONE")) {
+            try {
+                plan=wsQuery.getConsulta("SELECT pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
+                "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job\n" +
+                "AND t.tienda='nameTienda';");
+            } catch (ExcepcionServicio ex) {
+                Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
         
+        }
         
         model.setViewName("Publicar");
         return model;
