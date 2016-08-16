@@ -173,6 +173,9 @@
                 <textarea id="message2" cols="30" rows="15" required></textarea>
                 <br>
                 <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/> 
+                <a href="/PublicacionySuscripcion/recuperarETL">
+                <input type="submit" value="Recuperar ETL"/>
+                </a>
             </div>
         </div>
         <br>
