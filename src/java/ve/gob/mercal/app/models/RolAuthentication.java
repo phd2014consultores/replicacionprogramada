@@ -68,7 +68,7 @@ public class RolAuthentication implements AuthenticationSuccessHandler {
         } else if (isAdmin) {
             return "/admin";
         }else if (isSUS) {
-            return "/Suscriptor";
+            return "/SuscriptorPrincipal";
         }else {
         	return "/login";
             //throw new IllegalStateException();

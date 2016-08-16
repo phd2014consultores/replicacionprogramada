@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import ve.gob.mercal.app.services.WsFuncionApp;
 import ve.gob.mercal.app.services.WsQuery;
 
 /**
@@ -34,6 +35,8 @@ public class suscriptorController {
     
     @Autowired
     public WsQuery wsQuery;
+    @Autowired
+    public WsFuncionApp wsFuncionApp;
     private String tienda = "";
     public List<String> listString = new ArrayList<>();
     public List<String> listString2 = new ArrayList<>();
@@ -95,6 +98,9 @@ public class suscriptorController {
             // TODO Auto-generated catch block
             e.printStackTrace();
             }
+            if(s2=="[]"){
+            model.addObject("publicacionnull","No posee planificación asociada");
+            }else{
             JsonParser parser = new JsonParser();
             JsonElement elementObject;
             s2 = s2.substring(1, s2.length()-1);
@@ -133,6 +139,7 @@ public class suscriptorController {
             model.addObject("publicacion3",listString3);
             model.addObject("publicacion2", nameTienda);
             model.addObject("publicacion", listString2);
+            }
             model.setViewName("Suscriptor");
         }
  
@@ -155,6 +162,9 @@ public class suscriptorController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        if(s2=="[]"){
+        model.addObject("detalle1", "No posee detalle asociado");
+        }else{
         s2 = s2.substring(1, s2.length()-1);
         JsonParser parser = new JsonParser();
         JsonElement elementObject;
@@ -166,7 +176,8 @@ public class suscriptorController {
         result = result + "Registros Insertados = "+elementObject.getAsJsonObject().get("reg_insertados").getAsString()+"\n";
         result = result + "Registros Actualizados = "+elementObject.getAsJsonObject().get("reg_actualizados").getAsString()+"\n";
         
-        model.addObject("detalle", result);
+        model.addObject("detalle", s2);
+        }
         model.setViewName("Suscriptor");
         return model;
     }
@@ -208,6 +219,90 @@ public class suscriptorController {
         }
         model.addObject("resultado", s);
         model.setViewName("Consulta");
+        return model;
+    }
+    
+    @RequestMapping(value = {"/SuscriptorPrincipal"}, method = {RequestMethod.GET})
+    public ModelAndView getsuscriptorprincipal(){
+        ModelAndView model= new ModelAndView();
+        String s = "NULL";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        try {
+            s = wsQuery.getConsulta("SELECT  t.tienda\n" +
+"  FROM public.tiendas as t\n" +
+"  WHERE t.activo=true ;");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }              
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        s = s.substring(1, s.length()-1);
+        StringTokenizer st = new StringTokenizer(s,",");
+        while (st.hasMoreTokens()) {
+            s = st.nextToken();
+            elementObject = parser.parse(s);
+            this.tienda = elementObject.getAsJsonObject()
+                    .get("tienda").getAsString();
+            listString.add("<option value="+this.tienda+ "type=\"submit\">"+
+                                    this.tienda+"</option>");            
+        }                          
+        model.addObject("tienda", listString);
+        model.setViewName("SuscriptorPrincipal");
+        return model;
+    }
+    
+    @RequestMapping(value = {"/SuscriptorPrincipal"}, method = {RequestMethod.POST})
+    public ModelAndView postsuscriptorprincipal(@RequestParam (value = "listString", required = false) 
+                                                    String nameTienda){
+        ModelAndView model= new ModelAndView();
+        model=getsuscriptorprincipal();
+        String s = "NULL";
+        String s2 = "NULL";
+        String s3 = "NULL";
+        int result=-999;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        try {
+                 s = wsQuery.getConsulta("SELECT id_tienda FROM tiendas\n" +
+                        "  WHERE tienda='"+nameTienda+"';");
+                 s = s.substring(1, s.length()-1);
+                 elementObject = parser.parse(s);
+                 s = elementObject.getAsJsonObject()
+                    .get("id_tienda").getAsString();
+//                 s3 = wsQuery.getConsulta("SELECT id_usuario FROM usuarios "
+//                         + "WHERE usuario='"+name +"' and activo=TRUE;");
+//                 s3 = s3.substring(1, s3.length()-1);
+//                 elementObject = parser.parse(s3);
+//                 s3 = elementObject.getAsJsonObject()
+//                    .get("id_usuario").getAsString();
+//                 s2 = wsQuery.getConsulta("SELECT id_usuario, id_tienda\n" +
+//"  FROM public.susc_tiendas\n" +
+//"  WHERE activo=true and id_usuario='"+s3+"' and id_tienda='"+s+"';");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
+        
+//        if(s2=="[]"){
+//            
+//                    try {
+//            result = wsFuncionApp.getConsulta("public.insert_susc_tiendas("+s3+", "+s+", "+s3+");");
+//            
+//        } catch (ExcepcionServicio e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } 
+//            
+//        model.addObject("exite", "Exito al suscribirse a la tienda");                                             
+//                    }else{
+//        model.addObject("exite", "Usted ya se encuentra suscrito a la tienda");  
+//        }
+        model.addObject("exite", s);
+        model.setViewName("SuscriptorPrincipal");
         return model;
     }
     
