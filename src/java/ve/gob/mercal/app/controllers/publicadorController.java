@@ -407,4 +407,12 @@ public class publicadorController {
         model.setViewName("Modificar");
         return model;
     }
+    
+    @RequestMapping(value = {"/nuevaPlanificacion"}, method = RequestMethod.GET)
+    public ModelAndView getaddPublicacion(){
+        ModelAndView model = new ModelAndView();
+        
+        model.setViewName("Modificar");
+        return model;
+    }
 }

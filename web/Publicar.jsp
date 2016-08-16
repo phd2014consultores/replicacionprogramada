@@ -130,7 +130,7 @@
     <div id="Bandejas" >
 	<h2 color="red">Estado de Publicaciones</h2>
 	<br>
-        <form class="form-horizontal" action="Publicar" method="POST">
+        <form class="form-horizontal" action="Publicador" method="POST">
             <h4 color="red">Seleccione una Tienda</h4>
             <select  name="listString" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
                 <option value="NONE" selected="selected">Seleccione una tienda...</option>
@@ -141,13 +141,16 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
         <br>
-        <div id="Bandeja1" class="row">
+        <div>
             <div id="Bandeja1">
                 <h4 color="red">Tareas planificadas: </h4>
                 <textarea id="message1" cols="30" rows="15" required></textarea>
                 <br>
                 <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
+                <a href="/PublicacionySuscripcion/agregarPlanificacion">
                 <input type="submit" onclick=" this.value='planificar'"value="Planificar Nueva"/>
+                </a>
+                
             </div>
             <div id="Bandeja1">
                 <h4 color="red">Tareas en ejecución: </h4>
