@@ -161,7 +161,7 @@
             <label for="message">Usuario :</label> 
             <input disabled name="user" ype="text" placeholder="Usuario" value=${user} />
             <br>
-            <label for="message">Password :</label> 
+            <label for="message">Contraseña BdOracle :</label> 
             <input disabled name="pass" type="text" placeholder="Password" value=${pass} />
             <br>
             <input name="idt" type="hidden" value=${idt}>
