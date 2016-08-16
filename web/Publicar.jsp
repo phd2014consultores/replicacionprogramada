@@ -131,8 +131,9 @@
 	<h2 color="red">Estado de Publicaciones</h2>
 	<br>
         <form class="form-horizontal" action="Publicar" method="POST">
+            <h4 color="red">Seleccione una Tienda</h4>
             <select  name="listString" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
-                <option value="NONE" selected="selected">Seleccione una opción...</option>
+                <option value="NONE" selected="selected">Seleccione una tienda...</option>
                 <c:forEach items="${tienda}" var="item">
                     ${item}
                 </c:forEach>
@@ -140,19 +141,28 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
         <br>
-        <div id="Bandeja1">
-            <label for="message">Planificadas :</label> 
-            <textarea id="message1" cols="30" rows="15" required></textarea> <span> <input type="submit" onclick=" this.value='Cargado'"value="Listar"/> </span>  
-            <br>
-            <br>
+        <div id="Bandeja1" class="row">
+            <div id="Bandeja1">
+                <h4 color="red">Tareas planificadas: </h4>
+                <textarea id="message1" cols="30" rows="15" required></textarea>
+                <br>
+                <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
+                <input type="submit" onclick=" this.value='planificar'"value="Planificar Nueva"/>
+            </div>
+            <div id="Bandeja1">
+                <h4 color="red">Tareas en ejecución: </h4>
+                <textarea id="message2" cols="30" rows="15" required></textarea>
+                <br>
+                <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
+            </div>
+            <div id="Bandeja1">
+                <h4 color="red">Tareas culminadas:</h4>
+                <textarea id="message2" cols="30" rows="15" required></textarea>
+                <br>
+                <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/> 
+            </div>
         </div>
-
-        <div id="Bandeja2">
-            <label for="message">Ejecucion :</label> 
-            <textarea id="message2" cols="30" rows="15" required></textarea> <span> <input type="submit" onclick=" this.value='Cargado'"value="Listar"/> </span>
-            <br>
-            <br>  
-        </div>
+        <br>
         <div>
             <br>
             <h2 color="red">Publicación CargaInicial</h2>
@@ -164,58 +174,9 @@
             <input type="text" placeholder="Hora" required />
             <br>
             <input type="submit" value="Aceptar"/>  
-            <br>
-            <br>
-            <label for="message">Directa :</label> 
-            <label for="message">Identificador :</label>
-            <input type="text" placeholder="ID" required />
-            <br>
-            <input type="submit" value="Aceptar"/> 
-            <br>
-            <br>  
+            <br>          
         </div>
   
-        <div>
-            <br>
-            <h2 color="red">Publicación CargaInicialETL</h2>
-            <br>
-            <label for="message">Planificada :</label> 
-            <label for="message">Fecha :</label>
-            <input type="text" placeholder="Fecha" required />
-            <label for="message">Hora :</label>
-            <input type="text" placeholder="Hora" required />
-            <br>
-            <p>Seleccione el listado a ejecutar</p>
-            <select name="transporte" size="5" multiple>
-                <option>Coche</option>
-                <option>Avión</option>
-                <option>Tren</option>
-                <option>Avión</option>
-                <option>Tren</option>
-            </select>
-            <br>
-            <input type="submit" value="Aceptar"/>  
-            <br>
-            <br>
-    
-            <label for="message">Directa :</label> 
-            <label for="message">Identificador :</label>
-            <input type="text" placeholder="ID" required />
-            <br>
-            <p>Seleccione el listado a ejecutar</p>
-            <select name="transporte" size="5" multiple>
-                <option>Coche</option>
-                <option>Avión</option>
-                <option>Tren</option>
-                <option>Avión</option>
-                <option>Tren</option>
-            </select>
-            <br>
-            <input type="submit" value="Aceptar"/>
-            <br>
-            <br>
-        </div>
-    
         <div>
             <br>
             <h2 color="red">Publicación Mediación</h2>
@@ -229,56 +190,8 @@
             <input type="submit" value="Aceptar"/> 
             <br>
             <br>
-
-            <label for="message">Directa :</label> 
-            <label for="message">Identificador :</label>
-            <input type="text" placeholder="ID" required />
-            <br>
-            <input type="submit" value="Aceptar"/>
-            <br>
-            <br>  
         </div>
-  
-        <div>
-            <br>
-            <h2 color="red">Publicación MediaciónETL</h2>
-            <br>
-            <label for="message">Planificada :</label> 
-            <label for="message">Fecha :</label>
-            <input type="text" placeholder="Fecha" required />
-            <label for="message">Hora :</label>
-            <input type="text" placeholder="Hora" required />
-            <br>
-            <p>Seleccione el listado a ejecutar</p>
-            <select name="transporte" size="5" multiple>
-                <option>Coche</option>
-                <option>Avión</option>
-                <option>Tren</option>
-                <option>Avión</option>
-                <option>Tren</option>
-            </select>
-            <br>
-            <input type="submit" value="Aceptar"/>
-            <br>
-            <br>
-            <label for="message">Directa :</label> 
-            <label for="message">Identificador :</label>
-            <input type="text" placeholder="ID" required />
-            <br>
-            <p>Seleccione el listado a ejecutar</p>
-            <select name="transporte" size="5" multiple>
-                <option>Coche</option>
-                <option>Avión</option>
-                <option>Tren</option>
-                <option>Avión</option>
-                <option>Tren</option>
-            </select>
-            <br>
-            <input type="submit" value="Aceptar"/>
-            <br>
-            <br>
-        </div>
-    </div>
+     </div>
                 
 
     <br>
