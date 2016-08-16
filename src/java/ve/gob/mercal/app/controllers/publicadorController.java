@@ -408,7 +408,7 @@ public class publicadorController {
         return model;
     }
     
-    @RequestMapping(value = {"/Planificacion"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/agregarPlanificacion"}, method = RequestMethod.GET)
     public ModelAndView getaddPublicacion(){
         ModelAndView model = new ModelAndView();
         model.addObject("tienda","prueba");
