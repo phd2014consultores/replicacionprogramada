@@ -148,7 +148,7 @@
             <label for="message">Usuario :</label> 
             <input name="user" ype="text" placeholder="Usuario" required />
             <br>
-            <label for="message">Password :</label> 
+            <label for="message">Contraseña BdOracle :</label> 
             <input name="pass" type="text" placeholder="Password" required />
             <br>
             <input type="submit" value="Crear"/>

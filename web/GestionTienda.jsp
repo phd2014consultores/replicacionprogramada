@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Eliminar Tiendas</title>
+	<title>Gestionar Tiendas</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -131,16 +131,14 @@
 	<div id="Bandejas">
             <h2>Seleccione acción a realizar</h2>
 
-                 <form class="form-horizontal" action="GestionTienda" method="POST">
-                    <select  name="listString" class="form-control" onchange="this.form.submit()">
+                    <select  name="listString" class="form-control" onchange="location = this.value;">
                         <option value="NONE">Seleccione una opción...</option>
-                        <option value="Crear">Crear Tienda</option>
-                        <option value="Modificar">Modificar Tienda</option>
-                        <option value="Publicador">Eliminar Tienda</option>
-                        <option value="Detalle">Ver Detalle Tienda</option>
+                        <option value="/PublicacionySuscripcion/Crear">Crear Tienda</option>
+                        <option value="/PublicacionySuscripcion/Modificar">Modificar Tienda</option>
+                        <option value="/PublicacionySuscripcion/Publicador">Eliminar Tienda</option>
+                        <option value="/PublicacionySuscripcion/Detalle">Ver Detalle Tienda</option>
                     </select>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form>
+
                 
  	</div>
 

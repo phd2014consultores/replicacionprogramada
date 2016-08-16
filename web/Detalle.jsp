@@ -133,7 +133,7 @@
 <div id="Bandejas" >
         <h2>Detalle Tienda</h2>
         <br>
-    <label for="message">Seleccione Tienda a Modificar :</label> 
+    <label for="message">Seleccione Tienda a Detallar :</label> 
                 <form class="form-horizontal" action="Detalle" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
                         <option value="NONE">Seleccione una opción...</option>
@@ -166,7 +166,6 @@
             <br>
             <input name="idt" type="hidden" value=${idt}>
             <input name="idm" type="hidden" value=${idm}>
-            <input type="submit" value="Modificar"/>
             <br>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
         </form>

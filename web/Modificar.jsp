@@ -161,7 +161,7 @@
             <label for="message">Usuario :</label> 
             <input  name="user" ype="text" placeholder="Usuario" value=${user} />
             <br>
-            <label for="message">Password :</label> 
+            <label for="message">Contraña BdOracle :</label> 
             <input name="pass" type="text" placeholder="Password" value=${pass} />
             <br>
             <input name="idt" type="hidden" value=${idt}>
@@ -173,7 +173,6 @@
     </c:if>
             <c:if test="${not empty exito}">
             ${exito}
-            ${error}
             </c:if>
 
 
