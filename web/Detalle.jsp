@@ -116,10 +116,12 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
+<ul>                                                            
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicador">Eliminar</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Crear">Crear</a></li>
 <li class="page_item page-item-26084"><a href="/PublicacionySuscripcion/Modificar">Modificar</a></li>
 <li class="page_item page-item-10"><a href="/PublicacionySuscripcion/Detalle">Detalle</a></li>
+</ul>
 <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/AgregarP">Agregar Publicador</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Publicar">Publicar</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Publicaciones</a></li>
@@ -134,37 +136,50 @@
 	    	<br>
 
 <div id="Bandejas" >
-	<label for="message">Nombre de Tienda :</label>
-	 <form class="form-horizontal" action="Detalle" method="POST">
-                    <select  name="listTienda" class="form-control" onchange="this.form.submit()">
-                        <option value="NONE">Seleccione una tienda...</option>
-                        <c:forEach items="${tienda}" var="item">
+    <label for="message">Seleccione Tienda a Modificar :</label> 
+                <form class="form-horizontal" action="Modificar" method="POST">
+                    <select  name="listString" class="form-control" onchange="this.form.submit()">
+                        <option value="NONE">Seleccione una opción...</option>
+                        <c:forEach items="${tienda2}" var="item">
                             ${item}
                         </c:forEach>
                     </select>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-         </form>
-	<br>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
     <br>
+    <c:if test="${not empty tienda}"> 
+    <form class="form-horizontal" action="Modificar2" method="POST">
+           
+        <label for="message">Datos a Modificar :</label> 
 
-<div id="Bandejas" >
+            <label for="message">Nombre :</label> 
+            <input disabled name="nombre" type="text" placeholder="Nombre" value=${tienda} />
+            <br>
+            <label for="message">Host :</label> 
+            <input disabled name="host" type="text" placeholder="Host" value=${host} />
+            <br>
+            <label for="message">BdOracle :</label> 
+            <input disabled name="bdoracle" type="text" placeholder="BdOracle" value=${bd} />
+            <br>
+            <label for="message">Usuario :</label> 
+            <input disabled name="user" ype="text" placeholder="Usuario" value=${user} />
+            <br>
+            <label for="message">Password :</label> 
+            <input disabled name="pass" type="text" placeholder="Password" value=${pass} />
+            <br>
+            <input name="idt" type="hidden" value=${idt}>
+            <input name="idm" type="hidden" value=${idm}>
+            <input type="submit" value="Modificar"/>
+            <br>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
+        </form>
+    </c:if>
+            <c:if test="${not empty exito}">
+            ${exito}
+            ${error}
+            </c:if>
 
-    	<label for="message">Nombre :</label> <input type="text" placeholder="Nombre" required  disabled/>
-    <br>
 
-    	<label for="message">Host :</label> <input type="text" placeholder="Host" required disabled/>
-    <br>
-
-        	<label for="message">BdOracle :</label> <input type="text" placeholder="BdOracle" required disabled/>
-    <br>
-
-        	<label for="message">Usuario :</label> <input type="text" placeholder="Usuario" required disabled/>
-    <br>
-
-        	<label for="message">Password :</label> <input type="text" placeholder="Password" required disabled/>
-    <br>
-    
-</div>
 </div>
 
 <br>
