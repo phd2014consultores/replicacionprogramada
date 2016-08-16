@@ -130,13 +130,13 @@
     <div id="Bandejas" >
 	<h2 color="red">Estado de Publicaciones</h2>
 	<br>
-        <form class="form-horizontal" action="nuevaPlanificacion" method="POST">
+        <form class="form-horizontal" action="Planificacion" method="GET">
             <h4 color="red">Seleccione una Tienda</h4>
             <select  name="listString" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
                 <option value="NONE" selected="selected">Seleccione una tienda...</option>
-                <c:forEach items="${tienda}" var="item">
-                    ${item}
-                </c:forEach>
+                <%--<c:forEach items="${tienda}" var="item">--%>
+                    <!--${item}-->
+                <%--</c:forEach>--%>
             </select>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
