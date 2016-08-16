@@ -130,9 +130,9 @@
     <div id="Bandejas" >
 	<h2 color="red">Estado de Publicaciones</h2>
 	<br>
-        <form class="form-horizontal" action="Publicador" method="POST">
+        <form class="form-horizontal" action="Publicar" method="POST">
             <h4 color="red">Seleccione una Tienda</h4>
-            <select  name="listString" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
+            <select  name="nameTienda" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
                 <option value="NONE" selected="selected">Seleccione una tienda...</option>
                 <c:forEach items="${tienda}" var="item">
                     ${item}
@@ -144,7 +144,14 @@
         <div>
             <div id="Bandeja1">
                 <h4 color="red">Tareas planificadas: </h4>
-                <textarea id="message1" cols="30" rows="15" required></textarea>
+                 <h5>${mensaje_plan}</h5>
+             <h3>Publicadores</h3>
+                <textarea id="message2" cols="30" rows="15" >
+                    <c:forEach items="${planificadas}" var="item2">
+                            ${item2}
+                    </c:forEach>
+                </textarea>
+         
                 <br>
                 <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
                 <a href="/PublicacionySuscripcion/agregarPlanificacion">

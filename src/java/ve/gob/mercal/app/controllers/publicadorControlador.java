@@ -47,6 +47,7 @@ public class publicadorControlador {
     public List<String> listString3 = new ArrayList<>();
     public List<String> listString4 = new ArrayList<>();
      public List<String> listString5 = new ArrayList<>();
+     public List<String> listString6 = new ArrayList<>();
     public Model prueba;
     
     @RequestMapping(value = {"/AgregarP"}, method = {RequestMethod.GET})
@@ -435,11 +436,60 @@ public class publicadorControlador {
     }
     
         @RequestMapping(value = {"/Publicar"}, method = {RequestMethod.GET})
-    public ModelAndView publicar(){
+    public ModelAndView publicar(@RequestParam (value = "nameTienda", required = false)
+                                                    String nameTienda){
         ModelAndView model= new ModelAndView();
+        model=getTienda();
+        String plan="";
+        String valor="";
+        try {
+            plan=wsQuery.getConsulta("SELECT pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
+                "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job\n" +
+                "AND t.tienda='"+nameTienda+"';");
+        } catch (ExcepcionServicio ex) {
+            Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(!plan.equals("[]")){
         
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        plan = plan.substring(1, plan.length()-1);
+            StringTokenizer st = new StringTokenizer(plan,"}");
+            int planif=1;
+            String result="";
+            while (st.hasMoreTokens()) {
+                plan = st.nextToken()+"}";
+                if (plan.substring(0,1).equals(",")){
+                    plan = plan.substring(1);                          
+                }
+                elementObject = parser.parse(plan);
+                result= result + "Carga Planificada: "+planif+"\n";
+                valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
+                result= result + "Nro Control Plan = "+valor+"\n";
+                valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                result= result + "Tiempo planificacion = "+valor+"\n";
+                valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
+                result= result + "Nro Control Ejecucion = "+valor+"\n";
+                valor = elementObject.getAsJsonObject().get("tienda").getAsString();
+                result= result + "Tienda = "+valor+"\n";
+                valor = elementObject.getAsJsonObject().get("job").getAsString();
+                result= result + "Job = "+valor+"\n";
+                valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
+                result= result + "Observaciones = "+valor+"\n";
+                listString6.add(result);
+                //listString2.add("\n");
+                planif++;
+                valor="";
+                result="";
+            }
+        }else{
         
+        model.addObject("mensaje_plan","No hay planificaciones para esta tienda");
+        }
         
+        model.addObject("mensaje_plan",listString6);
+        model.addObject("tienda", listString);
         model.setViewName("Publicar");
         return model;
     }
