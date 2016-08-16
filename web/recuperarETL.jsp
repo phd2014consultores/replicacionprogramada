@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Planificacion</title>
+	<title>Recuperar</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -133,54 +133,51 @@
         <h4>Tienda: </h4>
         <br>
         <div>
-            <div>
-                <h4>Tareas planificadas: </h4>
-                <textarea id="message1" cols="30" rows="15" required></textarea>
-                <br>            
+            <div id="Bandejas">
+                    <h4>Tareas culminadas:</h4>
+                    <textarea id="message2" cols="30" rows="15" required></textarea>
+                    <br>
             </div>
             <br>
-            <br>
-            <div id="Bandeja">
-                <div>
+            <div id="Bandejas">
+                <div id="Bandejas">
                     <br>
-                    <h2 color="red">Nueva planificación para CargaInicial</h2>
+                    <h2>Recuperar un ETL de CargaInicial</h2>
                     <br>
                     <label for="message">Fecha :</label>
                     <input type="text" placeholder="Fecha" required />
                     <label for="message">Hora :</label>
                     <input type="text" placeholder="Hora" required />
                     <br>
-                    <input type="submit" value="Agregar"/>  
+                    <input type="submit" value="Recuperar"/>  
                     <br>          
                 </div>
 
-                <div>
+                <div id="Bandeja">
                     <br>
-                    <h2 color="red">Nueva planificación para Mediación</h2>
+                    <h2>Recuperar un ETL de Mediación</h2>
                     <br>
                     <label for="message">Fecha :</label>
                     <input type="text" placeholder="Fecha" required />
                     <label for="message">Hora :</label>
                     <input type="text" placeholder="Hora" required />
                     <br>
-                    <input type="submit" value="Agregar"/> 
+                    <input type="submit" value="Recuperar"/> 
                     <br>
-                    <br>
-                </div>
+                 </div>
             </div>
         </div>
-     </div>
-                
+    </div>
 
     <br>
     <div class="row-fluid">
-	<div class="span12">
+        <div class="span12">
             <div id="copy" align="bottom">
-		<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
                 <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
             </div>
         </div>
-    </div> 
+    </div>
 	
 
 
