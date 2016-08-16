@@ -158,11 +158,17 @@
             </div>
             <div id="Bandeja1">
                 <h4 color="red">Tareas en ejecución: </h4>
-                <textarea id="message2" cols="30" rows="15" required></textarea>
+                <h5>${mensaje_ejec}</h5>
+                <textarea id="message2" cols="30" rows="15" >
+                    
+                    <c:forEach items="${ejecutado}" var="item2">
+                            ${item2}
+                    </c:forEach>
+                </textarea>
                 <br>
                 <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
             </div>
-                <div id="Bandeja1">
+            <div id="Bandeja1">
                 <h4 color="red">Tareas culminadas:</h4>
                 <textarea id="message2" cols="30" rows="15" required></textarea>
                 <br>

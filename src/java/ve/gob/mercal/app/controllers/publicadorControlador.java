@@ -48,6 +48,7 @@ public class publicadorControlador {
     public List<String> listString4 = new ArrayList<>();
     public List<String> listString5 = new ArrayList<>();
     public List<String> listString6 = new ArrayList<>();
+   // public List<String> listString7 = new ArrayList<>();
     public Model prueba;
     
     @RequestMapping(value = {"/AgregarP"}, method = {RequestMethod.GET})
@@ -392,8 +393,6 @@ public class publicadorControlador {
     public ModelAndView publicar(){
         ModelAndView model= new ModelAndView();
         model = getTienda();
-        
-        
         model.setViewName("Publicar");
         return model;
     }
@@ -406,6 +405,9 @@ public class publicadorControlador {
     ModelAndView model= new ModelAndView();
     String plan="";
     String valor="";
+    String ejec="";
+    String result="";
+    
     model = publicar();
         if(!nameTienda.equals("NONE")) {
             nameTienda = nameTienda.substring(0,nameTienda.length()-13);
@@ -417,7 +419,7 @@ public class publicadorControlador {
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+        //Planificadas
             if(!plan.equals("[]")){
             
                 JsonParser parser = new JsonParser();
@@ -425,7 +427,7 @@ public class publicadorControlador {
                 plan = plan.substring(1, plan.length()-1);
                 StringTokenizer st = new StringTokenizer(plan,"}");
                 int planif=1;
-                String result="";
+                result="";
                 while (st.hasMoreTokens()) {
                     plan = st.nextToken()+"}";
                     if (plan.substring(0,1).equals(",")){
@@ -457,8 +459,55 @@ public class publicadorControlador {
             model.addObject("mensaje_plan","No hay tareas planificadas para la tienda: "+nameTienda+"");
             
             }
-        
-        
+            //Ejecutadas
+            try {
+                ejec=wsQuery.getConsulta("SELECT pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
+                "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion' \n" +
+                "AND t.tienda='"+nameTienda+"';");
+            } catch (ExcepcionServicio ex) {
+                Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(!ejec.equals("[]")){
+                
+                JsonParser parser2 = new JsonParser();
+                JsonElement elementObject2;
+                ejec = ejec.substring(1, ejec.length()-1);
+                StringTokenizer st2 = new StringTokenizer(ejec,"}");
+                int planif=1;
+                result="";
+                listString6=null;
+                while (st2.hasMoreTokens()) {
+                    ejec = st2.nextToken()+"}";
+                    if (ejec.substring(0,1).equals(",")){
+                        ejec = ejec.substring(1);                          
+                    }
+                    elementObject2 = parser2.parse(ejec);
+                    result= result + "Planificacion : "+planif+"\n";
+                    valor = elementObject2.getAsJsonObject().get("nro_control_plan").getAsString();
+                    result= result + "Nro Control Plan= "+valor+"\n";
+                    valor = elementObject2.getAsJsonObject().get("tienda").getAsString();
+                    result= result + "Tienda = "+valor+"\n";
+                    valor = elementObject2.getAsJsonObject().get("job").getAsString();
+                    result= result + "Job = "+valor+"\n";
+                    valor = elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                    result= result + "Tiempo de la planificacion = "+valor+"\n";
+                    valor = elementObject2.getAsJsonObject().get("nro_control_ejec").getAsString();
+                    result= result + "Nro Control Ejecucion= "+valor+"\n";
+                    valor = elementObject2.getAsJsonObject().get("observaciones").getAsString();
+                    result= result + "Observaciones= "+valor+"\n";
+                    listString6.add(result);
+                    //listString2.add("\n");
+                    planif++;
+                    valor="";
+                    result="";
+
+                }
+            model.addObject("ejecutado",listString6);
+            }else{
+            model.addObject("mensaje_ejec","No hay tareas en ejecucion para la tienda: "+nameTienda+"");
+            
+            }
         
         }
         
