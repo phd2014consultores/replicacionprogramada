@@ -455,6 +455,7 @@ public class publicadorControlador {
 
                 }
             model.addObject("planificado",listString6);
+                
             }else{
             model.addObject("mensaje_plan","No hay tareas planificadas para la tienda: "+nameTienda+"");
             
@@ -504,6 +505,8 @@ public class publicadorControlador {
 
                 }
             model.addObject("ejecutado",listString6);
+            
+
             }else{
             model.addObject("mensaje_ejec","No hay tareas en ejecucion para la tienda: "+nameTienda+"");
             

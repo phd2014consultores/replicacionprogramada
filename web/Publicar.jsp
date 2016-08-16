@@ -144,10 +144,10 @@
                 <h4 color="red">Tareas planificadas: </h4>
                 <h5>${mensaje_plan}</h5>
                 <textarea id="message2" cols="30" rows="15" >
-                    
-                    <c:forEach items="${planificado}" var="item2">
-                            ${item2}
-                    </c:forEach>
+                    ${planificado}
+                    <%--<c:forEach items="${planificado}" var="item2">--%>
+                            
+                    <%--</c:forEach>--%>
                 </textarea>
                 <br>
                 <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
@@ -161,9 +161,9 @@
                 <h5>${mensaje_ejec}</h5>
                 <textarea id="message2" cols="30" rows="15" >
                     
-                    <c:forEach items="${ejecutado}" var="item2">
-                            ${item2}
-                    </c:forEach>
+                    <%--<c:forEach items="${ejecutado}" var="item2">--%>
+                            ${ejecutado}
+                    <%--</c:forEach>--%>
                 </textarea>
                 <br>
                 <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
