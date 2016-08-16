@@ -127,24 +127,25 @@
     <div id="Bandejas" >
 	<h2 color="red">Estado de Publicaciones</h2>
 	<br>
-        <form class="form-horizontal" action="Publicador" method="POST">
-            <h4 color="red">Seleccione una Tienda</h4>
-            <select  name="listString" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
-                <option value="NONE" selected="selected">Seleccione una tienda...</option>
-                <c:forEach items="${tienda}" var="item">
-                    ${item}
-                </c:forEach>
-            </select>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        </form>
+        
+                <form class="form-horizontal" action="Publicar" method="POST">
+                    <select  name="nameTienda2" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
+                        <option value="NONE" selected="selected">Seleccione una tienda...</option>
+                        <c:forEach items="${tienda}" var="item">
+                            ${item}
+                        </c:forEach>
+                    </select>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+         
         <br>
         <div>
             <div id="Bandeja1">
                 <h4 color="red">Tareas planificadas: </h4>
-                <h3>Publicadores</h3>
+                <h5>${mensaje_plan}</h5>
                 <textarea id="message2" cols="30" rows="15" >
                     
-                    <c:forEach items="${publicacion}" var="item2">
+                    <c:forEach items="${planificado}" var="item2">
                             ${item2}
                     </c:forEach>
                 </textarea>
@@ -161,7 +162,7 @@
                 <br>
                 <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
             </div>
-            <div id="Bandeja1">
+                <div id="Bandeja1">
                 <h4 color="red">Tareas culminadas:</h4>
                 <textarea id="message2" cols="30" rows="15" required></textarea>
                 <br>
