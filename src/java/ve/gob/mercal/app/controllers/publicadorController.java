@@ -412,15 +412,15 @@ public class publicadorController {
     public ModelAndView getaddPublicacion(){
         ModelAndView model = new ModelAndView();
         model.addObject("tienda","prueba");
-        model.setViewName("Planificacion");
+        model.setViewName("agregarPlanificacion");
         return model;
     }
-    @RequestMapping(value = {"/Planificacion"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/agregarPlanificacion"}, method = RequestMethod.POST)
     public ModelAndView postaddPublicacion(@RequestParam(value = "listString", 
                                                     required = false) String nombre){
         ModelAndView model = new ModelAndView();
         model.addObject("tienda","prueba");
-        model.setViewName("Planificacion");
+        model.setViewName("agregarPlanificacion");
         return model;
     }
 }
