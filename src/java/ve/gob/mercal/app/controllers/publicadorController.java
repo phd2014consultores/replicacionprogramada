@@ -173,6 +173,9 @@ public class publicadorController {
             // TODO Auto-generated catch block
             e.printStackTrace();
             }
+            if(s2=="[]"){
+            model.addObject("publicacionnull","No posee planificación asociada");
+            }else{
             JsonParser parser = new JsonParser();
             JsonElement elementObject;
             s2 = s2.substring(1, s2.length()-1);
@@ -211,6 +214,7 @@ public class publicadorController {
             model.addObject("publicacion3",listString3);
             model.addObject("publicacion2", nameTienda);
             model.addObject("publicacion", listString2);
+            }
             model.setViewName("Psuscriptor");
         }
  
@@ -233,6 +237,9 @@ public class publicadorController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        if(s2=="[]"){
+        model.addObject("detalle1", "No posee detalle asociado");
+        }else{
         s2 = s2.substring(1, s2.length()-1);
         JsonParser parser = new JsonParser();
         JsonElement elementObject;
@@ -245,6 +252,7 @@ public class publicadorController {
         result = result + "Registros Actualizados = "+elementObject.getAsJsonObject().get("reg_actualizados").getAsString()+"\n";
         
         model.addObject("detalle", result);
+        }
         model.setViewName("Psuscriptor");
         return model;
     }

@@ -131,7 +131,7 @@
             </div>
                 
                 <c:if test="${not empty publicacionnull}">
-                    ${publicacionnull}
+                    alert("No posee publicaciones asociadas");
                 </c:if>
            
             <c:if test="${not empty publicacion}">   
@@ -161,7 +161,7 @@
             </c:if>
             
             <c:if test="${not empty detalle1}">
-                    ${detalle1} 
+                   alert("No posee detalle de publicaciones asociadas"); 
             </c:if>
 
             <c:if test="${not empty detalle}">

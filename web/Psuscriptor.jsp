@@ -141,6 +141,10 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form> 
             </div>
+                
+                <c:if test="${not empty publicacionnull}">
+                    alert("No posee publicaciones asociadas");
+                </c:if>
             
             <c:if test="${not empty publicacion}">    
                 
@@ -163,6 +167,10 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       
             </form>
+            </c:if>
+            
+            <c:if test="${not empty detalle1}">
+                    alert("No posee detalle de publicaciones asociadas"); 
             </c:if>
 
             <c:if test="${not empty detalle}">
