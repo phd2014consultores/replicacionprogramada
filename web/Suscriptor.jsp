@@ -47,7 +47,8 @@
                 }
             });
         });
-    </script>     
+    </script>
+    
     </head>
     <body> 
         <div class="row-fluid encabezado">
@@ -131,7 +132,10 @@
             </div>
                 
                 <c:if test="${not empty publicacionnull}">
-                    alert("No posee publicaciones asociadas");
+                    <script language="JavaScript">
+                            alert("No posee publicaciones asociadas");
+                    </script>
+                  
                 </c:if>
            
             <c:if test="${not empty publicacion}">   
@@ -161,7 +165,9 @@
             </c:if>
             
             <c:if test="${not empty detalle1}">
-                   alert("No posee detalle de publicaciones asociadas"); 
+                   <script language="JavaScript">
+                            alert("No posee detalle de publicaciones asociadas");
+                    </script>
             </c:if>
 
             <c:if test="${not empty detalle}">
