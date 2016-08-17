@@ -274,7 +274,9 @@ public class publicadorController {
         ModelAndView model = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
+        String name2 = "";
         int result=-999;
+        int result2=-999;
         JsonParser parser = new JsonParser();
         JsonElement elementObject;
         try {
@@ -284,6 +286,14 @@ public class publicadorController {
                 name = elementObject.getAsJsonObject()
                     .get("id_usuario").getAsString();
                 result = wsFuncionApp.getConsulta("public.insert_tiendas('"+nombre+"','"+host+"','"+user+"','"+pass+"','"+bdoracle+"',"+name+");");
+                name2 = wsQuery.getConsulta("SELECT id_tienda\n" +
+"  FROM public.tiendas\n" +
+"  WHERE tienda='"+nombre+"';");
+                name2 = name2.substring(1, name2.length()-1);
+                elementObject = parser.parse(name2);
+                name2 = elementObject.getAsJsonObject()
+                    .get("id_tienda").getAsString();
+                result2 = wsFuncionApp.getConsulta("public.insert_pub_tiendas("+name+", "+name2+", "+name+");");
             } catch (ExcepcionServicio e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
