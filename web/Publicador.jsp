@@ -53,7 +53,7 @@
             <title>Confirmación de envío de formulario</title>
             <script language="JavaScript">
                 function pregunta(){
-                    if (confirm('¿Estas seguro de enviar este formulario?')){
+                    if (confirm('¿Estas seguro que desea eliminar?')){
                        document.eliminar.submit()
                     }
                 }
@@ -139,20 +139,16 @@
                 <h2>Eliminar Tienda</h2>
                 <br>
                     
-                <form class="form-horizontal" action="Publicador" method="POST">
-                    <select  name="listString" class="form-control" onchange="this.form.submit()">
+                <form name="eliminar" class="form-horizontal" action="Publicador" method="POST">
+                    <select  name="listString" class="form-control" onchange="pregunta()">
                         <option value="NONE">Seleccione tienda a eliminar...</option>
                         <c:forEach items="${tienda2}" var="item">
                             ${item}
                         </c:forEach>
                     </select>
                     <input type="hidden" onclick="pregunta()" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                
                 </form>
-                
-                <form name="eliminar" class="form-horizontal" action="Publicador" method="POST">
-                    
-                </form>
+
                 
             <c:if test="${not empty exito}">
                 ${exito}
