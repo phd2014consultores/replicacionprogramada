@@ -151,9 +151,9 @@
                     </c:forEach>
                 </textarea>
                 <br>
-                <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
+                <input type="submit" onclick=" this.value='Cargado'"value="Listar ETL"/>
                 <a href="/PublicacionySuscripcion/agregarPlanificacion">
-                <input type="submit" onclick=" this.value='planificar'"value="Planificar Nueva"/>
+                
                 </a>
                 
             </div>
@@ -167,15 +167,22 @@
                     </c:forEach>
                 </textarea>
                 <br>
-                <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
+                <input type="submit" value="Listar ETL"/>
             </div>
             <div id="Bandeja1">
                 <h4 color="red">Tareas culminadas:</h4>
-                <textarea id="message2" cols="30" rows="15" required></textarea>
+                <h5>${mensaje_ter}</h5>
+                <textarea id="message2" cols="30" rows="15" disabled >
+                    
+                    <c:forEach items="${terminado}" var="item2">
+                            ${terminado}
+                    </c:forEach>
+                </textarea>
                 <br>
-                <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/> 
+                <br>
+                <input type="submit" value="Listar ETL"/> 
                 <a href="/PublicacionySuscripcion/recuperarETL">
-                <input type="submit" value="Recuperar ETL"/>
+                
                 </a>
             </div>
         </div>

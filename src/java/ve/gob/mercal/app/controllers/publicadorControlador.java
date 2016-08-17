@@ -257,7 +257,7 @@ public class publicadorControlador {
           try {
                 validar = wsQuery.getConsulta("SELECT pub.id_usuario" +
                         " FROM usuarios u, tiendas t, pub_tiendas pub" +
-                        " WHERE t.tienda = '"+nameTienda+"' and u.usuario='"+namePub+"' and u.id_usuario = pub.id_usuario and t.id_tienda = pub.id_tienda;");
+                        " WHERE t.tienda = '"+nameTienda+"' and u.usuario='"+namePub+"' and u.id_usuario = pub.id_usuario and t.id_tienda = pub.id_tienda and pub.activo = TRUE;");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -406,13 +406,14 @@ public class publicadorControlador {
     String plan="";
     String valor="";
     String ejec="";
+    String ter="";
     String result="";
     
     model = publicar();
         if(!nameTienda.equals("NONE")) {
             nameTienda = nameTienda.substring(0,nameTienda.length()-13);
             try {
-                plan=wsQuery.getConsulta("SELECT pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
+                plan=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
                 "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
                 "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job\n" +
                 "AND t.tienda='"+nameTienda+"';");
@@ -434,7 +435,8 @@ public class publicadorControlador {
                         plan = plan.substring(1);                          
                     }
                     elementObject = parser.parse(plan);
-                    result= result + "Planificacion : "+planif+"\n";
+                    valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
+                    result= result + "Id Plan Ejecucion: "+valor+"\n";
                     valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan= "+valor+"\n";
                     valor = elementObject.getAsJsonObject().get("tienda").getAsString();
@@ -466,7 +468,7 @@ public class publicadorControlador {
             }
             //Ejecutadas
             try {
-                ejec=wsQuery.getConsulta("SELECT pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
+                ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
                 "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
                 "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion' \n" +
                 "AND t.tienda='"+nameTienda+"';");
@@ -488,7 +490,8 @@ public class publicadorControlador {
                         ejec = ejec.substring(1);                          
                     }
                     elementObject2 = parser2.parse(ejec);
-                    result= result + "Planificacion : "+planif+"\n";
+                    valor = elementObject2.getAsJsonObject().get("id_plan_ejecucion").getAsString();
+                    result= result + "Id Plan Ejecucion: "+valor+"\n";
                     valor = elementObject2.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan= "+valor+"\n";
                     valor = elementObject2.getAsJsonObject().get("tienda").getAsString();
@@ -513,6 +516,58 @@ public class publicadorControlador {
             model.addObject("ejecutado",listString6);
             }else{
             model.addObject("mensaje_ejec","No hay tareas en ejecucion para la tienda: "+nameTienda+"");
+            
+            }
+            // Terminadas
+               try {
+                ter=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
+                "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion' \n" +
+                "AND t.tienda='"+nameTienda+"';");
+            } catch (ExcepcionServicio ex) {
+                Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(!ter.equals("[]")){
+                
+                JsonParser parser3 = new JsonParser();
+                JsonElement elementObject3;
+                ter = ter.substring(1, ter.length()-1);
+                StringTokenizer st3 = new StringTokenizer(ter,"}");
+                int planif=1;
+                result="";
+                listString6=null;
+                while (st3.hasMoreTokens()) {
+                    ter = st3.nextToken()+"}";
+                    if (ter.substring(0,1).equals(",")){
+                        ter = ter.substring(1);                          
+                    }
+                    elementObject3 = parser3.parse(ter);
+                    valor = elementObject3.getAsJsonObject().get("id_plan_ejecucion").getAsString();
+                    result= result + "Id Plan Ejecucion: "+valor+"\n";
+                    valor = elementObject3.getAsJsonObject().get("nro_control_plan").getAsString();
+                    result= result + "Nro Control Plan= "+valor+"\n";
+                    valor = elementObject3.getAsJsonObject().get("tienda").getAsString();
+                    result= result + "Tienda = "+valor+"\n";
+                    valor = elementObject3.getAsJsonObject().get("job").getAsString();
+                    result= result + "Job = "+valor+"\n";
+                    valor = elementObject3.getAsJsonObject().get("nro_control_ejec").getAsString();
+                    result= result + "Nro Control Ejecucion= "+valor+"\n";
+                    valor = elementObject3.getAsJsonObject().get("observaciones").getAsString();
+                    result= result + "Observaciones= "+valor+"\n";
+                     if(elementObject3.getAsJsonObject().get("timestamp_planificacion").getAsString()!=null){
+                        valor = elementObject3.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                        result= result + "Tiempo de la planificacion = "+valor+"\n";
+                    }
+                    listString6.add(result);
+                    //listString2.add("\n");
+                    planif++;
+                    valor="";
+                    result="";
+
+                }
+            model.addObject("terminado",listString6);
+            }else{
+            model.addObject("mensaje_ter","No hay tareas terminadas para la tienda: "+nameTienda+"");
             
             }
         
