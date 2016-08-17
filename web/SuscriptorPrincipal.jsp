@@ -132,9 +132,28 @@
 
         </div>
                 
-                <c:if test="${not empty exite}">
-                    ${exite}
-                </c:if>
+             <c:if test="${ exite == 'Exito al suscribirse a la tienda'}">
+                    <script language="JavaScript">
+                        {
+                            alert("Exito al suscribirse a la tienda");
+                        }
+                    </script>
+             </c:if>
+            <c:if test="${ exite == 'Error al suscribirse a la tienda'}">
+                    <script language="JavaScript">
+                        {
+                            alert("Error al suscribirse a la tienda");
+                        }
+                    </script>
+             </c:if>        
+             
+            <c:if test="${ exite == 'Usted ya se encuentra suscrito a la tienda'}">
+                    <script language="JavaScript">
+                        {
+                            alert("Usted ya se encuentra suscrito a la tienda");
+                        }
+                    </script>
+             </c:if>
            
                           
 
