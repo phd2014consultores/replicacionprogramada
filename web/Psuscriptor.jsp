@@ -129,7 +129,9 @@
     </div>
 	    	<br>
 	<div id="Bandejas">
+            <c:if test="${empty vaciar}">
             <h2>Tiendas Suscritas</h2>
+            
             <div>
                 <form class="form-horizontal" action="Psuscriptor" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
@@ -141,6 +143,7 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form> 
             </div>
+             </c:if>    
                 
                 <c:if test="${not empty publicacionnull}">
                     <script language="JavaScript">
@@ -159,14 +162,13 @@
                     <c:forEach items="${publicacion}" var="item2">
                             ${item2}
                     </c:forEach>
-                </textarea>
-                
+                </textarea>   
             <h2>Detalle de Publicación</h2>
             <form class="form-horizontal" action="Psuscriptor2" method="POST">             
                 <select  name="listString2" class="form-control" onchange="this.form.submit()">
                     <option value="NONE">Seleccione una opción...</option>
                     <c:forEach items="${publicacion3}" var="item3">
-                        <option value="${item3}" type="submit">Etl: ${item3}</option>
+                        <option value="${item3}" type="submit">Numero de Control: ${item3}</option>
                     </c:forEach>
                 </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

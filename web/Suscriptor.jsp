@@ -118,6 +118,7 @@
             </div>       
         </div>
         <div id="Bandejas">
+            <c:if test="${empty vaciar}">
             <h2>Tiendas Suscritas</h2>
             <div>
                 <form class="form-horizontal" action="Suscriptor" method="POST">
@@ -130,6 +131,7 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
             </div>
+             </c:if>
                 
                 <c:if test="${not empty publicacionnull}">
                     <script language="JavaScript">

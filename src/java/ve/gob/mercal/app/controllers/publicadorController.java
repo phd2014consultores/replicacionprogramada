@@ -211,6 +211,7 @@ public class publicadorController {
                 valor="";
                 result="";
             }
+            model.addObject("vaciar","vaciar");
             model.addObject("publicacion3",listString3);
             model.addObject("publicacion2", nameTienda);
             model.addObject("publicacion", listString2);
@@ -250,7 +251,7 @@ public class publicadorController {
         result = result + "Estatus Ejecución = "+elementObject.getAsJsonObject().get("status_ejec").getAsString()+"\n";
         result = result + "Registros Insertados = "+elementObject.getAsJsonObject().get("reg_insertados").getAsString()+"\n";
         result = result + "Registros Actualizados = "+elementObject.getAsJsonObject().get("reg_actualizados").getAsString()+"\n";
-        
+        model.addObject("vaciar","vaciar");
         model.addObject("detalle", result);
         }
         model.setViewName("Psuscriptor");
@@ -365,7 +366,7 @@ public class publicadorController {
             // TODO Auto-generated catch block
             e.printStackTrace();
             }
-
+            model.addObject("vaciar","vaciar");
             model.addObject("idt",id);
             model.addObject("tienda",tien);
             model.addObject("host",host);
@@ -407,6 +408,7 @@ public class publicadorController {
             }
         
         if(result==1){
+            model.addObject("vaciar","vaciar");
             model.addObject("exito","Tienda Modificada");
             model.setViewName("Modificar");
         }else{
@@ -523,7 +525,7 @@ public class publicadorController {
             // TODO Auto-generated catch block
             e.printStackTrace();
             }
-
+            model.addObject("vaciar","vaciar");
             model.addObject("idt",id);
             model.addObject("tienda",tien);
             model.addObject("host",host);

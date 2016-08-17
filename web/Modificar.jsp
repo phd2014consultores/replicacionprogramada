@@ -131,8 +131,11 @@
 	    	<br>
 
 <div id="Bandejas" >
+    <c:if test="${ empty exito}">
         <h2>Modificar Tienda</h2>
+    </c:if>
         <br>
+        <c:if test="${empty vaciar}">
     <label for="message">Seleccione Tienda a Modificar :</label> 
                 <form class="form-horizontal" action="Modificar" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
@@ -143,10 +146,11 @@
                     </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
+         </c:if>
     <br>
     <c:if test="${not empty tienda}"> 
     <form class="form-horizontal" action="Modificar2" method="POST">
-           
+        <c:if test="${ empty exito}">   
         <label for="message">Datos a Modificar :</label> 
 
             <label for="message">Nombre :</label> 
@@ -170,10 +174,24 @@
             <br>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
         </form>
+        </c:if>
     </c:if>
-            <c:if test="${not empty exito}">
-            ${exito}
-            </c:if>
+
+            <c:if test="${ exito == 'Tienda Modificada'}">
+                    <script language="JavaScript">
+                        {
+                            alert("Tienda modificada exitosamente");
+                        }
+                    </script>
+             </c:if>
+             <c:if test="${ exito == 'Fallo al modifica la Tienda'}">
+                    <script language="JavaScript">
+                        {
+                            alert("No se pudo modificar la Tienda");
+                        }
+                    </script>
+             </c:if>       
+            
 
 
 </div>

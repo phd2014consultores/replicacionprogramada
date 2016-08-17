@@ -133,6 +133,7 @@
 <div id="Bandejas" >
         <h2>Detalle Tienda</h2>
         <br>
+        <c:if test="${empty vaciar}">
     <label for="message">Seleccione Tienda a Detallar :</label> 
                 <form class="form-horizontal" action="Detalle" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
@@ -143,6 +144,7 @@
                     </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
+        </c:if>
     <br>
     <c:if test="${not empty tienda}"> 
     <form class="form-horizontal" >

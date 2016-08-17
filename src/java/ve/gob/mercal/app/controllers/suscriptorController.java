@@ -136,6 +136,7 @@ public class suscriptorController {
                 valor="";
                 result="";
             }
+            model.addObject("vaciar","vaciar");
             model.addObject("publicacion3",listString3);
             model.addObject("publicacion2", nameTienda);
             model.addObject("publicacion", listString2);
@@ -176,7 +177,8 @@ public class suscriptorController {
         result = result + "Registros Insertados = "+elementObject.getAsJsonObject().get("reg_insertados").getAsString()+"\n";
         result = result + "Registros Actualizados = "+elementObject.getAsJsonObject().get("reg_actualizados").getAsString()+"\n";
         
-        model.addObject("detalle", s2);
+        model.addObject("vaciar","vaciar");
+        model.addObject("detalle", result);
         }
         model.setViewName("Suscriptor");
         return model;
