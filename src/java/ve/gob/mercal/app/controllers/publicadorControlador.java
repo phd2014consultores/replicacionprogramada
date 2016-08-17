@@ -51,37 +51,37 @@ public class publicadorControlador {
    // public List<String> listString7 = new ArrayList<>();
     public Model prueba;
     
-    @RequestMapping(value = {"/AgregarP"}, method = {RequestMethod.GET})
+    @RequestMapping(value = {"/GestionAgregarP"}, method = {RequestMethod.GET})
     public ModelAndView getTienda(){
         ModelAndView model= new ModelAndView();
-        String s = "NULL";
-        String s2 = "NULL";
-        String s3 = "NULL";
-        String s4 = "NULL";
+    
+        model.setViewName("GestionAgregarP");
+        return model;
+    }
+    
+    //controlador para mostrar los publicadores asociados a la tienda seleccionada
+    
+         @RequestMapping(value = {"/GestionAgregarP"}, method = RequestMethod.POST)
+    public ModelAndView listarPublicadores(){
+        ModelAndView model = new ModelAndView();
+        model=getTienda();
+            model.setViewName("GestionAgregarP");
+ 
+        return model;
+    }
+    
+    //controlador para agregar publicadores a una tienda en especifico
+    @RequestMapping(value = {"/CrearP"}, method = RequestMethod.GET)
+     public ModelAndView getagregarPublicadores()
+    {
+        ModelAndView model = new ModelAndView();
+        model = getTienda();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
+        String s = "NULL";
+        String s2 = "NULL";
         try {
             s = wsQuery.getConsulta("SELECT t.tienda" +
-                        " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
-                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"';");
-            
-            
-        } catch (ExcepcionServicio e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }  
-        
-         try {
-                  s2 = wsQuery.getConsulta("select usuario " +
-                                            "from usuarios where id_tipo_usuario = 2 AND usuario != '"+name+"';");//Listar los publicadores, menos el actual
-        } catch (ExcepcionServicio e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-         
-         //solo las tiendas en las que el usuario actual es manager 
-          try {
-            s3 = wsQuery.getConsulta("SELECT t.tienda" +
                         " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
                         " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager ;");
             
@@ -90,48 +90,29 @@ public class publicadorControlador {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-          
-          try {
-            s4 = wsQuery.getConsulta("SELECT  u.usuario" +
-                    " FROM usuarios u, pub_tiendas pt, usuarios actual" +
-                    " WHERE u.id_tipo_usuario = 2 AND u.usuario != '"+name+"' AND actual.usuario = '"+name+"' AND pt.id_usuario = u.id_usuario AND pt.id_creado_por = actual.id_usuario AND pt.activo=TRUE ;");
-            
-            
-        } catch (ExcepcionServicio e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }  
-        
         //tiendas
-        JsonParser parser = new JsonParser();
-        JsonElement elementObject;
-        s = s.substring(1, s.length()-1);
-        StringTokenizer st = new StringTokenizer(s,",");
-        
-        while (st.hasMoreTokens()) {
-            s = st.nextToken();
-            elementObject = parser.parse(s);
-            this.tienda = elementObject.getAsJsonObject()
-                    .get("tienda").getAsString();
-            listString.add("<option value="+this.tienda+ "type=\"submit\">"+
-                                    this.tienda+"</option>");
-            }
-        this.tienda="";
         JsonParser parser3 = new JsonParser();
         JsonElement elementObject3;
-        s3 = s3.substring(1, s3.length()-1);
-        StringTokenizer st3 = new StringTokenizer(s3,",");
+        s = s.substring(1, s.length()-1);
+        StringTokenizer st3 = new StringTokenizer(s,",");
         
         while (st3.hasMoreTokens()) {
-            s3 = st3.nextToken();
-            elementObject3 = parser3.parse(s3);
+            s = st3.nextToken();
+            elementObject3 = parser3.parse(s);
             this.tienda = elementObject3.getAsJsonObject()
                     .get("tienda").getAsString();
             listString3.add("<option value="+this.tienda+ ">"+
                                     this.tienda+"</option>");
             }
         
-          //publicadores
+        try {
+            s2 = wsQuery.getConsulta("select usuario " +
+                                            "from usuarios where id_tipo_usuario = 2 AND usuario != '"+name+"';");//Listar los publicadores, menos el actual
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+         //publicadores
         s2 = s2.substring(1, s2.length()-1); //quitarle los corchetes "[]"
         
         JsonParser parser2 = new JsonParser();
@@ -140,106 +121,33 @@ public class publicadorControlador {
        
         String valor="";
         while (st2.hasMoreTokens()) {
-                s2 = st2.nextToken()+"}";
-                if (s2.substring(0,1).equals(",")){
-                    s2 = s2.substring(1);                          
-                }
-                elementObject2 = parser2.parse(s2);
-                valor = elementObject2.getAsJsonObject().get("usuario").getAsString();
-                this.tienda=valor;
-                 listString4.add("<option value="+this.tienda+ ">"+
-                                    this.tienda+"</option>");
-                //listString2.add("\n");
-                
-                valor="";
-               this.tienda="";
+            s2 = st2.nextToken()+"}";
+            if (s2.substring(0,1).equals(",")){
+                s2 = s2.substring(1);                          
             }
-        //publicadores agregados por actual
-        s4 = s4.substring(1, s4.length()-1); //quitarle los corchetes "[]"
-        
-        JsonParser parser4 = new JsonParser();
-        JsonElement elementObject4;
-        StringTokenizer st4 = new StringTokenizer(s4,"}");
-       
-         valor="";
-         this.tienda="";
-        while (st4.hasMoreTokens()) {
-                s4 = st4.nextToken()+"}";
-                if (s4.substring(0,1).equals(",")){
-                    s4 = s4.substring(1);                          
-                }
-                elementObject4 = parser4.parse(s4);
-                valor = elementObject4.getAsJsonObject().get("usuario").getAsString();
-                this.tienda=valor;
-                 listString5.add("<option value="+this.tienda+ ">"+
-                                    this.tienda+"</option>");
-                //listString2.add("\n");
-                
-                valor="";
-               this.tienda="";
-            }
-        
-        
-        model.addObject("tienda", listString); //todas las tiendas del usuario
-        model.addObject("publicador",listString4 ); //lista de publicadores
-        model.addObject("tienda2",listString3); //solo las que soy manager
-        model.addObject("publicador2",listString5 ); //lista de publicadores agregados por actual
-        model.setViewName("AgregarP");
-        return model;
-    }
-    
-    //controlador para mostrar los publicadores asociados a la tienda seleccionada
-    
-         @RequestMapping(value = {"/AgregarP"}, method = RequestMethod.POST)
-    public ModelAndView listarPublicadores(@RequestParam (value = "listString", required = false)
-                                                    String nameTienda){
-        ModelAndView model = new ModelAndView();
-        model=getTienda();
-        String s2 = "NULL";
-        nameTienda = nameTienda.substring(0,nameTienda.length()-13);
-        if(!nameTienda.equals("NONE")) {
-            String valor="";
-            try {
-                s2 = wsQuery.getConsulta("SELECT u.usuario\n" +
-                "  FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u\n" +
-                "  WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and t.tienda='"+nameTienda+"' and pt.id_usuario=u.id_usuario;");
-            } catch (ExcepcionServicio e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            }
-            JsonParser parser = new JsonParser();
-            JsonElement elementObject;
-            s2 = s2.substring(1, s2.length()-1);
-            StringTokenizer st = new StringTokenizer(s2,"}");
-            int planif=1;
-            String result="";
-            while (st.hasMoreTokens()) {
-                s2 = st.nextToken()+"}";
-                if (s2.substring(0,1).equals(",")){
-                    s2 = s2.substring(1);                          
-                }
-                elementObject = parser.parse(s2);
-                result= result + "Publicador: "+planif+"\n";
-                valor = elementObject.getAsJsonObject().get("usuario").getAsString();
-                result= result + "Usuario = "+valor+"\n";
-                listString2.add(result);
-                //listString2.add("\n");
-                planif++;
-                valor="";
-                result="";
-            }
-            model.addObject("publicacion",listString2);
-            model.setViewName("AgregarP");
+            elementObject2 = parser2.parse(s2);
+            valor = elementObject2.getAsJsonObject().get("usuario").getAsString();
+            this.tienda=valor;
+             listString4.add("<option value="+this.tienda+ ">"+
+                                this.tienda+"</option>");
+            //listString2.add("\n");
+
+            valor="";
+            this.tienda="";
         }
- 
+        
+        model.addObject("tienda", listString3); //todas las tiendas del usuario
+        model.addObject("publicador",listString4 ); //lista de publicadores
+        model.setViewName("CrearP");
         return model;
+        
     }
-    
-    //controlador para agregar publicadores a una tienda en especifico
-     @RequestMapping(value = {"/AgregarPub"}, method = RequestMethod.POST)
+     
+     
+     @RequestMapping(value = {"/CrearP"}, method = RequestMethod.POST)
      public ModelAndView agregarPublicadores(
-        @RequestParam (value = "nameTienda", required = false) String nameTienda, 
-        @RequestParam (value = "namePub", required = false) String namePub
+        @RequestParam (value = "nombreTienda", required = true) String nameTienda, 
+        @RequestParam (value = "namePub", required = true) String namePub
                                                 )
     {
         ModelAndView model = new ModelAndView();
@@ -252,19 +160,20 @@ public class publicadorControlador {
         int id_u = 0; //id del usuario a insertar
         int id_t = 0; //id de la tienda para asignar al usuario
         int id_c_p = 0; // id del usuario actual.
+        //nameTienda = nameTienda.substring(0,nameTienda.length()-13);
        // int test = 0;
        if(!nameTienda.equals("NONE")  && !namePub.equals("NONE") ) {
           try {
                 validar = wsQuery.getConsulta("SELECT pub.id_usuario" +
                         " FROM usuarios u, tiendas t, pub_tiendas pub" +
-                        " WHERE t.tienda = '"+nameTienda+"' and u.usuario='"+namePub+"' and u.id_usuario = pub.id_usuario and t.id_tienda = pub.id_tienda and pub.activo = TRUE;");
+                        " WHERE t.tienda = '"+nameTienda+"' and u.usuario='"+namePub+"' and u.id_usuario = pub.id_usuario and t.id_tienda = pub.id_tienda;");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
             }
          
             if(!validar.equals("[]")){
               //muestro msj de que el usuario ya existe en pub_tiendas
-              model.addObject("mensaje", "Este usuario ya esta asignado a la tienda especificada");
+              model.addObject("mensaje", "existe");
                 
             }else{
                 //agrego el publicador con la respectiva tienda
@@ -292,28 +201,103 @@ public class publicadorControlador {
                 Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
             }
            if(funcion>0){
-           model.addObject("mensaje","Publicador agregado Exitosamente");
+            model.addObject("mensaje","exito");
            }else{
-           
-           model.addObject("mensaje", " hubo un error: ");
-           model.addObject("error", funcion);
+            model.addObject("mensaje", "error");
            }
-        }
-           // test = id_u + id_t;
-       // model.addObject("parametro1",id_u);
-       // model.addObject("parametro2", test);
-        model.setViewName("AgregarP");
+         }
+            model.setViewName("CrearP");
         
-    }
+        }
     return model;
     }
      
      
      //controlador para eliminar publicadores a una tienda en especifico
-     @RequestMapping(value = {"/EliminarPub"}, method = RequestMethod.POST)
-     public ModelAndView eliminarPublicadores(
-        @RequestParam (value = "nameTienda2", required = false) String nameTienda, 
-        @RequestParam (value = "namePub2", required = false) String namePub
+     @RequestMapping(value = {"/RetirarP"}, method = RequestMethod.GET)
+     public ModelAndView geteliminarPublicadores()
+    {
+        ModelAndView model = new ModelAndView();
+        model = getTienda();
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        String s = "NULL";
+        String s4 = "NULL";
+        String valor = "";
+        try {
+            s = wsQuery.getConsulta("SELECT t.tienda" +
+                        " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
+                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager ;");
+            
+            
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //tiendas
+        JsonParser parser3 = new JsonParser();
+        JsonElement elementObject3;
+        s = s.substring(1, s.length()-1);
+        StringTokenizer st3 = new StringTokenizer(s,",");
+        
+        while (st3.hasMoreTokens()) {
+            s = st3.nextToken();
+            elementObject3 = parser3.parse(s);
+            this.tienda = elementObject3.getAsJsonObject()
+                    .get("tienda").getAsString();
+            listString3.add("<option value="+this.tienda+ ">"+
+                                    this.tienda+"</option>");
+        }
+        //publicadores agregados por actual
+        try {
+            s4 = wsQuery.getConsulta("SELECT  u.usuario" +
+                    " FROM usuarios u, pub_tiendas pt, usuarios actual" +
+                    " WHERE u.id_tipo_usuario = 2 AND u.usuario != '"+name+"' AND actual.usuario = '"+name+"' AND pt.id_usuario = u.id_usuario AND pt.id_creado_por = actual.id_usuario AND pt.activo=TRUE ;");
+            
+            
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }  
+                
+        //publicadores agregados por actual
+        s4 = s4.substring(1, s4.length()-1); //quitarle los corchetes "[]"
+        
+        JsonParser parser4 = new JsonParser();
+        JsonElement elementObject4;
+        StringTokenizer st4 = new StringTokenizer(s4,"}");
+       
+         valor="";
+         this.tienda="";
+        while (st4.hasMoreTokens()) {
+                s4 = st4.nextToken()+"}";
+                if (s4.substring(0,1).equals(",")){
+                    s4 = s4.substring(1);                          
+                }
+                elementObject4 = parser4.parse(s4);
+                valor = elementObject4.getAsJsonObject().get("usuario").getAsString();
+                this.tienda=valor;
+                 listString5.add("<option value="+this.tienda+ ">"+
+                                    this.tienda+"</option>");
+                //listString2.add("\n");
+                
+                valor="";
+               this.tienda="";
+            }
+        
+        model.addObject("tienda", listString3);
+        model.addObject("publicador",listString5 );
+        model.setViewName("RetirarP");
+        return model;
+    }
+     
+     
+     
+     @RequestMapping(value = {"/RetirarP"}, method = RequestMethod.POST)
+     public ModelAndView posteliminarPublicadores(
+        @RequestParam (value = "nombreTienda", required = false) String nameTienda, 
+        @RequestParam (value = "namePub", required = false) String namePub
                                                 )
     {
         ModelAndView model = new ModelAndView();
@@ -326,11 +310,12 @@ public class publicadorControlador {
         int id_u = 0; //id del usuario a insertar
         int id_t = 0; //id de la tienda para asignar al usuario
         int id_m_p = 0; // id del usuario actual.
-       if(!nameTienda.equals("NONE")  && !namePub.equals("NONE") ) {
+        
+        if(!nameTienda.equals("NONE")  && !namePub.equals("NONE") ) {
           try {
                 validar = wsQuery.getConsulta("SELECT pub.id_usuario" +
                         " FROM usuarios u, tiendas t, pub_tiendas pub" +
-                        " WHERE t.tienda = '"+nameTienda+"' and u.usuario='"+namePub+"' and u.id_usuario = pub.id_usuario and t.id_tienda = pub.id_tienda;");
+                        " WHERE t.tienda = '"+nameTienda+"' and u.usuario='"+namePub+"' and u.id_usuario = pub.id_usuario and t.id_tienda = pub.id_tienda and pub.activo = FALSE;");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -361,20 +346,18 @@ public class publicadorControlador {
                         Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
                   }
                  if(funcion>0){
-                    model.addObject("mensaje2","Publicador eliminado Exitosamente");
+                    model.addObject("mensaje2","exito");
                  }else{
 
-                 model.addObject("mensaje2", "El publicador ya no existe o hubo un error: "+funcion+"");
+                 model.addObject("mensaje2", "error");
                  
                  }
                 
             }else{
                   //muestro msj de que el usuario no existe en pub_tiendas
-                 model.addObject("mensaje2", "Este usuario no esta asignado a la tienda especificada");
+                 model.addObject("mensaje2", "existe");
             }
-        //model.addObject("parametro1",id_u);
-        //model.addObject("parametro2", id_t);
-        model.setViewName("AgregarP");
+        model.setViewName("RetirarP");
         
     }
     return model;
