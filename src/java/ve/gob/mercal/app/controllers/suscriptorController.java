@@ -268,13 +268,13 @@ public class suscriptorController {
         String name = auth.getName(); //get logged in username
         JsonParser parser = new JsonParser();
         JsonElement elementObject;
-        try {
-                 s = wsQuery.getConsulta("SELECT id_tienda FROM tiendas\n" +
-                        "  WHERE tienda='"+nameTienda+"';");
-                 s = s.substring(1, s.length()-1);
-                 elementObject = parser.parse(s);
-                 s = elementObject.getAsJsonObject()
-                    .get("id_tienda").getAsString();
+//        try {
+//                 s = wsQuery.getConsulta("SELECT id_tienda FROM tiendas\n" +
+//                        "  WHERE tienda='"+nameTienda+"';");
+//                 s = s.substring(1, s.length()-1);
+//                 elementObject = parser.parse(s);
+//                 s = elementObject.getAsJsonObject()
+//                    .get("id_tienda").getAsString();
 //                 s3 = wsQuery.getConsulta("SELECT id_usuario FROM usuarios "
 //                         + "WHERE usuario='"+name +"' and activo=TRUE;");
 //                 s3 = s3.substring(1, s3.length()-1);
@@ -284,10 +284,10 @@ public class suscriptorController {
 //                 s2 = wsQuery.getConsulta("SELECT id_usuario, id_tienda\n" +
 //"  FROM public.susc_tiendas\n" +
 //"  WHERE activo=true and id_usuario='"+s3+"' and id_tienda='"+s+"';");
-        } catch (ExcepcionServicio e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } 
+//        } catch (ExcepcionServicio e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } 
         
 //        if(s2=="[]"){
 //            
@@ -303,7 +303,7 @@ public class suscriptorController {
 //                    }else{
 //        model.addObject("exite", "Usted ya se encuentra suscrito a la tienda");  
 //        }
-        model.addObject("exite", s);
+        model.addObject("exite", nameTienda);
         model.setViewName("SuscriptorPrincipal");
         return model;
     }

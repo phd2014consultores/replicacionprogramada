@@ -157,7 +157,7 @@
             <c:if test="${not empty publicacion}">    
                 
                 <h2>Publicaciones Ejecutadas</h2> 
-                <textarea id="message2" cols="30" rows="15" >
+                <textarea disabled id="message2" cols="30" rows="15" >
                     Tienda: ${publicacion2}
                     <c:forEach items="${publicacion}" var="item2">
                             ${item2}
@@ -186,7 +186,7 @@
 
             <c:if test="${not empty detalle}">
                 <h2>Listado de ETL</h2>
-                <textarea id="message2" cols="30" rows="15" >
+                <textarea disabled id="message2" cols="30" rows="15" >
                     ${detalle}
                 </textarea>      
             </c:if>
