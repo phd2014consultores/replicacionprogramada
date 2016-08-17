@@ -144,7 +144,7 @@
                 
                 <c:if test="${not empty publicacionnull}">
                     <script language="JavaScript">
-                        function mensaje(){
+                        {
                             alert("No posee publicaciones asociadas");
                         }
                     </script>
@@ -176,7 +176,7 @@
             
             <c:if test="${not empty detalle1}">
                     <script language="JavaScript">
-                        function mensaje2(){
+                        {
                             alert("No posee detalle de publicaciones asociadas");
                         }
                     </script> 
