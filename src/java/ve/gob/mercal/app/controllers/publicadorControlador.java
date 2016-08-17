@@ -441,12 +441,15 @@ public class publicadorControlador {
                     result= result + "Tienda = "+valor+"\n";
                     valor = elementObject.getAsJsonObject().get("job").getAsString();
                     result= result + "Job = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
-                    result= result + "Tiempo de la planificacion = "+valor+"\n";
                     valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
                     result= result + "Nro Control Ejecucion= "+valor+"\n";
                     valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
                     result= result + "Observaciones= "+valor+"\n";
+                    if(elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString()!=null){
+                        valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                        result= result + "Tiempo de la planificacion = "+valor+"\n";
+                    }
+                  
                     listString6.add(result);
                     //listString2.add("\n");
                     planif++;
@@ -454,6 +457,7 @@ public class publicadorControlador {
                     result="";
 
                 }
+                
             model.addObject("planificado",listString6);
                 
             }else{
@@ -491,12 +495,14 @@ public class publicadorControlador {
                     result= result + "Tienda = "+valor+"\n";
                     valor = elementObject2.getAsJsonObject().get("job").getAsString();
                     result= result + "Job = "+valor+"\n";
-                    valor = elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString();
-                    result= result + "Tiempo de la planificacion = "+valor+"\n";
                     valor = elementObject2.getAsJsonObject().get("nro_control_ejec").getAsString();
                     result= result + "Nro Control Ejecucion= "+valor+"\n";
                     valor = elementObject2.getAsJsonObject().get("observaciones").getAsString();
                     result= result + "Observaciones= "+valor+"\n";
+                     if(elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString()!=null){
+                        valor = elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                        result= result + "Tiempo de la planificacion = "+valor+"\n";
+                    }
                     listString6.add(result);
                     //listString2.add("\n");
                     planif++;
@@ -505,8 +511,6 @@ public class publicadorControlador {
 
                 }
             model.addObject("ejecutado",listString6);
-            
-
             }else{
             model.addObject("mensaje_ejec","No hay tareas en ejecucion para la tienda: "+nameTienda+"");
             

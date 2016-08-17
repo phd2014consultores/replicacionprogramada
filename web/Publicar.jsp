@@ -143,11 +143,11 @@
             <div id="Bandeja1">
                 <h4 color="red">Tareas planificadas: </h4>
                 <h5>${mensaje_plan}</h5>
-                <textarea id="message2" cols="30" rows="15" >
-                    ${planificado}
-                    <%--<c:forEach items="${planificado}" var="item2">--%>
-                            
-                    <%--</c:forEach>--%>
+                <textarea id="message2" cols="30" rows="15" disabled>
+                    
+                    <c:forEach items="${planificado}" var="item2">
+                            ${planificado}
+                    </c:forEach>
                 </textarea>
                 <br>
                 <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
@@ -159,11 +159,11 @@
             <div id="Bandeja1">
                 <h4 color="red">Tareas en ejecución: </h4>
                 <h5>${mensaje_ejec}</h5>
-                <textarea id="message2" cols="30" rows="15" >
+                <textarea id="message2" cols="30" rows="15" disabled >
                     
-                    <%--<c:forEach items="${ejecutado}" var="item2">--%>
+                    <c:forEach items="${ejecutado}" var="item2">
                             ${ejecutado}
-                    <%--</c:forEach>--%>
+                    </c:forEach>
                 </textarea>
                 <br>
                 <input type="submit" onclick=" this.value='Cargado'"value="Detallar"/>
