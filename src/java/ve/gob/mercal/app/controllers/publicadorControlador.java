@@ -521,4 +521,29 @@ public class publicadorControlador {
     return model;
     }
     
+        @RequestMapping(value = {"/agregarPlanificacion"}, method = RequestMethod.GET)
+    public ModelAndView getaddPublicacion(){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("agregarPlanificacion");
+        return model;
+    }
+    @RequestMapping(value = {"/agregarPlanificacion"}, method = RequestMethod.POST)
+    public ModelAndView postaddPublicacion(@RequestParam(value = "nameTienda2", 
+                                                    required = false) String nombre){
+        ModelAndView model = new ModelAndView();
+        model=publicar_post(nombre);
+        
+        model.setViewName("agregarPlanificacion");
+        return model;
+    }
+    
+      @RequestMapping(value = {"/GestionPublicar"}, method = RequestMethod.GET)
+    public ModelAndView getgestiontiendaPublicacion(){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tienda","prueba");
+        model.setViewName("GestionPublicar");
+        return model;
+    }
+    
+    
 }

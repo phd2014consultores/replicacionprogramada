@@ -130,12 +130,17 @@
     <div id="Bandejas" >
 	<h2>Estado de Publicaciones</h2>
 	<br>
-        <h4>Tienda: </h4>
+        <h4>Tienda: ${tienda} </h4>
         <br>
         <div>
             <div>
                 <h4>Tareas planificadas: </h4>
-                <textarea id="message1" cols="30" rows="15" required></textarea>
+                <textarea id="message2" cols="30" rows="15" disabled>
+                    
+                    <c:forEach items="${planificado}" var="item2">
+                            ${planificado}
+                    </c:forEach>
+                </textarea>
                 <br>            
             </div>
             <br>

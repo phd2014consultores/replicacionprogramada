@@ -419,21 +419,7 @@ public class publicadorController {
         return model;
     }
     
-    @RequestMapping(value = {"/agregarPlanificacion"}, method = RequestMethod.GET)
-    public ModelAndView getaddPublicacion(){
-        ModelAndView model = new ModelAndView();
-        model.addObject("tienda","prueba");
-        model.setViewName("agregarPlanificacion");
-        return model;
-    }
-    @RequestMapping(value = {"/agregarPlanificacion"}, method = RequestMethod.POST)
-    public ModelAndView postaddPublicacion(@RequestParam(value = "listString", 
-                                                    required = false) String nombre){
-        ModelAndView model = new ModelAndView();
-        model.addObject("tienda","prueba");
-        model.setViewName("agregarPlanificacion");
-        return model;
-    }
+
     
      @RequestMapping(value = {"/recuperarETL"}, method = RequestMethod.GET)
     public ModelAndView getrecuperarETL(){

@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@page session="true"%>
 <html>
     <head>
@@ -130,7 +131,7 @@
         
                 <form class="form-horizontal" action="Publicar" method="POST">
                     <select  name="nameTienda2" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
-                        <option value="NONE" selected="selected">Seleccione una tienda...</option>
+                        <option value="NONE" >Seleccione una tienda...</option>
                         <c:forEach items="${tienda}" var="item">
                             ${item}
                         </c:forEach>
