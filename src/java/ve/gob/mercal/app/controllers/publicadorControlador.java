@@ -446,7 +446,13 @@ public class publicadorControlador {
     String ejec="";
     String ter="";
     String result="";
-    
+    String aux="";
+    List<String> listStringPlan = new ArrayList<>();
+    List<String> listStringEjec = new ArrayList<>();
+    List<String> listStringTer = new ArrayList<>();
+    List<String> lista_plan = new ArrayList<>();
+    List<String> lista_ter = new ArrayList<>();
+    List<String> lista_ejec = new ArrayList<>();
     model = publicar();
         if(!nameTienda.equals("NONE")) {
            // nameTienda = nameTienda.substring(0,nameTienda.length()-13);
@@ -454,7 +460,7 @@ public class publicadorControlador {
                 plan=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
                 "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
                 "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job\n" +
-                "AND t.tienda='"+nameTienda+"' AND pe.timestamp_fin_ejec = null;");
+                "AND t.tienda='"+nameTienda+"';");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -489,30 +495,41 @@ public class publicadorControlador {
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
-                  
-                    listString6.add(result);
+                    aux=elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();; 
+                    listStringPlan.add(result);
+                    lista_plan.add("<option value="+aux+ ">"+
+                                    aux+"</option>");
                     //listString2.add("\n");
                     planif++;
                     valor="";
                     result="";
-
+                    aux="";
                 }
                 
-            model.addObject("planificado",listString6);
-                
+            model.addObject("planificado",listStringPlan);
+            model.addObject("plan_list", lista_plan); // para mostrar los id de las planificaciones
             }else{
             model.addObject("mensaje_plan","No hay tareas planificadas para la tienda: "+nameTienda+"");
             
             }
             //Ejecutadas
             try {
-                ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
-                "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
-                "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion' \n" +
-                "AND t.tienda='"+nameTienda+"' AND pe.timestamp_fin_ejec = null;");
+                ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
+                "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job\n" +
+                "AND t.tienda='"+nameTienda+"';");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
+             
+//            try {
+//                ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
+//                "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+//                "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion' \n" +
+//                "AND t.tienda='"+nameTienda+"' AND pe.timestamp_fin_ejec = null;");
+//            } catch (ExcepcionServicio ex) {
+//                Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+//            }
             if(!ejec.equals("[]")){
                 
                 JsonParser parser2 = new JsonParser();
@@ -521,7 +538,6 @@ public class publicadorControlador {
                 StringTokenizer st2 = new StringTokenizer(ejec,"}");
                 int planif=1;
                 result="";
-                listString6=null;
                 while (st2.hasMoreTokens()) {
                     ejec = st2.nextToken()+"}";
                     if (ejec.substring(0,1).equals(",")){
@@ -544,14 +560,19 @@ public class publicadorControlador {
                         valor = elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
-                    listString6.add(result);
+                    aux=elementObject2.getAsJsonObject().get("id_plan_ejecucion").getAsString();; 
+                    listStringEjec.add(result);
+                    lista_ejec.add("<option value="+aux+ ">"+
+                                    aux+"</option>");
                     //listString2.add("\n");
                     planif++;
                     valor="";
                     result="";
+                    aux="";
 
                 }
-            model.addObject("ejecutado",listString6);
+            model.addObject("ejecutado",listStringEjec);
+            model.addObject("plan_ejec",lista_ejec );
             }else{
             model.addObject("mensaje_ejec","No hay tareas en ejecucion para la tienda: "+nameTienda+"");
             
@@ -571,9 +592,7 @@ public class publicadorControlador {
                 JsonElement elementObject3;
                 ter = ter.substring(1, ter.length()-1);
                 StringTokenizer st3 = new StringTokenizer(ter,"}");
-                int planif=1;
                 result="";
-                listString6=null;
                 while (st3.hasMoreTokens()) {
                     ter = st3.nextToken()+"}";
                     if (ter.substring(0,1).equals(",")){
@@ -596,14 +615,19 @@ public class publicadorControlador {
                         valor = elementObject3.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
-                    listString6.add(result);
+                    aux=elementObject3.getAsJsonObject().get("id_plan_ejecucion").getAsString();; 
+                    listStringTer.add(result);
+                    lista_ter.add("<option value="+aux+ ">"+
+                                    aux+"</option>");
                     //listString2.add("\n");
-                    planif++;
+                    
                     valor="";
                     result="";
+                    aux="";
 
                 }
-            model.addObject("terminado",listString6);
+            model.addObject("terminado",listStringTer);
+            model.addObject("plan_ter", lista_ter);
             }else{
             model.addObject("mensaje_ter","No hay tareas terminadas para la tienda: "+nameTienda+"");
             
@@ -614,7 +638,7 @@ public class publicadorControlador {
     return model;
     }
     
-        @RequestMapping(value = {"/agregarPlanificacion"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/agregarPlanificacion"}, method = RequestMethod.GET)
     public ModelAndView getaddPublicacion(){
         ModelAndView model = new ModelAndView();
         model.setViewName("agregarPlanificacion");
@@ -635,6 +659,185 @@ public class publicadorControlador {
         ModelAndView model = new ModelAndView();
         model.addObject("tienda","prueba");
         model.setViewName("GestionPublicar");
+        return model;
+    }
+    
+    @RequestMapping(value = {"/planificaETL"}, method = RequestMethod.POST)
+    public ModelAndView planifETL(
+            @RequestParam(value = "planificadas",required = false) String planificadas)
+    {
+        ModelAndView model = new ModelAndView();
+        model = publicar() ;
+        String etl_plan="";
+        String result="";
+        String valor="";
+        List<String> listString6 = new ArrayList<>();
+        int plan;
+        
+       
+        if(!planificadas.equals("NONE")) {
+            plan=Integer.parseInt(planificadas);
+            try {
+                   etl_plan=wsQuery.getConsulta("SELECT  e.id_etl, e.etl, ee.status_ejec\n" +
+                            "FROM public.plan_ejecuciones as pe, public.ejecucion_etls as ee, public.etls as e\n" +
+                            "WHERE pe.id_plan_ejecucion='"+plan+"' and pe.id_plan_ejecucion = ee.id_ejecucion and ee.id_etl = e.id_etl ");
+               } catch (ExcepcionServicio ex) {
+                   Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+               }
+            
+            if(!etl_plan.equals("[]")){
+                JsonParser parser = new JsonParser();
+                JsonElement elementObject;
+                etl_plan = etl_plan.substring(1, etl_plan.length()-1);
+                StringTokenizer st = new StringTokenizer(etl_plan,"}");
+                result="";
+                while (st.hasMoreTokens()) {
+                    etl_plan = st.nextToken()+"}";
+                    if (etl_plan.substring(0,1).equals(",")){
+                        etl_plan = etl_plan.substring(1);                          
+                    }
+                    elementObject = parser.parse(etl_plan);
+                    valor = elementObject.getAsJsonObject().get("id_etl").getAsString();
+                    result= result + "Id Etl: "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("etl").getAsString();
+                    result= result + "Nombre Etl= "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
+                    result= result + "Estatus ejecucion = "+valor+"\n"; 
+                    listString6.add(result);
+                    valor="";
+                    result="";
+                    
+                }
+             model.addObject("lista_etl_planif",listString6);
+            }else{
+              model.addObject("msj_planif","No hay etls asociados a esta planificacion");
+            }
+            
+            
+        }
+        
+
+         
+        model.setViewName("Publicar");
+        return model;
+    }
+    
+    
+    @RequestMapping(value = {"/ejecutaETL"}, method = RequestMethod.POST)
+    public ModelAndView ejecETL(
+           
+            @RequestParam(value = "ejecutadas",required = false) String ejecutadas)
+    {
+        ModelAndView model = new ModelAndView();
+        model = publicar() ;
+        String etl_ejec="";
+        String result="";
+        String valor="";
+        List<String> listString6 = new ArrayList<>();
+        int ejec;
+        
+        if(!ejecutadas.equals("NONE")) {
+            ejec=Integer.parseInt(ejecutadas);
+            try {
+                   etl_ejec=wsQuery.getConsulta("SELECT  e.id_etl, e.etl, ee.status_ejec\n" +
+                            "FROM public.plan_ejecuciones as pe, public.ejecucion_etls as ee, public.etls as e\n" +
+                            "WHERE pe.id_plan_ejecucion='"+ejec+"' and pe.id_plan_ejecucion = ee.id_ejecucion and ee.id_etl = e.id_etl ");
+               } catch (ExcepcionServicio ex) {
+                   Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+               }
+            
+            if(!etl_ejec.equals("[]")){
+                JsonParser parser = new JsonParser();
+                JsonElement elementObject;
+                etl_ejec = etl_ejec.substring(1, etl_ejec.length()-1);
+                StringTokenizer st = new StringTokenizer(etl_ejec,"}");
+                result="";
+                while (st.hasMoreTokens()) {
+                    etl_ejec = st.nextToken()+"}";
+                    if (etl_ejec.substring(0,1).equals(",")){
+                        etl_ejec = etl_ejec.substring(1);                          
+                    }
+                    elementObject = parser.parse(etl_ejec);
+                    valor = elementObject.getAsJsonObject().get("id_etl").getAsString();
+                    result= result + "Id Etl: "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("etl").getAsString();
+                    result= result + "Nombre Etl= "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
+                    result= result + "Estatus ejecucion = "+valor+"\n"; 
+                    listString6.add(result);
+                    valor="";
+                    result="";
+                    
+                }
+             model.addObject("lista_etl_ejec",listString6);
+            }else{
+              model.addObject("msj_ejec","No hay etls asociados a esta planificacion");
+            }
+            
+            
+        }
+        
+
+         
+        model.setViewName("Publicar");
+        return model;
+    }
+    
+     @RequestMapping(value = {"/terminaETL"}, method = RequestMethod.POST)
+    public ModelAndView terminaETL(
+            @RequestParam(value = "terminadas",required = false) String terminadas)
+    {
+        ModelAndView model = new ModelAndView();
+        model = publicar() ;
+        String etl_ter="";
+        String result="";
+        String valor="";
+        List<String> listString6 = new ArrayList<>();
+        int ter;
+        
+        
+        if(!terminadas.equals("NONE")) {
+            ter=Integer.parseInt(terminadas);
+            try {
+                   etl_ter=wsQuery.getConsulta("SELECT  e.id_etl, e.etl, ee.status_ejec\n" +
+                            "FROM public.plan_ejecuciones as pe, public.ejecucion_etls as ee, public.etls as e\n" +
+                            "WHERE pe.id_plan_ejecucion='"+ter+"' and pe.id_plan_ejecucion = ee.id_ejecucion and ee.id_etl = e.id_etl ");
+               } catch (ExcepcionServicio ex) {
+                   Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+               }
+            
+            if(!etl_ter.equals("[]")){
+                JsonParser parser = new JsonParser();
+                JsonElement elementObject;
+                etl_ter = etl_ter.substring(1, etl_ter.length()-1);
+                StringTokenizer st = new StringTokenizer(etl_ter,"}");
+                result="";
+                while (st.hasMoreTokens()) {
+                    etl_ter = st.nextToken()+"}";
+                    if (etl_ter.substring(0,1).equals(",")){
+                        etl_ter = etl_ter.substring(1);                          
+                    }
+                    elementObject = parser.parse(etl_ter);
+                    valor = elementObject.getAsJsonObject().get("id_etl").getAsString();
+                    result= result + "Id Etl: "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("etl").getAsString();
+                    result= result + "Nombre Etl= "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
+                    result= result + "Estatus ejecucion = "+valor+"\n"; 
+                    listString6.add(result);
+                    valor="";
+                    result="";
+                    
+                }
+             model.addObject("lista_etl_ter",listString6);
+            }else{
+              model.addObject("msj_ter","No hay etls asociados a esta planificacion");
+            }
+            
+            
+        }
+      
+        model.setViewName("Publicar");
         return model;
     }
     
