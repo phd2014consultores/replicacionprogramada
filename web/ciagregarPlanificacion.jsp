@@ -5,11 +5,19 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Planificacion</title>
+	<title>Planificación CargaInicial</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
-        </style>    
+        </style>   
+        <!-- Bootstrap2 -->
+        <style type="text/css">
+            <%@include file="css/bootstrap-combined.min.css" %>
+        </style> 
+        
+        <style type="text/css">
+            <%@include file="css/bootstrap-datetimepicker.min.css" %>
+        </style> 
 	<!-- CSS para el Responsive Slider-->
         <style type="text/css">
             <%@include file="css/flexslider.css" %>
@@ -35,7 +43,19 @@
         <%@ include file="jss/jquery.flexslider.js" %>
         </script>
 	<!-- Bootstrap	-->
-       
+        <!-- Jquery -->
+        <script type="text/javascript" language="JavaScript">
+            <%@ include file="jss/bootstrap-datetimepicker.min.js" %>
+        </script>
+        <!-- Jquery -->
+        <script type="text/javascript" language="JavaScript">
+            <%@ include file="jss/bootstrap-datetimepicker.pt-BR.js" %>
+        </script>
+        <!-- Jquery -->
+        <script type="text/javascript" language="JavaScript">
+            <%@ include file="jss/bootstrap.min.js" %>
+        </script>
+
         <script type="text/javascript" language="JavaScript">
          <%@ include file="jss/bootstrap.js" %>
         </script>
@@ -125,19 +145,35 @@
     <br>
 
     <div id="Bandejas" >
-        <div>
-            <div id="Bandeja">
-                <h2>Seleccione acción a realizar</h2>
-            
-                <select  name="listString2" class="form-control" onchange="location = this.value;">
-                    <option value="NONE">Seleccione una opción...</option>
-                    <option value="/PublicacionySuscripcion/ciagregarPlanificacion">Planificar Carga Inicial</option>
-                    <option value="/PublicacionySuscripcion/magregarPlanificacion">Planificar Mediación</option>
+        
+        
+            <div>   
+                <h2>Seleccione una Tienda</h2>        
+                <select  name="nombreTienda" class="form-control">
+                    <option value="NONE">Seleccione una tienda...</option>
+                    <c:forEach items="${tienda}" var="item">
+                        ${item}
+                    </c:forEach>
                 </select>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </div>
-        </div>
-     </div>
+        
+            <div class="well">
+                <div id="datetimepicker1" class="input-append date">
+                    <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
+                    <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                        </i>
+                    </span>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(function() {
+                    $('#datetimepicker1').datetimepicker({
+                    language: 'pt-BR'
+                    });
+                });
+            </script>
+    </div>
                 
 
     <br>

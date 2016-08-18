@@ -431,21 +431,7 @@ public class publicadorController {
     
 
     
-     @RequestMapping(value = {"/recuperarETL"}, method = RequestMethod.GET)
-    public ModelAndView getrecuperarETL(){
-        ModelAndView model = new ModelAndView();
-        model.addObject("tienda","prueba");
-        model.setViewName("recuperarETL");
-        return model;
-    }
-    @RequestMapping(value = {"/recuperarETL"}, method = RequestMethod.POST)
-    public ModelAndView postrecuperarETL(@RequestParam(value = "listString", 
-                                                    required = false) String nombre){
-        ModelAndView model = new ModelAndView();
-        model.addObject("tienda","prueba");
-        model.setViewName("recuperarETL");
-        return model;
-    }
+     
     
     @RequestMapping(value = {"/GestionTienda"}, method = RequestMethod.GET)
     public ModelAndView getgestiontiendaPublicacion(){

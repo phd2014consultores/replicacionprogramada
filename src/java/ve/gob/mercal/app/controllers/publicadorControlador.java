@@ -644,15 +644,84 @@ public class publicadorControlador {
         model.setViewName("agregarPlanificacion");
         return model;
     }
-    @RequestMapping(value = {"/agregarPlanificacion"}, method = RequestMethod.POST)
-    public ModelAndView postaddPublicacion(@RequestParam(value = "nameTienda2", 
-                                                    required = false) String nombre){
+
+    
+    @RequestMapping(value = {"/recuperarETL"}, method = RequestMethod.GET)
+    public ModelAndView getrecuperarETL(){
         ModelAndView model = new ModelAndView();
-        model=publicar_post(nombre);
-        
-        model.setViewName("agregarPlanificacion");
+        model.addObject("tienda","prueba");
+        model.setViewName("recuperarETL");
         return model;
     }
+
+    
+    @RequestMapping(value = {"/ciagregarPlanificacion"}, method = RequestMethod.GET)
+    public ModelAndView getciagregarPlanificacion(){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tienda","prueba");
+        model.setViewName("ciagregarPlanificacion");
+        return model;
+    }
+    @RequestMapping(value = {"/ciagregarPlanificacion"}, method = RequestMethod.POST)
+    public ModelAndView postciagregarPlanificacion(@RequestParam(value = "listString", 
+                                                    required = false) String nombre){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tienda","prueba");
+        model.setViewName("ciagregarPlanificacion");
+        return model;
+    }
+    
+    @RequestMapping(value = {"/magregarPlanificacion"}, method = RequestMethod.GET)
+    public ModelAndView getmagregarPlanificacion(){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tienda","prueba");
+        model.setViewName("magregarPlanificacion");
+        return model;
+    }
+    @RequestMapping(value = {"/magregarPlanificacion"}, method = RequestMethod.POST)
+    public ModelAndView postmagregarPlanificacion(@RequestParam(value = "listString", 
+                                                    required = false) String nombre){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tienda","prueba");
+        model.setViewName("magregarPlanificacion");
+        return model;
+    }
+    
+    @RequestMapping(value = {"/ciagregarPlanETL"}, method = RequestMethod.GET)
+    public ModelAndView getciagregarPlanETL(){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tienda","prueba");
+        model.setViewName("ciagregarPlanETL");
+        return model;
+    }
+    @RequestMapping(value = {"/ciagregarPlanETL"}, method = RequestMethod.POST)
+    public ModelAndView postciagregarPlanETL(@RequestParam(value = "listString", 
+                                                    required = false) String nombre){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tienda","prueba");
+        model.setViewName("ciagregarPlanETL");
+        return model;
+    }
+    
+    @RequestMapping(value = {"/magregarPlanETL"}, method = RequestMethod.GET)
+    public ModelAndView getmagregarPlanETL(){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tienda","prueba");
+        model.setViewName("magregarPlanificacion");
+        return model;
+    }
+    @RequestMapping(value = {"/magregarPlanETL"}, method = RequestMethod.POST)
+    public ModelAndView postmagregarPlanETL(@RequestParam(value = "listString", 
+                                                    required = false) String nombre){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tienda","prueba");
+        model.setViewName("magregarPlanETL");
+        return model;
+    }
+    
+    
+    
+    
     
       @RequestMapping(value = {"/GestionPublicar"}, method = RequestMethod.GET)
     public ModelAndView getgestiontiendaPublicacion(){

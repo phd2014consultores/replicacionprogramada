@@ -125,44 +125,20 @@
     <br>
 
     <div id="Bandejas" >
-	<h2>Estado de Publicaciones</h2>
-	<br>
-        <h4>Tienda: </h4>
-        <br>
         <div>
             <div id="Bandejas">
-                    <h4>Tareas culminadas:</h4>
-                    <textarea id="message2" cols="30" rows="15" required></textarea>
-                    <br>
+                    <div id="Bandeja">
+                <h2>Seleccione acción a realizar</h2>
+            
+                <select  name="listString2" class="form-control" onchange="location = this.value;">
+                    <option value="NONE">Seleccione una opción...</option>
+                    <option value="/PublicacionySuscripcion/ciagregarPlanETL">Planificar Carga Inicial ETL</option>
+                    <option value="/PublicacionySuscripcion/magregarPlanETL">Planificar Mediación ETL</option>
+                </select>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </div>
             </div>
             <br>
-            <div id="Bandejas">
-                <div id="Bandejas">
-                    <br>
-                    <h2>Recuperar un ETL de CargaInicial</h2>
-                    <br>
-                    <label for="message">Fecha :</label>
-                    <input type="text" placeholder="Fecha" required />
-                    <label for="message">Hora :</label>
-                    <input type="text" placeholder="Hora" required />
-                    <br>
-                    <input type="submit" value="Recuperar"/>  
-                    <br>          
-                </div>
-
-                <div id="Bandeja">
-                    <br>
-                    <h2>Recuperar un ETL de Mediación</h2>
-                    <br>
-                    <label for="message">Fecha :</label>
-                    <input type="text" placeholder="Fecha" required />
-                    <label for="message">Hora :</label>
-                    <input type="text" placeholder="Hora" required />
-                    <br>
-                    <input type="submit" value="Recuperar"/> 
-                    <br>
-                 </div>
-            </div>
         </div>
     </div>
 
