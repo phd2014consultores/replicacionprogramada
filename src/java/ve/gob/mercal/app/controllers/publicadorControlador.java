@@ -582,7 +582,7 @@ public class publicadorControlador {
                 ter=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
                             "FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
                             " WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion'\n" +
-                            "AND pe.timestamp_fin_ejec != null AND t.tienda='"+nameTienda+"';");
+                            "AND pe.timestamp_fin_ejec != 'NULL' AND t.tienda='"+nameTienda+"';");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
