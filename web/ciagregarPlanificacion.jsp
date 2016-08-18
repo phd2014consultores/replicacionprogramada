@@ -146,8 +146,6 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 <br>
             </form>
-                ${mensaje2}
-                 ${mensaje3}
             <c:if test="${mensaje == 'exito'}">
             <script language="JavaScript">
                 {

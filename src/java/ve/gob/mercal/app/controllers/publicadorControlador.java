@@ -748,8 +748,6 @@ public class publicadorControlador {
                     model.addObject("mensaje","exito");                    
                 }else{
                     model.addObject("mensaje", "error");
-                    model.addObject("mensaje2", fecha+" "+hora);
-                    model.addObject("mensaje3", result);
                 }
         model.setViewName("ciagregarPlanificacion");
         return model;
@@ -758,15 +756,95 @@ public class publicadorControlador {
     @RequestMapping(value = {"/magregarPlanificacion"}, method = RequestMethod.GET)
     public ModelAndView getmagregarPlanificacion(){
         ModelAndView model = new ModelAndView();
-        model.addObject("tienda","prueba");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        String s = "NULL";
+        try {
+            s = wsQuery.getConsulta("SELECT t.tienda" +
+                        " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
+                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager ;");
+            
+            
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //tiendas
+        
+        JsonParser parser3 = new JsonParser();
+        JsonElement elementObject3;
+        s = s.substring(1, s.length()-1);
+        StringTokenizer st3 = new StringTokenizer(s,",");
+        
+        while (st3.hasMoreTokens()) {
+            s = st3.nextToken();
+            elementObject3 = parser3.parse(s);
+            this.tienda = elementObject3.getAsJsonObject()
+                    .get("tienda").getAsString();
+            listString3.add("<option value="+this.tienda+ ">"+
+                                    this.tienda+"</option>");
+            }
+        model.addObject("tienda",listString3);
         model.setViewName("magregarPlanificacion");
         return model;
     }
     @RequestMapping(value = {"/magregarPlanificacion"}, method = RequestMethod.POST)
-    public ModelAndView postmagregarPlanificacion(@RequestParam(value = "listString", 
-                                                    required = false) String nombre){
-        ModelAndView model = new ModelAndView();
-        model.addObject("tienda","prueba");
+    public ModelAndView postmagregarPlanificacion(@RequestParam(value = "fecha", 
+                                                    required = false) String fecha,
+                                                    @RequestParam(value = "hora", 
+                                                    required = false) String hora,
+                                                    @RequestParam(value = "nombreTienda", 
+                                                    required = false) String tienda){
+        
+        
+        ModelAndView  model = getciagregarPlanificacion();
+        int result = -999;
+        String id_tienda = "NULL";
+        String id_job = "NULL";        
+        String id_user = "NULL";
+                try{
+                    id_tienda = wsQuery.getConsulta("SELECT id_tienda FROM public.tiendas WHERE tienda='"+tienda+"'and activo=TRUE;");
+                    id_tienda = id_tienda.substring(1, id_tienda.length()-1);
+                    JsonParser parser3 = new JsonParser();
+                    JsonElement elementObject;
+                    elementObject = parser3.parse(id_tienda);
+                    id_tienda = elementObject.getAsJsonObject()
+                    .get("id_tienda").getAsString();
+                    
+                    id_job = wsQuery.getConsulta("SELECT id_job FROM public.jobs WHERE job='INICIAR_MEDIACION' and activo=TRUE;");
+                    id_job = id_job.substring(1, id_job.length()-1);
+                    JsonParser parser = new JsonParser();
+                    JsonElement elementObject2;
+                    elementObject2 = parser.parse(id_job);
+                    id_job = elementObject2.getAsJsonObject()
+                    .get("id_job").getAsString();
+                    
+                    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                    String name = auth.getName(); //get logged in username
+                    
+                    
+                    id_user = wsQuery.getConsulta("SELECT id_usuario FROM public.usuarios WHERE usuario='"+name+"';");
+                    id_user = id_user.substring(1, id_user.length()-1);
+                    JsonParser parser2 = new JsonParser();
+                    JsonElement elementObject1;
+                    elementObject1 = parser2.parse(id_user);
+                    id_user = elementObject1.getAsJsonObject()
+                    .get("id_usuario").getAsString();
+                     
+                    
+                    
+                    result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+id_job+",'"+fecha+" "+hora+"',"+ id_user+");");
+                
+                
+                } catch (ExcepcionServicio ex) {
+                    Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
+                if(result>0){
+                    model.addObject("mensaje","exito");                    
+                }else{
+                    model.addObject("mensaje", "error");
+                }
         model.setViewName("magregarPlanificacion");
         return model;
     }

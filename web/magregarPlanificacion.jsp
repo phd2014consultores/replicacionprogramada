@@ -125,9 +125,7 @@
     <br>
 
     <div id="Bandejas" >
-        
-        
-            <div>   
+        <form class="form-horizontal" action="magregarPlanificacion" method="POST">
                 <h2>Seleccione una Tienda</h2>        
                 <select  name="nombreTienda" class="form-control">
                     <option value="NONE">Seleccione una tienda...</option>
@@ -135,9 +133,30 @@
                         ${item}
                     </c:forEach>
                 </select>
-            </div>
-        
-            
+                <h4>Introduzca una Fecha</h4>
+                <input type="text"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
+                <br>
+                <h4>Introduzca una Hora</h4>
+                <input type="text" placeholder="hh-mm-ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
+                <br>
+                <input type="submit" value="planificar"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <br>
+            </form>
+            <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("La planificación se agrego Exitosamente..!!");
+                }
+            </script>   
+            </c:if>
+            <c:if test="${mensaje == 'error'}">
+                <script language="JavaScript">
+                    {
+                        alert("Fallo al agregar la planificación..!!");
+                    }
+                </script>   
+            </c:if>
     </div>
                 
 
