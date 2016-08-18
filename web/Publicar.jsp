@@ -151,7 +151,7 @@
                     </c:forEach>
                 </textarea>
                 <br>
-                <input type="submit" onclick=" this.value='Cargado'"value="Listar ETL"/>
+                <input type="submit" value="Listar ETL"/>
                 <a href="/PublicacionySuscripcion/agregarPlanificacion">
                 
                 </a>

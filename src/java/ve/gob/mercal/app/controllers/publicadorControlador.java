@@ -405,7 +405,31 @@ public class publicadorControlador {
     @RequestMapping(value = {"/Publicar"}, method = {RequestMethod.GET})
     public ModelAndView publicar(){
         ModelAndView model= new ModelAndView();
-        model = getTienda();
+        String tiendas="";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        try {
+                tiendas = wsQuery.getConsulta("SELECT t.tienda\n" +
+                    "  FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u\n" +
+                    "  WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario"
+                    + " and u.usuario='"+name+"';");
+            } catch (ExcepcionServicio ex) {
+                Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        JsonParser parser3 = new JsonParser();
+        JsonElement elementObject3;
+        tiendas = tiendas.substring(1, tiendas.length()-1);
+        StringTokenizer st3 = new StringTokenizer(tiendas,",");
+        
+        while (st3.hasMoreTokens()) {
+            tiendas = st3.nextToken();
+            elementObject3 = parser3.parse(tiendas);
+            this.tienda = elementObject3.getAsJsonObject()
+                    .get("tienda").getAsString();
+            listString3.add("<option value="+this.tienda+ ">"+
+                                    this.tienda+"</option>");
+            }
+        model.addObject("tienda", listString3);
         model.setViewName("Publicar");
         return model;
     }
@@ -416,6 +440,7 @@ public class publicadorControlador {
     {
         
     ModelAndView model= new ModelAndView();
+    //model=publicar();
     String plan="";
     String valor="";
     String ejec="";
@@ -424,12 +449,12 @@ public class publicadorControlador {
     
     model = publicar();
         if(!nameTienda.equals("NONE")) {
-            nameTienda = nameTienda.substring(0,nameTienda.length()-13);
+           // nameTienda = nameTienda.substring(0,nameTienda.length()-13);
             try {
                 plan=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
                 "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
                 "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job\n" +
-                "AND t.tienda='"+nameTienda+"';");
+                "AND t.tienda='"+nameTienda+"' AND pe.timestamp_fin_ejec = null;");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -484,7 +509,7 @@ public class publicadorControlador {
                 ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
                 "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
                 "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion' \n" +
-                "AND t.tienda='"+nameTienda+"';");
+                "AND t.tienda='"+nameTienda+"' AND pe.timestamp_fin_ejec = null;");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -534,9 +559,9 @@ public class publicadorControlador {
             // Terminadas
                try {
                 ter=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
-                "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
-                "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion' \n" +
-                "AND t.tienda='"+nameTienda+"';");
+                            "FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                            " WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion'\n" +
+                            "AND pe.timestamp_fin_ejec != null AND t.tienda='"+nameTienda+"';");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
