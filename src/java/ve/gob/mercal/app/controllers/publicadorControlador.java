@@ -75,7 +75,7 @@ public class publicadorControlador {
      public ModelAndView getagregarPublicadores()
     {
         ModelAndView model = new ModelAndView();
-        model = getTienda();
+        //model = getTienda();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         String s = "NULL";
@@ -151,7 +151,7 @@ public class publicadorControlador {
                                                 )
     {
         ModelAndView model = new ModelAndView();
-        model = getTienda();
+        //model = getTienda();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         int funcion=0;
@@ -254,7 +254,7 @@ public class publicadorControlador {
      public ModelAndView geteliminarPublicadores()
     {
         ModelAndView model = new ModelAndView();
-        model = getTienda();
+        //model = getTienda();
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
@@ -337,7 +337,7 @@ public class publicadorControlador {
                                                 )
     {
         ModelAndView model = new ModelAndView();
-        model = getTienda();
+        //model = getTienda();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         int funcion=0;
