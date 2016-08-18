@@ -75,7 +75,6 @@ public class publicadorControlador {
      public ModelAndView getagregarPublicadores()
     {
         ModelAndView model = new ModelAndView();
-        //model = getTienda();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         String s = "NULL";
@@ -151,7 +150,7 @@ public class publicadorControlador {
                                                 )
     {
         ModelAndView model = new ModelAndView();
-        //model = getTienda();
+        model = getagregarPublicadores();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         int funcion=0;
@@ -242,8 +241,9 @@ public class publicadorControlador {
             model.addObject("mensaje", "error");
            }
          }
+            
             model.setViewName("CrearP");
-        
+
         }
     return model;
     }
@@ -254,7 +254,6 @@ public class publicadorControlador {
      public ModelAndView geteliminarPublicadores()
     {
         ModelAndView model = new ModelAndView();
-        //model = getTienda();
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
@@ -337,7 +336,7 @@ public class publicadorControlador {
                                                 )
     {
         ModelAndView model = new ModelAndView();
-        //model = getTienda();
+        //model = geteliminarPublicadores();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         int funcion=0;
@@ -346,7 +345,7 @@ public class publicadorControlador {
         int id_u = 0; //id del usuario a insertar
         int id_t = 0; //id de la tienda para asignar al usuario
         int id_m_p = 0; // id del usuario actual.
-        
+        model = geteliminarPublicadores();
         if(!nameTienda.equals("NONE")  && !namePub.equals("NONE") ) {
           try {
                 validar = wsQuery.getConsulta("SELECT pub.id_usuario" +
@@ -393,6 +392,7 @@ public class publicadorControlador {
                   //muestro msj de que el usuario no existe en pub_tiendas
                  model.addObject("mensaje2", "existe");
             }
+        
         model.setViewName("RetirarP");
         
     }
