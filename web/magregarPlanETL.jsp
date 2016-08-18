@@ -136,30 +136,15 @@
                 </select>
             </div>
             <div>   
-                <h2>Seleccione una Tienda</h2>        
+                <h2>Seleccione un ETL</h2>        
                 <select  name="nombreTienda" class="form-control">
-                    <option value="NONE">Seleccione una tienda...</option>
-                    <c:forEach items="${tienda}" var="item">
+                    <option value="NONE">Seleccione un ETL...</option>
+                    <c:forEach items="${etl}" var="item">
                         ${item}
                     </c:forEach>
                 </select>
             </div>
-            <div>
-                <div id="datetimepicker1" class="input-append date">
-                    <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
-                    <span class="add-on">
-                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                        </i>
-                    </span>
-                </div>
-            </div>
-            <script type="text/javascript">
-                $(function() {
-                    $('#datetimepicker1').datetimepicker({
-                    language: 'pt-BR'
-                    });
-                });
-            </script>
+
     </div>
                 
 

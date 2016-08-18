@@ -10,27 +10,20 @@
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
         </style>   
-        <!-- Bootstrap2 -->
-        <style type="text/css">
-            <%@include file="css/bootstrap-combined.min.css" %>
-        </style> 
-        <!-- CALENDARIO -->
-        <style type="text/css">
-            <%@include file="css/bootstrap-datetimepicker.min.css" %>
-        </style> 
-	<!-- CSS para el Responsive Slider-->
+       
+        <!--CSS para el Responsive Slider-->
         <style type="text/css">
             <%@include file="css/flexslider.css" %>
         </style>
-	<!-- Bootstrap Responsive-->
+        <!--Bootstrap Responsive-->
         <style type="text/css">
             <%@include file="css/bootstrap-responsive.css" %>
         </style>
-	<!-- Estilos de Banner	-->
+        <!--Estilos de Banner	-->
         <style type="text/css">
             <%@include file="css/banner.css" %>
         </style>		
-        <!-- Estilos Personales	-->
+        <!--Estilos Personales	-->
         <style type="text/css">
             <%@include file="css/miscss.css" %>
         </style>
@@ -39,31 +32,14 @@
         <script type="text/javascript" language="JavaScript">
             <%@ include file="jss/jquery-1.8.3.js" %>
         </script>
-	<!-- FlexSlider -->
+        <!--FlexSlider-->        
         <script type="text/javascript" language="JavaScript">
         <%@ include file="jss/jquery.flexslider.js" %>
         </script>
-	<!-- Bootstrap	-->
-        <!-- Jquery -->
-        <script type="text/javascript" language="JavaScript">
-            <%@ include file="jss/bootstrap-datetimepicker.min.js" %>
-        </script>
-        <!-- Jquery -->
-        <script type="text/javascript" language="JavaScript">
-            <%@ include file="jss/bootstrap-datetimepicker.pt-VE.js" %>
-        </script>
-        <!-- Jquery -->
-        <script type="text/javascript" language="JavaScript">
-            <%@ include file="jss/bootstrap.min.js" %>
-        </script>
-
+        <!--Bootstrap -->	
         <script type="text/javascript" language="JavaScript">
          <%@ include file="jss/bootstrap.js" %>
         </script>
-        <script type="text/javascript" language="JavaScript">
-         <%@ include file="jss/jquery.min.js" %>
-        </script>
-        
         
 
 	<script>
@@ -151,9 +127,8 @@
     <br>
 
     <div id="Bandejas" >
-        
-        
-            <div>   
+        <div>   
+             <form class="form-horizontal" action="ciagregarPlanificacion" method="POST">
                 <h2>Seleccione una Tienda</h2>        
                 <select  name="nombreTienda" class="form-control">
                     <option value="NONE">Seleccione una tienda...</option>
@@ -161,24 +136,34 @@
                         ${item}
                     </c:forEach>
                 </select>
-            </div>
+                <h4>Introduzca una Fecha</h4>
+                <input type="text"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
+                <br>
+                <h4>Introduzca una Hora</h4>
+                <input type="text" placeholder="hh-mm-ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
+                <br>
+                <input type="submit" value="planificar"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <br>
+            </form>
+                ${mensaje2}
+                 ${mensaje3}
+            <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("La planificación se agrego Exitosamente..!!");
+                }
+            </script>   
+            </c:if>
+            <c:if test="${mensaje == 'error'}">
+                <script language="JavaScript">
+                    {
+                        alert("Fallo al agregar la planificación..!!");
+                    }
+                </script>   
+            </c:if>
+        </div>    
         
-            <div>
-                <div id="datetimepicker1" class="input-append date">
-                    <input data-format="yyyy-MM-dd hh:mm:ss" type="text"></input>
-                    <span class="add-on">
-                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                        </i>
-                    </span>
-                </div>
-            </div>
-            <script type="text/javascript">
-                $(function() {
-                    $('#datetimepicker1').datetimepicker({
-                    language: 'pt-VE'
-                    });
-                });
-            </script>
     </div>
                 
 

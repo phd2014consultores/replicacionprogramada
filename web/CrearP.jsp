@@ -183,7 +183,6 @@
                 }
             </script>   
         </c:if>
-            ${error}
     </div>
         
 
