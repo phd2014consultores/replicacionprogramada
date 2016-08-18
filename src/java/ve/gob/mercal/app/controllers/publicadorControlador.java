@@ -156,12 +156,11 @@ public class publicadorControlador {
         String name = auth.getName(); //get logged in username
         int funcion=0;
         String validar = "";
-        String param = "NULL";
+        String param = "NULL"; 
         int id_u = 0; //id del usuario a insertar
         int id_t = 0; //id de la tienda para asignar al usuario
         int id_c_p = 0; // id del usuario actual.
-        //nameTienda = nameTienda.substring(0,nameTienda.length()-13);
-       // int test = 0;
+
        if(!nameTienda.equals("NONE")  && !namePub.equals("NONE") ) {
           try {
                 validar = wsQuery.getConsulta("SELECT pub.id_usuario" +
@@ -171,10 +170,47 @@ public class publicadorControlador {
                 Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
             }
          
-            if(!validar.equals("[]")){
-              //muestro msj de que el usuario ya existe en pub_tiendas
-              model.addObject("mensaje", "existe");
+            if(!validar.equals("[]")){ //chequear que el registro existe
+                  try {
+                         validar = wsQuery.getConsulta("SELECT pub.id_usuario" +
+                        " FROM usuarios u, tiendas t, pub_tiendas pub" +
+                        " WHERE t.tienda = '"+nameTienda+"' and u.usuario='"+namePub+"' and u.id_usuario = pub.id_usuario and t.id_tienda = pub.id_tienda and pub.activo=FALSE;");
+                    } catch (ExcepcionServicio ex) {
+                        Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 
+                if (!validar.equals("[]")){ // si el reistro existe, entonces verifico que este inactivo
+                    try {
+                            param = wsQuery.getConsulta("SELECT u.id_usuario, t.id_tienda, up.id_usuario as id_actual" +
+                            " FROM usuarios u, tiendas t, usuarios up" +
+                            " WHERE u.usuario ='"+namePub+"' and t.tienda = '"+nameTienda+"' and u.activo=TRUE and t.activo=TRUE and up.usuario='"+name+"';");
+                    } catch (ExcepcionServicio ex) {
+                        Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                
+                    JsonParser parser = new JsonParser();
+                    JsonElement elementObject;
+                    param = param.substring(1, param.length()-1);
+                    elementObject = parser.parse(param);
+                    id_u = elementObject.getAsJsonObject().get("id_usuario").getAsInt();
+                    id_t = elementObject.getAsJsonObject().get("id_tienda").getAsInt();
+                    id_c_p = elementObject.getAsJsonObject().get("id_actual").getAsInt();
+                      try {
+                        funcion=WsFuncion.getConsulta("public.update_pub_tiendas("+id_u+" ,"+ id_t+" ,"+ id_c_p+" );");
+               
+                            } catch (ExcepcionServicio ex) {
+                       Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
+                       }
+                    if(funcion>0){
+                     model.addObject("mensaje","exito");
+                    }else{
+                     model.addObject("mensaje", "error");
+                    }
+                    
+                }else{
+                 model.addObject("mensaje","existe");
+                
+                }
             }else{
                 //agrego el publicador con la respectiva tienda
              
@@ -251,7 +287,7 @@ public class publicadorControlador {
         }
         //publicadores agregados por actual
         try {
-            s4 = wsQuery.getConsulta("SELECT  u.usuario" +
+            s4 = wsQuery.getConsulta("SELECT distinct u.usuario" +
                     " FROM usuarios u, pub_tiendas pt, usuarios actual" +
                     " WHERE u.id_tipo_usuario = 2 AND u.usuario != '"+name+"' AND actual.usuario = '"+name+"' AND pt.id_usuario = u.id_usuario AND pt.id_creado_por = actual.id_usuario AND pt.activo=TRUE ;");
             
@@ -315,7 +351,7 @@ public class publicadorControlador {
           try {
                 validar = wsQuery.getConsulta("SELECT pub.id_usuario" +
                         " FROM usuarios u, tiendas t, pub_tiendas pub" +
-                        " WHERE t.tienda = '"+nameTienda+"' and u.usuario='"+namePub+"' and u.id_usuario = pub.id_usuario and t.id_tienda = pub.id_tienda and pub.activo = FALSE;");
+                        " WHERE t.tienda = '"+nameTienda+"' and u.usuario='"+namePub+"' and u.id_usuario = pub.id_usuario and t.id_tienda = pub.id_tienda");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -362,12 +398,6 @@ public class publicadorControlador {
     }
     return model;
     }
-     
-     // Query para obtener la lista de publicadores asignados a tiendas que fueron agregados por el usuario actual.
-//SELECT  u.usuario
-//FROM usuarios u, pub_tiendas pt, usuarios actual
-//WHERE u.id_tipo_usuario = 2 AND u.usuario != '"+name+"' AND actual.usuario = '"+name+"' AND pt.id_usuario = u.id_usuario AND pt.id_creado_por = actual.id_usuario ;
-//     
 
 
 
