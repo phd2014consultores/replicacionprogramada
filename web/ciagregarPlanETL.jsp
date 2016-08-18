@@ -105,7 +105,7 @@
     	<div class="row-fluid">
             <div class="span12">
                 <div id="barra_navegacion_desk" class="container navbar visible-desktop">
-                    <div id="barra" class="row navbar-inner">
+                    <div id="barra">
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                             <span class="icon-th-list"></span>
 			</a>
@@ -146,7 +146,7 @@
                 </select>
             </div>
         
-            <div class="well">
+            <div>
                 <div id="datetimepicker1" class="input-append date">
                     <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
                     <span class="add-on">

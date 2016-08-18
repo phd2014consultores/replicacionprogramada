@@ -14,7 +14,7 @@
         <style type="text/css">
             <%@include file="css/bootstrap-combined.min.css" %>
         </style> 
-        
+        <!-- CALENDARIO -->
         <style type="text/css">
             <%@include file="css/bootstrap-datetimepicker.min.css" %>
         </style> 
@@ -29,7 +29,8 @@
 	<!-- Estilos de Banner	-->
         <style type="text/css">
             <%@include file="css/banner.css" %>
-        </style>		<!-- Estilos Personales	-->
+        </style>		
+        <!-- Estilos Personales	-->
         <style type="text/css">
             <%@include file="css/miscss.css" %>
         </style>
@@ -49,7 +50,7 @@
         </script>
         <!-- Jquery -->
         <script type="text/javascript" language="JavaScript">
-            <%@ include file="jss/bootstrap-datetimepicker.pt-BR.js" %>
+            <%@ include file="jss/bootstrap-datetimepicker.pt-VE.js" %>
         </script>
         <!-- Jquery -->
         <script type="text/javascript" language="JavaScript">
@@ -59,6 +60,11 @@
         <script type="text/javascript" language="JavaScript">
          <%@ include file="jss/bootstrap.js" %>
         </script>
+        <script type="text/javascript" language="JavaScript">
+         <%@ include file="jss/jquery.min.js" %>
+        </script>
+        
+        
 
 	<script>
 		$(window).load(function(){
@@ -125,7 +131,7 @@
     	<div class="row-fluid">
             <div class="span12">
                 <div id="barra_navegacion_desk" class="container navbar visible-desktop">
-                    <div id="barra" class="row navbar-inner">
+                    <div id="barra">
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                             <span class="icon-th-list"></span>
 			</a>
@@ -157,9 +163,9 @@
                 </select>
             </div>
         
-            <div class="well">
+            <div>
                 <div id="datetimepicker1" class="input-append date">
-                    <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
+                    <input data-format="yyyy-MM-dd hh:mm:ss" type="text"></input>
                     <span class="add-on">
                         <i data-time-icon="icon-time" data-date-icon="icon-calendar">
                         </i>
@@ -169,7 +175,7 @@
             <script type="text/javascript">
                 $(function() {
                     $('#datetimepicker1').datetimepicker({
-                    language: 'pt-BR'
+                    language: 'pt-VE'
                     });
                 });
             </script>
