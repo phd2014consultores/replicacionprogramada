@@ -857,7 +857,7 @@ public class publicadorControlador {
         return model;
     }
     @RequestMapping(value = {"/ciagregarPlanETL"}, method = RequestMethod.POST)
-    public ModelAndView postciagregarPlanETL(@RequestParam(value = "listString", 
+    public ModelAndView postciagregarPlanETL(@RequestParam(value = "nombreTienda", 
                                                     required = false) String nombre){
         ModelAndView model = new ModelAndView();
         model.addObject("tienda","prueba");
@@ -873,7 +873,7 @@ public class publicadorControlador {
         return model;
     }
     @RequestMapping(value = {"/magregarPlanETL"}, method = RequestMethod.POST)
-    public ModelAndView postmagregarPlanETL(@RequestParam(value = "listString", 
+    public ModelAndView postmagregarPlanETL(@RequestParam(value = "nombreTienda", 
                                                     required = false) String nombre){
         ModelAndView model = new ModelAndView();
         model.addObject("tienda","prueba");
