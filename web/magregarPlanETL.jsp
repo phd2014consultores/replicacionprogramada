@@ -146,7 +146,7 @@
             </c:if>
             <h5>${msj_ejec}</h5>
             <c:if test="${not empty plan_ejec}">
-                <form class="form-horizontal" action="ejecutaETL" method="POST">
+                <form class="form-horizontal" action="magregarPlanETL" method="POST">
                     <select  name="ejecutadas" class="form-control" onchange="this.form.submit()">
                         <option value="NONE" >Seleccione una planificacion a detallar...</option>
                         <c:forEach items="${plan_ejec}" var="item">

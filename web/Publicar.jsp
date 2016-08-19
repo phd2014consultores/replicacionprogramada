@@ -128,17 +128,15 @@
     <div id="Bandejas" >
 	<h2 color="red">Estado de Publicaciones</h2>
 	<br>
-        
-                <form class="form-horizontal" action="Publicar" method="POST">
-                    <select  name="nameTienda2" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
-                        <option value="NONE" >Seleccione una tienda...</option>
-                        <c:forEach items="${tienda}" var="item">
-                            ${item}
-                        </c:forEach>
-                    </select>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form>
-         
+            <form class="form-horizontal" action="Publicar" method="POST">
+                <select  name="nameTienda2" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
+                    <option value="NONE" >Seleccione una tienda...</option>
+                    <c:forEach items="${tienda}" var="item">
+                        ${item}
+                    </c:forEach>
+                </select>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </form>
         <br>
         <div>
             <div id="Bandeja1">

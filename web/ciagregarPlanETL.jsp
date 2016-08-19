@@ -125,108 +125,84 @@
     <br>
 
     <div id="Bandejas" >
-        
-        
             <div>   
-                <h2>Seleccione una Tienda</h2>        
-                <select  name="nombreTienda" class="form-control">
-                    <option value="NONE">Seleccione una tienda...</option>
-                    <c:forEach items="${tienda}" var="item">
-                        ${item}
-                    </c:forEach>
-                </select>
+                <form class="form-horizontal" action="ciagregarPlanETL" method="POST">
+                    <h2>Seleccione una Tienda</h2>        
+                    <select  name="nombreTienda" class="form-control" onchange="this.form.submit()">
+                        <option value="NONE">Seleccione una tienda...</option>
+                        <c:forEach items="${tienda}" var="item">
+                            ${item}
+                        </c:forEach>
+                    </select>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
             </div>
+            <c:if test="${not empty mensaje}">
+            <script language="JavaScript">
+                {
+                    alert("No existen Planificaciones Culminadas para la Tienda..!!");
+                }
+            </script>   
+            </c:if>
             <div id="Bandeja1">
                 <h4 color="red">Etl ejecutados correctamente: </h4>
                 <h5>${mensaje_ejec}</h5>
                 <c:if test="${empty lista_etl_ejec}">
                 <textarea id="message2" cols="30" rows="15" disabled >
-                    
-                    <c:forEach items="${ejecutado}" var="item2">
-                            ${item2}
+                    <c:forEach items="${correctos}" var="item2">
+                        ${item2}
                     </c:forEach>
                 </textarea>
-                </c:if>
-                <h5>${msj_ejec}</h5>
-                <c:if test="${not empty plan_ejec}">
-                    <form class="form-horizontal" action="ejecutaETL" method="POST">
-                        <select  name="ejecutadas" class="form-control" onchange="this.form.submit()">
-                            <option value="NONE" >Seleccione una planificacion a detallar...</option>
-                            <c:forEach items="${plan_ejec}" var="item">
-                                ${item}
-                            </c:forEach>
-                        </select>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    </form>
-               </c:if>
-                
-                <c:if test="${not empty lista_etl_ejec}">
-                     <textarea id="message2" cols="30" rows="15" disabled >
-                    
-                    <c:forEach items="${lista_etl_ejec}" var="item2">
-                            ${item2}
-                    </c:forEach>
-                </textarea>
-                   
-               </c:if>
-                <br>
-               
+                </c:if>             
             </div>
             <div id="Bandeja1">
                 <h4 color="red">Etl ejecutados con fallas:</h4>
-                <h5>${mensaje_ter}</h5>
-                <c:if test="${empty lista_etl_ter}">
                 <textarea id="message2" cols="30" rows="15" disabled >
-                    
-                    <c:forEach items="${terminado}" var="item2">
-                            ${item2}
+                    <c:forEach items="${incorrectos}" var="item3">
+                        ${item3}
                     </c:forEach>
                 </textarea>
-                </c:if>
-                <h5>${msj_ter}</h5>
-                <c:if test="${not empty plan_ter}">
-                    <form class="form-horizontal" action="terminaETL" method="POST">
-                        <select  name="terminadas" class="form-control" onchange="this.form.submit()">
-                            <option value="NONE" >Seleccione una planificacion a detallar...</option>
-                            <c:forEach items="${plan_ter}" var="item">
-                                ${item}
-                            </c:forEach>
-                        </select>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    </form>
-                </c:if>
                 
-                <c:if test="${not empty lista_etl_ter}">
-                   <textarea id="message2" cols="30" rows="15" disabled >
-                    
-                    <c:forEach items="${lista_etl_ter}" var="item2">
-                            ${item2}
-                    </c:forEach>
-                </textarea>
-                   
-               </c:if>
-                <br>
                 <br>
             </div>
-            <div>   
-                <h2>Seleccione un ETL</h2>        
-                <select  name="nombreTienda" class="form-control">
-                    <option value="NONE">Seleccione un ETL...</option>
-                    <c:forEach items="${etl}" var="item">
-                        ${item}
-                    </c:forEach>
-                </select>
-            </div>
-            <h4>Introduzca una Fecha</h4>
-            <input type="text"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
-            <br>
-            <h4>Introduzca una Hora</h4>
-            <input type="text" placeholder="hh-mm-ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
-            <br>
-            <input type="submit" value="planificar"/>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <br>
+            
 
+            <div>   
+                <form class="form-horizontal" action="ci2agregarPlanETL" method="POST">
+                    <h2>Seleccione un ETL</h2>        
+                    <select  name="nombreETL" class="form-control">
+                        <option value="NONE">Seleccione un ETL...</option>
+                        <c:forEach items="${incorrectos2}" var="item2">
+                            ${item2}
+                        </c:forEach>
+                    </select>
+                    <h4>Introduzca una Fecha</h4>
+                    <input type="text"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
+                    <br>
+                    <h4>Introduzca una Hora</h4>
+                    <input type="text" placeholder="hh-mm-ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
+                    <br>
+                    <input type="submit" value="planificar"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <br>
+                </form>
+                <c:if test="${mensaje2 == 'exito'}">
+                    <script language="JavaScript">
+                        {
+                            alert("La planificación se agrego Exitosamente..!!");
+                        }
+                    </script>   
+                </c:if>
+                <c:if test="${mensaje2 == 'error'}">
+                    <script language="JavaScript">
+                        {
+                            alert("Fallo al agregar la planificación..!!");
+                        }
+                    </script>   
+                </c:if>
+                ${mensaje5}
+                ${mensaje6}
+            </div>
     </div>
                 
 

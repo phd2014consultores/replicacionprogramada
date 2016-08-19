@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import ve.gob.mercal.app.models.nombreTienda;
 import ve.gob.mercal.app.services.WsFuncionApp;
 import ve.gob.mercal.app.services.WsQuery;
 
@@ -38,6 +39,8 @@ public class publicadorControlador {
     @Autowired
     public WsQuery wsQuery;
     
+    @Autowired
+    public nombreTienda nombreTiendaUser;
     
     private String tienda = "";
     private String aux = "";
@@ -50,6 +53,8 @@ public class publicadorControlador {
     public List<String> listString6 = new ArrayList<>();
    // public List<String> listString7 = new ArrayList<>();
     public Model prueba;
+    
+
     
     public boolean existeCampo(String json,String palabra){   
         
@@ -892,15 +897,184 @@ public class publicadorControlador {
     @RequestMapping(value = {"/ciagregarPlanETL"}, method = RequestMethod.GET)
     public ModelAndView getciagregarPlanETL(){
         ModelAndView model = new ModelAndView();
-        model.addObject("tienda","prueba");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        String s = "NULL";
+        try {
+            s = wsQuery.getConsulta("SELECT t.tienda" +
+                        " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
+                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager ;");
+            
+            
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //tiendas
+        
+        JsonParser parser3 = new JsonParser();
+        JsonElement elementObject3;
+        s = s.substring(1, s.length()-1);
+        StringTokenizer st3 = new StringTokenizer(s,",");
+        
+        while (st3.hasMoreTokens()) {
+            s = st3.nextToken();
+            elementObject3 = parser3.parse(s);
+            this.tienda = elementObject3.getAsJsonObject()
+                    .get("tienda").getAsString();
+            listString3.add("<option value=\""+this.tienda+ "\">"+
+                                    this.tienda+"</option>");
+        }
+        
+        model.addObject("tienda",listString3);
         model.setViewName("ciagregarPlanETL");
         return model;
     }
     @RequestMapping(value = {"/ciagregarPlanETL"}, method = RequestMethod.POST)
     public ModelAndView postciagregarPlanETL(@RequestParam(value = "nombreTienda", 
-                                                    required = false) String nombre){
+                                                    required = false) String nameTienda){
         ModelAndView model = new ModelAndView();
-        model.addObject("tienda","prueba");
+        nombreTiendaUser.setnombreTienda(nameTienda);
+        model = getciagregarPlanETL();
+        String ultima_ejecucion = "NULL";
+        String id_tienda = "NULL";
+        String id_plan_ejec = "NULL";
+        String id_job = "NULL";
+        String list_etl = "NULL";
+        String list_etl2 = "NULL";
+        listString.clear();
+        listString2.clear();
+        listString4.clear();
+        try {
+            id_tienda = wsQuery.getConsulta("SELECT id_tienda FROM public.tiendas WHERE tienda='"+nameTienda+"'and activo=TRUE;");
+                    id_tienda = id_tienda.substring(1, id_tienda.length()-1);
+                    JsonParser parser3 = new JsonParser();
+                    JsonElement elementObject;
+                    elementObject = parser3.parse(id_tienda);
+                    id_tienda = elementObject.getAsJsonObject()
+                    .get("id_tienda").getAsString();
+            id_job = wsQuery.getConsulta("SELECT id_job FROM public.jobs WHERE job='INICIAR_CARGA' and activo=TRUE;");
+                    id_job = id_job.substring(1, id_job.length()-1);
+                    JsonParser parser = new JsonParser();
+                    JsonElement elementObject2;
+                    elementObject2 = parser.parse(id_job);
+                    id_job = elementObject2.getAsJsonObject()
+                    .get("id_job").getAsString();
+                    
+            ultima_ejecucion = wsQuery.getConsulta("SELECT max(id_plan_ejecucion) FROM public.plan_ejecuciones WHERE id_tienda="+id_tienda+" and id_job="+id_job+" and timestamp_fin_ejec != 'NULL';");
+                    
+                    if(!ultima_ejecucion.equals("[]")){
+                        
+                        id_plan_ejec = ultima_ejecucion.substring(1, ultima_ejecucion.length()-1);
+                        JsonParser parser2 = new JsonParser();
+                        JsonElement elementObject3;
+                        elementObject3 = parser2.parse(id_plan_ejec);
+                        id_plan_ejec = elementObject3.getAsJsonObject()
+                        .get("max").getAsString();
+                        nombreTiendaUser.setidEjec(id_plan_ejec);
+                    
+                    list_etl = wsQuery.getConsulta("SELECT e.etl FROM public.ejecucion_etls as ee, etls as e WHERE ee.id_ejecucion='"+id_plan_ejec+"' and ee.status_ejec='ejecutado' and ee.id_etl=e.id_etl;");
+                        JsonParser parser4 = new JsonParser();
+                        JsonElement elementObject4;
+                        list_etl = list_etl.substring(1, list_etl.length()-1);
+                        StringTokenizer st3 = new StringTokenizer(list_etl,",");              
+                        while (st3.hasMoreTokens()) {
+                            list_etl = st3.nextToken();
+                            elementObject4 = parser4.parse(list_etl);
+                            list_etl = elementObject4.getAsJsonObject()
+                                    .get("etl").getAsString();
+                            listString4.add(list_etl+"\n");
+                        }
+                        model.addObject("correctos",listString4);
+                    
+                                            
+                    list_etl2 = wsQuery.getConsulta("SELECT e.etl FROM public.ejecucion_etls as ee, etls as e WHERE ee.id_ejecucion='"+id_plan_ejec+"' and ee.status_ejec='no ejecutado' and ee.id_etl=e.id_etl;");
+                        JsonParser parser5 = new JsonParser();
+                        JsonElement elementObject5;
+                        list_etl2 = list_etl2.substring(1, list_etl2.length()-1);
+                        StringTokenizer st4 = new StringTokenizer(list_etl2,",");
+                        while (st4.hasMoreTokens()) {
+                            list_etl2 = st4.nextToken();
+                            elementObject5 = parser5.parse(list_etl2);
+                            list_etl2 = elementObject5.getAsJsonObject()
+                                    .get("etl").getAsString();
+                            listString2.add(list_etl2+"\n");
+                            listString.add("<option value=\""+list_etl2+ "\">"+list_etl2+"</option>");
+                        }
+                        model.addObject("incorrectos",listString2);
+                        model.addObject("incorrectos2",listString);
+    
+                    }else{
+                        model.addObject("mensaje", "vacio");
+                    }
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        model.setViewName("ciagregarPlanETL");
+        return model;
+    }
+    @RequestMapping(value = {"/ci2agregarPlanETL"}, method = RequestMethod.POST)
+    public ModelAndView getci2agregarPlanETL(@RequestParam(value = "fecha", 
+                                                    required = false) String fecha,
+                                                    @RequestParam(value = "hora", 
+                                                    required = false) String hora,
+                                                    @RequestParam(value = "nombreETL", 
+                                                    required = false) String nameETL){
+        
+        ModelAndView model = new ModelAndView();
+        model = getciagregarPlanETL();
+        
+        int result = -999;
+        int result2 = -999;
+        String id_tienda = "NULL";
+        String id_job = "NULL";        
+        String id_user = "NULL";
+                try{
+                    id_tienda = wsQuery.getConsulta("SELECT id_tienda FROM public.tiendas WHERE tienda='"+nombreTiendaUser.getnombreTienda()+"'and activo=TRUE;");
+                    id_tienda = id_tienda.substring(1, id_tienda.length()-1);
+                    JsonParser parser3 = new JsonParser();
+                    JsonElement elementObject;
+                    elementObject = parser3.parse(id_tienda);
+                    id_tienda = elementObject.getAsJsonObject()
+                    .get("id_tienda").getAsString();
+                    
+                    id_job = wsQuery.getConsulta("SELECT id_job FROM public.jobs WHERE job='INICIAR_CARGA_ETL' and activo=TRUE;");
+                    id_job = id_job.substring(1, id_job.length()-1);
+                    JsonParser parser = new JsonParser();
+                    JsonElement elementObject2;
+                    elementObject2 = parser.parse(id_job);
+                    id_job = elementObject2.getAsJsonObject()
+                    .get("id_job").getAsString();
+                    
+                    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                    String name = auth.getName(); //get logged in username
+                    
+                    
+                    id_user = wsQuery.getConsulta("SELECT id_usuario FROM public.usuarios WHERE usuario='"+name+"';");
+                    id_user = id_user.substring(1, id_user.length()-1);
+                    JsonParser parser2 = new JsonParser();
+                    JsonElement elementObject1;
+                    elementObject1 = parser2.parse(id_user);
+                    id_user = elementObject1.getAsJsonObject()
+                    .get("id_usuario").getAsString();
+                     
+                    
+                    
+                    result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+id_job+",'"+fecha+" "+hora+"',"+ id_user+");");
+                    result2 = WsFuncion.getConsulta("public.insert_parametros_ejecucion("+nombreTiendaUser.getidEjec()+", 'transformaciones','"+nameETL+"',"+id_user+");");
+                
+                } catch (ExcepcionServicio ex) {
+                    Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
+                if(result>0 && result2>0){
+                    model.addObject("mensaje2","exito");                    
+                }else{
+                    model.addObject("mensaje2", "error");
+                }
+                model.addObject("mensaje5", result);
+                model.addObject("mensaje6", result2);
         model.setViewName("ciagregarPlanETL");
         return model;
     }
@@ -909,7 +1083,7 @@ public class publicadorControlador {
     public ModelAndView getmagregarPlanETL(){
         ModelAndView model = new ModelAndView();
         model.addObject("tienda","prueba");
-        model.setViewName("magregarPlanificacion");
+        model.setViewName("magregarPlanETL");
         return model;
     }
     @RequestMapping(value = {"/magregarPlanETL"}, method = RequestMethod.POST)
