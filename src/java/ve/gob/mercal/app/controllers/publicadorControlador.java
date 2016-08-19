@@ -51,6 +51,12 @@ public class publicadorControlador {
    // public List<String> listString7 = new ArrayList<>();
     public Model prueba;
     
+    public boolean existeCampo(String json,String palabra){   
+        
+        
+    return json.matches("\""+ palabra +"\":");
+    }
+    
     @RequestMapping(value = {"/GestionAgregarP"}, method = {RequestMethod.GET})
     public ModelAndView getTienda(){
         ModelAndView model= new ModelAndView();
@@ -460,7 +466,7 @@ public class publicadorControlador {
                 plan=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
                 "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
                 "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job\n" +
-                "AND t.tienda='"+nameTienda+"';");
+                "AND t.tienda='"+nameTienda+"' and pe.timestamp_inicio_ejec = 'NULL';");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -471,7 +477,7 @@ public class publicadorControlador {
                 JsonElement elementObject;
                 plan = plan.substring(1, plan.length()-1);
                 StringTokenizer st = new StringTokenizer(plan,"}");
-                int planif=1;
+                
                 result="";
                 while (st.hasMoreTokens()) {
                     plan = st.nextToken()+"}";
@@ -481,17 +487,27 @@ public class publicadorControlador {
                     elementObject = parser.parse(plan);
                     valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
                     result= result + "Id Plan Ejecucion: "+valor+"\n";
+                    if(existeCampo(plan,"nro_control_pla")){
                     valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan= "+valor+"\n";
+                    }
+                    if(existeCampo(plan,"tienda")){
                     valor = elementObject.getAsJsonObject().get("tienda").getAsString();
                     result= result + "Tienda = "+valor+"\n";
+                    }
+                    if(existeCampo(plan,"job")){
                     valor = elementObject.getAsJsonObject().get("job").getAsString();
                     result= result + "Job = "+valor+"\n";
+                    }
+                    if(existeCampo(plan,"nro_control_ejec")){
                     valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
                     result= result + "Nro Control Ejecucion= "+valor+"\n";
+                    }
+                    if(existeCampo(plan,"observaciones")){
                     valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
                     result= result + "Observaciones= "+valor+"\n";
-                    if(elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString()!=null){
+                    }
+                    if(existeCampo(plan,"timestamp_planificacion")){
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
@@ -499,8 +515,8 @@ public class publicadorControlador {
                     listStringPlan.add(result);
                     lista_plan.add("<option value="+aux+ ">"+
                                     aux+"</option>");
-                    //listString2.add("\n");
-                    planif++;
+                    
+                    
                     valor="";
                     result="";
                     aux="";
@@ -512,31 +528,24 @@ public class publicadorControlador {
             model.addObject("mensaje_plan","No hay tareas planificadas para la tienda: "+nameTienda+"");
             
             }
-            //Ejecutadas
+            //En ejecucion
+
+             
             try {
-                ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
-                "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
-                "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job\n" +
-                "AND t.tienda='"+nameTienda+"';");
+                ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
+                "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion' \n" +
+                "AND t.tienda='"+nameTienda+"' AND pe.timestamp_fin_ejec = 'NULL';");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
-             
-//            try {
-//                ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
-//                "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
-//                "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion' \n" +
-//                "AND t.tienda='"+nameTienda+"' AND pe.timestamp_fin_ejec = null;");
-//            } catch (ExcepcionServicio ex) {
-//                Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
-//            }
             if(!ejec.equals("[]")){
                 
                 JsonParser parser2 = new JsonParser();
                 JsonElement elementObject2;
                 ejec = ejec.substring(1, ejec.length()-1);
                 StringTokenizer st2 = new StringTokenizer(ejec,"}");
-                int planif=1;
+                
                 result="";
                 while (st2.hasMoreTokens()) {
                     ejec = st2.nextToken()+"}";
@@ -546,17 +555,31 @@ public class publicadorControlador {
                     elementObject2 = parser2.parse(ejec);
                     valor = elementObject2.getAsJsonObject().get("id_plan_ejecucion").getAsString();
                     result= result + "Id Plan Ejecucion: "+valor+"\n";
+                     if(existeCampo(ejec,"nro_control_pla")){
                     valor = elementObject2.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan= "+valor+"\n";
+                    }
+                    if(existeCampo(ejec,"tienda")){
                     valor = elementObject2.getAsJsonObject().get("tienda").getAsString();
                     result= result + "Tienda = "+valor+"\n";
+                    }
+                    if(existeCampo(ejec,"job")){
                     valor = elementObject2.getAsJsonObject().get("job").getAsString();
                     result= result + "Job = "+valor+"\n";
+                    }
+                    if(existeCampo(ejec,"nro_control_ejec")){
                     valor = elementObject2.getAsJsonObject().get("nro_control_ejec").getAsString();
                     result= result + "Nro Control Ejecucion= "+valor+"\n";
+                    }
+                     if(existeCampo(ejec,"revisado")){
+                        valor = elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                        result= result + "Revisado = "+valor+"\n";
+                    }
+                    if(existeCampo(ejec,"observaciones")){
                     valor = elementObject2.getAsJsonObject().get("observaciones").getAsString();
                     result= result + "Observaciones= "+valor+"\n";
-                     if(elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString()!=null){
+                    }
+                    if(existeCampo(ejec,"timestamp_planificacion")){
                         valor = elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
@@ -564,8 +587,8 @@ public class publicadorControlador {
                     listStringEjec.add(result);
                     lista_ejec.add("<option value="+aux+ ">"+
                                     aux+"</option>");
-                    //listString2.add("\n");
-                    planif++;
+                   
+                    
                     valor="";
                     result="";
                     aux="";
@@ -601,17 +624,31 @@ public class publicadorControlador {
                     elementObject3 = parser3.parse(ter);
                     valor = elementObject3.getAsJsonObject().get("id_plan_ejecucion").getAsString();
                     result= result + "Id Plan Ejecucion: "+valor+"\n";
+                     if(existeCampo(ter,"nro_control_pla")){
                     valor = elementObject3.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan= "+valor+"\n";
+                    }
+                    if(existeCampo(ter,"tienda")){
                     valor = elementObject3.getAsJsonObject().get("tienda").getAsString();
                     result= result + "Tienda = "+valor+"\n";
+                    }
+                    if(existeCampo(ter,"job")){
                     valor = elementObject3.getAsJsonObject().get("job").getAsString();
                     result= result + "Job = "+valor+"\n";
+                    }
+                    if(existeCampo(ter,"nro_control_ejec")){
                     valor = elementObject3.getAsJsonObject().get("nro_control_ejec").getAsString();
                     result= result + "Nro Control Ejecucion= "+valor+"\n";
+                    }
+                    if(existeCampo(ter,"revisado")){
+                        valor = elementObject3.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                        result= result + "Revisado = "+valor+"\n";
+                    }
+                    if(existeCampo(ter,"observaciones")){
                     valor = elementObject3.getAsJsonObject().get("observaciones").getAsString();
                     result= result + "Observaciones= "+valor+"\n";
-                     if(elementObject3.getAsJsonObject().get("timestamp_planificacion").getAsString()!=null){
+                    }
+                    if(existeCampo(ter,"timestamp_planificacion")){
                         valor = elementObject3.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
@@ -619,7 +656,7 @@ public class publicadorControlador {
                     listStringTer.add(result);
                     lista_ter.add("<option value="+aux+ ">"+
                                     aux+"</option>");
-                    //listString2.add("\n");
+                    
                     
                     valor="";
                     result="";
