@@ -100,7 +100,7 @@ public class publicadorControlador {
             elementObject3 = parser3.parse(s);
             this.tienda = elementObject3.getAsJsonObject()
                     .get("tienda").getAsString();
-            listString3.add("<option value="+this.tienda+ ">"+
+            listString3.add("<option value=\""+this.tienda+ "\">"+
                                     this.tienda+"</option>");
             }
         
@@ -127,7 +127,7 @@ public class publicadorControlador {
             elementObject2 = parser2.parse(s2);
             valor = elementObject2.getAsJsonObject().get("usuario").getAsString();
             this.tienda=valor;
-             listString4.add("<option value="+this.tienda+ ">"+
+             listString4.add("<option value=\""+this.tienda+ "\">"+
                                 this.tienda+"</option>");
             //listString2.add("\n");
 
@@ -281,7 +281,7 @@ public class publicadorControlador {
             elementObject3 = parser3.parse(s);
             this.tienda = elementObject3.getAsJsonObject()
                     .get("tienda").getAsString();
-            listString3.add("<option value="+this.tienda+ ">"+
+            listString3.add("<option value=\""+this.tienda+ "\">"+
                                     this.tienda+"</option>");
         }
         //publicadores agregados por actual
@@ -313,7 +313,7 @@ public class publicadorControlador {
                 elementObject4 = parser4.parse(s4);
                 valor = elementObject4.getAsJsonObject().get("usuario").getAsString();
                 this.tienda=valor;
-                 listString5.add("<option value="+this.tienda+ ">"+
+                 listString5.add("<option value=\""+this.tienda+"\">"+
                                     this.tienda+"</option>");
                 //listString2.add("\n");
                 
@@ -426,7 +426,7 @@ public class publicadorControlador {
             elementObject3 = parser3.parse(tiendas);
             this.tienda = elementObject3.getAsJsonObject()
                     .get("tienda").getAsString();
-            listString3.add("<option value="+this.tienda+ ">"+
+            listString3.add("<option value=\""+this.tienda+ "\">"+
                                     this.tienda+"</option>");
             }
         model.addObject("tienda", listString3);
@@ -684,7 +684,7 @@ public class publicadorControlador {
             elementObject3 = parser3.parse(s);
             this.tienda = elementObject3.getAsJsonObject()
                     .get("tienda").getAsString();
-            listString3.add("<option value="+this.tienda+ ">"+
+            listString3.add("<option value=\""+this.tienda+ "\">"+
                                     this.tienda+"</option>");
             }
         model.addObject("tienda",listString3);
@@ -781,7 +781,7 @@ public class publicadorControlador {
             elementObject3 = parser3.parse(s);
             this.tienda = elementObject3.getAsJsonObject()
                     .get("tienda").getAsString();
-            listString3.add("<option value="+this.tienda+ ">"+
+            listString3.add("<option value=\""+this.tienda+ "\">"+
                                     this.tienda+"</option>");
             }
         model.addObject("tienda",listString3);
