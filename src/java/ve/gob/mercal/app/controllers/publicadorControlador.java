@@ -53,8 +53,11 @@ public class publicadorControlador {
     
     public boolean existeCampo(String json,String palabra){   
         
+        if(json.toLowerCase().contains(palabra.toLowerCase())){
+        return true;
+        }
         
-    return json.matches("\""+ palabra +"\":");
+    return false;
     }
     
     @RequestMapping(value = {"/GestionAgregarP"}, method = {RequestMethod.GET})
@@ -487,15 +490,15 @@ public class publicadorControlador {
                     elementObject = parser.parse(plan);
                     valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
                     result= result + "Id Plan Ejecucion: "+valor+"\n";
-                    if(existeCampo(plan,"nro_control_pla")){
+                    if(existeCampo(plan,"nro_control_plan")){
                     valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan= "+valor+"\n";
                     }
-                    if(existeCampo(plan,"tienda")){
+                    if(existeCampo(plan,"tienda")==true){
                     valor = elementObject.getAsJsonObject().get("tienda").getAsString();
                     result= result + "Tienda = "+valor+"\n";
                     }
-                    if(existeCampo(plan,"job")){
+                    if(existeCampo(plan,"job")==true){
                     valor = elementObject.getAsJsonObject().get("job").getAsString();
                     result= result + "Job = "+valor+"\n";
                     }
@@ -511,7 +514,7 @@ public class publicadorControlador {
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
-                    aux=elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();; 
+                    aux=elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString(); 
                     listStringPlan.add(result);
                     lista_plan.add("<option value="+aux+ ">"+
                                     aux+"</option>");
@@ -572,7 +575,7 @@ public class publicadorControlador {
                     result= result + "Nro Control Ejecucion= "+valor+"\n";
                     }
                      if(existeCampo(ejec,"revisado")){
-                        valor = elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                        valor = elementObject2.getAsJsonObject().get("revisado").getAsString();
                         result= result + "Revisado = "+valor+"\n";
                     }
                     if(existeCampo(ejec,"observaciones")){
@@ -641,7 +644,7 @@ public class publicadorControlador {
                     result= result + "Nro Control Ejecucion= "+valor+"\n";
                     }
                     if(existeCampo(ter,"revisado")){
-                        valor = elementObject3.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                        valor = elementObject3.getAsJsonObject().get("revisado").getAsString();
                         result= result + "Revisado = "+valor+"\n";
                     }
                     if(existeCampo(ter,"observaciones")){
@@ -948,7 +951,7 @@ public class publicadorControlador {
             try {
                    etl_plan=wsQuery.getConsulta("SELECT  e.id_etl, e.etl, ee.status_ejec\n" +
                             "FROM public.plan_ejecuciones as pe, public.ejecucion_etls as ee, public.etls as e\n" +
-                            "WHERE pe.id_plan_ejecucion='"+plan+"' and pe.id_plan_ejecucion = ee.id_ejecucion and ee.id_etl = e.id_etl ");
+                            "WHERE pe.id_plan_ejecucion="+plan+" and pe.id_plan_ejecucion = ee.id_ejecucion and ee.id_etl = e.id_etl and e.activo=TRUE;");
                } catch (ExcepcionServicio ex) {
                    Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
                }
@@ -1009,7 +1012,7 @@ public class publicadorControlador {
             try {
                    etl_ejec=wsQuery.getConsulta("SELECT  e.id_etl, e.etl, ee.status_ejec\n" +
                             "FROM public.plan_ejecuciones as pe, public.ejecucion_etls as ee, public.etls as e\n" +
-                            "WHERE pe.id_plan_ejecucion='"+ejec+"' and pe.id_plan_ejecucion = ee.id_ejecucion and ee.id_etl = e.id_etl ");
+                            "WHERE pe.id_plan_ejecucion="+ejec+" and pe.id_plan_ejecucion = ee.id_ejecucion and ee.id_etl = e.id_etl and e.activo=TRUE; ");
                } catch (ExcepcionServicio ex) {
                    Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
                }
@@ -1069,7 +1072,7 @@ public class publicadorControlador {
             try {
                    etl_ter=wsQuery.getConsulta("SELECT  e.id_etl, e.etl, ee.status_ejec\n" +
                             "FROM public.plan_ejecuciones as pe, public.ejecucion_etls as ee, public.etls as e\n" +
-                            "WHERE pe.id_plan_ejecucion='"+ter+"' and pe.id_plan_ejecucion = ee.id_ejecucion and ee.id_etl = e.id_etl ");
+                            "WHERE pe.id_plan_ejecucion="+ter+" and pe.id_plan_ejecucion = ee.id_ejecucion and ee.id_etl = e.id_etl and e.activo=TRUE; ");
                } catch (ExcepcionServicio ex) {
                    Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
                }
