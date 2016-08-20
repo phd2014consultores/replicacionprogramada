@@ -1027,6 +1027,7 @@ public class publicadorControlador {
         String id_tienda = "NULL";
         String id_job = "NULL";        
         String id_user = "NULL";
+            if(!nameETL.equals("NONE")){
                 try{
                     id_tienda = wsQuery.getConsulta("SELECT id_tienda FROM public.tiendas WHERE tienda='"+nombreTiendaUser.getnombreTienda()+"'and activo=TRUE;");
                     id_tienda = id_tienda.substring(1, id_tienda.length()-1);
@@ -1069,7 +1070,10 @@ public class publicadorControlador {
                 
                 } catch (ExcepcionServicio ex) {
                     Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
-                }            
+                }
+            }else{
+                model.addObject("mensaje2", "error");
+            }
         model.setViewName("ciagregarPlanETL");
         return model;
     }
@@ -1207,6 +1211,7 @@ public class publicadorControlador {
         String id_tienda = "NULL";
         String id_job = "NULL";        
         String id_user = "NULL";
+            if(!nameETL.equals("NONE")){
                 try{
                     id_tienda = wsQuery.getConsulta("SELECT id_tienda FROM public.tiendas WHERE tienda='"+nombreTiendaUser.getnombreTienda()+"'and activo=TRUE;");
                     id_tienda = id_tienda.substring(1, id_tienda.length()-1);
@@ -1249,7 +1254,10 @@ public class publicadorControlador {
                 
                 } catch (ExcepcionServicio ex) {
                     Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
-                }            
+                }
+            }else{
+                model.addObject("mensaje2", "error");
+            }
         model.setViewName("magregarPlanETL");
         return model;
     }
