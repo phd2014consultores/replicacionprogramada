@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 public class nombreTienda {
     
     private String nameTienda;
-    private String idEjec;
     
     public String setnombreTienda (String nameTienda){    
         this.nameTienda = nameTienda;     
@@ -26,13 +25,5 @@ public class nombreTienda {
     
     public String getnombreTienda (){
         return this.nameTienda;
-    }
-    public String setidEjec (String idEjec){    
-        this.idEjec = idEjec;     
-        return this.idEjec;
-    }
-    
-    public String getidEjec (){
-        return this.idEjec;
     }
 }

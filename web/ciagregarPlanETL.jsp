@@ -200,8 +200,6 @@
                         }
                     </script>   
                 </c:if>
-                ${mensaje5}
-                ${mensaje6}
             </div>
     </div>
                 

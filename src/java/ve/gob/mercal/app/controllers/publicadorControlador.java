@@ -28,7 +28,7 @@ import ve.gob.mercal.app.services.WsQuery;
 
 /**
  *
- * @author wso2
+ * @author phd2014
  */
 @Controller
 @Scope("request")
@@ -960,7 +960,6 @@ public class publicadorControlador {
                     elementObject2 = parser.parse(id_job);
                     id_job = elementObject2.getAsJsonObject()
                     .get("id_job").getAsString();
-                    
             ultima_ejecucion = wsQuery.getConsulta("SELECT max(id_plan_ejecucion) FROM public.plan_ejecuciones WHERE id_tienda="+id_tienda+" and id_job="+id_job+" and timestamp_fin_ejec != 'NULL';");
                     
                     if(!ultima_ejecucion.equals("[]")){
@@ -971,7 +970,6 @@ public class publicadorControlador {
                         elementObject3 = parser2.parse(id_plan_ejec);
                         id_plan_ejec = elementObject3.getAsJsonObject()
                         .get("max").getAsString();
-                        nombreTiendaUser.setidEjec(id_plan_ejec);
                     
                     list_etl = wsQuery.getConsulta("SELECT e.etl FROM public.ejecucion_etls as ee, etls as e WHERE ee.id_ejecucion='"+id_plan_ejec+"' and ee.status_ejec='ejecutado' and ee.id_etl=e.id_etl;");
                         JsonParser parser4 = new JsonParser();
@@ -1023,8 +1021,7 @@ public class publicadorControlador {
                                                     required = false) String nameETL){
         
         ModelAndView model = new ModelAndView();
-        model = getciagregarPlanETL();
-        
+        model = getciagregarPlanETL();      
         int result = -999;
         int result2 = -999;
         String id_tienda = "NULL";
@@ -1049,8 +1046,7 @@ public class publicadorControlador {
                     
                     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                     String name = auth.getName(); //get logged in username
-                    
-                    
+                                      
                     id_user = wsQuery.getConsulta("SELECT id_usuario FROM public.usuarios WHERE usuario='"+name+"';");
                     id_user = id_user.substring(1, id_user.length()-1);
                     JsonParser parser2 = new JsonParser();
@@ -1058,21 +1054,22 @@ public class publicadorControlador {
                     elementObject1 = parser2.parse(id_user);
                     id_user = elementObject1.getAsJsonObject()
                     .get("id_usuario").getAsString();
-                     
-                    
-                    
+
                     result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+id_job+",'"+fecha+" "+hora+"',"+ id_user+");");
-                    result2 = WsFuncion.getConsulta("public.insert_parametros_ejecucion("+nombreTiendaUser.getidEjec()+", 'transformaciones','"+nameETL+"',"+id_user+");");
+                    if(result >0 ){
+                        result2 = WsFuncion.getConsulta("public.insert_parametros_ejecucion("+result+",'transformaciones','"+nameETL+"',"+id_user+");");
+                        if(result2>0){
+                            model.addObject("mensaje2","exito");                    
+                        }else{
+                            model.addObject("mensaje2", "error");
+                        }
+                    }else{
+                        model.addObject("mensaje2", "error");
+                    }        
                 
                 } catch (ExcepcionServicio ex) {
                     Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        
-                if(result>0 && result2>0){
-                    model.addObject("mensaje2","exito");                    
-                }else{
-                    model.addObject("mensaje2", "error");
-                }
+                }            
                 model.addObject("mensaje5", result);
                 model.addObject("mensaje6", result2);
         model.setViewName("ciagregarPlanETL");
