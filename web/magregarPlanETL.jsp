@@ -145,24 +145,13 @@
         </c:if>
         <div id="Bandeja1">
             <h4 color="red">Etl ejecutados correctamente: </h4>
-            <h5>${mensaje_ejec}</h5>
-            <c:if test="${empty lista_etl_ejec}">
-            <textarea id="message2" cols="30" rows="15" disabled >
-                <c:forEach items="${correctos}" var="item2">
-                    ${item2}
-                </c:forEach>
+            <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${correctos}" var="item2">${item2}</c:forEach>
             </textarea>
-            </c:if>             
         </div>
         <div id="Bandeja1">
             <h4 color="red">Etl ejecutados con fallas:</h4>
-            <textarea id="message2" cols="30" rows="15" disabled >
-                <c:forEach items="${incorrectos}" var="item3">
-                    ${item3}
-                </c:forEach>
+            <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${incorrectos}" var="item3">${item3}</c:forEach>
             </textarea>
-
-            <br>
         </div>
         <div>   
             <form class="form-horizontal" action="m2agregarPlanETL" method="POST">
@@ -173,15 +162,15 @@
                         ${item2}
                     </c:forEach>
                 </select>
+                <br><br><br>
                 <h4>Introduzca una Fecha</h4>
                 <input type="text"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
-                <br>
+                <br><br><br>
                 <h4>Introduzca una Hora</h4>
                 <input type="text" placeholder="hh-mm-ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
-                <br>
+                <br><br><br>
                 <input type="submit" value="planificar"/>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                <br>
             </form>
             <c:if test="${mensaje2 == 'exito'}">
                 <script language="JavaScript">

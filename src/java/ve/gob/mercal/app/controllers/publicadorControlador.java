@@ -72,17 +72,7 @@ public class publicadorControlador {
         model.setViewName("GestionAgregarP");
         return model;
     }
-    
-    //controlador para mostrar los publicadores asociados a la tienda seleccionada
-    
-         @RequestMapping(value = {"/GestionAgregarP"}, method = RequestMethod.POST)
-    public ModelAndView listarPublicadores(){
-        ModelAndView model = new ModelAndView();
-        model=getTienda();
-            model.setViewName("GestionAgregarP");
- 
-        return model;
-    }
+   
     
     //controlador para agregar publicadores a una tienda en especifico
     @RequestMapping(value = {"/CrearP"}, method = RequestMethod.GET)
@@ -981,7 +971,7 @@ public class publicadorControlador {
                             elementObject4 = parser4.parse(list_etl);
                             list_etl = elementObject4.getAsJsonObject()
                                     .get("etl").getAsString();
-                            listString4.add(list_etl+"\n");
+                            listString4.add("> "+list_etl+"\n");
                         }
                         model.addObject("correctos",listString4);
                     
@@ -996,7 +986,7 @@ public class publicadorControlador {
                             elementObject5 = parser5.parse(list_etl2);
                             list_etl2 = elementObject5.getAsJsonObject()
                                     .get("etl").getAsString();
-                            listString2.add(list_etl2+"\n");
+                            listString2.add("> "+list_etl2+"\n");
                             listString.add("<option value=\""+list_etl2+ "\">"+list_etl2+"</option>");
                         }
                         model.addObject("incorrectos",listString2);
@@ -1128,6 +1118,7 @@ public class publicadorControlador {
         listString.clear();
         listString2.clear();
         listString4.clear();
+        
         try {
             id_tienda = wsQuery.getConsulta("SELECT id_tienda FROM public.tiendas WHERE tienda='"+nameTienda+"'and activo=TRUE;");
                     id_tienda = id_tienda.substring(1, id_tienda.length()-1);
@@ -1164,7 +1155,7 @@ public class publicadorControlador {
                             elementObject4 = parser4.parse(list_etl);
                             list_etl = elementObject4.getAsJsonObject()
                                     .get("etl").getAsString();
-                            listString4.add(list_etl+"\n");
+                            listString4.add("> "+list_etl+"\n");
                         }
                         model.addObject("correctos",listString4);
                     
@@ -1179,7 +1170,7 @@ public class publicadorControlador {
                             elementObject5 = parser5.parse(list_etl2);
                             list_etl2 = elementObject5.getAsJsonObject()
                                     .get("etl").getAsString();
-                            listString2.add(list_etl2+"\n");
+                            listString2.add("> "+list_etl2+"\n");
                             listString.add("<option value=\""+list_etl2+ "\">"+list_etl2+"</option>");
                         }
                         model.addObject("incorrectos",listString2);
