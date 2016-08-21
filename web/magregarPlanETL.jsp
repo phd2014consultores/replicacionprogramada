@@ -124,84 +124,81 @@
     </div>
     <br>
     <div id="Bandejas" >
-            <div>   
-                <form class="form-horizontal" action="magregarPlanETL" method="POST">
-                    <h2>Seleccione una Tienda</h2>        
-                    <select  name="nombreTienda" class="form-control" onchange="this.form.submit()">
-                        <option value="NONE">Seleccione una tienda...</option>
-                        <c:forEach items="${tienda}" var="item">
-                            ${item}
-                        </c:forEach>
-                    </select>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form>
-            </div>
-            <c:if test="${not empty mensaje}">
-            <script language="JavaScript">
-                {
-                    alert("No existen Planificaciones Culminadas para la Tienda..!!");
-                }
-            </script>   
-            </c:if>
-            <div id="Bandeja1">
-                <h4 color="red">Etl ejecutados correctamente: </h4>
-                <h5>${mensaje_ejec}</h5>
-                <c:if test="${empty lista_etl_ejec}">
-                <textarea id="message2" cols="30" rows="15" disabled >
-                    <c:forEach items="${correctos}" var="item2">
+        <div>   
+            <form class="form-horizontal" action="magregarPlanETL" method="POST">
+                <h2>Seleccione una Tienda</h2>        
+                <select  name="nombreTienda" class="form-control" onchange="this.form.submit()">
+                    <option value="NONE">Seleccione una tienda...</option>
+                    <c:forEach items="${tienda}" var="item">
+                        ${item}
+                    </c:forEach>
+                </select>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </form>
+        </div>
+        <c:if test="${not empty mensaje}">
+        <script language="JavaScript">
+            {
+                alert("No existen Planificaciones Culminadas para la Tienda..!!");
+            }
+        </script>
+        </c:if>
+        <div id="Bandeja1">
+            <h4 color="red">Etl ejecutados correctamente: </h4>
+            <h5>${mensaje_ejec}</h5>
+            <c:if test="${empty lista_etl_ejec}">
+            <textarea id="message2" cols="30" rows="15" disabled >
+                <c:forEach items="${correctos}" var="item2">
+                    ${item2}
+                </c:forEach>
+            </textarea>
+            </c:if>             
+        </div>
+        <div id="Bandeja1">
+            <h4 color="red">Etl ejecutados con fallas:</h4>
+            <textarea id="message2" cols="30" rows="15" disabled >
+                <c:forEach items="${incorrectos}" var="item3">
+                    ${item3}
+                </c:forEach>
+            </textarea>
+
+            <br>
+        </div>
+        <div>   
+            <form class="form-horizontal" action="m2agregarPlanETL" method="POST">
+                <h2>Seleccione un ETL</h2>        
+                <select  name="nombreETL" class="form-control">
+                    <option value="NONE">Seleccione un ETL...</option>
+                    <c:forEach items="${incorrectos2}" var="item2">
                         ${item2}
                     </c:forEach>
-                </textarea>
-                </c:if>             
-            </div>
-            <div id="Bandeja1">
-                <h4 color="red">Etl ejecutados con fallas:</h4>
-                <textarea id="message2" cols="30" rows="15" disabled >
-                    <c:forEach items="${incorrectos}" var="item3">
-                        ${item3}
-                    </c:forEach>
-                </textarea>
-                
+                </select>
+                <h4>Introduzca una Fecha</h4>
+                <input type="text"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
                 <br>
-            </div>
-            
-
-            <div>   
-                <form class="form-horizontal" action="m2agregarPlanETL" method="POST">
-                    <h2>Seleccione un ETL</h2>        
-                    <select  name="nombreETL" class="form-control">
-                        <option value="NONE">Seleccione un ETL...</option>
-                        <c:forEach items="${incorrectos2}" var="item2">
-                            ${item2}
-                        </c:forEach>
-                    </select>
-                    <h4>Introduzca una Fecha</h4>
-                    <input type="text"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
-                    <br>
-                    <h4>Introduzca una Hora</h4>
-                    <input type="text" placeholder="hh-mm-ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
-                    <br>
-                    <input type="submit" value="planificar"/>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    <br>
-                </form>
-                <c:if test="${mensaje2 == 'exito'}">
-                    <script language="JavaScript">
-                        {
-                            alert("La planificación se agrego Exitosamente..!!");
-                        }
-                    </script>   
-                </c:if>
-                <c:if test="${mensaje2 == 'error'}">
-                    <script language="JavaScript">
-                        {
-                            alert("Fallo al agregar la planificación..!!");
-                        }
-                    </script>   
-                </c:if>
-            </div>
+                <h4>Introduzca una Hora</h4>
+                <input type="text" placeholder="hh-mm-ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
+                <br>
+                <input type="submit" value="planificar"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <br>
+            </form>
+            <c:if test="${mensaje2 == 'exito'}">
+                <script language="JavaScript">
+                    {
+                        alert("La planificación se agrego Exitosamente..!!");
+                    }
+                </script>   
+            </c:if>
+            <c:if test="${mensaje2 == 'error'}">
+                <script language="JavaScript">
+                    {
+                        alert("Fallo al agregar la planificación..!!");
+                    }
+                </script>   
+            </c:if>
+        </div>
     </div>        
-
     <br>
     <div class="row-fluid">
 	<div class="span12">
@@ -211,9 +208,6 @@
             </div>
         </div>
     </div> 
-	
-
-
 	<c:url value="/logout" var="logoutUrl" />
 	<form action="${logoutUrl}" method="post" id="logoutForm">
 		<input type="hidden" name="${_csrf.parameterName}"
