@@ -148,7 +148,7 @@
                 <h4 color="red">Etl ejecutados correctamente: </h4>
                 <h5>${mensaje_ejec}</h5>
                 <c:if test="${empty lista_etl_ejec}">
-                <textarea id="message2" cols="30" rows="15" disabled >
+                <textarea cols="30" rows="15" disabled >
                     <c:forEach items="${correctos}" var="item2">
                         ${item2}
                     </c:forEach>
@@ -157,7 +157,7 @@
             </div>
             <div id="Bandeja1">
                 <h4 color="red">Etl ejecutados con fallas:</h4>
-                <textarea id="message2" cols="30" rows="15" disabled >
+                <textarea cols="30" rows="15" disabled >
                     <c:forEach items="${incorrectos}" var="item3">
                         ${item3}
                     </c:forEach>
