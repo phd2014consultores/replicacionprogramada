@@ -145,12 +145,12 @@
         </c:if>
         <div id="Bandeja1">
             <h4 color="red">Etl ejecutados correctamente: </h4>
-            <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${correctos}" var="item2">${item2}</c:forEach>
+            <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${correctos}" var="item2">&#9679${item2}</c:forEach>
             </textarea>
         </div>
         <div id="Bandeja1">
             <h4 color="red">Etl ejecutados con fallas:</h4>
-            <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${incorrectos}" var="item3">${item3}</c:forEach>
+            <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${incorrectos}" var="item3">&#9679${item3}</c:forEach>
             </textarea>
         </div>
         <div>   

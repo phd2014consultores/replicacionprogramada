@@ -1157,7 +1157,7 @@ public class publicadorControlador {
                             elementObject4 = parser4.parse(list_etl);
                             list_etl = elementObject4.getAsJsonObject()
                                     .get("etl").getAsString();
-                            listString4.add("> "+list_etl+"\n");
+                            listString4.add(list_etl+"\n\n");
                         }
                         model.addObject("correctos",listString4);
                     
@@ -1172,7 +1172,7 @@ public class publicadorControlador {
                             elementObject5 = parser5.parse(list_etl2);
                             list_etl2 = elementObject5.getAsJsonObject()
                                     .get("etl").getAsString();
-                            listString2.add("> "+list_etl2+"\n");
+                            listString2.add(list_etl2+"\n\n");
                             listString.add("<option value=\""+list_etl2+ "\">"+list_etl2+"</option>");
                         }
                         model.addObject("incorrectos",listString2);
