@@ -272,7 +272,12 @@ public class adminController {
         return model;
     }     
         
-        
+    @RequestMapping(value = {"/ModificarUsuario"}, method = {RequestMethod.GET})
+        public ModelAndView getmodificarusuarioAdmin(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("ModificarUsuario");
+        return model;
+    }    
         
         
     
