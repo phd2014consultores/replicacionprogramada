@@ -162,7 +162,9 @@
             <c:if test="${not empty publicacion}">    
                 
                 <h2>Publicaciones Ejecutadas</h2>
-                Tienda: ${publicacion2}
+                <br>
+                <h4>Tienda: ${publicacion2}</h4>
+                <br>
                 <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${publicacion}" var="item2">&#9679${item2}</c:forEach>
                 </textarea>   
             <h2>Detalle de Publicación</h2>
@@ -176,8 +178,9 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       
             </form>
+                
+               
             </c:if>
-            
             <c:if test="${not empty detalle1}">
                     <script language="JavaScript">
                         {
@@ -188,7 +191,7 @@
 
             <c:if test="${not empty detalle}">
                 <h2>Listado de ETL</h2>
-                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left">${detalle}
+                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${detalle}" var="item3">&#9679${item3}</c:forEach>
                 </textarea>      
             </c:if>
         </div>

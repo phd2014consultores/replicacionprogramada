@@ -165,7 +165,6 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
             </c:if>
-            
             <c:if test="${not empty detalle1}">
                    <script language="JavaScript">
                             alert("No posee detalle de publicaciones asociadas");
@@ -174,7 +173,7 @@
 
             <c:if test="${not empty detalle}">
                 <h2>Listado de ETL</h2>
-                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left">&#9679${detalle}
+                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${detalle}" var="item3">&#9679${item3}</c:forEach>
                 </textarea>     
             </c:if>
         </div>

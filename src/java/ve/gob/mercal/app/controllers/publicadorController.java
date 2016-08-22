@@ -242,20 +242,37 @@ public class publicadorController {
             e.printStackTrace();
         }
         if(s2=="[]"){
-        model.addObject("detalle1", "No posee detalle asociado");
+            model.addObject("detalle1", "No posee detalle asociado");
         }else{
-        s2 = s2.substring(1, s2.length()-1);
-        JsonParser parser = new JsonParser();
-        JsonElement elementObject;
-        elementObject = parser.parse(s2);
-        String result="Datos:\n";
-        result = result + "Id del ETL = " + elementObject.getAsJsonObject().get("id_etl").getAsString() + "\n";
-        result = result + "ETL = "+elementObject.getAsJsonObject().get("etl").getAsString()+"\n";
-        result = result + "Estatus Ejecución = "+elementObject.getAsJsonObject().get("status_ejec").getAsString()+"\n";
-        result = result + "Registros Insertados = "+elementObject.getAsJsonObject().get("reg_insertados").getAsString()+"\n";
-        result = result + "Registros Actualizados = "+elementObject.getAsJsonObject().get("reg_actualizados").getAsString()+"\n";
-        model.addObject("vaciar","vaciar");
-        model.addObject("detalle", result);
+                listString2.clear();
+                s2 = s2.substring(1, s2.length()-1);
+                StringTokenizer st = new StringTokenizer(s2,"}");
+                JsonParser parser = new JsonParser();
+                JsonElement elementObject;
+                String result="";
+                String valor="";
+                while (st.hasMoreTokens()) {
+                    s2 = st.nextToken()+"}";
+                    if (s2.substring(0,1).equals(",")){
+                        s2 = s2.substring(1);                           
+                    }
+                    elementObject = parser.parse(s2);
+                    valor = elementObject.getAsJsonObject().get("id_etl").getAsString();
+                    result= result + "Id del etl = "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("etl").getAsString();
+                    result= result + "Etl = "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
+                    result= result + "Estatus de la Ejecución = "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("reg_insertados").getAsString();
+                    result= result + "Registros Insertados = "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("reg_actualizados").getAsString();
+                    result= result + "Registros Actualizados = "+valor+"\n";
+                    listString2.add(result+"\n\n");
+                    valor="";
+                    result="";
+                }
+            model.addObject("vaciar","vaciar");
+            model.addObject("detalle", listString2);
         }
         model.setViewName("Psuscriptor");
         return model;

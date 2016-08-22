@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ve.gob.mercal.app.models.nombreTienda;
+import ve.gob.mercal.app.models.existeCampo;
 import ve.gob.mercal.app.services.WsFuncionApp;
 import ve.gob.mercal.app.services.WsQuery;
 
@@ -42,6 +43,9 @@ public class publicadorControlador {
     @Autowired
     public nombreTienda nombreTiendaUser;
     
+    @Autowired
+    public existeCampo existeCampo;
+    
     private String tienda = "";
     private String aux = "";
     private String publicador = "";
@@ -51,19 +55,9 @@ public class publicadorControlador {
     public List<String> listString4 = new ArrayList<>();
     public List<String> listString5 = new ArrayList<>();
     public List<String> listString6 = new ArrayList<>();
-   // public List<String> listString7 = new ArrayList<>();
     public Model prueba;
     
-
     
-    public boolean existeCampo(String json,String palabra){   
-        
-        if(json.toLowerCase().contains(palabra.toLowerCase())){
-        return true;
-        }
-        
-    return false;
-    }
     
     @RequestMapping(value = {"/GestionAgregarP"}, method = {RequestMethod.GET})
     public ModelAndView getTienda(){
@@ -102,8 +96,10 @@ public class publicadorControlador {
         while (st3.hasMoreTokens()) {
             s = st3.nextToken();
             elementObject3 = parser3.parse(s);
-            this.tienda = elementObject3.getAsJsonObject()
-                    .get("tienda").getAsString();
+            if(existeCampo.existeCampo(s,"tienda")){
+                this.tienda = elementObject3.getAsJsonObject()
+                        .get("tienda").getAsString();
+            }       
             listString3.add("<option value=\""+this.tienda+ "\">"+
                                     this.tienda+"</option>");
             }
@@ -485,36 +481,34 @@ public class publicadorControlador {
                     elementObject = parser.parse(plan);
                     valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
                     result= result + "Id Plan Ejecucion: "+valor+"\n";
-                    if(existeCampo(plan,"nro_control_plan")){
+                    if(existeCampo.existeCampo(plan,"nro_control_plan")){
                     valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan= "+valor+"\n";
                     }
-                    if(existeCampo(plan,"tienda")){
+                    if(existeCampo.existeCampo(plan,"tienda")){
                     valor = elementObject.getAsJsonObject().get("tienda").getAsString();
                     result= result + "Tienda = "+valor+"\n";
                     }
-                    if(existeCampo(plan,"job")){
+                    if(existeCampo.existeCampo(plan,"job")){
                     valor = elementObject.getAsJsonObject().get("job").getAsString();
                     result= result + "Job = "+valor+"\n";
                     }
-                    if(existeCampo(plan,"nro_control_ejec")){
+                    if(existeCampo.existeCampo(plan,"nro_control_ejec")){
                     valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
                     result= result + "Nro Control Ejecucion= "+valor+"\n";
                     }
-                    if(existeCampo(plan,"observaciones")){
+                    if(existeCampo.existeCampo(plan,"observaciones")){
                     valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
                     result= result + "Observaciones= "+valor+"\n";
                     }
-                    if(existeCampo(plan,"timestamp_planificacion")){
+                    if(existeCampo.existeCampo(plan,"timestamp_planificacion")){
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
                     aux=elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString(); 
                     listStringPlan.add(result);
-                    lista_plan.add("<option value="+aux+ ">"+
+                    lista_plan.add("<option value=\""+aux+ "\">"+
                                     aux+"</option>");
-                    
-                    
                     valor="";
                     result="";
                     aux="";
@@ -552,40 +546,38 @@ public class publicadorControlador {
                     elementObject2 = parser2.parse(ejec);
                     valor = elementObject2.getAsJsonObject().get("id_plan_ejecucion").getAsString();
                     result= result + "Id Plan Ejecucion: "+valor+"\n";
-                     if(existeCampo(ejec,"nro_control_pla")){
+                     if(existeCampo.existeCampo(ejec,"nro_control_pla")){
                     valor = elementObject2.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan= "+valor+"\n";
                     }
-                    if(existeCampo(ejec,"tienda")){
+                    if(existeCampo.existeCampo(ejec,"tienda")){
                     valor = elementObject2.getAsJsonObject().get("tienda").getAsString();
                     result= result + "Tienda = "+valor+"\n";
                     }
-                    if(existeCampo(ejec,"job")){
+                    if(existeCampo.existeCampo(ejec,"job")){
                     valor = elementObject2.getAsJsonObject().get("job").getAsString();
                     result= result + "Job = "+valor+"\n";
                     }
-                    if(existeCampo(ejec,"nro_control_ejec")){
+                    if(existeCampo.existeCampo(ejec,"nro_control_ejec")){
                     valor = elementObject2.getAsJsonObject().get("nro_control_ejec").getAsString();
                     result= result + "Nro Control Ejecucion= "+valor+"\n";
                     }
-                     if(existeCampo(ejec,"revisado")){
+                    if(existeCampo.existeCampo(ejec,"revisado")){
                         valor = elementObject2.getAsJsonObject().get("revisado").getAsString();
                         result= result + "Revisado = "+valor+"\n";
                     }
-                    if(existeCampo(ejec,"observaciones")){
+                    if(existeCampo.existeCampo(ejec,"observaciones")){
                     valor = elementObject2.getAsJsonObject().get("observaciones").getAsString();
                     result= result + "Observaciones= "+valor+"\n";
                     }
-                    if(existeCampo(ejec,"timestamp_planificacion")){
+                    if(existeCampo.existeCampo(ejec,"timestamp_planificacion")){
                         valor = elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
                     aux=elementObject2.getAsJsonObject().get("id_plan_ejecucion").getAsString();; 
                     listStringEjec.add(result);
-                    lista_ejec.add("<option value="+aux+ ">"+
+                    lista_ejec.add("<option value=\""+aux+ "\">"+
                                     aux+"</option>");
-                   
-                    
                     valor="";
                     result="";
                     aux="";
@@ -621,31 +613,31 @@ public class publicadorControlador {
                     elementObject3 = parser3.parse(ter);
                     valor = elementObject3.getAsJsonObject().get("id_plan_ejecucion").getAsString();
                     result= result + "Id Plan Ejecucion: "+valor+"\n";
-                     if(existeCampo(ter,"nro_control_pla")){
+                     if(existeCampo.existeCampo(ter,"nro_control_pla")){
                     valor = elementObject3.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan= "+valor+"\n";
                     }
-                    if(existeCampo(ter,"tienda")){
+                    if(existeCampo.existeCampo(ter,"tienda")){
                     valor = elementObject3.getAsJsonObject().get("tienda").getAsString();
                     result= result + "Tienda = "+valor+"\n";
                     }
-                    if(existeCampo(ter,"job")){
+                    if(existeCampo.existeCampo(ter,"job")){
                     valor = elementObject3.getAsJsonObject().get("job").getAsString();
                     result= result + "Job = "+valor+"\n";
                     }
-                    if(existeCampo(ter,"nro_control_ejec")){
+                    if(existeCampo.existeCampo(ter,"nro_control_ejec")){
                     valor = elementObject3.getAsJsonObject().get("nro_control_ejec").getAsString();
                     result= result + "Nro Control Ejecucion= "+valor+"\n";
                     }
-                    if(existeCampo(ter,"revisado")){
+                    if(existeCampo.existeCampo(ter,"revisado")){
                         valor = elementObject3.getAsJsonObject().get("revisado").getAsString();
                         result= result + "Revisado = "+valor+"\n";
                     }
-                    if(existeCampo(ter,"observaciones")){
+                    if(existeCampo.existeCampo(ter,"observaciones")){
                     valor = elementObject3.getAsJsonObject().get("observaciones").getAsString();
                     result= result + "Observaciones= "+valor+"\n";
                     }
-                    if(existeCampo(ter,"timestamp_planificacion")){
+                    if(existeCampo.existeCampo(ter,"timestamp_planificacion")){
                         valor = elementObject3.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
