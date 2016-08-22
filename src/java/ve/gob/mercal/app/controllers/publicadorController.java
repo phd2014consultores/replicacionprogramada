@@ -132,20 +132,24 @@ public class publicadorController {
         } catch (ExcepcionServicio e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }              
-        JsonParser parser = new JsonParser();
-        JsonElement elementObject;
-        s = s.substring(1, s.length()-1);
-        StringTokenizer st = new StringTokenizer(s,",");
-        while (st.hasMoreTokens()) {
-            s = st.nextToken();
-            elementObject = parser.parse(s);
-            this.tienda = elementObject.getAsJsonObject()
-                    .get("tienda").getAsString();
-            listString.add("<option value="+this.tienda+ "type=\"submit\">"+
-                                    this.tienda+"</option>");            
-        }                          
-        model.addObject("tienda", listString);
+        }
+        if(!s.equals("[]")){
+            JsonParser parser = new JsonParser();
+            JsonElement elementObject;
+            s = s.substring(1, s.length()-1);
+            StringTokenizer st = new StringTokenizer(s,",");
+            while (st.hasMoreTokens()) {
+                s = st.nextToken();
+                elementObject = parser.parse(s);
+                this.tienda = elementObject.getAsJsonObject()
+                        .get("tienda").getAsString();
+                listString.add("<option value="+this.tienda+ "type=\"submit\">"+
+                                        this.tienda+"</option>");            
+            }                          
+            model.addObject("tienda", listString);
+        }else{
+            model.addObject("existe", "error");
+        }
         model.setViewName("Psuscriptor");
         return model;
     }
@@ -174,47 +178,47 @@ public class publicadorController {
             e.printStackTrace();
             }
             if(s2=="[]"){
-            model.addObject("publicacionnull","No posee planificación asociada");
+                model.addObject("publicacionnull","No posee planificación asociada");
             }else{
-            JsonParser parser = new JsonParser();
-            JsonElement elementObject;
-            s2 = s2.substring(1, s2.length()-1);
-            StringTokenizer st = new StringTokenizer(s2,"}");
-            int planif=1;
-            String result="";
-            while (st.hasMoreTokens()) {
-                s2 = st.nextToken()+"}";
-                if (s2.substring(0,1).equals(",")){
-                    s2 = s2.substring(1);                           
+                JsonParser parser = new JsonParser();
+                JsonElement elementObject;
+                s2 = s2.substring(1, s2.length()-1);
+                StringTokenizer st = new StringTokenizer(s2,"}");
+                int planif=1;
+                String result="";
+                while (st.hasMoreTokens()) {
+                    s2 = st.nextToken()+"}";
+                    if (s2.substring(0,1).equals(",")){
+                        s2 = s2.substring(1);                           
+                    }
+                    elementObject = parser.parse(s2);
+                    result= result + "Planificación: "+planif+"\n";
+                    valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
+                    result= result + "Nro_control_plan = "+valor+"\n";
+                    listString3.add(valor);
+                    valor = elementObject.getAsJsonObject().get("tienda").getAsString();
+                    result= result + "Tienda = "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("job").getAsString();
+                    result= result + "Job = "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("tipo_ejecucion").getAsString();
+                    result= result + "Tipo_ejecución = "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                    result= result + "Timestamp_planificación = "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
+                    result= result + "Nro_control_ejec = "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("revisado").getAsString();
+                    result= result + "Revisado = "+valor+"\n";
+                    valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
+                    result= result + "Observaciones = "+valor+"\n";
+                    listString2.add(result+"\n\n");
+                    planif++;
+                    valor="";
+                    result="";
                 }
-                elementObject = parser.parse(s2);
-                result= result + "Planificación: "+planif+"\n";
-                valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
-                result= result + "Nro_control_plan = "+valor+"\n";
-                listString3.add(valor);
-                valor = elementObject.getAsJsonObject().get("tienda").getAsString();
-                result= result + "Tienda = "+valor+"\n";
-                valor = elementObject.getAsJsonObject().get("job").getAsString();
-                result= result + "Job = "+valor+"\n";
-                valor = elementObject.getAsJsonObject().get("tipo_ejecucion").getAsString();
-                result= result + "Tipo_ejecución = "+valor+"\n";
-                valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
-                result= result + "Timestamp_planificación = "+valor+"\n";
-                valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
-                result= result + "Nro_control_ejec = "+valor+"\n";
-                valor = elementObject.getAsJsonObject().get("revisado").getAsString();
-                result= result + "Revisado = "+valor+"\n";
-                valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
-                result= result + "Observaciones = "+valor+"\n";
-                listString2.add(result);
-                planif++;
-                valor="";
-                result="";
-            }
-            model.addObject("vaciar","vaciar");
-            model.addObject("publicacion3",listString3);
-            model.addObject("publicacion2", nameTienda);
-            model.addObject("publicacion", listString2);
+                model.addObject("vaciar","vaciar");
+                model.addObject("publicacion3",listString3);
+                model.addObject("publicacion2", nameTienda);
+                model.addObject("publicacion", listString2);
             }
             model.setViewName("Psuscriptor");
         }
@@ -322,20 +326,25 @@ public class publicadorController {
         } catch (ExcepcionServicio e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }         
-        JsonParser parser = new JsonParser();
-        JsonElement elementObject;
-        s = s.substring(1, s.length()-1);
-        StringTokenizer st = new StringTokenizer(s,",");
-        while (st.hasMoreTokens()) {
-            s = st.nextToken();
-            elementObject = parser.parse(s);
-            this.tienda = elementObject.getAsJsonObject()
-                    .get("tienda").getAsString();
-            listString2.add("<option value="+this.tienda+ "type=\"submit\">"+
-                                    this.tienda+"</option>"); 
-        }                         
+        }
+        if(s.equals("[]")){
+            JsonParser parser = new JsonParser();
+            JsonElement elementObject;
+            s = s.substring(1, s.length()-1);
+            StringTokenizer st = new StringTokenizer(s,",");
+            while (st.hasMoreTokens()) {
+                s = st.nextToken();
+                elementObject = parser.parse(s);
+                this.tienda = elementObject.getAsJsonObject()
+                        .get("tienda").getAsString();
+                listString2.add("<option value="+this.tienda+ "type=\"submit\">"+
+                                        this.tienda+"</option>"); 
+            }
         model.addObject("tienda2", listString2);
+        }else{
+        model.addObject("existe","no existe tiendas a modificar");
+        
+        }
         model.setViewName("Modificar");
         return model;
     }

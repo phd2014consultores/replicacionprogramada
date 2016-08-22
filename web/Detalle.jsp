@@ -134,7 +134,6 @@
         <h2>Detalle Tienda</h2>
         <br>
         <c:if test="${empty vaciar}">
-    <label for="message">Seleccione Tienda a Detallar :</label> 
                 <form class="form-horizontal" action="Detalle" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
                         <option value="NONE">Seleccione una opción...</option>

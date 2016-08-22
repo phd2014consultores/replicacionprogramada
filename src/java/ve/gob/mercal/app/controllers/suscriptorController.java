@@ -131,7 +131,7 @@ public class suscriptorController {
                 result= result + "Revisado = "+valor+"\n";
                 valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
                 result= result + "Observaciones = "+valor+"\n";
-                listString2.add(result);
+                listString2.add(result+"\n\n");
                 planif++;
                 valor="";
                 result="";

@@ -147,12 +147,9 @@
                         </c:forEach>
                     </select>
                     <input type="hidden" onclick="pregunta()" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form>
-
-                
+                </form>      
             <c:if test="${not empty exito}">
-                ${exito}
-                
+                ${exito}              
             </c:if>
 
  	</div>

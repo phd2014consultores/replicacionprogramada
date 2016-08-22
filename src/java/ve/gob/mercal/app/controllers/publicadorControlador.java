@@ -444,7 +444,6 @@ public class publicadorControlador {
     {
         
     ModelAndView model= new ModelAndView();
-    //model=publicar();
     String plan="";
     String valor="";
     String ejec="";
@@ -457,9 +456,10 @@ public class publicadorControlador {
     List<String> lista_plan = new ArrayList<>();
     List<String> lista_ter = new ArrayList<>();
     List<String> lista_ejec = new ArrayList<>();
+    nombreTiendaUser.setnombreTienda(nameTienda);
     model = publicar();
+
         if(!nameTienda.equals("NONE")) {
-           // nameTienda = nameTienda.substring(0,nameTienda.length()-13);
             try {
                 plan=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
                 "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
@@ -470,7 +470,7 @@ public class publicadorControlador {
             }
         //Planificadas
             if(!plan.equals("[]")){
-            
+                model.addObject("tienda2",nombreTiendaUser.getnombreTienda());
                 JsonParser parser = new JsonParser();
                 JsonElement elementObject;
                 plan = plan.substring(1, plan.length()-1);
@@ -489,11 +489,11 @@ public class publicadorControlador {
                     valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan= "+valor+"\n";
                     }
-                    if(existeCampo(plan,"tienda")==true){
+                    if(existeCampo(plan,"tienda")){
                     valor = elementObject.getAsJsonObject().get("tienda").getAsString();
                     result= result + "Tienda = "+valor+"\n";
                     }
-                    if(existeCampo(plan,"job")==true){
+                    if(existeCampo(plan,"job")){
                     valor = elementObject.getAsJsonObject().get("job").getAsString();
                     result= result + "Job = "+valor+"\n";
                     }
@@ -518,12 +518,11 @@ public class publicadorControlador {
                     valor="";
                     result="";
                     aux="";
-                }
-                
+                }   
             model.addObject("planificado",listStringPlan);
             model.addObject("plan_list", lista_plan); // para mostrar los id de las planificaciones
             }else{
-            model.addObject("mensaje_plan","No hay tareas planificadas para la tienda: "+nameTienda+"");
+            model.addObject("mensaje_plan","No hay tareas planificadas para la tienda");
             
             }
             //En ejecucion
@@ -595,7 +594,7 @@ public class publicadorControlador {
             model.addObject("ejecutado",listStringEjec);
             model.addObject("plan_ejec",lista_ejec );
             }else{
-            model.addObject("mensaje_ejec","No hay tareas en ejecucion para la tienda: "+nameTienda+"");
+            model.addObject("mensaje_ejec","No hay tareas en ejecucion para la tienda");
             
             }
             // Terminadas
@@ -661,13 +660,15 @@ public class publicadorControlador {
                     aux="";
 
                 }
-            model.addObject("terminado",listStringTer);
-            model.addObject("plan_ter", lista_ter);
-            }else{
-            model.addObject("mensaje_ter","No hay tareas terminadas para la tienda: "+nameTienda+"");
             
+            
+                model.addObject("terminado",listStringTer);
+                model.addObject("plan_ter", lista_ter);
+                
+            }else{
+                model.addObject("mensaje_ter","No hay tareas terminadas para la tienda");   
             }
-        
+            
         }
         
     return model;
@@ -926,6 +927,7 @@ public class publicadorControlador {
         ModelAndView model = new ModelAndView();
         nombreTiendaUser.setnombreTienda(nameTienda);
         model = getciagregarPlanETL();
+        model.addObject("titulo",nameTienda);
         String ultima_ejecucion = "NULL";
         String id_tienda = "NULL";
         String id_plan_ejec = "NULL";
@@ -971,7 +973,7 @@ public class publicadorControlador {
                             elementObject4 = parser4.parse(list_etl);
                             list_etl = elementObject4.getAsJsonObject()
                                     .get("etl").getAsString();
-                            listString4.add("> "+list_etl+"\n");
+                            listString4.add(list_etl+"\n\n");
                         }
                         model.addObject("correctos",listString4);
                     
@@ -986,7 +988,7 @@ public class publicadorControlador {
                             elementObject5 = parser5.parse(list_etl2);
                             list_etl2 = elementObject5.getAsJsonObject()
                                     .get("etl").getAsString();
-                            listString2.add("> "+list_etl2+"\n");
+                            listString2.add(list_etl2+"\n\n");
                             listString.add("<option value=\""+list_etl2+ "\">"+list_etl2+"</option>");
                         }
                         model.addObject("incorrectos",listString2);
@@ -1256,7 +1258,6 @@ public class publicadorControlador {
       @RequestMapping(value = {"/GestionPublicar"}, method = RequestMethod.GET)
     public ModelAndView getgestiontiendaPublicacion(){
         ModelAndView model = new ModelAndView();
-        model.addObject("tienda","prueba");
         model.setViewName("GestionPublicar");
         return model;
     }
@@ -1267,6 +1268,7 @@ public class publicadorControlador {
     {
         ModelAndView model = new ModelAndView();
         model = publicar() ;
+
         String etl_plan="";
         String result="";
         String valor="";
@@ -1302,7 +1304,7 @@ public class publicadorControlador {
                     result= result + "Nombre Etl= "+valor+"\n";
                     valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
                     result= result + "Estatus ejecucion = "+valor+"\n"; 
-                    listString6.add(result);
+                    listString6.add(result+"\n\n");
                     valor="";
                     result="";
                     
@@ -1310,13 +1312,9 @@ public class publicadorControlador {
              model.addObject("lista_etl_planif",listString6);
             }else{
               model.addObject("msj_planif","No hay etls asociados a esta planificacion");
-            }
-            
-            
+            }   
         }
-        
-
-         
+        model.addObject("tienda2", nombreTiendaUser.getnombreTienda());
         model.setViewName("Publicar");
         return model;
     }
@@ -1363,7 +1361,7 @@ public class publicadorControlador {
                     result= result + "Nombre Etl= "+valor+"\n";
                     valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
                     result= result + "Estatus ejecucion = "+valor+"\n"; 
-                    listString6.add(result);
+                    listString6.add(result+"\n\n");
                     valor="";
                     result="";
                     
@@ -1375,9 +1373,7 @@ public class publicadorControlador {
             
             
         }
-        
-
-         
+        model.addObject("tienda2", nombreTiendaUser.getnombreTienda());
         model.setViewName("Publicar");
         return model;
     }
@@ -1387,7 +1383,7 @@ public class publicadorControlador {
             @RequestParam(value = "terminadas",required = false) String terminadas)
     {
         ModelAndView model = new ModelAndView();
-        model = publicar() ;
+        model = publicar();        
         String etl_ter="";
         String result="";
         String valor="";
@@ -1423,7 +1419,7 @@ public class publicadorControlador {
                     result= result + "Nombre Etl= "+valor+"\n";
                     valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
                     result= result + "Estatus ejecucion = "+valor+"\n"; 
-                    listString6.add(result);
+                    listString6.add(result+"\n\n");
                     valor="";
                     result="";
                     
@@ -1435,7 +1431,7 @@ public class publicadorControlador {
             
             
         }
-      
+        model.addObject("tienda2", nombreTiendaUser.getnombreTienda());
         model.setViewName("Publicar");
         return model;
     }

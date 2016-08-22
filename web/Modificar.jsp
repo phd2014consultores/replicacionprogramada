@@ -131,12 +131,18 @@
 	    	<br>
 
 <div id="Bandejas" >
-    <c:if test="${ empty exito}">
-        <h2>Modificar Tienda</h2>
-    </c:if>
+        <c:if test="${ empty exito}">
+            <h2>Modificar Tienda</h2>
+        </c:if>
         <br>
+        <c:if test="${not empty existe}">
+            <script language="JavaScript">
+                {
+                    alert("No hay tiendas para modificar..!!");
+                }
+            </script>
+        </c:if>
         <c:if test="${empty vaciar}">
-    <label for="message">Seleccione Tienda a Modificar :</label> 
                 <form class="form-horizontal" action="Modificar" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
                         <option value="NONE">Seleccione una opción...</option>

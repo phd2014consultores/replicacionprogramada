@@ -120,7 +120,7 @@
             <h2>Seleccione tienda en la que desea suscribirse</h2>
             <div>
                 <form class="form-horizontal" action="SuscriptorPrincipal" method="POST">
-                    <select  name="listString" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
+                    <select  name="listString" class="form-control" onchange="this.form.submit()">
                         <option value="NONE" selected="selected">Seleccione una opción...</option>
                         <c:forEach items="${tienda}" var="item">
                             ${item}

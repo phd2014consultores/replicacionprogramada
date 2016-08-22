@@ -122,7 +122,7 @@
             <h2>Tiendas Suscritas</h2>
             <div>
                 <form class="form-horizontal" action="Suscriptor" method="POST">
-                    <select  name="listString" class="form-control" onchange="this.form.submit()"  onkeypress="return tabular(event,this)">
+                    <select  name="listString" class="form-control" onchange="this.form.submit()">
                         <option value="NONE" selected="selected">Seleccione una opción...</option>
                         <c:forEach items="${tienda}" var="item">
                             ${item}
@@ -144,26 +144,26 @@
                
                 <h2>Publicaciones Disponibles</h2>
                 <br>
-                <h4>Tienda:</h4> <span><h3>${publicacion2}</h3></span>
-                <br>
-                <textarea disabled id="message2" cols="30" rows="15" >
-                    <c:forEach items="${publicacion}" var="item2">
-                            ${item2}
-                    </c:forEach>
+                <c:if test="${not empty publicacion2}">
+                    <h4>Tienda: ${publicacion2}</h4>
+                    <br><br>
+                </c:if>
+                <c:if test="${not empty publicacion}">
+                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${publicacion}" var="item2">&#9679${item2}</c:forEach>
                 </textarea>
-            <h4>En caso de no existir la publicación requerida debe comunicarse con el Publicador</h4>   
-            <br>
-            <h2>Detalle de Publicación</h2>
-            <form class="form-horizontal" action="Suscriptor2" method="POST">            
-                <select  name="listString2" class="form-control" onchange="this.form.submit()">
-                    <option value="NONE">Seleccione una opción...</option>
-                    <c:forEach items="${publicacion3}" var="item3">
-                        <option value="${item3}" type="submit">Numero de Control: ${item3}</option>
-                    </c:forEach>
-                </select>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-     
-            </form>
+                </c:if>
+                <h5>En caso de no existir la publicación requerida debe comunicarse con el Publicador</h5>   
+                <br>
+                <h2>Detalle de Publicación</h2>
+                <form class="form-horizontal" action="Suscriptor2" method="POST">            
+                    <select  name="listString2" class="form-control" onchange="this.form.submit()">
+                        <option value="NONE">Seleccione una opción...</option>
+                        <c:forEach items="${publicacion3}" var="item3">
+                            <option value="${item3}" type="submit">Numero de Control: ${item3}</option>
+                        </c:forEach>
+                    </select>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
             </c:if>
             
             <c:if test="${not empty detalle1}">
@@ -174,8 +174,7 @@
 
             <c:if test="${not empty detalle}">
                 <h2>Listado de ETL</h2>
-                <textarea disabled id="message2" cols="30" rows="15" >
-                    ${detalle}
+                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left">&#9679${detalle}
                 </textarea>     
             </c:if>
         </div>
