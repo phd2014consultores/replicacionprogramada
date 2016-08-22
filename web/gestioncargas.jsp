@@ -116,7 +116,7 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gusuarios">Gestión Usuarios</a></li>
+<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestión Usuarios</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestión Cluster-PDI-Tienda</a></li>
 <li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>
 							</ul>
@@ -135,7 +135,8 @@
     <br>
     <div>
     	<label for="message">Cargas Planificadas :</label>
-        <h4>${mensaje_plan}</h4>
+        
+        
         <textarea id="message2" cols="30" rows="15" readonly style="text-align:left">
             <c:forEach items="${planificado}" var="item2">&#9679${item2}</c:forEach>
         </textarea>
@@ -143,8 +144,12 @@
             <span> <input type="submit"  value="Cargar"/> </span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
+       
+        <h4>${error}</h4>
+        <h4>${param1}</h4>
+        <h4>${param2}</h4>
         <c:if test="${not empty plan_list}">
-            <form class="form-horizontal" action="gestioncargas" method="POST">
+            <form class="form-horizontal" action="planifica" method="POST">
                 <select  name="planificadas" class="form-control" onchange="this.form.submit()">
                     <option value="NONE" >Seleccione una planificacion que desea anular...</option>
                     <c:forEach items="${plan_list}" var="item">
@@ -161,7 +166,8 @@
 
     <div>
     	<label for="message">Cargas a Ejecucion :</label> 
-        <h4>${mensaje_ejec}</h4>
+        
+       
         <textarea id="message2" cols="30" rows="15" readonly style="text-align:left">
         <c:forEach items="${ejecutado}" var="item2">&#9679${item2}</c:forEach>
         </textarea>
@@ -169,9 +175,10 @@
             <span> <input type="submit"  value="Cargar"/> </span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
+        
         <c:if test="${not empty plan_ejec}">
             <form class="form-horizontal" action="gestioncargas" method="POST">
-                <select  name="planificadas" class="form-control" onchange="this.form.submit()">
+                <select  name="ejecutadas" class="form-control" onchange="this.form.submit()">
                     <option value="NONE" >Seleccione el la carga que desea anular...</option>
                     <c:forEach items="${plan_ejec}" var="item">
                         ${item}
@@ -181,6 +188,37 @@
             </form>
         </c:if>
     <br>
+    <c:if test="${not empty mensaje_plan}">
+            <script language="JavaScript">
+                {
+                    alert("No hay cargas planificadas..!!");
+                }
+            </script>
+    </c:if>
+            
+    <c:if test="${not empty mensaje_ejec}">
+            <script language="JavaScript">
+                {
+                    alert("No hay cargas en ejecucion..!!");
+                }
+            </script>
+    </c:if>
+            
+    <c:if test="${ msj_planif == 'Planificacion anulada con Exito !!'}">
+            <script language="JavaScript">
+                {
+                    alert("Carga anulada exitosamente");
+                }
+            </script>
+     </c:if>
+     <c:if test="${ msj_planif == 'Error al anular la tarea planificada'}">
+            <script language="JavaScript">
+                {
+                    alert("No se pudo anular la carga planificada");
+                }
+            </script>
+     </c:if>    
+            
     <br>
     		<span > Anular: </span> <input type="text" placeholder="Id. Carga a Ejecucion" required />
 	<input type="submit" onclick=" this.value='Enviado'"value="Enviar"/>   

@@ -125,7 +125,7 @@ public class adminController {
             model.addObject("plan_list", lista_plan); //Para listar las que se anularan
          }else{
          
-            model.addObject("mensaje_plan","No hay tareas planificadas para la tienda");
+            model.addObject("mensaje_plan","error");
          }
         
         model.setViewName("gestioncargas");
@@ -204,8 +204,62 @@ public class adminController {
             model.addObject("plan_ejec",lista_ejec );
         }else{
         
-            model.addObject("mensaje_ejec","No hay tareas en ejecucion para la tienda");
+            model.addObject("mensaje_ejec","error");
         }
+        model.setViewName("gestioncargas");
+        return model;
+    }
+    
+    @RequestMapping(value = {"/planifica"}, method = RequestMethod.POST)
+    public ModelAndView planifETL(
+            @RequestParam(value = "planificadas",required = false) String planificadas)
+    {
+        ModelAndView model = new ModelAndView();     
+        String etl_plan="";
+        String id_usr="";
+        int funcion = 0;
+        int actual=0;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        int plan;
+        
+       
+        if(!planificadas.equals("NONE")) {
+            plan=Integer.parseInt(planificadas);
+            
+            try {
+                id_usr = wsQuery.getConsulta("SELECT id_usuario\n" +
+                                "FROM public.usuarios \n" +
+                                "WHERE usuario= '"+name+"'");
+            } catch (ExcepcionServicio ex) {
+                Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            id_usr = id_usr.substring(1, id_usr.length()-1);
+            JsonParser parser = new JsonParser();
+            JsonElement elementObject;
+            elementObject = parser.parse(id_usr);
+            actual=elementObject.getAsJsonObject().get("id_usuario").getAsInt();
+            
+            try {
+                funcion = WsFuncion.getConsulta("public.insert_pasos_plan_ejecucion("+plan+","+"'anulada'"+","+actual+");");
+            } catch (Exception ex) {
+                Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+            if(funcion>0){
+            model.addObject("msj_planif","Planificacion anulada con Exito !!");
+            }else{
+            model.addObject("param1", plan);
+            model.addObject("param2", actual);
+            
+            model.addObject("msj_planif","Error al anular la tarea planificada");
+            model.addObject("error", funcion);
+            }
+            
+             
+        }
+        
         model.setViewName("gestioncargas");
         return model;
     }
