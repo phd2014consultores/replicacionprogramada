@@ -211,4 +211,77 @@ public class adminController {
     }
     
     
+    @RequestMapping(value = {"/gestionusuarioadmin"}, method = {RequestMethod.GET})
+        public ModelAndView getgestionusuarioAdmin(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("gestionusuarioadmin");
+        return model;
+    }
+        
+        @RequestMapping(value = {"/CrearUsuario"}, method = {RequestMethod.GET})
+        public ModelAndView getcrearusuarioAdmin(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("CrearUsuario");
+        return model;
+    }
+        
+        @RequestMapping(value = {"/CrearUsuario"}, method = {RequestMethod.POST})
+        public ModelAndView postcrearusuarioAdmin(@RequestParam(value = "pseudonimo", required = false) String pseudonimo,
+                                                @RequestParam(value = "nombre", required = false) String nombre,
+                                                @RequestParam(value = "apellido", required = false) String apellido,
+                                                @RequestParam(value = "email", required = false) String email,
+                                                @RequestParam(value = "pass", required = false) String pass,
+                                                @RequestParam(value = "tipo", required = false) String tipo){
+        ModelAndView model = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        int aux=0;
+        int result=-999;
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        if(tipo.equals("administrador")){
+         aux=1;
+         }
+         if(tipo.equals("publicador")){
+         aux=2;
+         }
+         if(tipo.equals("suscriptor")){
+         aux=3;
+         }
+        try {
+                name = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name +"';");
+                name = name.substring(1, name.length()-1);
+                elementObject = parser.parse(name);
+                name = elementObject.getAsJsonObject()
+                    .get("id_usuario").getAsString();
+               
+                result = WsFuncion.getConsulta("public.insert_usuario('"+pseudonimo+"','"+nombre+"','"+apellido+"','"+email+"','"+pass+"',"+aux+","+name+");");
+
+            } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
+//        
+        if(result>=1){
+            model.addObject("exito","Usuario Creado");
+        }else{
+            model.addObject("exito","Fallo al crear el Usuario");
+        }
+
+        model.setViewName("CrearUsuario");
+        return model;
+    }     
+        
+        
+        
+        
+    
+    
+      @RequestMapping(value = {"/gestioncp"}, method = {RequestMethod.GET})
+        public ModelAndView getgestioncpAdmin(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("gestioncp");
+        return model;
+    }
+    
 }

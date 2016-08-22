@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Cluster</title>
+	<title>Crear Usuario</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -116,9 +116,10 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gusuarios">Gestión Usuarios</a></li>
+<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestión Usuarios</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestión Cluster-PDI-Tienda</a></li>
 <li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>
+
 							</ul>
 						</div>
 					</div>		
@@ -126,87 +127,49 @@
     		</div>
     	</div>    	
     </div>
-    <br>
+	    	<br>
 
-    <h1 align="center">Gestionar Publicadores</h1>
-    <br>
-
-    <br>
-<div id="Bandejas" >
-	<h2>Listar Tiendas</h2>
+    <div id="Bandejas" >
+        <h2>Crear Usuario</h2>
         <br>
-	<textarea id="message2" cols="30" rows="15" required></textarea>
+        <p>Indique datos del nuevo Usuario</p>
         <br>
-	<input type="submit" value="Listar"/>
-	<br>
+        <form class="form-horizontal" action="CrearUsuario" method="POST">
+            <label for="message">Pseudonimo :</label> 
+            <input name="pseudonimo" type="text" placeholder="Pseudonimo" required />
+            <br>
+            <label for="message">Nombre :</label> 
+            <input name="nombre" type="text" placeholder="Nombre" required />
+            <br>
+            <label for="message">Apellido :</label> 
+            <input name="apellido" type="text" placeholder="Apellido" required />
+            <br>
+            <label for="message">Email :</label> 
+            <input name="email" ype="text" placeholder="Email" required />
+            <br>
+            <label for="message">Contraseña :</label> 
+            <input name="pass" type="text" placeholder="Contraseña" required />
+            <br>
+            <label for="message">Tipo Usuario :</label> 
+                    <select  name="tipo" class="form-control" >
+                        <option value="administrador">Administrador</option>
+                        <option value="publicador">Publicador</option>
+                        <option value="suscriptor">Suscriptor</option>
+                    </select>
+            <br>
+            <input type="submit" value="Crear"/>
+            <br>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </form>
+        <c:if test="${not empty exito}">
+                ${exito}         
+        </c:if>
+    </div>
         
-     <h2>Listar Publicadores</h2>
-	<br>
-	<label for="message">Nombre de Tienda :</label>
-	 <input type="text" placeholder="Nombre" required /><span><input type="submit" value="Listar"/> </span>
-	<br>
-	<textarea id="message2" cols="30" rows="15" required></textarea>
-	<br>
 
-    <br>
-    <!--div id="Bandeja1"-->
-    	<h2 color="red">Agregar Publicador</h2>
-    	<label for="message">Nombre de Tienda :</label><span> <input type="text" placeholder="Nombre Tienda" required />
-	<br></span>
-	    	<label for="message">Nombre de Publicador :</label><span> <input type="text" placeholder="Nombre Publicador" required />
-	<br></span>
 
-	<input type="submit" value="Aceptar"/>  <span><input type="submit" value="Cancelar"/>  </span>  
-    <!--/div-->
-	<br>
-	<br>
-	<br>
-    <!--div id="Bandeja2"-->
-    	<h2 color="red">Retirar Publicador</h2>
-    	<label for="message">Nombre de Tienda :</label><span> <input type="text" placeholder="Nombre Tienda" required />
-	<br></span>
+<br>
 
-	    	<label for="message">Nombre de Publicador :</label><span> <input type="text" placeholder="Nombre Publicador" required />
-	<br></span>
-
-	<input type="submit" value="Aceptar"/>  <span><input type="submit" value="Cancelar"/>  </span>   
-    <!--/div-->
-    
-        <h2>Listar Suscriptores</h2>
-	<br>
-	<label for="message">Nombre de Tienda :</label>
-	 <input type="text" placeholder="Nombre" required /><span><input type="submit" value="Listar"/> </span>
-	<br>
-	<textarea id="message2" cols="30" rows="15" required></textarea>
-	<br>
-
-    <br>
-    <!--div id="Bandeja1"-->
-    	<h2 color="red">Agregar Suscriptor</h2>
-    	<label for="message">Nombre de Tienda :</label><span> <input type="text" placeholder="Nombre Tienda" required />
-	<br></span>
-	    	<label for="message">Nombre de Suscriptor :</label><span> <input type="text" placeholder="Nombre Publicador" required />
-	<br></span>
-
-	<input type="submit" value="Aceptar"/>  <span><input type="submit" value="Cancelar"/>  </span>  
-    <!--/div-->
-	<br>
-	<br>
-	<br>
-    <!--div id="Bandeja2"-->
-    	<h2 color="red">Retirar Suscriptor</h2>
-    	<label for="message">Nombre de Tienda :</label><span> <input type="text" placeholder="Nombre Tienda" required />
-	<br></span>
-
-	    	<label for="message">Nombre de Suscriptor :</label><span> <input type="text" placeholder="Nombre Publicador" required />
-	<br></span>
-
-	<input type="submit" value="Aceptar"/>  <span><input type="submit" value="Cancelar"/>  </span>   
-    <!--/div-->
-
-</div>
-
-    	<br>
 
     		<div class="row-fluid">
 				<div class="span12">
@@ -215,7 +178,7 @@
                                                 <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
 					</div>
 				</div>
-			</div>  
+			</div> 
 	
 
 

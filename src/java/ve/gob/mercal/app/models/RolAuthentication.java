@@ -66,7 +66,7 @@ public class RolAuthentication implements AuthenticationSuccessHandler {
         if (isPUB) {
             return "/GestionTienda";
         } else if (isAdmin) {
-            return "/admin";
+            return "/gestionusuarioadmin";
         }else if (isSUS) {
             return "/SuscriptorPrincipal";
         }else {
