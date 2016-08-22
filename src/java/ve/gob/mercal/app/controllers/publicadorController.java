@@ -60,7 +60,7 @@ public class publicadorController {
             this.tienda = elementObject.getAsJsonObject()
                     .get("tienda").getAsString();
             listString.add(this.tienda);
-            listString2.add("<option value="+this.tienda+ "type=\"submit\">"+
+            listString2.add("<option value=\""+this.tienda+ "\" type=\"submit\">"+
                                     this.tienda+"</option>"); 
         }                         
         model.addObject("tienda", listString);
@@ -81,7 +81,6 @@ public class publicadorController {
         JsonParser parser = new JsonParser();
         JsonElement elementObject;
         String s3="";
-        nameTienda = nameTienda.substring(0,nameTienda.length()-13);
         if(!nameTienda.equals("NONE")) {
             String valor="";
             try {
@@ -302,15 +301,13 @@ public class publicadorController {
             // TODO Auto-generated catch block
             e.printStackTrace();
             }
-        
+//        
         if(result>=1){
             model.addObject("exito","Tienda Creada");
-            model.setViewName("Crear");
         }else{
             model.addObject("exito","Fallo al crear la Tienda");
-
         }
-        
+
         model.setViewName("Crear");
         return model;
     }
@@ -327,7 +324,7 @@ public class publicadorController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if(s.equals("[]")){
+        if(!s.equals("[]")){
             JsonParser parser = new JsonParser();
             JsonElement elementObject;
             s = s.substring(1, s.length()-1);
@@ -337,7 +334,7 @@ public class publicadorController {
                 elementObject = parser.parse(s);
                 this.tienda = elementObject.getAsJsonObject()
                         .get("tienda").getAsString();
-                listString2.add("<option value="+this.tienda+ "type=\"submit\">"+
+                listString2.add("<option value=\""+this.tienda+ "\" type=\"submit\">"+
                                         this.tienda+"</option>"); 
             }
         model.addObject("tienda2", listString2);
@@ -365,7 +362,6 @@ public class publicadorController {
         String idm="";
         JsonParser parser = new JsonParser();
         JsonElement elementObject;
-        nameTienda = nameTienda.substring(0,nameTienda.length()-13);
         try {
                 nameTienda = wsQuery.getConsulta("SELECT id_tienda, tienda, host_bd_oracle, usuario_bd_oracle, pass_usuario_bd_oracle, \n" +
 "       bd_oracle, id_manager FROM tiendas\n" +
@@ -427,10 +423,12 @@ public class publicadorController {
             }
         
         if(result==1){
+            model=getmodificarPublicador();
             model.addObject("vaciar","vaciar");
             model.addObject("exito","Tienda Modificada");
             model.setViewName("Modificar");
         }else{
+            model=getmodificarPublicador();
             model.addObject("exito","Fallo al modifica la Tienda");
             model.addObject("error",result);
         }
@@ -472,7 +470,7 @@ public class publicadorController {
             elementObject = parser.parse(s);
             this.tienda = elementObject.getAsJsonObject()
                     .get("tienda").getAsString();
-            listString2.add("<option value="+this.tienda+ "type=\"submit\">"+
+            listString2.add("<option value=\""+this.tienda+ "\" type=\"submit\">"+
                                     this.tienda+"</option>"); 
         }                         
         model.addObject("tienda2", listString2);
@@ -496,7 +494,7 @@ public class publicadorController {
         String idm="";
         JsonParser parser = new JsonParser();
         JsonElement elementObject;
-        nameTienda = nameTienda.substring(0,nameTienda.length()-13);
+        
         try {
                 nameTienda = wsQuery.getConsulta("SELECT id_tienda, tienda, host_bd_oracle, usuario_bd_oracle, pass_usuario_bd_oracle, \n" +
 "       bd_oracle, id_manager FROM tiendas\n" +

@@ -160,19 +160,19 @@
         <label for="message">Datos a Modificar :</label> 
 
             <label for="message">Nombre :</label> 
-            <input required name="nombre" type="text" placeholder="Nombre" value=${tienda} />
+            <input required name="nombre" type="text" placeholder="Nombre" value="${tienda}" />
             <br>
             <label for="message">Host :</label> 
-            <input required name="host" type="text" placeholder="Host" value=${host} />
+            <input required name="host" type="text" placeholder="Host" value="${host}" />
             <br>
             <label for="message">BdOracle :</label> 
-            <input required name="bdoracle" type="text" placeholder="BdOracle" value=${bd} />
+            <input required name="bdoracle" type="text" placeholder="BdOracle" value="${bd}" />
             <br>
             <label for="message">Usuario :</label> 
-            <input required name="user" ype="text" placeholder="Usuario" value=${user} />
+            <input required name="user" ype="text" placeholder="Usuario" value="${user}" />
             <br>
             <label for="message">Contraña BdOracle :</label> 
-            <input required name="pass" type="text" placeholder="Password" value=${pass} />
+            <input required name="pass" type="text" placeholder="Password" value="${pass}" />
             <br>
             <input name="idt" type="hidden" value=${idt}>
             <input name="idm" type="hidden" value=${idm}>

@@ -151,19 +151,19 @@
         <label for="message">Datos :</label> 
 
             <label for="message">Nombre :</label> 
-            <input disabled name="nombre" type="text" placeholder="Nombre" value=${tienda} />
+            <input disabled name="nombre" type="text" placeholder="Nombre" value="${tienda}" />
             <br>
             <label for="message">Host :</label> 
-            <input disabled name="host" type="text" placeholder="Host" value=${host} />
+            <input disabled name="host" type="text" placeholder="Host" value="${host}" />
             <br>
             <label for="message">BdOracle :</label> 
-            <input disabled name="bdoracle" type="text" placeholder="BdOracle" value=${bd} />
+            <input disabled name="bdoracle" type="text" placeholder="BdOracle" value="${bd}" />
             <br>
             <label for="message">Usuario :</label> 
-            <input disabled name="user" ype="text" placeholder="Usuario" value=${user} />
+            <input disabled name="user" ype="text" placeholder="Usuario" value="${user}" />
             <br>
             <label for="message">Contraseña BdOracle :</label> 
-            <input disabled name="pass" type="text" placeholder="Password" value=${pass} />
+            <input disabled name="pass" type="text" placeholder="Password" value="${pass}" />
             <br>
             <input name="idt" type="hidden" value=${idt}>
             <input name="idm" type="hidden" value=${idm}>
@@ -171,10 +171,6 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
         </form>
     </c:if>
-            <c:if test="${not empty exito}">
-            ${exito}
-            ${error}
-            </c:if>
 
 
 </div>
