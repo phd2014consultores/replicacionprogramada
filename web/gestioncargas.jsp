@@ -116,13 +116,9 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/admin.jsp">Cluster</a></li>
-<li class="page_item page-item-26084"><a href="/PublicacionySuscripcion/pdi.jsp">PDI</a></li>
-<li class="page_item page-item-8"><a href="/PublicacionySuscripcion/tiendaadmin.jsp">Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas.jsp">Gestionar Cargas</a></li>
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/confcargas.jsp">Configurar Cargas</a></li>
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gusuarios.jsp">Gestión Usuarios</a></li>
-
+<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gusuarios">Gestión Usuarios</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestión Cluster-PDI-Tienda</a></li>
+<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>
 							</ul>
 						</div>
 					</div>		
@@ -137,18 +133,53 @@
 	<h1 color="red">Listado de Cargas</h1>
 	<br>
     <br>
-    <div id="Bandeja1">
-    	<label for="message">Cargas Planificadas :</label> 
-    	<textarea id="message1" cols="30" rows="15" required></textarea> <span> <input type="submit" onclick=" this.value='Cargado'"value="Cargar"/> </span>  
+    <div>
+    	<label for="message">Cargas Planificadas :</label>
+        <h4>${mensaje_plan}</h4>
+        <textarea id="message2" cols="30" rows="15" readonly style="text-align:left">
+            <c:forEach items="${planificado}" var="item2">&#9679${item2}</c:forEach>
+        </textarea>
+        <form class="form-horizontal" action="cargasplanif" method="POST">
+            <span> <input type="submit"  value="Cargar"/> </span>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </form>
+        <c:if test="${not empty plan_list}">
+            <form class="form-horizontal" action="gestioncargas" method="POST">
+                <select  name="planificadas" class="form-control" onchange="this.form.submit()">
+                    <option value="NONE" >Seleccione una planificacion que desea anular...</option>
+                    <c:forEach items="${plan_list}" var="item">
+                        ${item}
+                    </c:forEach>
+                </select>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </form>
+        </c:if>
     <br>
-    <br>
-    		<span > Anular: </span> <input type="text" placeholder="Id. Carga Planificada" required />
-	<input type="submit" onclick=" this.value='Enviado'"value="Enviar"/>  
+    
+    		
     </div>
 
-    <div id="Bandeja2">
+    <div>
     	<label for="message">Cargas a Ejecucion :</label> 
-    	<textarea id="message2" cols="30" rows="15" required></textarea> <span> <input type="submit" onclick=" this.value='Cargado'"value="Cargar"/> </span>
+        <h4>${mensaje_ejec}</h4>
+        <textarea id="message2" cols="30" rows="15" readonly style="text-align:left">
+        <c:forEach items="${ejecutado}" var="item2">&#9679${item2}</c:forEach>
+        </textarea>
+        <form class="form-horizontal" action="cargasejec" method="POST">
+            <span> <input type="submit"  value="Cargar"/> </span>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </form>
+        <c:if test="${not empty plan_ejec}">
+            <form class="form-horizontal" action="gestioncargas" method="POST">
+                <select  name="planificadas" class="form-control" onchange="this.form.submit()">
+                    <option value="NONE" >Seleccione el la carga que desea anular...</option>
+                    <c:forEach items="${plan_ejec}" var="item">
+                        ${item}
+                    </c:forEach>
+                </select>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </form>
+        </c:if>
     <br>
     <br>
     		<span > Anular: </span> <input type="text" placeholder="Id. Carga a Ejecucion" required />

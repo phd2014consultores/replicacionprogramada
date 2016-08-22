@@ -1,0 +1,214 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ve.gob.mercal.app.controllers;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.phdconsultores.ws.exception.ExcepcionServicio;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import ve.gob.mercal.app.models.nombreTienda;
+import ve.gob.mercal.app.services.WsFuncionApp;
+import ve.gob.mercal.app.services.WsQuery;
+/**
+ *
+ * @author wso2
+ */
+@Controller
+@Scope("request")
+public class adminController {
+    @Autowired
+    public WsFuncionApp WsFuncion;
+    
+    @Autowired
+    public WsQuery wsQuery;
+    
+    private String ejec = "";
+    
+    public boolean existeCampo(String json,String palabra){   
+        
+        if(json.toLowerCase().contains(palabra.toLowerCase())){
+        return true;
+        }
+        
+    return false;
+    }
+    
+    @RequestMapping(value = {"/gestioncargas"}, method = {RequestMethod.GET})
+    public ModelAndView getCargas(){
+        ModelAndView model= new ModelAndView();
+    
+        model.setViewName("gestioncargas");
+        return model;
+    }
+    //Obtener cargas planificadas
+    @RequestMapping(value = {"/cargasplanif"}, method = {RequestMethod.POST})
+    public ModelAndView getCargas_planif(){
+        ModelAndView model= new ModelAndView();
+        String plan="";
+        String result = "";
+        String valor="";
+        String aux="";
+        List<String> listStringPlan = new ArrayList<>();
+        List<String> lista_plan = new ArrayList<>();
+        try {
+                plan=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion, pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
+                    "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                    "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job;");
+            } catch (ExcepcionServicio ex) {
+                Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+         if(!plan.equals("[]")){
+             JsonParser parser = new JsonParser();
+             JsonElement elementObject;
+             plan = plan.substring(1, plan.length()-1);
+             StringTokenizer st = new StringTokenizer(plan,"}");
+            
+             while (st.hasMoreTokens()) {
+                    plan = st.nextToken()+"}";
+                    if (plan.substring(0,1).equals(",")){
+                        plan = plan.substring(1);                          
+                    }
+                    elementObject = parser.parse(plan);
+                    valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
+                    result= result + "Id Plan Ejecucion: "+valor+"\n";
+                    if(existeCampo(plan,"nro_control_plan")){
+                    valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
+                    result= result + "Nro Control Plan= "+valor+"\n";
+                    }
+                    if(existeCampo(plan,"tienda")){
+                    valor = elementObject.getAsJsonObject().get("tienda").getAsString();
+                    result= result + "Tienda = "+valor+"\n";
+                    }
+                    if(existeCampo(plan,"job")){
+                    valor = elementObject.getAsJsonObject().get("job").getAsString();
+                    result= result + "Job = "+valor+"\n";
+                    }
+                    if(existeCampo(plan,"nro_control_ejec")){
+                    valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
+                    result= result + "Nro Control Ejecucion= "+valor+"\n";
+                    }
+                    if(existeCampo(plan,"observaciones")){
+                    valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
+                    result= result + "Observaciones= "+valor+"\n";
+                    }
+                    if(existeCampo(plan,"timestamp_planificacion")){
+                        valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                        result= result + "Tiempo de la planificacion = "+valor+"\n";
+                    }
+                    aux=elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString(); 
+                    listStringPlan.add(result);
+                    lista_plan.add("<option value="+aux+">"+
+                                    aux+"</option>");
+                    valor="";
+                    result="";
+                    aux="";
+                }
+             
+            model.addObject("planificado",listStringPlan);
+            model.addObject("plan_list", lista_plan); //Para listar las que se anularan
+         }else{
+         
+            model.addObject("mensaje_plan","No hay tareas planificadas para la tienda");
+         }
+        
+        model.setViewName("gestioncargas");
+        return model;
+    }
+    //Obtener cargas en ejecucion
+     @RequestMapping(value = {"/cargasejec"}, method = {RequestMethod.POST})
+    public ModelAndView getCargas_ejec(){
+        ModelAndView model= new ModelAndView();
+        String ejec="";
+        String result="";
+        String aux="";
+        String valor="";
+        List<String> listStringEjec = new ArrayList<>();
+        List<String> lista_ejec = new ArrayList<>();
+        
+        try {
+                ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
+                    "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                    "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion';");
+            } catch (ExcepcionServicio ex) {
+                Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        if(!ejec.equals("[]")){
+            JsonParser parser = new JsonParser();
+            JsonElement elementObject;
+                ejec = ejec.substring(1, ejec.length()-1);
+                StringTokenizer st = new StringTokenizer(ejec,"}");
+            while (st.hasMoreTokens()) {
+                    ejec = st.nextToken()+"}";
+                    if (ejec.substring(0,1).equals(",")){
+                        ejec = ejec.substring(1);                          
+                    }
+                    elementObject = parser.parse(ejec);
+                    valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
+                    result= result + "Id Plan Ejecucion: "+valor+"\n";
+                     if(existeCampo(ejec,"nro_control_pla")){
+                    valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
+                    result= result + "Nro Control Plan= "+valor+"\n";
+                    }
+                    if(existeCampo(ejec,"tienda")){
+                    valor = elementObject.getAsJsonObject().get("tienda").getAsString();
+                    result= result + "Tienda = "+valor+"\n";
+                    }
+                    if(existeCampo(ejec,"job")){
+                    valor = elementObject.getAsJsonObject().get("job").getAsString();
+                    result= result + "Job = "+valor+"\n";
+                    }
+                    if(existeCampo(ejec,"nro_control_ejec")){
+                    valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
+                    result= result + "Nro Control Ejecucion= "+valor+"\n";
+                    }
+                     if(existeCampo(ejec,"revisado")){
+                        valor = elementObject.getAsJsonObject().get("revisado").getAsString();
+                        result= result + "Revisado = "+valor+"\n";
+                    }
+                    if(existeCampo(ejec,"observaciones")){
+                    valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
+                    result= result + "Observaciones= "+valor+"\n";
+                    }
+                    if(existeCampo(ejec,"timestamp_planificacion")){
+                        valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                        result= result + "Tiempo de la planificacion = "+valor+"\n";
+                    }
+                    aux=elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();; 
+                    listStringEjec.add(result);
+                    lista_ejec.add("<option value="+aux+ ">"+
+                                    aux+"</option>");
+                    valor="";
+                    result="";
+                    aux="";
+
+                }
+        
+            model.addObject("ejecutado",listStringEjec);
+            model.addObject("plan_ejec",lista_ejec );
+        }else{
+        
+            model.addObject("mensaje_ejec","No hay tareas en ejecucion para la tienda");
+        }
+        model.setViewName("gestioncargas");
+        return model;
+    }
+    
+    
+}
