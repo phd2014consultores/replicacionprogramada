@@ -145,9 +145,7 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
        
-        <h4>${error}</h4>
-        <h4>${param1}</h4>
-        <h4>${param2}</h4>
+
         <c:if test="${not empty plan_list}">
             <form class="form-horizontal" action="planifica" method="POST">
                 <select  name="planificadas" class="form-control" onchange="this.form.submit()">
@@ -177,7 +175,7 @@
         </form>
         
         <c:if test="${not empty plan_ejec}">
-            <form class="form-horizontal" action="gestioncargas" method="POST">
+            <form class="form-horizontal" action="ejecucion" method="POST">
                 <select  name="ejecutadas" class="form-control" onchange="this.form.submit()">
                     <option value="NONE" >Seleccione el la carga que desea anular...</option>
                     <c:forEach items="${plan_ejec}" var="item">
@@ -219,9 +217,24 @@
             </script>
      </c:if>    
             
+            
+    <c:if test="${ msj_ejec == 'Planificacion anulada con Exito !!'}">
+            <script language="JavaScript">
+                {
+                    alert("Carga anulada exitosamente");
+                }
+            </script>
+     </c:if>
+     <c:if test="${ msj_ejec == 'Error al anular la tarea planificada'}">
+            <script language="JavaScript">
+                {
+                    alert("No se pudo anular la carga planificada");
+                }
+            </script>
+     </c:if> 
+            
     <br>
-    		<span > Anular: </span> <input type="text" placeholder="Id. Carga a Ejecucion" required />
-	<input type="submit" onclick=" this.value='Enviado'"value="Enviar"/>   
+    		
     </div>
     
 </div>	
