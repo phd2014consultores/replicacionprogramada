@@ -41,6 +41,7 @@ public class adminController {
     public existeCampo existeCampo;
     
     private String ejec = "";
+    public List<String> listString = new ArrayList<>();
     public List<String> listString2 = new ArrayList<>();
     public String aux="";
     
@@ -533,6 +534,87 @@ public class adminController {
     }    
     
     
+        @RequestMapping(value = {"/EliminarUsuario"}, method = {RequestMethod.GET})
+        public ModelAndView getEliminarUsuarioAdmin(){
+        ModelAndView model= new ModelAndView();
+        String s = "NULL";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        try {
+            s = wsQuery.getConsulta("SELECT usuario FROM public.usuarios WHERE activo=true;");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        s = s.substring(1, s.length()-1);
+        StringTokenizer st = new StringTokenizer(s,",");
+        aux="";
+        while (st.hasMoreTokens()) {
+            s = st.nextToken();
+            elementObject = parser.parse(s);
+            this.aux = elementObject.getAsJsonObject()
+                    .get("usuario").getAsString();
+            listString.add(this.aux);
+            listString2.add("<option value=\""+this.aux+ "\" type=\"submit\">"+
+                                    this.aux+"</option>"); 
+        }
+        model.addObject("usuario", listString);
+        model.addObject("usuarios", listString2);
+        model.setViewName("EliminarUsuario");
+        return model;
+    }
+        
+        @RequestMapping(value = {"/EliminarUsuario"}, method = {RequestMethod.POST})
+	public ModelAndView pagepostpublicador(@RequestParam (value = "listString", required = false)
+                                                    String usuario){
+        ModelAndView model = new ModelAndView();
+       
+        int s2 = -999;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        String s="";
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        String s3="";
+        if(!usuario.equals("NONE")) {
+            String valor="";
+            try {
+                 s = wsQuery.getConsulta("SELECT id_usuario FROM usuarios\n" +
+                        "  WHERE usuario='"+usuario+"';");
+                 s = s.substring(1, s.length()-1);
+                 elementObject = parser.parse(s);
+                 s = elementObject.getAsJsonObject()
+                    .get("id_usuario").getAsString();
+                 s3 = wsQuery.getConsulta("SELECT id_usuario FROM usuarios "
+                         + "WHERE usuario='"+name +"';");
+                 s3 = s3.substring(1, s3.length()-1);
+                 elementObject = parser.parse(s3);
+                 s3 = elementObject.getAsJsonObject()
+                    .get("id_usuario").getAsString();
+                s2 = WsFuncion.getConsulta("public.delete_usuarios("+s+","+s3+",false);");
+            } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
+            }
+        model=getEliminarUsuarioAdmin();
+        
+        if(s2==1){
+            model.addObject("exito","Usuario Eliminado");
+        }else{
+            model.addObject("exito","Error al eliminar");
+            
+        }
+        model.setViewName("EliminarUsuario");
+        return model;
+	}
+        
+        
+        
+        
+        
       @RequestMapping(value = {"/gestioncp"}, method = {RequestMethod.GET})
         public ModelAndView getgestioncpAdmin(){
         ModelAndView model= new ModelAndView();
