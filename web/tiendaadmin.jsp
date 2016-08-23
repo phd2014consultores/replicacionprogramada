@@ -127,61 +127,42 @@
     		</div>
     	</div>    	
     </div>
-     	<br>
-       <h1 align="center">Parámetros Tiendas</h1>
-		<br>
-
-<div id="parametros">
-   <div id="parametros1">
-    	<br>
-    	<label for="message">Usuario :</label> 
-    	<input type="text" placeholder="User" required />
-    	<label for="message" >Nombre :</label> 
-    	<input type="text" placeholder="Name" required />
-    	<label for="message">Fecha_base :</label> 
-    	<input type="text" placeholder="Date" required />
-    	<label for="message">Formato_Fecha :</label> 
-    	<input type="text" placeholder="Format" required />
-
-	</div>
-	<div id="parametros2">
-		<br>
-		<label for="message">Contraseña :</label> 
-    	<input type="text" placeholder="Password" required />
-		<label for="message">HostBDOracle :</label> 
-    	<input type="text" placeholder="IP" required />
-    	<label for="message">BDOralce :</label> 
-    	<input type="text" placeholder="Name" required />
-    	<br>
-    	<br>
-    	<input type="submit" onclick=" this.value='Enviado'"value="Enviar" />
-
+    <br>
+    <h1 align="center">Tienda Nueva</h1>
+    <br>
+    <div id="parametros">
+        <form class="form-horizontal" action="tiendaadmin" method="POST">
+            <div id="parametros1">
+                <label for="message">Usuario</label> 
+                <input name="user" type="text" placeholder="User" required />
+                <label for="message" >Nombre</label> 
+                <input name="nombre" type="text" placeholder="Name" required />
+                <label for="message">Fecha_base</label> 
+                <input name="fecha" type="text" placeholder="Date" required />
+                <label for="message">Formato_Fecha</label> 
+                <input name="format" type="text" placeholder="Format" required />
+            </div>
+            <div id="parametros2">
+                <label for="message">Contraseña</label> 
+                <input name="pass" type="text" placeholder="Password" required />
+                <label for="message">HostBDOracle</label> 
+                <input name="host" type="text" placeholder="IP" required />
+                <label for="message">BDOralce</label> 
+                <input name="bd" type="text" placeholder="Name" required />
+                <br>      
+            </div>
+        </form>
+        <input type="submit" value="Agregar" />
     </div>
-
-    <br>
-   <div>
-   		<br>
-       <h1 align="center">Cambiar Publicador</h1>
-		<br>
-    	<label for="message">Listar Publicadores :</label> 
-    	<textarea id="message1" cols="30" rows="15" required></textarea> <span> <input type="submit" onclick=" this.value='Cargado'"value="Cargar"/> </span>  
-    <br>
-    <br>
-    		<span > Cambiar: </span> <input type="text" placeholder="Id.Publicador" required />
-	<input type="submit" onclick=" this.value='Cambiado'"value="Cambiar"/>  
-    </div>
-        </div>
-    	<br>
-
-
-    		<div class="row-fluid">
-				<div class="span12">
-					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
-                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
-					</div>
-				</div>
-			</div> 
+          
+        <div class="row-fluid">
+            <div class="span12">
+                    <div id="copy" align="bottom">
+                            <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                            <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
+                    </div>
+            </div>
+        </div> 
 	
 
 

@@ -128,6 +128,7 @@
     <div id="Bandejas" >
 	<h2 color="red">Estado de Publicaciones</h2>
 	<br>
+            <h4>Seleccione una Tienda</h4>
             <form class="form-horizontal" action="Publicar" method="POST">
                 <select  name="nameTienda2" class="form-control" onchange="this.form.submit()">
                     <option value="NONE" >Seleccione una tienda...</option>

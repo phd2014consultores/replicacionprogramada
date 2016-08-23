@@ -129,49 +129,49 @@
 
     <h1 align="center">Configuración Cluster</h1>
     <br>
-
-    <h3 align="center">Activos - Desactivar </h3>
+    <h3 align="center">Agregar - Eliminar</h3>
     <br>
-    <div id="Nodos">
-    	<label for="message">Nodos Activos :</label> 
-    	<textarea id="lnodos" cols="50" rows="15" required></textarea>  <span> <input type="submit" onclick=" this.value='Cargado'"value="Cargar"/> </span>  
-    <br>
-    <br>
-    		<span > Desabilitar: </span> <input type="text" placeholder="Ip Nodo" required />
-	<input type="submit" onclick=" this.value='Enviado'"value="Enviar"/>  
+    <div id="Bandejas">
+        <form class="form-horizontal" action="nodoA" method="POST">
+            <h4>Añadir Nodo</h4>
+            <label for="message" >IP</label>
+            <input name="ip" type="text" placeholder="Ip Nodo" required />
+            <label for="message">Tipo Nodo</label>
+            <input name="tipo" type="text" placeholder="Tipo" required />
+            <label for="message">ColumnFamily</label>
+            <input name="column" type="text" placeholder="ColumnFamily" required />
+            <label for="message">KeySpace</label>
+            <input name="keyspace" type="text" placeholder="KeySpace" required />
+            <br>
+            <input type="submit" value="Agregar"/>
+        </form>
+    </div>
+    <br><br>
+    <div id="Bandejas">
+    	<h4>Nodos Activos</h4> 
+    	<textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${nodoActivo}" var="item3">&#9679${item3}</c:forEach>
+        </textarea>
+        <br>
+        <form class="form-horizontal" action="nodoE" method="POST">
+            <h4>Nodo a Eliminar</h4>        
+            <select  name="nodoE" class="form-control" onchange="this.form.submit()">
+                <option value="NONE">Seleccione un nodo...</option>
+                <c:forEach items="${nodoIP}" var="item2">
+                    ${item2}
+                </c:forEach>
+            </select>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </form>
     </div>
 
-    <br>
-    <br>
-    <h3 align="center">Añadir Nodo </h3>
-    <br>
-    <div id="agregarnodos">
-    	<br>
-    	<label for="message" >IP :</label> 
-    	<input type="text" placeholder="Ip Nodo" required />
-    	<label for="message">Tipo Nodo :</label> 
-    	<input type="text" placeholder="Tipo" required />
-
-    	<label for="message">ColumnFamily :</label> 
-    	<input type="text" placeholder="ColumnFamily" required />
-     	<label for="message">KeySpace :</label> 
-    	<input type="text" placeholder="KeySpace" required />
-		<br>
-    	<input id="agregarnodoboton" type="submit" onclick=" this.value='Enviado'"value="Enviar"/> 
-    <br>
-    <br>
-    </div>
-
-    	<br>
-
-    		<div class="row-fluid">
-				<div class="span12">
-					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
-                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
-					</div>
-				</div>
-			</div>  
+        <div class="row-fluid">
+            <div class="span12">
+                    <div id="copy" align="bottom">
+                            <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                            <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
+                    </div>
+            </div>
+        </div>  
 	
 
 

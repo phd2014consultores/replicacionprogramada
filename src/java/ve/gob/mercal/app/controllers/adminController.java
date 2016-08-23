@@ -709,8 +709,26 @@ public class adminController {
         model.setViewName("nodos");
         return model;
     }
+    @RequestMapping(value = {"/nodoA"}, method = {RequestMethod.POST})
+        public ModelAndView postnodoA(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("nodos");
+        return model;
+    }
+    @RequestMapping(value = {"/nodoE"}, method = {RequestMethod.POST})
+        public ModelAndView postnodoE(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("nodos");
+        return model;
+    }
     @RequestMapping(value = {"/tiendaadmin"}, method = {RequestMethod.GET})
         public ModelAndView gettiendaAdmin(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("tiendaadmin");
+        return model;
+    }
+    @RequestMapping(value = {"/tiendaadmin"}, method = {RequestMethod.POST})
+        public ModelAndView postiendaAdmin(){
         ModelAndView model= new ModelAndView();
         model.setViewName("tiendaadmin");
         return model;
