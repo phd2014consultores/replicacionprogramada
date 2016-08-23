@@ -697,11 +697,29 @@ public class adminController {
     }    
         
         
-      @RequestMapping(value = {"/gestioncp"}, method = {RequestMethod.GET})
+    @RequestMapping(value = {"/gestioncp"}, method = {RequestMethod.GET})
         public ModelAndView getgestioncpAdmin(){
         ModelAndView model= new ModelAndView();
         model.setViewName("gestioncp");
         return model;
     }
-    
+    @RequestMapping(value = {"/nodos"}, method = {RequestMethod.GET})
+        public ModelAndView getnodos(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("nodos");
+        return model;
+    }
+//    @RequestMapping(value = {"/gestioncp"}, method = {RequestMethod.GET})
+//        public ModelAndView getgestioncpAdmin(){
+//        ModelAndView model= new ModelAndView();
+//        model.setViewName("gestioncp");
+//        return model;
+//    }
+//    @RequestMapping(value = {"/gestioncp"}, method = {RequestMethod.GET})
+//        public ModelAndView getgestioncpAdmin(){
+//        ModelAndView model= new ModelAndView();
+//        model.setViewName("gestioncp");
+//        return model;
+//    }
+//    
 }
