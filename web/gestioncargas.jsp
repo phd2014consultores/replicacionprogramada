@@ -134,7 +134,7 @@
 	<br>
     <br>
     <div>
-    	<label for="message">Cargas Planificadas :</label>
+    	<h4>Cargas Planificadas</h4>
         
         
         <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${planificado}" var="item2">&#9679${item2}</c:forEach>
@@ -162,7 +162,7 @@
     </div>
 
     <div>
-    	<label for="message">Cargas a Ejecucion :</label> 
+    	<h4>Cargas a Ejecucion</h4> 
         
        
         <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${ejecutado}" var="item2">&#9679${item2}</c:forEach>

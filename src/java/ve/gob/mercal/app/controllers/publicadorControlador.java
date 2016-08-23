@@ -497,10 +497,10 @@ public class publicadorControlador {
                     }
                     elementObject = parser.parse(plan);
                     valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
-                    result= result + "Id Plan Ejecucion: "+valor+"\n";
+                    result= result + "Id Plan Ejecucion = "+valor+"\n";
                     if(existeCampo.existeCampo(plan,"nro_control_plan")){
                     valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
-                    result= result + "Nro Control Plan= "+valor+"\n";
+                    result= result + "Nro Control Plan = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(plan,"tienda")){
                     valor = elementObject.getAsJsonObject().get("tienda").getAsString();
@@ -512,11 +512,11 @@ public class publicadorControlador {
                     }
                     if(existeCampo.existeCampo(plan,"nro_control_ejec")){
                     valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
-                    result= result + "Nro Control Ejecucion= "+valor+"\n";
+                    result= result + "Nro Control Ejecucion = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(plan,"observaciones")){
                     valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
-                    result= result + "Observaciones= "+valor+"\n";
+                    result= result + "Observaciones = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(plan,"timestamp_planificacion")){
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
@@ -562,10 +562,10 @@ public class publicadorControlador {
                     }
                     elementObject2 = parser2.parse(ejec);
                     valor = elementObject2.getAsJsonObject().get("id_plan_ejecucion").getAsString();
-                    result= result + "Id Plan Ejecucion: "+valor+"\n";
+                    result= result + "Id Plan Ejecucion = "+valor+"\n";
                      if(existeCampo.existeCampo(ejec,"nro_control_pla")){
                     valor = elementObject2.getAsJsonObject().get("nro_control_plan").getAsString();
-                    result= result + "Nro Control Plan= "+valor+"\n";
+                    result= result + "Nro Control Plan = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(ejec,"tienda")){
                     valor = elementObject2.getAsJsonObject().get("tienda").getAsString();
@@ -577,7 +577,7 @@ public class publicadorControlador {
                     }
                     if(existeCampo.existeCampo(ejec,"nro_control_ejec")){
                     valor = elementObject2.getAsJsonObject().get("nro_control_ejec").getAsString();
-                    result= result + "Nro Control Ejecucion= "+valor+"\n";
+                    result= result + "Nro Control Ejecucion = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(ejec,"revisado")){
                         valor = elementObject2.getAsJsonObject().get("revisado").getAsString();
@@ -585,7 +585,7 @@ public class publicadorControlador {
                     }
                     if(existeCampo.existeCampo(ejec,"observaciones")){
                     valor = elementObject2.getAsJsonObject().get("observaciones").getAsString();
-                    result= result + "Observaciones= "+valor+"\n";
+                    result= result + "Observaciones = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(ejec,"timestamp_planificacion")){
                         valor = elementObject2.getAsJsonObject().get("timestamp_planificacion").getAsString();
@@ -629,10 +629,10 @@ public class publicadorControlador {
                     }
                     elementObject3 = parser3.parse(ter);
                     valor = elementObject3.getAsJsonObject().get("id_plan_ejecucion").getAsString();
-                    result= result + "Id Plan Ejecucion: "+valor+"\n";
+                    result= result + "Id Plan Ejecucion = "+valor+"\n";
                      if(existeCampo.existeCampo(ter,"nro_control_pla")){
                     valor = elementObject3.getAsJsonObject().get("nro_control_plan").getAsString();
-                    result= result + "Nro Control Plan= "+valor+"\n";
+                    result= result + "Nro Control Plan = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(ter,"tienda")){
                     valor = elementObject3.getAsJsonObject().get("tienda").getAsString();
@@ -644,7 +644,7 @@ public class publicadorControlador {
                     }
                     if(existeCampo.existeCampo(ter,"nro_control_ejec")){
                     valor = elementObject3.getAsJsonObject().get("nro_control_ejec").getAsString();
-                    result= result + "Nro Control Ejecucion= "+valor+"\n";
+                    result= result + "Nro Control Ejecucion = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(ter,"revisado")){
                         valor = elementObject3.getAsJsonObject().get("revisado").getAsString();
@@ -652,7 +652,7 @@ public class publicadorControlador {
                     }
                     if(existeCampo.existeCampo(ter,"observaciones")){
                     valor = elementObject3.getAsJsonObject().get("observaciones").getAsString();
-                    result= result + "Observaciones= "+valor+"\n";
+                    result= result + "Observaciones = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(ter,"timestamp_planificacion")){
                         valor = elementObject3.getAsJsonObject().get("timestamp_planificacion").getAsString();
@@ -1314,11 +1314,11 @@ public class publicadorControlador {
                     elementObject = parser.parse(etl_plan);
                     if(existeCampo.existeCampo(etl_plan,"id_etl")){
                         valor = elementObject.getAsJsonObject().get("id_etl").getAsString();
-                        result= result + "Id Etl: "+valor+"\n";
+                        result= result + "Id Etl = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(etl_plan,"etl")){
                         valor = elementObject.getAsJsonObject().get("etl").getAsString();
-                        result= result + "Nombre Etl= "+valor+"\n";
+                        result= result + "Nombre Etl = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(etl_plan,"status_ejec")){
                         valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
@@ -1378,11 +1378,11 @@ public class publicadorControlador {
                     elementObject = parser.parse(etl_ejec);
                     if(existeCampo.existeCampo(etl_ejec,"id_etl")){
                         valor = elementObject.getAsJsonObject().get("id_etl").getAsString();
-                        result= result + "Id Etl: "+valor+"\n";
+                        result= result + "Id Etl = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(etl_ejec,"etl")){
                         valor = elementObject.getAsJsonObject().get("etl").getAsString();
-                        result= result + "Nombre Etl= "+valor+"\n";
+                        result= result + "Nombre Etl = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(etl_ejec,"status_ejec")){
                         valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
@@ -1442,11 +1442,11 @@ public class publicadorControlador {
                     elementObject = parser.parse(etl_ter);
                     if(existeCampo.existeCampo(etl_ter,"id_etl")){
                         valor = elementObject.getAsJsonObject().get("id_etl").getAsString();
-                        result= result + "Id Etl: "+valor+"\n";
+                        result= result + "Id Etl = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(etl_ter,"etl")){
                         valor = elementObject.getAsJsonObject().get("etl").getAsString();
-                        result= result + "Nombre Etl= "+valor+"\n";
+                        result= result + "Nombre Etl = "+valor+"\n";
                     }
                     if(existeCampo.existeCampo(etl_ter,"status_ejec")){
                         valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();

@@ -95,11 +95,11 @@ public class adminController {
                     if(existeCampo.existeCampo(plan,"id_plan_ejecucion")){
                         valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
                         aux = valor;
-                        result= result + "Id Plan Ejecucion: "+valor+"\n";
+                        result= result + "Id Plan Ejecucion = "+valor+"\n";
                     }
                     if(existeCampo(plan,"nro_control_plan")){
                         valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
-                        result= result + "Nro Control Plan= "+valor+"\n";
+                        result= result + "Nro Control Plan = "+valor+"\n";
                     }
                     if(existeCampo(plan,"tienda")){
                         valor = elementObject.getAsJsonObject().get("tienda").getAsString();
@@ -111,11 +111,11 @@ public class adminController {
                     }
                     if(existeCampo(plan,"nro_control_ejec")){
                         valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
-                        result= result + "Nro Control Ejecucion= "+valor+"\n";
+                        result= result + "Nro Control Ejecucion = "+valor+"\n";
                     }
                     if(existeCampo(plan,"observaciones")){
                         valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
-                        result= result + "Observaciones= "+valor+"\n";
+                        result= result + "Observaciones = "+valor+"\n";
                     }
                     if(existeCampo(plan,"timestamp_planificacion")){
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
@@ -172,11 +172,11 @@ public class adminController {
                     if(existeCampo(ejec,"id_plan_ejecucion")){
                         valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
                         aux = valor;
-                        result= result + "Id Plan Ejecucion: "+valor+"\n";
+                        result= result + "Id Plan Ejecucion = "+valor+"\n";
                     }
                     if(existeCampo(ejec,"nro_control_pla")){
                         valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
-                        result= result + "Nro Control Plan= "+valor+"\n";
+                        result= result + "Nro Control Plan = "+valor+"\n";
                     }
                     if(existeCampo(ejec,"tienda")){
                         valor = elementObject.getAsJsonObject().get("tienda").getAsString();
@@ -188,7 +188,7 @@ public class adminController {
                     }
                     if(existeCampo(ejec,"nro_control_ejec")){
                         valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
-                        result= result + "Nro Control Ejecucion= "+valor+"\n";
+                        result= result + "Nro Control Ejecucion = "+valor+"\n";
                     }
                     if(existeCampo(ejec,"revisado")){
                         valor = elementObject.getAsJsonObject().get("revisado").getAsString();
@@ -196,7 +196,7 @@ public class adminController {
                     }
                     if(existeCampo(ejec,"observaciones")){
                         valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
-                        result= result + "Observaciones= "+valor+"\n";
+                        result= result + "Observaciones = "+valor+"\n";
                     }
                     if(existeCampo(ejec,"timestamp_planificacion")){
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
