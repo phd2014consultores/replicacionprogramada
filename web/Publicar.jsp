@@ -147,26 +147,12 @@
             <div id="Bandeja1">
                 <h4 color="red">Tareas planificadas</h4>
                 <h5>${mensaje_plan}</h5>
-                <c:if test="${empty lista_etl_planif}">
+                
                 <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${planificado}" var="item2">&#9679${planificado}</c:forEach>
                 </textarea>
                 <br>
-                </c:if>
-                <h5>${msj_planif}</h5>
-               <c:if test="${not empty plan_list}">
-                    <form class="form-horizontal" action="planificaETL" method="POST">
-                        <select  name="planificadas" class="form-control" onchange="this.form.submit()">
-                            <option value="NONE" >Seleccione una planificacion a detallar...</option>
-                            <c:forEach items="${plan_list}" var="item">
-                                ${item}</c:forEach>
-                        </select>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    </form>
-               </c:if>
-               <c:if test="${not empty lista_etl_planif}">
-                  <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${lista_etl_planif}" var="item2">&#9679${item2}</c:forEach>
-                  </textarea>
-               </c:if>
+                
+                
               
             </div>
             <div id="Bandeja1">

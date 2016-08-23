@@ -670,7 +670,7 @@ public class publicadorControlador {
 
                 }
             
-            
+                model.addObject("tienda", nombreTiendaUser.getnombreTienda());
                 model.addObject("terminado",listStringTer);
                 model.addObject("plan_ter", lista_ter);
                 
@@ -1276,71 +1276,7 @@ public class publicadorControlador {
         return model;
     }
     
-    @RequestMapping(value = {"/planificaETL"}, method = RequestMethod.POST)
-    public ModelAndView planifETL(
-            @RequestParam(value = "planificadas",required = false) String planificadas)
-    {
-        ModelAndView model = new ModelAndView();
-        model = publicar() ;
 
-        String etl_plan="";
-        String result="";
-        String valor="";
-        List<String> listString6 = new ArrayList<>();
-        int plan;
-        
-       
-        if(!planificadas.equals("NONE")) {
-            plan=Integer.parseInt(planificadas);
-            try {
-                   etl_plan=wsQuery.getConsulta("SELECT  e.id_etl, e.etl, ee.status_ejec\n" +
-                            "FROM public.plan_ejecuciones as pe, public.ejecucion_etls as ee, public.etls as e\n" +
-                            "WHERE pe.id_plan_ejecucion="+plan+" and pe.id_plan_ejecucion = ee.id_ejecucion and ee.id_etl = e.id_etl and e.activo=TRUE;");
-               } catch (ExcepcionServicio ex) {
-                   Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
-               }
-            
-            if(!etl_plan.equals("[]")){
-                JsonParser parser = new JsonParser();
-                JsonElement elementObject;
-                etl_plan = etl_plan.substring(1, etl_plan.length()-1);
-                StringTokenizer st = new StringTokenizer(etl_plan,"}");
-                result="";
-                while (st.hasMoreTokens()) {
-                    etl_plan = st.nextToken()+"}";
-                    if (etl_plan.substring(0,1).equals(",")){
-                        etl_plan = etl_plan.substring(1);                          
-                    }
-                    elementObject = parser.parse(etl_plan);
-                    if(existeCampo.existeCampo(etl_plan,"id_etl")){
-                        valor = elementObject.getAsJsonObject().get("id_etl").getAsString();
-                        result= result + "Id Etl = "+valor+"\n";
-                    }
-                    if(existeCampo.existeCampo(etl_plan,"etl")){
-                        valor = elementObject.getAsJsonObject().get("etl").getAsString();
-                        result= result + "Nombre Etl = "+valor+"\n";
-                    }
-                    if(existeCampo.existeCampo(etl_plan,"status_ejec")){
-                        valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
-                        result= result + "Estatus ejecucion = "+valor+"\n"; 
-                    }
-                    
-                    listString6.add(result+"\n\n");
-                    valor="";
-                    result="";
-                    
-                }
-             model.addObject("lista_etl_planif",listString6);
-            }else{
-              model.addObject("msj_planif","No hay etls asociados a esta planificacion");
-            }   
-        }
-        model.addObject("tienda2", nombreTiendaUser.getnombreTienda());
-        model.setViewName("Publicar");
-        return model;
-    }
-    
-    
     @RequestMapping(value = {"/ejecutaETL"}, method = RequestMethod.POST)
     public ModelAndView ejecETL(
            
