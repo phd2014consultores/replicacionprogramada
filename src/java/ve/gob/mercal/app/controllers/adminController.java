@@ -27,7 +27,7 @@ import ve.gob.mercal.app.services.WsFuncionApp;
 import ve.gob.mercal.app.services.WsQuery;
 /**
  *
- * @author wso2
+ * @author phd2014
  */
 @Controller
 @Scope("request")

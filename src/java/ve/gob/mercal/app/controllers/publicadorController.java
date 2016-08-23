@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import ve.gob.mercal.app.models.existeCampo;
 import ve.gob.mercal.app.services.WsFuncionApp;
 import ve.gob.mercal.app.services.WsQuery;
 
@@ -34,6 +35,9 @@ public class publicadorController {
     public WsQuery wsQuery;
     @Autowired
     public WsFuncionApp wsFuncionApp;
+    @Autowired
+    public existeCampo existeCampo;
+    
     private String tienda = "";
     public List<String> listString = new ArrayList<>();
     public List<String> listString2 = new ArrayList<>();
