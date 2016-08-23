@@ -1,5 +1,6 @@
 package com.PublicacionySuscripcion.web.controller;
 
+import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +47,25 @@ public class HelloController {
 		model.addObject("message", "Publicación y Suscripción de Tiendas ");
 		model.setViewName("login");
 
+		return model;
+
+	}
+        
+        
+        @RequestMapping(value = "/403", method = RequestMethod.GET)
+	public ModelAndView accesssDenied(Principal user) {
+
+		ModelAndView model = new ModelAndView();
+
+		if (user != null) {
+			model.addObject("msg", "Hola " + user.getName()
+			+ ", no posees permiso para acceder a esta página!");
+		} else {
+			model.addObject("msg",
+			"No posee permiso para acceder a esta página!");
+		}
+
+		model.setViewName("403");
 		return model;
 
 	}
