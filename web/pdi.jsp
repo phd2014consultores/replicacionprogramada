@@ -129,55 +129,45 @@
     		</div>
     	</div>    	
     </div>
-  <br>
-    <h1 align="center">Parámetros PDI</h1>
+    <br>
+    <h1 align="center">Configuración del Repositorio</h1>
+    <br>
+    <h3 align="center">Parámetros PDI</h3>
+    <br>
+    <div id="parametros">
+        <form class="form-horizontal" action="pdi" method="POST">
 
-<div id="parametros">
-   <div id="parametros1">
-    	<br>
-    	<label for="message" >Directorio PDI :</label> 
-    	<input type="text" placeholder="DirPDI" required />
-    	<label for="message">Nombre Repositorio :</label> 
-    	<input type="text" placeholder="Name" required />
-    	<label for="message">Usuario Repositorio :</label> 
-    	<input type="text" placeholder="User" required />
-	</div>
-	<div id="parametros2">
-		<br>
-		<label for="message">Contraseña Repositorio :</label> 
-    	<input type="text" placeholder="Password" required />
-    	<label for="message">Directorio Logs :</label> 
-    	<input type="text" placeholder="Dirlogs" required />
-     	<label for="message">Nivel Logs :</label> 
-    	<input type="text" placeholder="Level" required />
-    </div>
-		<br>
-       <h1 align="center">Parámetros JOB</h1>
-		<br>
-    <div id="parametrosjob">
-		<br>
-		<label for="message">Nombre Job :</label> 
-    	<input type="text" placeholder="JOB Name" required />
-    	<label for="message">Directorio Job :</label> 
-    	<input type="text" placeholder="DirJOB" required />
-    </div>
-        <br>
-    	<input type="submit" onclick=" this.value='Enviado'"value="Enviar" />
-   </div>
-    <br>
-    <br>
-    <br>
-    </div>
-    	<br>
+            <label for="message" >Directorio PDI</label> 
+            <input name="directorioPDI" type="text" placeholder="DirPDI" required />
+            <label for="message">Nombre Repositorio</label> 
+            <input name="nombrePDI" type="text" placeholder="Name" required />
+            <label for="message">Usuario Repositorio</label> 
+            <input name="user" type="text" placeholder="User" required />
 
-    		<div class="row-fluid">
-				<div class="span12">
-					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
-                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
-					</div>
-				</div>
-			</div> 
+            <label for="message">Contraseña Repositorio</label> 
+            <input name="pass" type="text" placeholder="Password" required />
+            <label for="message">Directorio Logs</label> 
+            <input name="log" type="text" placeholder="Dirlogs" required />
+            <label for="message">Nivel Logs</label> 
+            <input name="nivel" type="text" placeholder="Level" required />
+
+            <label for="message">Nombre Job :</label> 
+            <input name="nombreJOB" type="text" placeholder="JOB Name" required />
+            <label for="message">Directorio Job :</label> 
+            <input name="directorioJOB" type="text" placeholder="DirJOB" required />
+            <br>
+            <br>
+            <input type="submit" value="Enviar" />
+        </form>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div id="copy" align="bottom">
+                    <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                    <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
+            </div>
+        </div>
+    </div> 
 	
 
 

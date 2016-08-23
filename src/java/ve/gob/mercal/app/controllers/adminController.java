@@ -739,5 +739,10 @@ public class adminController {
         model.setViewName("pdi");
         return model;
     }
-    
+    @RequestMapping(value = {"/pdi"}, method = {RequestMethod.POST})
+        public ModelAndView postpdi(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("pdi");
+        return model;
+    }
 }
