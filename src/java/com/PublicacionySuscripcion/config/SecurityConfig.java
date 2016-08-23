@@ -29,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-	http.authorizeRequests() 
+	http
+                .authorizeRequests() 
                 .antMatchers("/admin","/pdi","/confcargas","/gestioncargas","/tiendaadmin","/gusuarios").hasRole("administrador")   
                 .antMatchers("/Publicador","/AgregarP","/Crear","/Detalle","/Modificar","/Publicar","/Psuscriptor","/GestionTienda","/GestionAgregarP","/CrearP","/RetirarP","/GestionPublicar","/agregarPlanificacion","/recuperarETL","/ciagregarPlanificacion","/magregarPlanificacion","/ciagregarPlanETL","/magregarPlanETL").hasRole("publicador")
                 .antMatchers("/Suscriptor","/Consulta","/SuscriptorPrincipal").hasRole("suscriptor")
