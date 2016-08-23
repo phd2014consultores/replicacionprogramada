@@ -567,7 +567,7 @@ public class adminController {
     }
         
         @RequestMapping(value = {"/EliminarUsuario"}, method = {RequestMethod.POST})
-	public ModelAndView pagepostpublicador(@RequestParam (value = "listString", required = false)
+	public ModelAndView postEliminarUsuarioAdmin(@RequestParam (value = "listString", required = false)
                                                     String usuario){
         ModelAndView model = new ModelAndView();
        
@@ -610,9 +610,91 @@ public class adminController {
         model.setViewName("EliminarUsuario");
         return model;
 	}
+  
+    @RequestMapping(value = {"/DetalleUsuario"}, method = {RequestMethod.GET})
+        public ModelAndView getDetalleUsuarioAdmin(){
+        ModelAndView model= new ModelAndView();
+        String s = "NULL";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        try {
+            s = wsQuery.getConsulta("SELECT usuario FROM public.usuarios WHERE activo=true;");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        s = s.substring(1, s.length()-1);
+        StringTokenizer st = new StringTokenizer(s,",");
+        aux="";
+        listString2.clear();
+        while (st.hasMoreTokens()) {
+            s = st.nextToken();
+            elementObject = parser.parse(s);
+            this.aux = elementObject.getAsJsonObject()
+                    .get("usuario").getAsString();
+            listString2.add("<option value=\""+this.aux+ "\" type=\"submit\">"+
+                                    this.aux+"</option>"); 
+        } 
+        model.addObject("usuarios", listString2);
+        model.setViewName("DetalleUsuario");
+        return model;
+    }
         
+    
         
+        @RequestMapping(value = {"/DetalleUsuario"}, method = {RequestMethod.POST})
+        public ModelAndView postDetalleUsuarioAdmin(@RequestParam (value = "listString", required = false)
+                                                    String usuario){
+        ModelAndView model= new ModelAndView();
+        model=getmodificarusuarioAdmin();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        String pseudonimo="";
+        String nombre="";
+        String apellido="";
+        String email="";
+        String tipo="";
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
         
+        try {
+                usuario = wsQuery.getConsulta("SELECT id_usuario, usuario, nombre, apellido, email,id_tipo_usuario FROM public.usuarios WHERE activo=true and usuario='"+usuario +"';");
+                
+        usuario = usuario.substring(1, usuario.length()-1);
+        elementObject = parser.parse(usuario);
+
+             pseudonimo = elementObject.getAsJsonObject().get("usuario").getAsString();
+             nombre = elementObject.getAsJsonObject().get("nombre").getAsString();
+             apellido = elementObject.getAsJsonObject().get("apellido").getAsString();
+             email = elementObject.getAsJsonObject().get("email").getAsString();
+             tipo = elementObject.getAsJsonObject().get("id_tipo_usuario").getAsString();
+ 
+            } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
+        
+         if(tipo.equals("1")){
+         tipo="administrador";
+         }
+         if(tipo.equals("2")){
+         tipo="publicador";
+         }
+         if(tipo.equals("3")){
+         tipo="suscriptor";
+         }
+            model.addObject("vaciar","vaciar");
+            model.addObject("pseudonimo",pseudonimo);
+            model.addObject("nombre",nombre);
+            model.addObject("apellido",apellido);
+            model.addObject("email",email);
+            model.addObject("tipo",tipo);
+
+        model.setViewName("DetalleUsuario");
+        return model;
+    }    
         
         
       @RequestMapping(value = {"/gestioncp"}, method = {RequestMethod.GET})
