@@ -31,15 +31,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	http.authorizeRequests() 
                 .antMatchers("/admin","/pdi","/confcargas","/gestioncargas","/tiendaadmin","/gusuarios").hasRole("administrador")   
-                .antMatchers("/Publicador","/AgregarP","/Crear","/Detalle","/Modificar","/Publicar","/Psuscriptor","/GestionTienda").hasRole("publicador")
+                .antMatchers("/Publicador","/AgregarP","/Crear","/Detalle","/Modificar","/Publicar","/Psuscriptor","/GestionTienda","/GestionAgregarP","/CrearP","/RetirarP","/GestionPublicar","/agregarPlanificacion","/recuperarETL","/ciagregarPlanificacion","/magregarPlanificacion","/ciagregarPlanETL","/magregarPlanETL").hasRole("publicador")
                 .antMatchers("/Suscriptor","/Consulta","/SuscriptorPrincipal").hasRole("suscriptor")
                 .and()
 		.formLogin().loginPage("/login").permitAll()
-                .failureUrl("/login")
+                .failureUrl("/login?error")
 		.usernameParameter("username").passwordParameter("password")
 		.successHandler(ra)
                 .and()
-		.logout().logoutSuccessUrl("/login")
+		.logout().logoutSuccessUrl("/login?logout")
 		.and()
 		.csrf();	
 	}

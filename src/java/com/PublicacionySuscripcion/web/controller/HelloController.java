@@ -13,8 +13,6 @@ public class HelloController {
 	public ModelAndView welcomePage() {
 
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Bienvenido al Sistema Centralizado de");
-		model.addObject("message", "Publicación y Suscripción de Tiendas ");
 		model.setViewName("hello");
 		return model;
 
@@ -38,7 +36,7 @@ public class HelloController {
 
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
-			model.addObject("error", "Invalido username o password!");
+			model.addObject("error", "Invalido usuario o contraseña!");
 		}
 
 		if (logout != null) {
@@ -51,5 +49,5 @@ public class HelloController {
 		return model;
 
 	}
-
+                
 }
