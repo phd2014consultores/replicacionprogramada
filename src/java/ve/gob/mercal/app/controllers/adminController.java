@@ -245,7 +245,6 @@ public class adminController {
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
             id_usr = id_usr.substring(1, id_usr.length()-1);
             JsonParser parser = new JsonParser();
             JsonElement elementObject;
@@ -756,8 +755,74 @@ public class adminController {
         return model;
     }
     @RequestMapping(value = {"/pdi"}, method = {RequestMethod.POST})
-        public ModelAndView postpdi(){
+        public ModelAndView postpdi(@RequestParam (value = "directorioPDI", required = false)
+                                                    String directorioPDI,
+                                    @RequestParam (value = "nombrePDI", required = false)
+                                                    String nombrePDI,
+                                    @RequestParam (value = "user", required = false)
+                                                    String user,
+                                    @RequestParam (value = "pass", required = false)
+                                                    String pass,
+                                    @RequestParam (value = "log", required = false)
+                                                    String log,
+                                    @RequestParam (value = "nivel", required = false)
+                                                    String nivel,
+                                    @RequestParam (value = "nombreJOB", required = false)
+                                                    String nombreJOB,
+                                    @RequestParam (value = "directorioJOB", required = false)
+                                                    String directorioJOB){
         ModelAndView model= new ModelAndView();
+        String Json="";
+        Json = "{\"directorio_pdi\":\""+directorioPDI+"\",\"repositorio\":\""+nombrePDI+"\",\"usuario_repositorio\":\""+user+"\",\"password\":"+pass+",\"directorio_logs\":\""+log+"\",\"nivel_logs\":\""+nivel+"\",\"nombre_job\":\""+nombreJOB+"\",\"directorio_job\":\""+directorioJOB+"\"}";
+        String result="";
+        String usuario = "NULL";
+        int resultado = -999;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        
+        try{
+            usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
+            usuario = usuario.substring(1, usuario.length()-1);
+            elementObject = parser.parse(usuario);
+            usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString(); 
+
+            result = wsQuery.getConsulta("SELECT id_config FROM public.config WHERE elemento ='pdi';");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        if(result.equals("[]")){
+            try {
+                resultado = WsFuncion.getConsulta("public.insert_config('pdi','"+Json+"',"+usuario+");");
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(resultado>0){
+                model.addObject("mensaje","exito");
+            }else{
+                model.addObject("mensaje","error");
+            }
+        }else{
+            try {
+                result = result.substring(1, result.length()-1);
+                elementObject = parser.parse(result);
+                result = elementObject.getAsJsonObject().get("id_config").getAsString(); 
+                
+                resultado = WsFuncion.getConsulta("public.update_config("+result+",'pdi','"+Json+"',"+usuario+");");
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(resultado>0){
+                model.addObject("mensaje","exito");
+            }else{
+                model.addObject("mensaje","error");
+            }
+        }
         model.setViewName("pdi");
         return model;
     }

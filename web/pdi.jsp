@@ -138,27 +138,43 @@
         <form class="form-horizontal" action="pdi" method="POST">
 
             <label for="message" >Directorio PDI</label> 
-            <input name="directorioPDI" type="text" placeholder="DirPDI" required />
+            <input name="directorioPDI" type="text" placeholder="Directorio Pdi" required />
             <label for="message">Nombre Repositorio</label> 
-            <input name="nombrePDI" type="text" placeholder="Name" required />
+            <input name="nombrePDI" type="text" placeholder="Nombre" required />
             <label for="message">Usuario Repositorio</label> 
-            <input name="user" type="text" placeholder="User" required />
+            <input name="user" type="text" placeholder="Usuario" required />
 
             <label for="message">Contraseña Repositorio</label> 
-            <input name="pass" type="text" placeholder="Password" required />
+            <input name="pass" type="text" placeholder="Contraseña" required />
             <label for="message">Directorio Logs</label> 
-            <input name="log" type="text" placeholder="Dirlogs" required />
+            <input name="log" type="text" placeholder="Log" required />
             <label for="message">Nivel Logs</label> 
-            <input name="nivel" type="text" placeholder="Level" required />
+            <input name="nivel" type="text" placeholder="Nivel" required />
 
             <label for="message">Nombre Job :</label> 
-            <input name="nombreJOB" type="text" placeholder="JOB Name" required />
+            <input name="nombreJOB" type="text" placeholder="Nombre Job" required />
             <label for="message">Directorio Job :</label> 
-            <input name="directorioJOB" type="text" placeholder="DirJOB" required />
+            <input name="directorioJOB" type="text" placeholder="Directorio Job" required />
             <br>
             <br>
             <input type="submit" value="Enviar" />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
+        
+        <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("El repositorio fue configurado correctamente..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${mensaje == 'error'}">
+            <script language="JavaScript">
+                {
+                    alert("Fallo al configurar el repositorio..!!");
+                }
+            </script>   
+        </c:if>
     </div>
     <div class="row-fluid">
         <div class="span12">
