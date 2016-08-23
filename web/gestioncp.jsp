@@ -135,7 +135,7 @@
 
                     <select  name="listString" class="form-control" onchange="location = this.value;">
                         <option value="NONE">Seleccione una opción...</option>
-                        <option value="/PublicacionySuscripcion/admin">Configurar Cluster</option>
+                        <option value="/PublicacionySuscripcion/nodos">Configurar Cluster</option>
                         <option value="/PublicacionySuscripcion/tiendaadmin">Configurar Tiendas</option>
                         <option value="/PublicacionySuscripcion/pdi">Configurar PDI</option>
                     </select>

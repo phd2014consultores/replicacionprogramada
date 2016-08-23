@@ -709,17 +709,17 @@ public class adminController {
         model.setViewName("nodos");
         return model;
     }
-//    @RequestMapping(value = {"/gestioncp"}, method = {RequestMethod.GET})
-//        public ModelAndView getgestioncpAdmin(){
-//        ModelAndView model= new ModelAndView();
-//        model.setViewName("gestioncp");
-//        return model;
-//    }
-//    @RequestMapping(value = {"/gestioncp"}, method = {RequestMethod.GET})
-//        public ModelAndView getgestioncpAdmin(){
-//        ModelAndView model= new ModelAndView();
-//        model.setViewName("gestioncp");
-//        return model;
-//    }
-//    
+    @RequestMapping(value = {"/tiendaadmin"}, method = {RequestMethod.GET})
+        public ModelAndView gettiendaAdmin(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("tiendaadmin");
+        return model;
+    }
+    @RequestMapping(value = {"/pdi"}, method = {RequestMethod.GET})
+        public ModelAndView getpdi(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("pdi");
+        return model;
+    }
+    
 }
