@@ -41,7 +41,7 @@ public class HelloController {
 		}
 
 		if (logout != null) {
-			model.addObject("msg", "Salida de sesion exitoso.");
+			model.addObject("msg", "Salida de sesión exitosa.");
 		}
                 model.addObject("title", "Bienvenido al Sistema Centralizado de");
 		model.addObject("message", "Publicación y Suscripción de Tiendas ");
