@@ -74,7 +74,7 @@ public class adminController {
         try {
                 plan=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion, pe.nro_control_plan, t.tienda, j.job,pe.timestamp_planificacion, pe.nro_control_ejec, pe.observaciones\n" +
                     "  FROM public.plan_ejecuciones as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
-                    "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job;");
+                    "  WHERE pe.activo=TRUE and pe.tipo_ejecucion='planificada' and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='en espera' and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and ppe.activo = TRUE;");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -121,7 +121,7 @@ public class adminController {
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
-                    listStringPlan.add(result);
+                    listStringPlan.add(result + "\n\n");
                     lista_plan.add("<option value=\""+aux+"\">"+
                                     aux+"</option>");
                     valor="";
@@ -202,7 +202,7 @@ public class adminController {
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
-                    listStringEjec.add(result);
+                    listStringEjec.add(result+"\n\n");
                     lista_ejec.add("<option value=\""+aux+ "\">"+
                                     aux+"</option>");
                     valor="";
@@ -228,6 +228,7 @@ public class adminController {
         ModelAndView model = new ModelAndView();
         String id_usr="";
         int funcion = 0;
+        int update=0;
         int actual=0;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
@@ -256,7 +257,13 @@ public class adminController {
             } catch (Exception ex) {
                 Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             }
-                
+            
+            try {
+                update = WsFuncion.getConsulta("public.delete_pasos_plan_ejecucion("+plan+","+actual+",false);");
+            } catch (Exception ex) {
+                Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             if(funcion>0){
             model.addObject("msj_planif","Planificacion anulada con Exito !!");
             }else{
@@ -282,6 +289,7 @@ public class adminController {
         String id_usr="";
         int funcion = 0;
         int actual=0;
+        int update=0;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         int ejec;
@@ -304,14 +312,22 @@ public class adminController {
             elementObject = parser.parse(id_usr);
             actual=elementObject.getAsJsonObject().get("id_usuario").getAsInt();
             
+            
             try {
                 funcion = WsFuncion.getConsulta("public.insert_pasos_ejecucion("+ejec+","+"'anulada'"+","+actual+");");
             } catch (Exception ex) {
                 Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             }
-                
+            
+            try {
+                update = WsFuncion.getConsulta("public.delete_plan_ejecuciones("+ejec+","+actual+",false);");
+            } catch (Exception ex) {
+                Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+            
             if(funcion>0){
             model.addObject("msj_ejec","Planificacion anulada con Exito !!");
+            // invoco servicio anular kitchen
             }else{
             model.addObject("param1", ejec);
             model.addObject("param2", actual);
