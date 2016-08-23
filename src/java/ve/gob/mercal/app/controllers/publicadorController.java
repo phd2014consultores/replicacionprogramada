@@ -484,12 +484,9 @@ public class publicadorController {
             }
         
         if(result==1){
-            model=getmodificarPublicador();
-            model.addObject("vaciar","vaciar");
             model.addObject("exito","Tienda Modificada");
             model.setViewName("Modificar");
         }else{
-            model=getmodificarPublicador();
             model.addObject("exito","Fallo al modifica la Tienda");
             model.addObject("error",result);
         }

@@ -41,6 +41,8 @@ public class adminController {
     public existeCampo existeCampo;
     
     private String ejec = "";
+    public List<String> listString2 = new ArrayList<>();
+    public String aux="";
     
     public boolean existeCampo(String json,String palabra){   
         
@@ -337,11 +339,145 @@ public class adminController {
     @RequestMapping(value = {"/ModificarUsuario"}, method = {RequestMethod.GET})
         public ModelAndView getmodificarusuarioAdmin(){
         ModelAndView model= new ModelAndView();
+        
+        String s = "NULL";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        try {
+            s = wsQuery.getConsulta("SELECT usuario FROM public.usuarios WHERE activo=true;");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(!s.equals("[]")){
+            JsonParser parser = new JsonParser();
+            JsonElement elementObject;
+            s = s.substring(1, s.length()-1);
+            StringTokenizer st = new StringTokenizer(s,",");
+            while (st.hasMoreTokens()) {
+                s = st.nextToken();
+                elementObject = parser.parse(s);
+                this.aux = elementObject.getAsJsonObject()
+                        .get("usuario").getAsString();
+                listString2.add("<option value=\""+this.aux+ "\" type=\"submit\">"+
+                                        this.aux+"</option>"); 
+            }
+        model.addObject("usuarios", listString2);
+        }else{
+        model.addObject("existe","no existe usuarios a modificar");
+        
+        }
+        model.setViewName("ModificarUsuario");
+        return model;
+    }    
+    
+        
+    @RequestMapping(value = {"/ModificarUsuario"}, method = {RequestMethod.POST})
+        public ModelAndView postmodificarusuarioAdmin(@RequestParam (value = "listString", required = false)
+                                                    String usuario){
+        ModelAndView model= new ModelAndView();
+        model=getmodificarusuarioAdmin();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        String id="";
+        String pseudonimo="";
+        String nombre="";
+        String apellido="";
+        String email="";
+        String tipo="";
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        
+        try {
+                usuario = wsQuery.getConsulta("SELECT id_usuario, usuario, nombre, apellido, email,id_tipo_usuario FROM public.usuarios WHERE activo=true and usuario='"+usuario +"';");
+                
+        usuario = usuario.substring(1, usuario.length()-1);
+        elementObject = parser.parse(usuario);
+
+             id = elementObject.getAsJsonObject().get("id_usuario").getAsString();
+             pseudonimo = elementObject.getAsJsonObject().get("usuario").getAsString();
+             nombre = elementObject.getAsJsonObject().get("nombre").getAsString();
+             apellido = elementObject.getAsJsonObject().get("apellido").getAsString();
+             email = elementObject.getAsJsonObject().get("email").getAsString();
+             tipo = elementObject.getAsJsonObject().get("id_tipo_usuario").getAsString();
+ 
+            } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
+        
+         if(tipo.equals("1")){
+         tipo="administrador";
+         }
+         if(tipo.equals("2")){
+         tipo="publicador";
+         }
+         if(tipo.equals("3")){
+         tipo="suscriptor";
+         }
+            model.addObject("vaciar","vaciar");
+            model.addObject("id",id);
+            model.addObject("pseudonimo",pseudonimo);
+            model.addObject("nombre",nombre);
+            model.addObject("apellido",apellido);
+            model.addObject("email",email);
+            model.addObject("tipo",tipo);
+
         model.setViewName("ModificarUsuario");
         return model;
     }    
         
+    @RequestMapping(value = {"/ModificarUsuario2"}, method = {RequestMethod.POST})
+        public ModelAndView postmodificarusuario2Admin(@RequestParam(value = "nombre", required = false) String nombre,
+                                                @RequestParam(value = "pseudonimo", required = false) String pseudonimo,
+                                                @RequestParam(value = "apellido", required = false) String apellido,
+                                                @RequestParam(value = "email", required = false) String email,
+                                                @RequestParam(value = "pass", required = false) String pass,
+                                                @RequestParam(value = "tipo", required = false) String tipo,
+                                                @RequestParam(value = "id", required = false) String id){
+        ModelAndView model= new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        int result=-999;
+        int aux=0;
         
+         if(tipo.equals("administrador")){
+         aux=1;
+         }
+         if(tipo.equals("publicador")){
+         aux=2;
+         }
+         if(tipo.equals("suscriptor")){
+         aux=3;
+         }
+        
+        try {
+                name = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name +"';");
+                name = name.substring(1, name.length()-1);
+                elementObject = parser.parse(name);
+                name = elementObject.getAsJsonObject()
+                    .get("id_usuario").getAsString();
+            
+                result = WsFuncion.getConsulta("public.update_usuarios("+id+", '"+pseudonimo+"', '"+nombre+"', '"+apellido+"', '"+email+"', '"+pass+"', "+aux+",  "+name+");");
+        model=getmodificarusuarioAdmin();    
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
+        
+        if(result==1){
+            model.addObject("exito","Usuario Modificado");
+        }else{
+            model.addObject("exito","Fallo al modificar el usuario");
+            model.addObject("error",result);
+        }
+        
+        
+        model.setViewName("ModificarUsuario");
+        return model;
+    }    
     
     
       @RequestMapping(value = {"/gestioncp"}, method = {RequestMethod.GET})

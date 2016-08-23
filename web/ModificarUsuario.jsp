@@ -130,9 +130,9 @@
 	    	<br>
 
 <div id="Bandejas" >
-        <c:if test="${ empty exito}">
+
             <h2>Modificar Usuario</h2>
-        </c:if>
+
         <br>
         <c:if test="${not empty existe}">
             <script language="JavaScript">
@@ -142,10 +142,10 @@
             </script>
         </c:if>
         <c:if test="${empty vaciar}">
-                <form class="form-horizontal" action="Modificar" method="POST">
+                <form class="form-horizontal" action="ModificarUsuario" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
                         <option value="NONE">Seleccione un usuario...</option>
-                        <c:forEach items="${tienda2}" var="item">
+                        <c:forEach items="${usuarios}" var="item">
                             ${item}
                         </c:forEach>
                     </select>
@@ -153,34 +153,36 @@
                 </form>
          </c:if>
     <br>
-    <c:if test="${not empty tienda}"> 
-    <form class="form-horizontal" action="Modificar2" method="POST">
+    <c:if test="${not empty pseudonimo}"> 
+    <form class="form-horizontal" action="ModificarUsuario2" method="POST">
         <c:if test="${ empty exito}">   
         <label for="message">Datos a Modificar :</label> 
             <label for="message">Pseudonimo :</label> 
-            <input name="pseudonimo" type="text" placeholder="Pseudonimo" required />
+            <input required name="pseudonimo" type="text" placeholder="Pseudonimo" value="${pseudonimo}" />
             <br>
             <label for="message">Nombre :</label> 
-            <input name="nombre" type="text" placeholder="Nombre" required />
+            <input required name="nombre" type="text" placeholder="Nombre" value="${nombre}" />
             <br>
             <label for="message">Apellido :</label> 
-            <input name="apellido" type="text" placeholder="Apellido" required />
+            <input required name="apellido" type="text" placeholder="Apellido" value="${apellido}" />
             <br>
             <label for="message">Email :</label> 
-            <input name="email" ype="text" placeholder="Email" required />
+            <input required name="email" ype="text" placeholder="Email" value="${email}" />
             <br>
-            <label for="message">Contraseña :</label> 
+            <label for="message">Nueva Contraseña :</label> 
             <input name="pass" type="text" placeholder="Contraseña" required />
             <br>
-            <label for="message">Tipo Usuario :</label> 
+            <label for="message">Tipo Usuario Actual :</label> 
+            <input disabled name="tip" type="text" placeholder="Tipo" value="${tipo}" />
+            <br>
+            <label for="message">Nuevo Tipo Usuario :</label> 
                     <select  name="tipo" class="form-control" >
                         <option value="administrador">Administrador</option>
                         <option value="publicador">Publicador</option>
                         <option value="suscriptor">Suscriptor</option>
                     </select>
             <br>
-            <input name="idt" type="hidden" value=${idt}>
-            <input name="idm" type="hidden" value=${idm}>
+            <input name="id" type="hidden" value=${id}>
             <input type="submit" value="Modificar"/>
             <br>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
@@ -188,17 +190,17 @@
         </c:if>
     </c:if>
 
-            <c:if test="${ exito == 'Tienda Modificada'}">
+            <c:if test="${ exito == 'Usuario Modificado'}">
                     <script language="JavaScript">
                         {
-                            alert("Tienda modificada exitosamente");
+                            alert("Usuario modificado exitosamente");
                         }
                     </script>
              </c:if>
-             <c:if test="${ exito == 'Fallo al modifica la Tienda'}">
+             <c:if test="${ exito == 'Fallo al modificar el usuario'}">
                     <script language="JavaScript">
                         {
-                            alert("No se pudo modificar la Tienda");
+                            alert("No se pudo modificar el usuario");
                         }
                     </script>
              </c:if>       
