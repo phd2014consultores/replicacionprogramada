@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import ve.gob.mercal.app.models.existeCampo;
 import ve.gob.mercal.app.models.nombreTienda;
 import ve.gob.mercal.app.services.WsFuncionApp;
 import ve.gob.mercal.app.services.WsQuery;
@@ -34,9 +35,10 @@ import ve.gob.mercal.app.services.WsQuery;
 public class adminController {
     @Autowired
     public WsFuncionApp WsFuncion;
-    
     @Autowired
     public WsQuery wsQuery;
+    @Autowired
+    public existeCampo existeCampo;
     
     private String ejec = "";
     
@@ -86,35 +88,38 @@ public class adminController {
                         plan = plan.substring(1);                          
                     }
                     elementObject = parser.parse(plan);
-                    valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
-                    result= result + "Id Plan Ejecucion: "+valor+"\n";
+                    
+                    if(existeCampo.existeCampo(plan,"id_plan_ejecucion")){
+                        valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
+                        aux = valor;
+                        result= result + "Id Plan Ejecucion: "+valor+"\n";
+                    }
                     if(existeCampo(plan,"nro_control_plan")){
-                    valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
-                    result= result + "Nro Control Plan= "+valor+"\n";
+                        valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
+                        result= result + "Nro Control Plan= "+valor+"\n";
                     }
                     if(existeCampo(plan,"tienda")){
-                    valor = elementObject.getAsJsonObject().get("tienda").getAsString();
-                    result= result + "Tienda = "+valor+"\n";
+                        valor = elementObject.getAsJsonObject().get("tienda").getAsString();
+                        result= result + "Tienda = "+valor+"\n";
                     }
                     if(existeCampo(plan,"job")){
-                    valor = elementObject.getAsJsonObject().get("job").getAsString();
-                    result= result + "Job = "+valor+"\n";
+                        valor = elementObject.getAsJsonObject().get("job").getAsString();
+                        result= result + "Job = "+valor+"\n";
                     }
                     if(existeCampo(plan,"nro_control_ejec")){
-                    valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
-                    result= result + "Nro Control Ejecucion= "+valor+"\n";
+                        valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
+                        result= result + "Nro Control Ejecucion= "+valor+"\n";
                     }
                     if(existeCampo(plan,"observaciones")){
-                    valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
-                    result= result + "Observaciones= "+valor+"\n";
+                        valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
+                        result= result + "Observaciones= "+valor+"\n";
                     }
                     if(existeCampo(plan,"timestamp_planificacion")){
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
-                    aux=elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString(); 
                     listStringPlan.add(result);
-                    lista_plan.add("<option value="+aux+">"+
+                    lista_plan.add("<option value=\""+aux+"\">"+
                                     aux+"</option>");
                     valor="";
                     result="";
@@ -160,39 +165,42 @@ public class adminController {
                         ejec = ejec.substring(1);                          
                     }
                     elementObject = parser.parse(ejec);
-                    valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
-                    result= result + "Id Plan Ejecucion: "+valor+"\n";
-                     if(existeCampo(ejec,"nro_control_pla")){
-                    valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
-                    result= result + "Nro Control Plan= "+valor+"\n";
+                    
+                    if(existeCampo(ejec,"id_plan_ejecucion")){
+                        valor = elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();
+                        aux = valor;
+                        result= result + "Id Plan Ejecucion: "+valor+"\n";
+                    }
+                    if(existeCampo(ejec,"nro_control_pla")){
+                        valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
+                        result= result + "Nro Control Plan= "+valor+"\n";
                     }
                     if(existeCampo(ejec,"tienda")){
-                    valor = elementObject.getAsJsonObject().get("tienda").getAsString();
-                    result= result + "Tienda = "+valor+"\n";
+                        valor = elementObject.getAsJsonObject().get("tienda").getAsString();
+                        result= result + "Tienda = "+valor+"\n";
                     }
                     if(existeCampo(ejec,"job")){
-                    valor = elementObject.getAsJsonObject().get("job").getAsString();
-                    result= result + "Job = "+valor+"\n";
+                        valor = elementObject.getAsJsonObject().get("job").getAsString();
+                        result= result + "Job = "+valor+"\n";
                     }
                     if(existeCampo(ejec,"nro_control_ejec")){
-                    valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
-                    result= result + "Nro Control Ejecucion= "+valor+"\n";
+                        valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
+                        result= result + "Nro Control Ejecucion= "+valor+"\n";
                     }
-                     if(existeCampo(ejec,"revisado")){
+                    if(existeCampo(ejec,"revisado")){
                         valor = elementObject.getAsJsonObject().get("revisado").getAsString();
                         result= result + "Revisado = "+valor+"\n";
                     }
                     if(existeCampo(ejec,"observaciones")){
-                    valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
-                    result= result + "Observaciones= "+valor+"\n";
+                        valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
+                        result= result + "Observaciones= "+valor+"\n";
                     }
                     if(existeCampo(ejec,"timestamp_planificacion")){
                         valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
                         result= result + "Tiempo de la planificacion = "+valor+"\n";
                     }
-                    aux=elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString();; 
                     listStringEjec.add(result);
-                    lista_ejec.add("<option value="+aux+ ">"+
+                    lista_ejec.add("<option value=\""+aux+ "\">"+
                                     aux+"</option>");
                     valor="";
                     result="";

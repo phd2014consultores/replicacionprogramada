@@ -196,23 +196,39 @@ public class publicadorController {
                     }
                     elementObject = parser.parse(s2);
                     result= result + "Planificación: "+planif+"\n";
-                    valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
-                    result= result + "Nro_control_plan = "+valor+"\n";
-                    listString3.add(valor);
-                    valor = elementObject.getAsJsonObject().get("tienda").getAsString();
-                    result= result + "Tienda = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("job").getAsString();
-                    result= result + "Job = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("tipo_ejecucion").getAsString();
-                    result= result + "Tipo_ejecución = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
-                    result= result + "Timestamp_planificación = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
-                    result= result + "Nro_control_ejec = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("revisado").getAsString();
-                    result= result + "Revisado = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
-                    result= result + "Observaciones = "+valor+"\n";
+                    if(existeCampo.existeCampo(s2,"nro_control_plan")){
+                        valor = elementObject.getAsJsonObject().get("nro_control_plan").getAsString();
+                        result= result + "Nro_control_plan = "+valor+"\n";
+                        listString3.add(valor);
+                    }
+                    if(existeCampo.existeCampo(s2,"tienda")){
+                        valor = elementObject.getAsJsonObject().get("tienda").getAsString();
+                        result= result + "Tienda = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(s2,"job")){
+                        valor = elementObject.getAsJsonObject().get("job").getAsString();
+                        result= result + "Job = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(s2,"tipo_ejecucion")){
+                        valor = elementObject.getAsJsonObject().get("tipo_ejecucion").getAsString();
+                        result= result + "Tipo_ejecución = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(s2,"timestamp_planificacion")){
+                        valor = elementObject.getAsJsonObject().get("timestamp_planificacion").getAsString();
+                        result= result + "Timestamp_planificación = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(s2,"nro_control_ejec")){
+                        valor = elementObject.getAsJsonObject().get("nro_control_ejec").getAsString();
+                        result= result + "Nro_control_ejec = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(s2,"revisado")){
+                        valor = elementObject.getAsJsonObject().get("revisado").getAsString();
+                        result= result + "Revisado = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(s2,"observaciones")){
+                        valor = elementObject.getAsJsonObject().get("observaciones").getAsString();
+                        result= result + "Observaciones = "+valor+"\n";
+                    }
                     listString2.add(result+"\n\n");
                     planif++;
                     valor="";
@@ -261,16 +277,26 @@ public class publicadorController {
                         s2 = s2.substring(1);                           
                     }
                     elementObject = parser.parse(s2);
-                    valor = elementObject.getAsJsonObject().get("id_etl").getAsString();
-                    result= result + "Id del etl = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("etl").getAsString();
-                    result= result + "Etl = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
-                    result= result + "Estatus de la Ejecución = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("reg_insertados").getAsString();
-                    result= result + "Registros Insertados = "+valor+"\n";
-                    valor = elementObject.getAsJsonObject().get("reg_actualizados").getAsString();
-                    result= result + "Registros Actualizados = "+valor+"\n";
+                    if(existeCampo.existeCampo(s2,"id_etl")){
+                        valor = elementObject.getAsJsonObject().get("id_etl").getAsString();
+                        result= result + "Id del etl = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(s2,"etl")){
+                        valor = elementObject.getAsJsonObject().get("etl").getAsString();
+                        result= result + "Etl = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(s2,"status_ejec")){
+                        valor = elementObject.getAsJsonObject().get("status_ejec").getAsString();
+                        result= result + "Estatus de la Ejecución = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(s2,"reg_insertados")){
+                        valor = elementObject.getAsJsonObject().get("reg_insertados").getAsString();
+                        result= result + "Registros Insertados = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(s2,"reg_actualizados")){
+                        valor = elementObject.getAsJsonObject().get("reg_actualizados").getAsString();
+                        result= result + "Registros Actualizados = "+valor+"\n";
+                    }
                     listString2.add(result+"\n\n");
                     valor="";
                     result="";
@@ -390,15 +416,29 @@ public class publicadorController {
                 
         nameTienda = nameTienda.substring(1, nameTienda.length()-1);
         elementObject = parser.parse(nameTienda);
-
-             id = elementObject.getAsJsonObject().get("id_tienda").getAsString();
-             tien = elementObject.getAsJsonObject().get("tienda").getAsString();
-             host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
-             user = elementObject.getAsJsonObject().get("usuario_bd_oracle").getAsString();
-             pass = elementObject.getAsJsonObject().get("pass_usuario_bd_oracle").getAsString();
-             bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
-             idm = elementObject.getAsJsonObject().get("id_manager").getAsString();
-            } catch (ExcepcionServicio e) {
+            
+            if(existeCampo.existeCampo(nameTienda,"id_tienda")){
+                id = elementObject.getAsJsonObject().get("id_tienda").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"tienda")){    
+                tien = elementObject.getAsJsonObject().get("tienda").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"host_bd_oracle")){    
+                host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"usuario_bd_oracle")){    
+                user = elementObject.getAsJsonObject().get("usuario_bd_oracle").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"pass_usuario_bd_oracle")){    
+                pass = elementObject.getAsJsonObject().get("pass_usuario_bd_oracle").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"bd_oracle")){    
+                bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"id_manager")){    
+                idm = elementObject.getAsJsonObject().get("id_manager").getAsString();
+            }           
+        } catch (ExcepcionServicio e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             }
@@ -523,14 +563,28 @@ public class publicadorController {
                 
         nameTienda = nameTienda.substring(1, nameTienda.length()-1);
         elementObject = parser.parse(nameTienda);
+            if(existeCampo.existeCampo(nameTienda,"id_tienda")){
+                id = elementObject.getAsJsonObject().get("id_tienda").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"tienda")){    
+                tien = elementObject.getAsJsonObject().get("tienda").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"host_bd_oracle")){    
+                host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"usuario_bd_oracle")){    
+                user = elementObject.getAsJsonObject().get("usuario_bd_oracle").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"pass_usuario_bd_oracle")){    
+                pass = elementObject.getAsJsonObject().get("pass_usuario_bd_oracle").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"bd_oracle")){    
+                bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
+            }    
+            if(existeCampo.existeCampo(nameTienda,"id_manager")){    
+                idm = elementObject.getAsJsonObject().get("id_manager").getAsString();
+            }           
 
-             id = elementObject.getAsJsonObject().get("id_tienda").getAsString();
-             tien = elementObject.getAsJsonObject().get("tienda").getAsString();
-             host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
-             user = elementObject.getAsJsonObject().get("usuario_bd_oracle").getAsString();
-             pass = elementObject.getAsJsonObject().get("pass_usuario_bd_oracle").getAsString();
-             bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
-             idm = elementObject.getAsJsonObject().get("id_manager").getAsString();
             } catch (ExcepcionServicio e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
