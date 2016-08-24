@@ -739,6 +739,71 @@ public class adminController {
     @RequestMapping(value = {"/eliminarNodo"}, method = {RequestMethod.GET})
         public ModelAndView geteliminarNodo(){
         ModelAndView model= new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        String result = "NULL";
+        String usuario = "NULL";
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        listString.clear();
+        listString2.clear();
+            try{
+                usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
+                usuario = usuario.substring(1, usuario.length()-1);
+                elementObject = parser.parse(usuario);
+                usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString(); 
+
+                result = wsQuery.getConsulta("SELECT id_config, elemento, json_config FROM public.config WHERE elemento ='cluster';");
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(!result.equals("[]")){
+               
+                String jsonactual = "NULL";
+                String nodos = "NULL";
+                String valor = "NULL";
+                result = result.substring(1, result.length()-1);
+                elementObject = parser.parse(result);
+                jsonactual = elementObject.getAsJsonObject().get("json_config").getAsString();
+                elementObject = parser.parse(jsonactual);
+                nodos = elementObject.getAsJsonObject().get("nodos").toString();
+                nodos = nodos.substring(1, nodos.length()-1);
+                StringTokenizer st = new StringTokenizer(nodos,"}");
+                int planif=1;
+                result = "";
+                while (st.hasMoreTokens()) {
+                    nodos = st.nextToken()+"}";
+                    if (nodos.substring(0,1).equals(",")){
+                        nodos = nodos.substring(1);                           
+                    }
+                    elementObject = parser.parse(nodos);
+                    result= result + "Nodo = "+planif+"\n";
+                    if(existeCampo.existeCampo(nodos,"host")){
+                        valor = elementObject.getAsJsonObject().get("host").getAsString();
+                        result= result + "Host = "+valor+"\n";
+                        listString.add("<option value=\""+valor+ "\" type=\"submit\">"+
+                                    valor+"</option>");
+                    }
+                    if(existeCampo.existeCampo(nodos,"tipo")){
+                        valor = elementObject.getAsJsonObject().get("tipo").getAsString();
+                        result= result + "Tipo = "+valor+"\n";
+                    }
+                    if(existeCampo.existeCampo(nodos,"status")){
+                        valor = elementObject.getAsJsonObject().get("status").getAsString();
+                        result= result + "Estatus = "+valor+"\n";
+                    }
+                    listString2.add(result+"\n\n");
+                    planif++;
+                    valor="";
+                    result="";
+                }
+                model.addObject("nodoActivo",listString2);
+                model.addObject("nodoIP",listString);
+            }else{
+                model.addObject("mensaje","vacio");
+            }
+        
         model.setViewName("eliminarNodo");
         return model;
     }
@@ -774,61 +839,58 @@ public class adminController {
         String nodos="";
         String id="";
         
-        if(cargas>0){
-        
-        
-              
-        try{
-            usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
-            usuario = usuario.substring(1, usuario.length()-1);
-            elementObject = parser.parse(usuario);
-            usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString(); 
+        if(cargas>0){           
+            try{
+                usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
+                usuario = usuario.substring(1, usuario.length()-1);
+                elementObject = parser.parse(usuario);
+                usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString(); 
 
-            result = wsQuery.getConsulta("SELECT id_config, elemento, json_config FROM public.config WHERE elemento ='cluster';");
-        } catch (ExcepcionServicio e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-         if(result.equals("[]")){
-            try {
-                Json = "{\"max_cargas_paralelas\":"+cargas+"}";    
-                resultado = WsFuncion.getConsulta("public.insert_config('cluster','"+Json+"',"+usuario+");");
+                result = wsQuery.getConsulta("SELECT id_config, elemento, json_config FROM public.config WHERE elemento ='cluster';");
             } catch (ExcepcionServicio e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            if(resultado>0){
-                model.addObject("mensaje","exito");
-            }else{
-                model.addObject("mensaje","error");
-            }
-        }else{
-            try {
-              
-            result = result.substring(1, result.length()-1);
-            elementObject = parser.parse(result);
-            jsonactual = elementObject.getAsJsonObject().get("json_config").getAsString();
-            id=elementObject.getAsJsonObject().get("id_config").getAsString();
-            elementObject2 = parser.parse(jsonactual);
-            Json = "{\"max_cargas_paralelas\":"+cargas+""; 
-            nodos =",\"nodos\":"+ elementObject2.getAsJsonObject().get("nodos").toString()+"}";
-            jsonactual="";
-            jsonactual=Json+nodos;
 
-            resultado = WsFuncion.getConsulta("public.update_config("+id+",'cluster','"+jsonactual+"',"+usuario+");");
-            } catch (ExcepcionServicio e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            if(resultado>0){
-                model.addObject("mensaje","exito");
+            if(result.equals("[]")){
+                try {
+                    Json = "{\"max_cargas_paralelas\":"+cargas+"}";    
+                    resultado = WsFuncion.getConsulta("public.insert_config('cluster','"+Json+"',"+usuario+");");
+                } catch (ExcepcionServicio e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                if(resultado>0){
+                    model.addObject("mensaje","exito");
+                }else{
+                    model.addObject("mensaje","error");
+                }
+                }else{
+                    try {
+
+                    result = result.substring(1, result.length()-1);
+                    elementObject = parser.parse(result);
+                    jsonactual = elementObject.getAsJsonObject().get("json_config").getAsString();
+                    id=elementObject.getAsJsonObject().get("id_config").getAsString();
+                    elementObject2 = parser.parse(jsonactual);
+                    Json = "{\"max_cargas_paralelas\":"+cargas+""; 
+                    nodos =",\"nodos\":"+ elementObject2.getAsJsonObject().get("nodos").toString()+"}";
+                    jsonactual="";
+                    jsonactual=Json+nodos;
+
+                    resultado = WsFuncion.getConsulta("public.update_config("+id+",'cluster','"+jsonactual+"',"+usuario+");");
+                    } catch (ExcepcionServicio e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    if(resultado>0){
+                        model.addObject("mensaje","exito");
+                    }else{
+                        model.addObject("mensaje","error");
+                    }
+                }
             }else{
-                model.addObject("mensaje","error");
-        }
-      }
-    }else{
-        model.addObject("mensaje","El valor debe ser un numero positivo");
+                model.addObject("mensaje","El valor debe ser un numero positivo");
         }
         model.setViewName("CargasenParalelo");
         return model;
