@@ -130,12 +130,22 @@
     <h1 align="center">Configurar Cargas en Paralelo</h1>
     <br>
     <div id="Bandejas">
-        <form class="form-horizontal" action="nodoA" method="POST">
+        <form class="form-horizontal" action="CargasenParalelo" method="POST">
             <h4>Número de Cargas</h4>
-            <input name="ip" type="text" placeholder="Nro. de Cargas" required />
+            <input name="cargas" type="number" min="1" placeholder="Nro. de Cargas" required />
             <input type="submit" value="Aceptar"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
+        
+        <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("Cargas modificadas correctamente..!!");
+                }
+            </script>   
+        </c:if>
+        
+        
         
     </div>
 

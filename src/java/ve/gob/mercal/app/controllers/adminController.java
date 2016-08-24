@@ -755,11 +755,79 @@ public class adminController {
         return model;
     }
     @RequestMapping(value = {"/CargasenParalelo"}, method = {RequestMethod.POST})
-        public ModelAndView posCargasenParalelo(){
+        public ModelAndView postCargasenParalelo(@RequestParam (value = "cargas", required = false)
+                                                    String cargas){
         ModelAndView model= new ModelAndView();
+        model=getCargasenParalelo();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        JsonElement elementObject2;
+        String usuario = "NULL";
+        String result="";
+        int resultado = -999;
+        String Json="";
+        String jsonactual="";
+        String[] array;
+        String nodos="";
+        String id="";
+                
+        try{
+            usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
+            usuario = usuario.substring(1, usuario.length()-1);
+            elementObject = parser.parse(usuario);
+            usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString(); 
+
+            result = wsQuery.getConsulta("SELECT id_config, elemento, json_config FROM public.config WHERE elemento ='cluster';");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+         if(result.equals("[]")){
+            try {
+                Json = "{\"max_cargas_paralelas\":"+cargas+"}";    
+                resultado = WsFuncion.getConsulta("public.insert_config('cluster','"+Json+"',"+usuario+");");
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(resultado>0){
+                model.addObject("mensaje","exito");
+            }else{
+                model.addObject("mensaje","error");
+            }
+        }else{
+            try {
+              
+            result = result.substring(1, result.length()-1);
+            elementObject = parser.parse(result);
+            jsonactual = elementObject.getAsJsonObject().get("json_config").getAsString();
+            id=elementObject.getAsJsonObject().get("id_config").getAsString();
+            elementObject2 = parser.parse(jsonactual);
+            Json = "{\"max_cargas_paralelas\":"+cargas+""; 
+            nodos =",\"nodos\":"+ elementObject2.getAsJsonObject().get("nodos").toString()+"}";
+            jsonactual="";
+            jsonactual=Json+nodos;
+
+            resultado = WsFuncion.getConsulta("public.update_config("+id+",'cluster','"+jsonactual+"',"+usuario+");");
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(resultado>0){
+                model.addObject("mensaje","exito");
+            }else{
+                model.addObject("mensaje","error");
+
+            model.addObject("max",nodos);
+        }
+      }
         model.setViewName("CargasenParalelo");
         return model;
     }
+        
         
     @RequestMapping(value = {"/tiendaadmin"}, method = {RequestMethod.GET})
         public ModelAndView gettiendaAdmin(){
