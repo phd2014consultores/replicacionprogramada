@@ -136,29 +136,42 @@
     <br>
     <div id="parametros">
         <form class="form-horizontal" action="pdi" method="POST">
-
-            <label for="message" >Directorio PDI</label> 
-            <input name="directorioPDI" type="text" placeholder="Directorio Pdi" required />
-            <label for="message">Nombre Repositorio</label> 
-            <input name="nombrePDI" type="text" placeholder="Nombre" required />
-            <label for="message">Usuario Repositorio</label> 
-            <input name="user" type="text" placeholder="Usuario" required />
-
-            <label for="message">Contraseña Repositorio</label> 
-            <input name="pass" type="text" placeholder="Contraseña" required />
-            <label for="message">Directorio Logs</label> 
-            <input name="log" type="text" placeholder="Log" required />
-            <label for="message">Nivel Logs</label> 
-            <input name="nivel" type="text" placeholder="Nivel" required />
-
-            <label for="message">Nombre Job :</label> 
-            <input name="nombreJOB" type="text" placeholder="Nombre Job" required />
-            <label for="message">Directorio Job :</label> 
-            <input name="directorioJOB" type="text" placeholder="Directorio Job" required />
-            <br>
-            <br>
-            <input type="submit" value="Enviar" />
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <div id="parametros1">
+                <label for="message" >Directorio PDI</label> 
+                <input name="directorioPDI" type="text" placeholder="Directorio Pdi" required />
+                <label for="message">Nombre Repositorio</label> 
+                <input name="nombrePDI" type="text" placeholder="Nombre" required />
+                <label for="message">Usuario Repositorio</label> 
+                <input name="user" type="text" placeholder="Usuario" required />
+                <label for="message">Contraseña Repositorio</label> 
+                <input name="pass" type="password" placeholder="Contraseña" required />          
+                <label for="message">Directorio Logs</label> 
+                <input name="log" type="text" placeholder="Log" required />
+                <label for="message">Nivel Logs</label>            
+                <input name="nivel" type="text" placeholder="Nivel" required />
+                <label for="message">Nombre Job CargaInicial</label> 
+                <input name="nombreJOBCI" type="text" placeholder="Nombre Job" required />
+                <label for="message">Directorio Job CargaInicial</label> 
+                <input name="directorioJOBCI" type="text" placeholder="Directorio Job" required />
+            </div>
+            <div id="parametros1">               
+                <label for="message">Nombre Job Mediación</label> 
+                <input name="nombreJOBM" type="text" placeholder="Nombre Job" required />
+                <label for="message">Directorio Job Mediación</label> 
+                <input name="directorioJOBM" type="text" placeholder="Directorio Job" required />
+                <label for="message">Nombre Job CargaInicialETL</label> 
+                <input name="nombreJOBCIE" type="text" placeholder="Nombre Job" required />
+                <label for="message">Directorio Job CargaInicialETL</label> 
+                <input name="directorioJOBCIE" type="text" placeholder="Directorio Job" required />          
+                <label for="message">Nombre Job MediaciónETL</label> 
+                <input name="nombreJOBME" type="text" placeholder="Nombre Job" required />
+                <label for="message">Directorio Job MediaciónETL</label> 
+                <input name="directorioJOBME" type="text" placeholder="Directorio Job" required />
+                <br>
+                <br>
+                <input type="submit" value="Enviar" />
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </div>
         </form>
         
         <c:if test="${mensaje == 'exito'}">

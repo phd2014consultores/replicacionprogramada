@@ -856,13 +856,31 @@ public class adminController {
                                                     String log,
                                     @RequestParam (value = "nivel", required = false)
                                                     String nivel,
-                                    @RequestParam (value = "nombreJOB", required = false)
-                                                    String nombreJOB,
-                                    @RequestParam (value = "directorioJOB", required = false)
-                                                    String directorioJOB){
+                                    @RequestParam (value = "nombreJOBCI", required = false)
+                                                    String nombreJOBCI,
+                                    @RequestParam (value = "directorioJOBCI", required = false)
+                                                    String directorioJOBCI,
+                                    @RequestParam (value = "nombreJOBM", required = false)
+                                                    String nombreJOBM,
+                                    @RequestParam (value = "directorioJOBM", required = false)
+                                                    String directorioJOBM,
+                                    @RequestParam (value = "nombreJOBCIE", required = false)
+                                                    String nombreJOBCIE,
+                                    @RequestParam (value = "directorioJOBCIE", required = false)
+                                                    String directorioJOBCIE,
+                                    @RequestParam (value = "nombreJOBME", required = false)
+                                                    String nombreJOBME,
+                                    @RequestParam (value = "directorioJOBME", required = false)
+                                                    String directorioJOBME){
         ModelAndView model= new ModelAndView();
         String Json="";
-        Json = "{\"directorio_pdi\":\""+directorioPDI+"\",\"repositorio\":\""+nombrePDI+"\",\"usuario_repositorio\":\""+user+"\",\"password\":"+pass+",\"directorio_logs\":\""+log+"\",\"nivel_logs\":\""+nivel+"\",\"nombre_job\":\""+nombreJOB+"\",\"directorio_job\":\""+directorioJOB+"\"}";
+        Json = "{\"directorio_pdi\":\""+directorioPDI+"\",\"repositorio\":\""+nombrePDI+"\","
+                + "\"usuario_repositorio\":\""+user+"\",\"password\":"+pass+","
+                + "\"directorio_logs\":\""+log+"\",\"nivel_logs\":\""+nivel+"\","
+                + "\"nombre_job_ci\":\""+nombreJOBCI+"\",\"directorio_job_ci\":\""+directorioJOBCI+"\","
+                + "\"nombre_job_m\":\""+nombreJOBM+"\",\"directorio_job_m\":\""+directorioJOBM+"\","
+                + "\"nombre_job_ci_etl\":\""+nombreJOBCIE+"\",\"directorio_job_ci_etl\":\""+directorioJOBCIE+"\","
+                + "\"nombre_job_m_etl\":\""+nombreJOBME+"\",\"directorio_job_m_etl\":\""+directorioJOBME+"\"}";
         String result="";
         String usuario = "NULL";
         int resultado = -999;
