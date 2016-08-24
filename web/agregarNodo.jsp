@@ -129,8 +129,6 @@
 
     <h1 align="center">Configuración Cluster</h1>
     <br>
-    <h3 align="center">Agregar - Eliminar</h3>
-    <br>
     <div id="Bandejas">
         <form class="form-horizontal" action="nodoA" method="POST">
             <h4>Añadir Nodo</h4>
@@ -144,23 +142,6 @@
             <input name="keyspace" type="text" placeholder="KeySpace" required />
             <br>
             <input type="submit" value="Agregar"/>
-        </form>
-    </div>
-    <br><br>
-    <div id="Bandejas">
-    	<h4>Nodos Activos</h4> 
-    	<textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${nodoActivo}" var="item3">&#9679${item3}</c:forEach>
-        </textarea>
-        <br>
-        <form class="form-horizontal" action="nodoE" method="POST">
-            <h4>Nodo a Eliminar</h4>        
-            <select  name="nodoE" class="form-control" onchange="this.form.submit()">
-                <option value="NONE">Seleccione un nodo...</option>
-                <c:forEach items="${nodoIP}" var="item2">
-                    ${item2}
-                </c:forEach>
-            </select>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
     </div>
 

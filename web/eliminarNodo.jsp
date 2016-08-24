@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gestión</title>
+	<title>Cluster</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -118,42 +118,42 @@
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
 <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestión Usuarios</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestión Cluster-PDI-Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>
-							</ul>
+<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>							</ul>
 						</div>
 					</div>		
 				</div>
     		</div>
     	</div>    	
     </div>
- 
     <br>
 
-	<div id="Bandejas">
-            <h2>Gestionar Usuarios</h2>
-            <br>
-            <h4>Seleccione acción a realizar</h4>
-            <br>
-                    <select  name="listString" class="form-control" onchange="location = this.value;">
-                        <option value="NONE">Seleccione una opción...</option>
-                        <option value="/PublicacionySuscripcion/CrearUsuario">Crear Usuario</option>
-                        <option value="/PublicacionySuscripcion/ModificarUsuario">Modificar Usuario</option>
-                        <option value="/PublicacionySuscripcion/EliminarUsuario">Eliminar Usuario</option>
-                        <option value="/PublicacionySuscripcion/DetalleUsuario">Ver Detalle Usuario</option>
-                    </select>
+    <h1 align="center">Configuración Cluster</h1>
+    <br>
+    <div id="Bandejas">
+    	<h4>Nodos Activos</h4> 
+    	<textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${nodoActivo}" var="item3">&#9679${item3}</c:forEach>
+        </textarea>
+        <br>
+        <form class="form-horizontal" action="nodoE" method="POST">
+            <h4>Nodo a Eliminar</h4>        
+            <select  name="nodoE" class="form-control" onchange="this.form.submit()">
+                <option value="NONE">Seleccione un nodo...</option>
+                <c:forEach items="${nodoIP}" var="item2">
+                    ${item2}
+                </c:forEach>
+            </select>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </form>
+    </div>
 
-                
- 	</div>
-	<br>
-
-    		<div class="row-fluid">
-				<div class="span12">
-					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
-                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
-					</div>
-				</div>
-			</div>  
+        <div class="row-fluid">
+            <div class="span12">
+                    <div id="copy" align="bottom">
+                            <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                            <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
+                    </div>
+            </div>
+        </div>  
 	
 
 

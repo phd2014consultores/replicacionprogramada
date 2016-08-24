@@ -718,22 +718,34 @@ public class adminController {
         model.setViewName("gestioncp");
         return model;
     }
-    @RequestMapping(value = {"/nodos"}, method = {RequestMethod.GET})
+    @RequestMapping(value = {"/gestionNodo"}, method = {RequestMethod.GET})
         public ModelAndView getnodos(){
         ModelAndView model= new ModelAndView();
-        model.setViewName("nodos");
+        model.setViewName("gestionNodo");
         return model;
     }
-    @RequestMapping(value = {"/nodoA"}, method = {RequestMethod.POST})
-        public ModelAndView postnodoA(){
+    @RequestMapping(value = {"/agregarNodo"}, method = {RequestMethod.GET})
+        public ModelAndView getagregarNodo(){
         ModelAndView model= new ModelAndView();
-        model.setViewName("nodos");
+        model.setViewName("agregarNodo");
         return model;
     }
-    @RequestMapping(value = {"/nodoE"}, method = {RequestMethod.POST})
-        public ModelAndView postnodoE(){
+    @RequestMapping(value = {"/agregarNodo"}, method = {RequestMethod.POST})
+        public ModelAndView postagregarNodo(){
         ModelAndView model= new ModelAndView();
-        model.setViewName("nodos");
+        model.setViewName("agregarNodo");
+        return model;
+    }
+    @RequestMapping(value = {"/eliminarNodo"}, method = {RequestMethod.GET})
+        public ModelAndView geteliminarNodo(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("eliminarNodo");
+        return model;
+    }
+    @RequestMapping(value = {"/eliminarNodo"}, method = {RequestMethod.POST})
+        public ModelAndView posteliminarNodo(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("eliminarNodo");
         return model;
     }
     @RequestMapping(value = {"/tiendaadmin"}, method = {RequestMethod.GET})
@@ -743,8 +755,72 @@ public class adminController {
         return model;
     }
     @RequestMapping(value = {"/tiendaadmin"}, method = {RequestMethod.POST})
-        public ModelAndView postiendaAdmin(){
+        public ModelAndView postiendaAdmin(@RequestParam (value = "user", required = false)
+                                                    String user,
+                                            @RequestParam (value = "nombre", required = false)
+                                                            String nombre,
+                                            @RequestParam (value = "fecha", required = false)
+                                                            String fecha,
+                                            @RequestParam (value = "format", required = false)
+                                                            String format,
+                                            @RequestParam (value = "pass", required = false)
+                                                            String pass,
+                                            @RequestParam (value = "host", required = false)
+                                                            String host,
+                                            @RequestParam (value = "bd", required = false)
+                                                            String bd){
         ModelAndView model= new ModelAndView();
+        String Json="";
+        Json = "{\"usuario\":\""+user+"\",\"nombre\":\""+nombre+"\",\"fecha_base\":\""+fecha+"\",\"formato_fecha\":"+format+",\"contraseña\":\""+pass+"\",\"host_bd_oracle\":\""+host+"\",\"bd_oracle\":\""+bd+"\"}";
+        String result="";
+        String usuario = "NULL";
+        int resultado = -999;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        
+        try{
+            usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
+            usuario = usuario.substring(1, usuario.length()-1);
+            elementObject = parser.parse(usuario);
+            usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString(); 
+
+            result = wsQuery.getConsulta("SELECT id_config FROM public.config WHERE elemento ='tienda';");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        if(result.equals("[]")){
+            try {
+                resultado = WsFuncion.getConsulta("public.insert_config('tienda','"+Json+"',"+usuario+");");
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(resultado>0){
+                model.addObject("mensaje","exito");
+            }else{
+                model.addObject("mensaje","error");
+            }
+        }else{
+            try {
+                result = result.substring(1, result.length()-1);
+                elementObject = parser.parse(result);
+                result = elementObject.getAsJsonObject().get("id_config").getAsString(); 
+                
+                resultado = WsFuncion.getConsulta("public.update_config("+result+",'tienda','"+Json+"',"+usuario+");");
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(resultado>0){
+                model.addObject("mensaje","exito");
+            }else{
+                model.addObject("mensaje","error");
+            }
+        }
         model.setViewName("tiendaadmin");
         return model;
     }

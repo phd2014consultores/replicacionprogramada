@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gestión</title>
+	<title>Gestión de Nodos</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -118,8 +118,7 @@
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
 <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestión Usuarios</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestión Cluster-PDI-Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>
-							</ul>
+<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>							</ul>
 						</div>
 					</div>		
 				</div>
@@ -130,16 +129,14 @@
     <br>
 
 	<div id="Bandejas">
-            <h2>Gestionar Usuarios</h2>
+            <h2>Configuración</h2>
             <br>
             <h4>Seleccione acción a realizar</h4>
-            <br>
+
                     <select  name="listString" class="form-control" onchange="location = this.value;">
                         <option value="NONE">Seleccione una opción...</option>
-                        <option value="/PublicacionySuscripcion/CrearUsuario">Crear Usuario</option>
-                        <option value="/PublicacionySuscripcion/ModificarUsuario">Modificar Usuario</option>
-                        <option value="/PublicacionySuscripcion/EliminarUsuario">Eliminar Usuario</option>
-                        <option value="/PublicacionySuscripcion/DetalleUsuario">Ver Detalle Usuario</option>
+                        <option value="/PublicacionySuscripcion/agregarNodo">Agregar Nodo</option>
+                        <option value="/PublicacionySuscripcion/eliminarNodo">Eliminar Nodo</option>
                     </select>
 
                 
