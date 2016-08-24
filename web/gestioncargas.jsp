@@ -146,9 +146,10 @@
        
 
         <c:if test="${not empty plan_list}">
+            <h5>Anular carga</h5>
             <form class="form-horizontal" action="planifica" method="POST">
                 <select  name="planificadas" class="form-control" onchange="this.form.submit()">
-                    <option value="NONE" >Seleccione una planificacion que desea anular...</option>
+                    <option value="NONE" >Seleccione planificación a anular...</option>
                     <c:forEach items="${plan_list}" var="item">
                         ${item}
                     </c:forEach>
@@ -173,9 +174,10 @@
         </form>
         
         <c:if test="${not empty plan_ejec}">
+            <h5>Anular carga</h5>
             <form class="form-horizontal" action="ejecucion" method="POST">
                 <select  name="ejecutadas" class="form-control" onchange="this.form.submit()">
-                    <option value="NONE" >Seleccione el la carga que desea anular...</option>
+                    <option value="NONE" >Seleccione planificación a anular...</option>
                     <c:forEach items="${plan_ejec}" var="item">
                         ${item}
                     </c:forEach>
