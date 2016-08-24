@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Configuración</title>
+	<title>Cluster</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -125,34 +125,28 @@
     		</div>
     	</div>    	
     </div>
- 
     <br>
 
-	<div id="Bandejas">
-            <h2>Configuración</h2>
-            <br>
-            <h4>Seleccione acción a realizar</h4>
-            <br>
-                    <select  name="listString" class="form-control" onchange="location = this.value;">
-                        <option value="NONE">Seleccione una opción...</option>
-                        <option value="/PublicacionySuscripcion/gestionNodo">Configurar Cluster</option>
-                        <option value="/PublicacionySuscripcion/tiendaadmin">Configurar Tiendas</option>
-                        <option value="/PublicacionySuscripcion/pdi">Configurar PDI</option>
-                        <option value="/PublicacionySuscripcion/CargasenParalelo">Configurar Cargas en Paralelo</option>
-                    </select>
+    <h1 align="center">Configurar Cargas en Paralelo</h1>
+    <br>
+    <div id="Bandejas">
+        <form class="form-horizontal" action="nodoA" method="POST">
+            <h4>Número de Cargas</h4>
+            <input name="ip" type="text" placeholder="Nro. de Cargas" required />
+            <input type="submit" value="Aceptar"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </form>
+        
+    </div>
 
-                
- 	</div>
-	<br>
-
-    		<div class="row-fluid">
-				<div class="span12">
-					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
-                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
-					</div>
-				</div>
-			</div>  
+        <div class="row-fluid">
+            <div class="span12">
+                    <div id="copy" align="bottom">
+                            <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                            <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
+                    </div>
+            </div>
+        </div>  
 	
 
 

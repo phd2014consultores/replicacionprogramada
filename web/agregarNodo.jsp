@@ -142,7 +142,9 @@
             <input name="keyspace" type="text" placeholder="KeySpace" required />
             <br>
             <input type="submit" value="Agregar"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
+        
     </div>
 
         <div class="row-fluid">

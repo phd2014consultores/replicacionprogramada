@@ -748,6 +748,19 @@ public class adminController {
         model.setViewName("eliminarNodo");
         return model;
     }
+        @RequestMapping(value = {"/CargasenParalelo"}, method = {RequestMethod.GET})
+        public ModelAndView getCargasenParalelo(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("CargasenParalelo");
+        return model;
+    }
+    @RequestMapping(value = {"/CargasenParalelo"}, method = {RequestMethod.POST})
+        public ModelAndView posCargasenParalelo(){
+        ModelAndView model= new ModelAndView();
+        model.setViewName("CargasenParalelo");
+        return model;
+    }
+        
     @RequestMapping(value = {"/tiendaadmin"}, method = {RequestMethod.GET})
         public ModelAndView gettiendaAdmin(){
         ModelAndView model= new ModelAndView();
