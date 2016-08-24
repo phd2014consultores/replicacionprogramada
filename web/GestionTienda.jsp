@@ -129,8 +129,8 @@
     </div>
 	    	<br>
 	<div id="Bandejas">
-            <h2>Seleccione acción a realizar</h2>
-
+            <h2>Gestionar Tienda</h2>
+            <br>
                     <select  name="listString" class="form-control" onchange="location = this.value;">
                         <option value="NONE">Seleccione una opción...</option>
                         <option value="/PublicacionySuscripcion/Crear">Crear Tienda</option>

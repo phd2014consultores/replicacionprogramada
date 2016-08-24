@@ -131,9 +131,8 @@
 	    	<br>
 
 <div id="Bandejas" >
-        <c:if test="${ empty exito}">
-            <h2>Modificar Tienda</h2>
-        </c:if>
+
+        <h2>Modificar Tienda</h2>
         <br>
         <c:if test="${not empty existe}">
             <script language="JavaScript">

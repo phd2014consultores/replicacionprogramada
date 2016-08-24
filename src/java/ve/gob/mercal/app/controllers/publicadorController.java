@@ -350,9 +350,9 @@ public class publicadorController {
             }
 //        
         if(result>=1){
-            model.addObject("exito","Tienda Creada");
+            model.addObject("mensaje","exito");
         }else{
-            model.addObject("exito","Fallo al crear la Tienda");
+            model.addObject("mensaje","error");
         }
 
         model.setViewName("Crear");

@@ -149,15 +149,26 @@
             <input name="user" ype="text" placeholder="Usuario" required />
             <br>
             <label for="message">Contraseña BdOracle</label> 
-            <input name="pass" type="text" placeholder="Password" required />
+            <input name="pass" type="password" placeholder="Password" required />
             <br>
             <br>
             <input type="submit" value="Crear"/>          
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
         
-        <c:if test="${not empty exito}">
-                ${exito}         
+        <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("La tienda se creó Exitosamente..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${mensaje == 'error'}">
+            <script language="JavaScript">
+                {
+                    alert("Fallo al crear la tienda..!!");
+                }
+            </script>   
         </c:if>
     </div>
         
