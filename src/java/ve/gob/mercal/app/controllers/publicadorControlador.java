@@ -541,9 +541,9 @@ public class publicadorControlador {
              
             try {
                 ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
-                "  FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
-                "  WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion' \n" +
-                "AND t.tienda='"+nameTienda+"' AND pe.timestamp_fin_ejec = 'NULL';");
+                    "FROM public.plan_ejecuciones  as pe, public.pasos_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                    "WHERE pe.activo=TRUE and ppe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_ejecucion='en ejecucion'\n" +
+                    "AND t.tienda='"+nameTienda+"';");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -607,11 +607,11 @@ public class publicadorControlador {
             
             }
             // Terminadas
-               try {
-                ter=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
-                            "FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
-                            " WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion'\n" +
-                            "AND pe.timestamp_fin_ejec != 'NULL' AND t.tienda='"+nameTienda+"';");
+            try {
+                ter=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones, ppe.status_ejecucion \n" +
+                    "FROM public.plan_ejecuciones  as pe, public.pasos_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                    "WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_ejecucion='finalizada' \n" +
+                    "AND t.tienda='"+nameTienda+"';");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -630,7 +630,7 @@ public class publicadorControlador {
                     elementObject3 = parser3.parse(ter);
                     valor = elementObject3.getAsJsonObject().get("id_plan_ejecucion").getAsString();
                     result= result + "Id Plan Ejecucion = "+valor+"\n";
-                     if(existeCampo.existeCampo(ter,"nro_control_pla")){
+                    if(existeCampo.existeCampo(ter,"nro_control_pla")){
                     valor = elementObject3.getAsJsonObject().get("nro_control_plan").getAsString();
                     result= result + "Nro Control Plan = "+valor+"\n";
                     }
