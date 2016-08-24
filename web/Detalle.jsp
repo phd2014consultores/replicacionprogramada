@@ -136,7 +136,7 @@
         <c:if test="${empty vaciar}">
                 <form class="form-horizontal" action="Detalle" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
-                        <option value="NONE">Seleccione una opción...</option>
+                        <option value="NONE">Seleccione una tienda...</option>
                         <c:forEach items="${tienda2}" var="item">
                             ${item}
                         </c:forEach>

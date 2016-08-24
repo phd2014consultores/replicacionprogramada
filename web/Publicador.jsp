@@ -141,7 +141,7 @@
                     
                 <form name="eliminar" class="form-horizontal" action="Publicador" method="POST">
                     <select  name="listString" class="form-control" onchange="pregunta()">
-                        <option value="NONE">Seleccione tienda a eliminar...</option>
+                        <option value="NONE">Seleccione una tienda ...</option>
                         <c:forEach items="${tienda2}" var="item">
                             ${item}
                         </c:forEach>

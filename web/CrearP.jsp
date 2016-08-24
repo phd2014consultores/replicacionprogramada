@@ -138,11 +138,10 @@
 	    	<br>
 
     <div id="Bandejas" >
-        <h1>Gestionar Publicador</h1>
+        <h1>Agregar Publicador</h1>
         <br>
         <form name="crear" class="form-horizontal" method="POST" action="CrearP">    
-            <div>   
-                <h2>Seleccione una Tienda</h2>        
+            <div>        
                 <select  name="nombreTienda" class="form-control">
                     <option value="NONE">Seleccione una tienda...</option>
                     <c:forEach items="${tienda}" var="item">
@@ -150,8 +149,7 @@
                     </c:forEach>
                 </select>
             </div>
-            <br>
-            <h2 >Agregar Publicador</h2>  
+            <br> 
             <select  name="namePub" class="form-control" onchange="agregar()">
                 <option value="NONE">seleccione un publicador...</option>
                 <c:forEach items="${publicador}" var="item4">

@@ -138,11 +138,10 @@
 	    	<br>
 
     <div id="Bandejas" >
-        <h1>Gestionar Publicador</h1>
+        <h1>Retirar Publicador</h1>
         <br>
         <form name="eliminar" class="form-horizontal" method="POST" action="RetirarP">          
-            <div>   
-                <h2>Seleccione una Tienda</h2>        
+            <div>        
                 <select  name="nombreTienda" class="form-control">
                     <option value="NONE">Seleccione una tienda...</option>
                     <c:forEach items="${tienda}" var="item">
@@ -151,7 +150,6 @@
                 </select>
             </div> 
             <br>
-            <h2 >Retirar Publicador</h2>
             <select  name="namePub" class="form-control" onchange="retirar()">
                 <option value="NONE">seleccione un publicador...</option>
                 <c:forEach items="${publicador}" var="item4">

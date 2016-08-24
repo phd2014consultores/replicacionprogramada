@@ -130,7 +130,7 @@
     <br>
 
 	<div id="Bandejas">
-            <h2>Gestionar Usuarios</h2>
+            <h2>Gestionar Usuario</h2>
             <br>
             <br>
                     <select  name="listString" class="form-control" onchange="location = this.value;">

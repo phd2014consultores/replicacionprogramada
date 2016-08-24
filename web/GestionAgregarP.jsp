@@ -132,7 +132,7 @@
             
             <form class="form-horizontal" action="GestionAgregarP" method="POST">
                 
-                <h2>Seleccione acción a realizar</h2>
+                <h2>Gestionar Publicador</h2>
             
                 <select  name="listString2" class="form-control" onchange="location = this.value;">
                     <option value="NONE">Seleccione una opción...</option>

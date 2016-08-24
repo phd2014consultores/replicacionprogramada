@@ -129,7 +129,7 @@
     </div>
 	    	<br>
 	<div id="Bandejas">
-            <h2>Gestion Publicaciones</h2>
+            <h2>Gestionar Publicación</h2>
 
                     <select  name="listString" class="form-control" onchange="location = this.value;">
                         <option value="NONE">Seleccione una opción...</option>
