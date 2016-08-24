@@ -149,7 +149,7 @@
             <h5>Anular carga</h5>
             <form class="form-horizontal" action="planifica" method="POST">
                 <select  name="planificadas" class="form-control" onchange="this.form.submit()">
-                    <option value="NONE" >Seleccione planificación a anular...</option>
+                    <option value="NONE" >Seleccione planificación...</option>
                     <c:forEach items="${plan_list}" var="item">
                         ${item}
                     </c:forEach>
@@ -177,7 +177,7 @@
             <h5>Anular carga</h5>
             <form class="form-horizontal" action="ejecucion" method="POST">
                 <select  name="ejecutadas" class="form-control" onchange="this.form.submit()">
-                    <option value="NONE" >Seleccione planificación a anular...</option>
+                    <option value="NONE" >Seleccione planificación...</option>
                     <c:forEach items="${plan_ejec}" var="item">
                         ${item}
                     </c:forEach>
