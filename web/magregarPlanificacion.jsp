@@ -126,7 +126,7 @@
 
     <div id="Bandejas" >
         <form class="form-horizontal" action="magregarPlanificacion" method="POST">
-                <h2>Seleccione una Tienda</h2>        
+                <h2>Agregar Planificación de Mediación</h2>        
                 <select  name="nombreTienda" class="form-control">
                     <option value="NONE">Seleccione una tienda...</option>
                     <c:forEach items="${tienda}" var="item">

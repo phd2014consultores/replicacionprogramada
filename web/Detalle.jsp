@@ -131,7 +131,7 @@
 	    	<br>
 
 <div id="Bandejas" >
-        <h2>Detalle Tienda</h2>
+        <h2>Detalle de la Tienda</h2>
         <br>
         <c:if test="${empty vaciar}">
                 <form class="form-horizontal" action="Detalle" method="POST">
@@ -150,19 +150,19 @@
            
         <label for="message">Datos :</label> 
 
-            <label for="message">Nombre :</label> 
+            <label for="message">Nombre de la tienda</label> 
             <input disabled name="nombre" type="text" placeholder="Nombre" value="${tienda}" />
             <br>
-            <label for="message">Host :</label> 
+            <label for="message">Ip de la Bdoracle</label> 
             <input disabled name="host" type="text" placeholder="Host" value="${host}" />
             <br>
-            <label for="message">BdOracle :</label> 
+            <label for="message">BdOracle</label> 
             <input disabled name="bdoracle" type="text" placeholder="BdOracle" value="${bd}" />
             <br>
-            <label for="message">Usuario :</label> 
+            <label for="message">Usuario BdOracle</label> 
             <input disabled name="user" ype="text" placeholder="Usuario" value="${user}" />
             <br>
-            <label for="message">Contraseña BdOracle :</label> 
+            <label for="message">Contraseña BdOracle</label> 
             <input disabled name="pass" type="text" placeholder="Password" value="${pass}" />
             <br>
             <input name="idt" type="hidden" value=${idt}>

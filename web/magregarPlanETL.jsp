@@ -126,7 +126,7 @@
     <div id="Bandejas" >
         <div>   
             <form class="form-horizontal" action="magregarPlanETL" method="POST">
-                <h2>Seleccione una Tienda</h2>        
+                <h2>Agregar Planificación Recuperación ETL Mediación</h2>          
                 <select  name="nombreTienda" class="form-control" onchange="this.form.submit()">
                     <option value="NONE">Seleccione una tienda...</option>
                     <c:forEach items="${tienda}" var="item">
@@ -155,7 +155,7 @@
         </div>
         <div>   
             <form class="form-horizontal" action="m2agregarPlanETL" method="POST">
-                <h2>Seleccione un ETL</h2>        
+                <h2>Seleccione un ETL a recuperar</h2>        
                 <select  name="nombreETL" class="form-control">
                     <option value="NONE">Seleccione un ETL...</option>
                     <c:forEach items="${incorrectos2}" var="item2">
@@ -163,26 +163,26 @@
                     </c:forEach>
                 </select>
                 <br><br><br>
-                <h4>Introduzca una Fecha</h4>
+                <h4>Introduzca una Fecha con el formato indicado</h4>
                 <input type="text"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
                 <br><br><br>
-                <h4>Introduzca una Hora</h4>
+                <h4>Introduzca una Hora con el formato indicado (Formato Militar)</h4>
                 <input type="text" placeholder="hh-mm-ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
                 <br><br><br>
-                <input type="submit" value="planificar"/>
+                <input type="submit" value="planificar recuperación"/>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
             <c:if test="${mensaje2 == 'exito'}">
                 <script language="JavaScript">
                     {
-                        alert("La planificación se agrego Exitosamente..!!");
+                        alert("La planificación de recuperación se agrego Exitosamente..!!");
                     }
                 </script>   
             </c:if>
             <c:if test="${mensaje2 == 'error'}">
                 <script language="JavaScript">
                     {
-                        alert("Fallo al agregar la planificación..!!");
+                        alert("Fallo al agregar la planificación de recuperación..!!");
                     }
                 </script>   
             </c:if>

@@ -136,23 +136,23 @@
         <p>Indique parametros de la nueva Tienda</p>
         <br>
         <form class="form-horizontal" action="Crear" method="POST">
-            <label for="message">Nombre :</label> 
+            <label for="message">Nombre de la tienda</label> 
             <input name="nombre" type="text" placeholder="Nombre" required />
             <br>
-            <label for="message">Host :</label> 
+            <label for="message">Ip BdOracle</label> 
             <input name="host" type="text" placeholder="Host" required />
             <br>
-            <label for="message">BdOracle :</label> 
+            <label for="message">BdOracle</label> 
             <input name="bdoracle" type="text" placeholder="BdOracle" required />
             <br>
-            <label for="message">Usuario :</label> 
+            <label for="message">Usuario BdOracle</label> 
             <input name="user" ype="text" placeholder="Usuario" required />
             <br>
-            <label for="message">Contraseña BdOracle :</label> 
+            <label for="message">Contraseña BdOracle</label> 
             <input name="pass" type="text" placeholder="Password" required />
             <br>
-            <input type="submit" value="Crear"/>
             <br>
+            <input type="submit" value="Crear"/>          
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
         

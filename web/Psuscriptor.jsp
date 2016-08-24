@@ -137,12 +137,12 @@
                     </script>
             </c:if>
             <c:if test="${empty vaciar}">
-                <h2>Tiendas Suscritas</h2>
+                <h2>Publicaciones</h2>
 
                 <div>
                     <form class="form-horizontal" action="Psuscriptor" method="POST">
                         <select  name="listString" class="form-control" onchange="this.form.submit()">
-                            <option value="NONE">Seleccione una opción...</option>
+                            <option value="NONE">Seleccione una tienda...</option>
                             <c:forEach items="${tienda}" var="item">
                                 ${item}
                             </c:forEach>
@@ -167,10 +167,10 @@
                 <br>
                 <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${publicacion}" var="item2">&#9679${item2}</c:forEach>
                 </textarea>   
-            <h2>Detalle de Publicación</h2>
+            <h2>Ver Detalle Publicación</h2>
             <form class="form-horizontal" action="Psuscriptor2" method="POST">             
                 <select  name="listString2" class="form-control" onchange="this.form.submit()">
-                    <option value="NONE">Seleccione una opción...</option>
+                    <option value="NONE">Seleccione una publicación...</option>
                     <c:forEach items="${publicacion3}" var="item3">
                         <option value="${item3}" type="submit">Numero de Control: ${item3}</option>
                     </c:forEach>

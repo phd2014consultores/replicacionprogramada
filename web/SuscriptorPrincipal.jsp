@@ -117,11 +117,11 @@
             </div>       
         </div>
         <div id="Bandejas">
-            <h2>Seleccione tienda en la que desea suscribirse</h2>
+            <h2>Suscripción a Tienda</h2>
             <div>
                 <form class="form-horizontal" action="SuscriptorPrincipal" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
-                        <option value="NONE" selected="selected">Seleccione una opción...</option>
+                        <option value="NONE" selected="selected">Seleccione tienda a suscribirse...</option>
                         <c:forEach items="${tienda}" var="item">
                             ${item}
                         </c:forEach>
@@ -135,7 +135,7 @@
              <c:if test="${ exite == 'Exito al suscribirse a la tienda'}">
                     <script language="JavaScript">
                         {
-                            alert("Exito al suscribirse a la tienda");
+                            alert("Se ha realizado la suscripción exitosamente..!");
                         }
                     </script>
              </c:if>
@@ -150,7 +150,7 @@
             <c:if test="${ exite == 'Usted ya se encuentra suscrito a la tienda'}">
                     <script language="JavaScript">
                         {
-                            alert("Usted ya se encuentra suscrito a la tienda");
+                            alert("Usted ya se encuentra suscrito a esta tienda..!");
                         }
                     </script>
              </c:if>

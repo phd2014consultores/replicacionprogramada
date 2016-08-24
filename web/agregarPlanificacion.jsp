@@ -127,7 +127,7 @@
     <div id="Bandejas" >
         <div>
             <div id="Bandeja">
-                <h2>Seleccione acción a realizar</h2>
+                <h2>Agregar Planificación</h2>
             
                 <select  name="listString2" class="form-control" onchange="location = this.value;">
                     <option value="NONE">Seleccione una opción...</option>

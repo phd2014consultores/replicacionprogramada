@@ -145,10 +145,10 @@
             <input name="apellido" type="text" placeholder="Apellido" required />
             <br>
             <label for="message">Email :</label> 
-            <input name="email" ype="text" placeholder="Email" required />
+            <input name="email" type="email" placeholder="Email" required />
             <br>
             <label for="message">Contraseña :</label> 
-            <input name="pass" type="text" placeholder="Contraseña" required />
+            <input name="pass" type="password" placeholder="Contraseña" required />
             <br>
             <label for="message">Tipo Usuario :</label> 
                     <select  name="tipo" class="form-control" >
@@ -157,8 +157,8 @@
                         <option value="suscriptor">Suscriptor</option>
                     </select>
             <br>
-            <input type="submit" value="Crear"/>
             <br>
+            <input type="submit" value="Crear"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
         <c:if test="${not empty exito}">

@@ -130,7 +130,7 @@
     	</div>    	
     </div>
     <br>
-    <h1 align="center">Configuración del Repositorio</h1>
+    <h1 align="center">Configuración del Repositorio Pentaho</h1>
     <br>
     <h3 align="center">Parámetros PDI</h3>
     <br>

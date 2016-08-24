@@ -109,7 +109,7 @@
                             <div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
                                 <ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
                                     <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/SuscriptorPrincipal">Suscripción a Tienda</a></li>
-                                    <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Suscriptor">Consultar Publicación</a></li>
+                                    <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Suscriptor">Consultar Suscripción</a></li>
                                 </ul>
                             </div>
                         </div>       
@@ -119,11 +119,11 @@
         </div>
         <div id="Bandejas">
             <c:if test="${empty vaciar}">
-            <h2>Tiendas Suscritas</h2>
+            <h2>Consultar Suscripción</h2>
             <div>
                 <form class="form-horizontal" action="Suscriptor" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
-                        <option value="NONE" selected="selected">Seleccione una opción...</option>
+                        <option value="NONE" selected="selected">Seleccione una tienda...</option>
                         <c:forEach items="${tienda}" var="item">
                             ${item}
                         </c:forEach>
@@ -155,7 +155,7 @@
                 <h5>En caso de no existir la publicación requerida debe comunicarse con el Publicador</h5>   
                 <br>
                 <h2>Detalle de Publicación</h2>
-                <form class="form-horizontal" action="Suscriptor2" method="POST">            
+                <form class="form-horizontal" action="Suscriptor2" method="POSTopción">            
                     <select  name="listString2" class="form-control" onchange="this.form.submit()">
                         <option value="NONE">Seleccione una opción...</option>
                         <c:forEach items="${publicacion3}" var="item3">
@@ -167,7 +167,8 @@
             </c:if>
             <c:if test="${not empty detalle1}">
                    <script language="JavaScript">
-                            alert("No posee detalle de publicaciones asociadas");
+                            alert("No posee detalle de publicaciones asociadas \n\
+                        En caso de no existir la publicación requerida debe comunicarse con el Publicador");
                     </script>
             </c:if>
 

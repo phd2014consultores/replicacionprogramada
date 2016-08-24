@@ -145,7 +145,7 @@
         <c:if test="${empty vaciar}">
                 <form class="form-horizontal" action="Modificar" method="POST">
                     <select  name="listString" class="form-control" onchange="this.form.submit()">
-                        <option value="NONE">Seleccione una opción...</option>
+                        <option value="NONE">Seleccione una tienda...</option>
                         <c:forEach items="${tienda2}" var="item">
                             ${item}
                         </c:forEach>
@@ -157,21 +157,21 @@
     <c:if test="${not empty tienda}"> 
     <form class="form-horizontal" action="Modificar2" method="POST">
         <c:if test="${ empty exito}">   
-        <label for="message">Datos a Modificar :</label> 
+        <h4>Datos a Modificar</h4> 
 
-            <label for="message">Nombre :</label> 
+            <label for="message">Nombre de la tienda</label> 
             <input required name="nombre" type="text" placeholder="Nombre" value="${tienda}" />
             <br>
-            <label for="message">Host :</label> 
+            <label for="message">Ip BdOracle</label> 
             <input required name="host" type="text" placeholder="Host" value="${host}" />
             <br>
-            <label for="message">BdOracle :</label> 
+            <label for="message">BdOracle</label> 
             <input required name="bdoracle" type="text" placeholder="BdOracle" value="${bd}" />
             <br>
-            <label for="message">Usuario :</label> 
+            <label for="message">Usuario BdOracle</label> 
             <input required name="user" ype="text" placeholder="Usuario" value="${user}" />
             <br>
-            <label for="message">Contraña BdOracle :</label> 
+            <label for="message">Contraña BdOracle</label> 
             <input required name="pass" type="text" placeholder="Password" value="${pass}" />
             <br>
             <input name="idt" type="hidden" value=${idt}>
@@ -186,14 +186,14 @@
             <c:if test="${ exito == 'Tienda Modificada'}">
                     <script language="JavaScript">
                         {
-                            alert("Tienda modificada exitosamente");
+                            alert("Tienda modificada exitosamente..!");
                         }
                     </script>
              </c:if>
-             <c:if test="${ exito == 'Fallo al modifica la Tienda'}">
+             <c:if test="${ exito == 'Fallo al modifica la Tienda..!'}">
                     <script language="JavaScript">
                         {
-                            alert("No se pudo modificar la Tienda");
+                            alert("No se pudo modificar la Tienda..!");
                         }
                     </script>
              </c:if>       

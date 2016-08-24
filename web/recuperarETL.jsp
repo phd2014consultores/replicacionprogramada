@@ -132,8 +132,8 @@
             
                 <select  name="listString2" class="form-control" onchange="location = this.value;">
                     <option value="NONE">Seleccione una opción...</option>
-                    <option value="/PublicacionySuscripcion/ciagregarPlanETL">Planificar Carga Inicial ETL</option>
-                    <option value="/PublicacionySuscripcion/magregarPlanETL">Planificar Mediación ETL</option>
+                    <option value="/PublicacionySuscripcion/ciagregarPlanETL">Planificar Recuperación ETL Carga Inicial</option>
+                    <option value="/PublicacionySuscripcion/magregarPlanETL">Planificar Recuperación ETL Mediación</option>
                 </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </div>

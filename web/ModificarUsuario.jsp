@@ -170,7 +170,7 @@
             <input required name="email" ype="text" placeholder="Email" value="${email}" />
             <br>
             <label for="message">Nueva Contraseña :</label> 
-            <input name="pass" type="text" placeholder="Contraseña" required />
+            <input name="pass" type="password" placeholder="Contraseña" required />
             <br>
             <label for="message">Tipo Usuario Actual :</label> 
             <input disabled name="tip" type="text" placeholder="Tipo" value="${tipo}" />

@@ -128,7 +128,6 @@
     <div id="Bandejas" >
 	<h2 color="red">Estado de Publicaciones</h2>
 	<br>
-            <h4>Seleccione una Tienda</h4>
             <form class="form-horizontal" action="Publicar" method="POST">
                 <select  name="nameTienda2" class="form-control" onchange="this.form.submit()">
                     <option value="NONE" >Seleccione una tienda...</option>
@@ -166,7 +165,7 @@
                 <c:if test="${not empty plan_ejec}">
                     <form class="form-horizontal" action="ejecutaETL" method="POST">
                         <select  name="ejecutadas" class="form-control" onchange="this.form.submit()">
-                            <option value="NONE" >Seleccione una planificacion a detallar...</option>
+                            <option value="NONE" >Ver detalle de planificación...</option>
                             <c:forEach items="${plan_ejec}" var="item">
                                 ${item}
                             </c:forEach>
@@ -192,7 +191,7 @@
                 <c:if test="${not empty plan_ter}">
                     <form class="form-horizontal" action="terminaETL" method="POST">
                         <select  name="terminadas" class="form-control" onchange="this.form.submit()">
-                            <option value="NONE" >Seleccione una planificacion a detallar...</option>
+                            <option value="NONE" >Ver detalle de planificación...</option>
                             <c:forEach items="${plan_ter}" var="item">
                                 ${item}
                             </c:forEach>

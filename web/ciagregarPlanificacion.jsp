@@ -129,7 +129,7 @@
     <div id="Bandejas" >
         <div>   
              <form class="form-horizontal" action="ciagregarPlanificacion" method="POST">
-                <h2>Seleccione una Tienda</h2>        
+                <h2>Agregar Planificación Carga Inicial</h2>        
                 <select  name="nombreTienda" class="form-control">
                     <option value="NONE">Seleccione una tienda...</option>
                     <c:forEach items="${tienda}" var="item">
@@ -137,10 +137,10 @@
                     </c:forEach>
                 </select>
                 <br><br><br>
-                <h4>Introduzca una Fecha</h4>
+                <h4>Introduzca una Fecha en el formato Indicado</h4>
                 <input type="text"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
                 <br><br><br>
-                <h4>Introduzca una Hora</h4>
+                <h4>Introduzca una Hora en el formato Indicado (Formato Militar)</h4>
                 <input type="text" placeholder="hh-mm-ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
                 <br><br><br>
                 <input type="submit" value="planificar"/>
