@@ -140,7 +140,7 @@
         <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${planificado}" var="item2">&#9679${item2}</c:forEach>
         </textarea>
         <form class="form-horizontal" action="cargasplanif" method="POST">
-            <span> <input type="submit"  value="Cargar"/> </span>
+            <span> <input type="submit"  value="Ver Cargas"/> </span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
        
@@ -168,7 +168,7 @@
         <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${ejecutado}" var="item2">&#9679${item2}</c:forEach>
         </textarea>
         <form class="form-horizontal" action="cargasejec" method="POST">
-            <span> <input type="submit"  value="Cargar"/> </span>
+            <span> <input type="submit"  value="Ver Cargas"/> </span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
         
