@@ -670,7 +670,7 @@ public class publicadorControlador {
 
                 }
             
-                model.addObject("tienda", nombreTiendaUser.getnombreTienda());
+               //model.addObject("tienda", nombreTiendaUser.getnombreTienda());
                 model.addObject("terminado",listStringTer);
                 model.addObject("plan_ter", lista_ter);
                 
