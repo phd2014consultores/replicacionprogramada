@@ -756,7 +756,9 @@ public class adminController {
     }
     @RequestMapping(value = {"/CargasenParalelo"}, method = {RequestMethod.POST})
         public ModelAndView postCargasenParalelo(@RequestParam (value = "cargas", required = false)
-                                                    String cargas){
+                                                    int cargas){
+            
+            
         ModelAndView model= new ModelAndView();
         model=getCargasenParalelo();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -769,10 +771,13 @@ public class adminController {
         int resultado = -999;
         String Json="";
         String jsonactual="";
-        String[] array;
         String nodos="";
         String id="";
-                
+        
+        if(cargas>0){
+        
+        
+              
         try{
             usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
             usuario = usuario.substring(1, usuario.length()-1);
@@ -820,10 +825,11 @@ public class adminController {
                 model.addObject("mensaje","exito");
             }else{
                 model.addObject("mensaje","error");
-
-            model.addObject("max",nodos);
         }
       }
+    }else{
+        model.addObject("mensaje","El valor debe ser un numero positivo");
+        }
         model.setViewName("CargasenParalelo");
         return model;
     }

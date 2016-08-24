@@ -144,6 +144,14 @@
                 }
             </script>   
         </c:if>
+            
+        <c:if test="${mensaje == 'El valor debe ser un numero positivo'}">
+            <script language="JavaScript">
+                {
+                    alert("El valor debe ser un número positivo..!!");
+                }
+            </script>   
+        </c:if>    
         
         
         
