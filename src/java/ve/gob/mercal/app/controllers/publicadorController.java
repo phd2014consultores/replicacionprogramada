@@ -109,13 +109,12 @@ public class publicadorController {
         model=pagegetpublicador();
         
         if(s2==1){
-            model.addObject("exito","Tienda Eliminada");
-            model.setViewName("Publicador");
+            model.addObject("mensaje","exito");
+            
         }else{
-            model.addObject("exito","Error al eliminar");
-            model.setViewName("Publicador");
+            model.addObject("mensaje","error");
         }
- 
+        model.setViewName("Publicador");
         return model;
 	}
        
@@ -341,9 +340,11 @@ public class publicadorController {
 "  WHERE tienda='"+nombre+"';");
                 name2 = name2.substring(1, name2.length()-1);
                 elementObject = parser.parse(name2);
-                name2 = elementObject.getAsJsonObject()
-                    .get("id_tienda").getAsString();
-                result2 = wsFuncionApp.getConsulta("public.insert_pub_tiendas("+name+", "+name2+", "+name+");");
+                if(existeCampo.existeCampo(name2, "id_tienda")){
+                    name2 = elementObject.getAsJsonObject()
+                        .get("id_tienda").getAsString();
+                    result2 = wsFuncionApp.getConsulta("public.insert_pub_tiendas("+name+", "+name2+", "+name+");");
+                }
             } catch (ExcepcionServicio e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

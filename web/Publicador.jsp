@@ -148,8 +148,19 @@
                     </select>
                     <input type="hidden" onclick="pregunta()" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>      
-            <c:if test="${not empty exito}">
-                ${exito}              
+            <c:if test="${mensaje == 'exito'}">
+                <script language="JavaScript">
+                    {
+                        alert("La tienda se eliminó Exitosamente..!!");
+                    }
+                </script>   
+            </c:if>
+            <c:if test="${mensaje == 'error'}">
+                <script language="JavaScript">
+                    {
+                        alert("Fallo al eliminar la tienda..!!");
+                    }
+                </script>   
             </c:if>
 
  	</div>
