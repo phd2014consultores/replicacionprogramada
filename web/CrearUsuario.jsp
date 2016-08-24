@@ -116,8 +116,8 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestión Usuarios</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestión Cluster-PDI-Tienda</a></li>
+<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestionar Usuario</a></li>
+<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestionar Tienda</a></li>
 <li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>
 
 							</ul>
