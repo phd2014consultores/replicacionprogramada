@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	http
                 .authorizeRequests() 
-                .antMatchers("/admin","/pdi","/confcargas","/gestioncargas","/tiendaadmin","/gusuarios").hasRole("administrador")   
+                .antMatchers("/admin","/pdi","/CargasenParalelo","/gestioncargas","/tiendaadmin","/gestionusuarioadmin","/CrearUsuario","/ModificarUsuario","/EliminarUsuario","/DetalleUsuario","/gestioncp","/gestionNodo","/agregarNodo","/eliminarNodo").hasRole("administrador")   
                 .antMatchers("/Publicador","/AgregarP","/Crear","/Detalle","/Modificar","/Publicar","/Psuscriptor","/GestionTienda","/GestionAgregarP","/CrearP","/RetirarP","/GestionPublicar","/agregarPlanificacion","/recuperarETL","/ciagregarPlanificacion","/magregarPlanificacion","/ciagregarPlanETL","/magregarPlanETL").hasRole("publicador")
                 .antMatchers("/Suscriptor","/Consulta","/SuscriptorPrincipal").hasRole("suscriptor")
                 .and()
