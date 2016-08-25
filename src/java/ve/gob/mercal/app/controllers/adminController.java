@@ -323,19 +323,24 @@ public class adminController {
             } catch (Exception ex) {
                 Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             }
-                // elimina el kitchen que se esta ejecutando
+            
             try{
+                update = WsFuncion.getConsulta("public.delete_plan_ejecuciones("+ejec+","+actual+",false);");
+               }  catch (Exception ex) {
+                   Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+              }
+                    model.addObject("msj_ejec","Planificacion anulada con Exito !!");
+            
+                // elimina el kitchen que se esta ejecutando
+
+            if(funcion>0){
+
+                    
+             try{
                     result_anular=anular.anularKitchen(Integer.toString(ejec));
              } catch (ExcepcionServicio ex) {
                     Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
              }
-            if((funcion>0) && (result_anular ==0)){
-                 try{
-                      update = WsFuncion.getConsulta("public.delete_plan_ejecuciones("+ejec+","+actual+",false);");
-                 }  catch (Exception ex) {
-                   Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-                    model.addObject("msj_ejec","Planificacion anulada con Exito !!");
        
             }else{
             model.addObject("param1", ejec);
