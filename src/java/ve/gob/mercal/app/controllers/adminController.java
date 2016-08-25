@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ve.gob.mercal.app.models.existeCampo;
 import ve.gob.mercal.app.models.nombreTienda;
+import ve.gob.mercal.app.services.WsAnular;
 import ve.gob.mercal.app.services.WsFuncionApp;
 import ve.gob.mercal.app.services.WsQuery;
 /**
@@ -39,6 +40,9 @@ public class adminController {
     public WsQuery wsQuery;
     @Autowired
     public existeCampo existeCampo;
+    
+    @Autowired
+    public WsAnular anular;
     
     private String ejec = "";
     public List<String> listString = new ArrayList<>();
@@ -289,6 +293,7 @@ public class adminController {
         int funcion = 0;
         int actual=0;
         int update=0;
+        int result_anular=-1;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         int ejec;
@@ -317,16 +322,20 @@ public class adminController {
             } catch (Exception ex) {
                 Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            try {
-                update = WsFuncion.getConsulta("public.delete_plan_ejecuciones("+ejec+","+actual+",false);");
-            } catch (Exception ex) {
-                Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
-            }    
-            
-            if(funcion>0){
-            model.addObject("msj_ejec","Planificacion anulada con Exito !!");
-            // invoco servicio anular kitchen
+                // elimina el kitchen que se esta ejecutando
+            try{
+                    result_anular=anular.anularKitchen(Integer.toString(ejec));
+             } catch (ExcepcionServicio ex) {
+                    Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+             }
+            if((funcion>0) && (result_anular ==0)){
+                 try{
+                      update = WsFuncion.getConsulta("public.delete_plan_ejecuciones("+ejec+","+actual+",false);");
+                 }  catch (Exception ex) {
+                   Logger.getLogger(adminController.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+                    model.addObject("msj_ejec","Planificacion anulada con Exito !!");
+       
             }else{
             model.addObject("param1", ejec);
             model.addObject("param2", actual);
