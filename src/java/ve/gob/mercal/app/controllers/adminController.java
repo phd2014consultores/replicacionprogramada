@@ -17,13 +17,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ve.gob.mercal.app.models.existeCampo;
-import ve.gob.mercal.app.models.nombreTienda;
+import ve.gob.mercal.app.models.listaNodo;
 import ve.gob.mercal.app.services.WsAnular;
 import ve.gob.mercal.app.services.WsFuncionApp;
 import ve.gob.mercal.app.services.WsQuery;
@@ -40,6 +39,8 @@ public class adminController {
     public WsQuery wsQuery;
     @Autowired
     public existeCampo existeCampo;
+    @Autowired
+    public listaNodo listaNodo;
     
     @Autowired
     public WsAnular anular;
@@ -819,6 +820,7 @@ public class adminController {
         model.setViewName("agregarNodo");
         return model;
     }
+    
     @RequestMapping(value = {"/eliminarNodo"}, method = {RequestMethod.GET})
         public ModelAndView geteliminarNodo(){
         ModelAndView model= new ModelAndView();
@@ -846,58 +848,148 @@ public class adminController {
                 String jsonactual = "NULL";
                 String nodos = "NULL";
                 String valor = "NULL";
+                String valor2 = "";
                 result = result.substring(1, result.length()-1);
                 elementObject = parser.parse(result);
                 jsonactual = elementObject.getAsJsonObject().get("json_config").getAsString();
                 elementObject = parser.parse(jsonactual);
-                nodos = elementObject.getAsJsonObject().get("nodos").toString();
-                nodos = nodos.substring(1, nodos.length()-1);
-                StringTokenizer st = new StringTokenizer(nodos,"}");
-                int planif=1;
-                result = "";
-                while (st.hasMoreTokens()) {
-                    nodos = st.nextToken()+"}";
-                    if (nodos.substring(0,1).equals(",")){
-                        nodos = nodos.substring(1);                           
+                if(existeCampo.existeCampo(jsonactual, "nodos")){
+                    nodos = elementObject.getAsJsonObject().get("nodos").toString();
+                    nodos = nodos.substring(1, nodos.length()-1);
+                    StringTokenizer st = new StringTokenizer(nodos,"}");
+                    int planif=1;
+                    result = "";
+                    while (st.hasMoreTokens()) {
+                        nodos = st.nextToken()+"}";
+                        if (nodos.substring(0,1).equals(",")){
+                            nodos = nodos.substring(1);                           
+                        }
+                        elementObject = parser.parse(nodos);
+                        result= result + "Nodo = "+planif+"\n";
+                        if(existeCampo.existeCampo(nodos,"host")){
+                            valor = elementObject.getAsJsonObject().get("host").getAsString();
+                            valor2 = valor2 + "{\"host\":\""+valor+"\",";
+                            result= result + "Host = "+valor+"\n";
+                            listString.add("<option value=\""+valor+ "\" type=\"submit\">"+
+                                        valor+"</option>");
+                        }
+                        if(existeCampo.existeCampo(nodos,"tipo")){
+                            valor = elementObject.getAsJsonObject().get("tipo").getAsString();
+                            valor2 = valor2 + "\"tipo\":\""+valor+"\",";
+                            result= result + "Tipo = "+valor+"\n";
+                        }
+                        if(existeCampo.existeCampo(nodos,"status")){
+                            valor = elementObject.getAsJsonObject().get("status").getAsString();
+                            valor2 = valor2 + "\"status\":\""+valor+"\",";
+                            result= result + "Estatus = "+valor+"\n";
+                        }
+                        if(existeCampo.existeCampo(nodos,"columnFamily")){
+                            valor = elementObject.getAsJsonObject().get("columnFamily").getAsString();
+                            valor2 = valor2 + "\"columnFamily\":\""+valor+"\",";
+                            result= result + "ColumnFamily = "+valor+"\n";
+                        }
+                        if(existeCampo.existeCampo(nodos,"keyspace")){
+                            valor = elementObject.getAsJsonObject().get("keyspace").getAsString();
+                            valor2 = valor2 + "\"keyspace\":\""+valor+"\"}";
+                            result= result + "Keyspace = "+valor+"\n";
+                        }
+                        listaNodo.setlistaNodo(valor2);
+                        listString2.add(result+"\n\n");
+                        planif++;
+                        valor="";
+                        result="";
+                        valor2="";
                     }
-                    elementObject = parser.parse(nodos);
-                    result= result + "Nodo = "+planif+"\n";
-                    if(existeCampo.existeCampo(nodos,"host")){
-                        valor = elementObject.getAsJsonObject().get("host").getAsString();
-                        result= result + "Host = "+valor+"\n";
-                        listString.add("<option value=\""+valor+ "\" type=\"submit\">"+
-                                    valor+"</option>");
-                    }
-                    if(existeCampo.existeCampo(nodos,"tipo")){
-                        valor = elementObject.getAsJsonObject().get("tipo").getAsString();
-                        result= result + "Tipo = "+valor+"\n";
-                    }
-                    if(existeCampo.existeCampo(nodos,"status")){
-                        valor = elementObject.getAsJsonObject().get("status").getAsString();
-                        result= result + "Estatus = "+valor+"\n";
-                    }
-                    listString2.add(result+"\n\n");
-                    planif++;
-                    valor="";
-                    result="";
-                }
-                model.addObject("nodoActivo",listString2);
-                model.addObject("nodoIP",listString);
+                    model.addObject("nodoActivo",listString2);
+                    model.addObject("nodoIP",listString);
+                }else{
+                    model.addObject("mensaje","vacio");
+                } 
+              //model.addObject("prueba",jsonactual);  
             }else{
                 model.addObject("mensaje","vacio");
             }
-        
+            
         model.setViewName("eliminarNodo");
         return model;
     }
+    
     @RequestMapping(value = {"/eliminarNodo"}, method = {RequestMethod.POST})
         public ModelAndView posteliminarNodo(@RequestParam (value = "nodoE", required = false)
                                                     String ip){
         ModelAndView model= new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        String result = "NULL";
+        String id_config = "NULL";
+        String usuario = "NULL";
+        String json = "";
+        int resultado = -999;
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        try{
+            usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
+            usuario = usuario.substring(1, usuario.length()-1);
+            elementObject = parser.parse(usuario);
+            usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString();
+            result = wsQuery.getConsulta("SELECT id_config, json_config FROM public.config WHERE elemento ='cluster';");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        result = result.substring(1, result.length()-1);
+        elementObject = parser.parse(result);
+        result = elementObject.getAsJsonObject().get("json_config").getAsString();
+        id_config = elementObject.getAsJsonObject().get("id_config").getAsString();
+        String aux = listaNodo.getlistaNodo(ip);
+        if(aux.equals("")){
+            try{
+                elementObject = parser.parse(result);
+                if(existeCampo.existeCampo(result, "max_cargas_paralelas")){
+                    result = elementObject.getAsJsonObject().get("max_cargas_paralelas").getAsString();
+                    json = "{\"max_cargas_paralelas\":"+result+"}";
+                    resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+json+"',"+usuario+");");
+                }else{
+                    resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','',"+usuario+");");          
+                }    
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }      
+        }else{
+            try{
+                elementObject = parser.parse(result);
+                if(existeCampo.existeCampo(result, "max_cargas_paralelas")){
+                    result = elementObject.getAsJsonObject().get("max_cargas_paralelas").getAsString();
+                    json = "{\"max_cargas_paralelas\":"+result+",\"nodos\":["+aux;                   
+                    json = json.substring(0, json.length()-1)+"]}";
+                    resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+json+"',"+usuario+");");
+                }else{
+                    json = "{\"nodos\":["+aux;          
+                    json = json.substring(0, json.length()-1)+"]}";
+                    resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+json+"',"+usuario+");");          
+                }       
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+        }
+        
+        //model = geteliminarNodo();
+        if(resultado>0){
+            
+            model.addObject("mensaje","exito");
+        }else{
+            model.addObject("mensaje","error");
+        }
+        model.addObject("prueba",json);
         model.setViewName("eliminarNodo");
         return model;
     }
-        @RequestMapping(value = {"/CargasenParalelo"}, method = {RequestMethod.GET})
+    
+        
+    @RequestMapping(value = {"/CargasenParalelo"}, method = {RequestMethod.GET})
         public ModelAndView getCargasenParalelo(){
         ModelAndView model= new ModelAndView();
         model.setViewName("CargasenParalelo");

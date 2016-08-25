@@ -144,6 +144,28 @@
             </select>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
+        <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("Se eliminó el nodo Exitosamente..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${mensaje == 'error'}">
+            <script language="JavaScript">
+                {
+                    alert("Fallo al eliminar el nodo..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${mensaje == 'vacio'}">
+            <script language="JavaScript">
+                {
+                    alert("No existen nodos en el cluster..!!");
+                }
+            </script>   
+        </c:if>
+        ${prueba}
     </div>
 
         <div class="row-fluid">
