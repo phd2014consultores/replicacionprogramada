@@ -815,8 +815,6 @@ public class adminController {
             if(resultado>0){
                 model.addObject("mensaje","exito");
             }else{
-                model.addObject("mensaje2",result);
-                model.addObject("mensaje3",resultado);
                 model.addObject("mensaje","error");
             }
         }else{

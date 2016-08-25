@@ -144,9 +144,6 @@
             <input type="submit" value="Agregar"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
-        ${mensaje2}
-        espacio
-        ${mensaje3}
         <c:if test="${mensaje == 'exito'}">
             <script language="JavaScript">
                 {

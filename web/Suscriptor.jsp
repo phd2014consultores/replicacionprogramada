@@ -109,7 +109,7 @@
                             <div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
                                 <ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
                                     <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/SuscriptorPrincipal">Suscripción a Tienda</a></li>
-                                    <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Suscriptor">Consultar Suscripción</a></li>
+                                    <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Suscriptor">Consultar Publicación</a></li>
                                 </ul>
                             </div>
                         </div>       
@@ -159,7 +159,7 @@
                     <select  name="listString2" class="form-control" onchange="this.form.submit()">
                         <option value="NONE">Seleccione una opción...</option>
                         <c:forEach items="${publicacion3}" var="item3">
-                            <option value="${item3}" type="submit">Numero de Control: ${item3}</option>
+                            <option value="${item3}" type="submit">Numero de Control Plan: ${item3}</option>
                         </c:forEach>
                     </select>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
