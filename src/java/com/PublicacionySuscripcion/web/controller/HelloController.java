@@ -37,7 +37,7 @@ public class HelloController {
 
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
-			model.addObject("error", "Invalido usuario o contraseña!");
+			model.addObject("error", "Usuario o contraseña inválido!");
 		}
 
 		if (logout != null) {
