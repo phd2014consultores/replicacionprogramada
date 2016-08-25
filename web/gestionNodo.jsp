@@ -129,15 +129,13 @@
     <br>
 
 	<div id="Bandejas">
-            <h2>Configuración</h2>
+            <h2>Configurar Cluster</h2>
             <br>
-            <h4>Seleccione acción a realizar</h4>
-
-                    <select  name="listString" class="form-control" onchange="location = this.value;">
-                        <option value="NONE">Seleccione una opción...</option>
-                        <option value="/PublicacionySuscripcion/agregarNodo">Agregar Nodo</option>
-                        <option value="/PublicacionySuscripcion/eliminarNodo">Eliminar Nodo</option>
-                    </select>
+            <select  name="listString" class="form-control" onchange="location = this.value;">
+                <option value="NONE">Seleccione una opción...</option>
+                <option value="/PublicacionySuscripcion/agregarNodo">Agregar Nodo</option>
+                <option value="/PublicacionySuscripcion/eliminarNodo">Eliminar Nodo</option>
+            </select>
 
                 
  	</div>
