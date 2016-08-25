@@ -130,7 +130,7 @@
     <h1 align="center">Configuración Cluster</h1>
     <br>
     <div id="Bandejas">
-        <form class="form-horizontal" action="nodoA" method="POST">
+        <form class="form-horizontal" action="agregarNodo" method="POST">
             <h4>Añadir Nodo</h4>
             <label for="message" >IP</label>
             <input name="ip" type="text" placeholder="Ip Nodo" required />
@@ -140,11 +140,34 @@
             <input name="column" type="text" placeholder="ColumnFamily" required />
             <label for="message">KeySpace</label>
             <input name="keyspace" type="text" placeholder="KeySpace" required />
-            <br>
+            <br><br>
             <input type="submit" value="Agregar"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
-        
+        ${mensaje2}
+        espacio
+        ${mensaje3}
+        <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("Se agregó el nodo Exitosamente..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${mensaje == 'error'}">
+            <script language="JavaScript">
+                {
+                    alert("Fallo al agregar el nodo..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${mensaje == 'existe'}">
+            <script language="JavaScript">
+                {
+                    alert("La IP suministrada ya existe..!!");
+                }
+            </script>   
+        </c:if>
     </div>
 
         <div class="row-fluid">

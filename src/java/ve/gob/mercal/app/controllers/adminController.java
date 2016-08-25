@@ -731,8 +731,82 @@ public class adminController {
         return model;
     }
     @RequestMapping(value = {"/agregarNodo"}, method = {RequestMethod.POST})
-        public ModelAndView postagregarNodo(){
+        public ModelAndView postagregarNodo(@RequestParam (value = "ip", required = false)
+                                                            String ip,
+                                            @RequestParam (value = "tipo", required = false)
+                                                            String tipo,
+                                            @RequestParam (value = "column", required = false)
+                                                            String column,
+                                            @RequestParam (value = "keyspace", required = false)
+                                                            String keyspace){
         ModelAndView model= new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        String result = "NULL";
+        String id_config = "NULL";
+        String usuario = "NULL";
+        String json = "";
+        int resultado = -999;
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        try{
+            usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
+            usuario = usuario.substring(1, usuario.length()-1);
+            elementObject = parser.parse(usuario);
+            usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString();
+            result = wsQuery.getConsulta("SELECT id_config, json_config FROM public.config WHERE elemento ='cluster';");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if(!existeCampo.existeCampo(result,ip)){
+            if(result.equals("[]")){
+                try {
+                    json = "{\"nodos\":[{\"host\":\""+ip+"\",\"tipo\":\""+tipo+"\",\"status\":\"disponible\","
+                            + "\"columnFamily\":\""+column+"\",\"keyspace\":\""+keyspace+"\"}]";    
+                    resultado = WsFuncion.getConsulta("public.insert_config('cluster','"+json+"',"+usuario+");");
+                } catch (ExcepcionServicio e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }             
+            }else{
+                result = result.substring(1, result.length()-1);
+                elementObject = parser.parse(result);
+                result = elementObject.getAsJsonObject().get("json_config").getAsString();
+                id_config = elementObject.getAsJsonObject().get("id_config").getAsString();
+                if(existeCampo.existeCampo(result, "nodos")){
+                    try {
+                        json = "{\"host\":\""+ip+"\",\"tipo\":\""+tipo+"\",\"status\":\"disponible\","
+                                + "\"columnFamily\":\""+column+"\",\"keyspace\":\""+keyspace+"\"}]}";
+                        result = result.substring(0, result.length()-2)+","+json;
+                        resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+result+"',"+usuario+");");
+                    } catch (ExcepcionServicio e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }else{
+                    try {
+                        json = "\"nodos\":[{\"host\":\""+ip+"\",\"tipo\":\""+tipo+"\",\"status\":\"disponible\","
+                                + "\"columnFamily\":\""+column+"\",\"keyspace\":\""+keyspace+"\"}]}";
+                        result = result.substring(0, result.length()-1)+","+json;
+                        resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+result+"',"+usuario+");");
+                    } catch (ExcepcionServicio e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }           
+                }
+            }
+            if(resultado>0){
+                model.addObject("mensaje","exito");
+            }else{
+                model.addObject("mensaje2",result);
+                model.addObject("mensaje3",resultado);
+                model.addObject("mensaje","error");
+            }
+        }else{
+            model.addObject("mensaje","existe");
+        }
         model.setViewName("agregarNodo");
         return model;
     }
@@ -753,7 +827,7 @@ public class adminController {
                 elementObject = parser.parse(usuario);
                 usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString(); 
 
-                result = wsQuery.getConsulta("SELECT id_config, elemento, json_config FROM public.config WHERE elemento ='cluster';");
+                result = wsQuery.getConsulta("SELECT json_config FROM public.config WHERE elemento ='cluster';");
             } catch (ExcepcionServicio e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -808,7 +882,8 @@ public class adminController {
         return model;
     }
     @RequestMapping(value = {"/eliminarNodo"}, method = {RequestMethod.POST})
-        public ModelAndView posteliminarNodo(){
+        public ModelAndView posteliminarNodo(@RequestParam (value = "nodoE", required = false)
+                                                    String ip){
         ModelAndView model= new ModelAndView();
         model.setViewName("eliminarNodo");
         return model;
