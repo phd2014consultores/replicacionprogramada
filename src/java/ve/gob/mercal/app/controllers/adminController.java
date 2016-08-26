@@ -774,8 +774,7 @@ public class adminController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-        if(!existeCampo.existeCampo(result,ip)){
+        if(!existeCampo.existeCampo(result,"\""+ip+"\"")){
             if(result.equals("[]")){
                 try {
                     json = "{\"nodos\":[{\"host\":\""+ip+"\",\"tipo\":\""+tipo+"\",\"status\":\"disponible\","
@@ -784,7 +783,7 @@ public class adminController {
                 } catch (ExcepcionServicio e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                }             
+                }
             }else{
                 result = result.substring(1, result.length()-1);
                 elementObject = parser.parse(result);
@@ -801,15 +800,26 @@ public class adminController {
                         e.printStackTrace();
                     }
                 }else{
-                    try {
-                        json = "\"nodos\":[{\"host\":\""+ip+"\",\"tipo\":\""+tipo+"\",\"status\":\"disponible\","
-                                + "\"columnFamily\":\""+column+"\",\"keyspace\":\""+keyspace+"\"}]}";
-                        result = result.substring(0, result.length()-1)+","+json;
-                        resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+result+"',"+usuario+");");
-                    } catch (ExcepcionServicio e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }           
+                    if(result.equals(" ")){
+                        try {
+                            json = "{\"nodos\":[{\"host\":\""+ip+"\",\"tipo\":\""+tipo+"\",\"status\":\"disponible\","
+                                    + "\"columnFamily\":\""+column+"\",\"keyspace\":\""+keyspace+"\"}]}";
+                            resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+json+"',"+usuario+");");
+                        } catch (ExcepcionServicio e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }else{
+                        try {
+                            json = "\"nodos\":[{\"host\":\""+ip+"\",\"tipo\":\""+tipo+"\",\"status\":\"disponible\","
+                                    + "\"columnFamily\":\""+column+"\",\"keyspace\":\""+keyspace+"\"}]}";
+                            result = result.substring(0, result.length()-1)+","+json;
+                            resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+result+"',"+usuario+");");
+                        } catch (ExcepcionServicio e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }  
+                    } 
                 }
             }
             if(resultado>0){
@@ -820,6 +830,8 @@ public class adminController {
         }else{
             model.addObject("mensaje","existe");
         }
+            
+         model.addObject("prueba",result);
         model.setViewName("agregarNodo");
         return model;
     }
@@ -846,7 +858,7 @@ public class adminController {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            if(!result.equals("[]")){
+            if(!result.equals("[ ]")){
                
                 String jsonactual = "NULL";
                 String nodos = "NULL";
@@ -953,12 +965,12 @@ public class adminController {
                     json = "{\"max_cargas_paralelas\":"+result+"}";
                     resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+json+"',"+usuario+");");
                 }else{
-                    resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','',"+usuario+");");          
+                    resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster',' ',"+usuario+");");          
                 }    
             } catch (ExcepcionServicio e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }      
+            }
         }else{
             try{
                 elementObject = parser.parse(result);
@@ -970,7 +982,8 @@ public class adminController {
                 }else{
                     json = "{\"nodos\":["+aux;          
                     json = json.substring(0, json.length()-1)+"]}";
-                    resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+json+"',"+usuario+");");          
+                    resultado = WsFuncion.getConsulta("public.update_config("+id_config+",'cluster','"+json+"',"+usuario+");");
+                    aux=""+resultado;
                 }       
             } catch (ExcepcionServicio e) {
                 // TODO Auto-generated catch block
@@ -979,14 +992,13 @@ public class adminController {
             
         }
         
-        //model = geteliminarNodo();
-        if(resultado>0){
-            
+        model = geteliminarNodo();
+        if(resultado>0){          
             model.addObject("mensaje","exito");
         }else{
             model.addObject("mensaje","error");
         }
-        model.addObject("prueba",json);
+        model.addObject("prueba",aux);
         model.setViewName("eliminarNodo");
         return model;
     }

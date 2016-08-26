@@ -165,7 +165,6 @@
                 }
             </script>   
         </c:if>
-        ${prueba}
     </div>
 
         <div class="row-fluid">
