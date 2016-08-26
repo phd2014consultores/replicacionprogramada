@@ -7,7 +7,11 @@ package ve.gob.mercal.app.controllers;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.phdconsultores.ws.exception.ExcepcionServicio;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -56,6 +60,8 @@ public class publicadorControlador {
     public List<String> listString5 = new ArrayList<>();
     public List<String> listString6 = new ArrayList<>();
     public Model prueba;
+    public DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    public Date fechaactual = new Date();
     
     
     
@@ -742,14 +748,23 @@ public class publicadorControlador {
                                                     @RequestParam(value = "hora", 
                                                     required = false) String hora,
                                                     @RequestParam(value = "nombreTienda", 
-                                                    required = false) String tienda){
+                                                    required = false) String tienda) throws ParseException{
         
         
         ModelAndView  model = getciagregarPlanificacion();
         int result = -999;
+        int result2 = -999;
         String id_tienda = "NULL";
         String id_job = "NULL";        
         String id_user = "NULL";
+        Date fechaact = new Date();
+        String fechaparam = fecha+" "+hora;
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date2 = formatter.parse(fechaparam);
+        
+        if(date2.after(fechaact)){
+        
+        
                 try{
                     id_tienda = wsQuery.getConsulta("SELECT id_tienda FROM public.tiendas WHERE tienda='"+tienda+"'and activo=TRUE;");
                     id_tienda = id_tienda.substring(1, id_tienda.length()-1);
@@ -784,19 +799,26 @@ public class publicadorControlador {
                     .get("id_usuario").getAsString();    
                     
                     result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+id_job+",'"+fecha+" "+hora+"',"+ id_user+");");
-                
+                    if(result>0){
+                    result2 = WsFuncion.getConsulta("public.insert_pasos_plan_ejecucion("+result+","+"'en espera'"+","+id_user+");");
+                    }
                 
                 } catch (ExcepcionServicio ex) {
                     Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
                 }
         
-                if(result>0){
+                if(result2>0){
                     model.addObject("mensaje","exito");                    
                 }else{
                     model.addObject("mensaje", "error");
                 }
+                
+        }else{
+        model.addObject("mensaje5","errorfecha"); 
+        }
         model.setViewName("ciagregarPlanificacion");
         return model;
+        
     }
     
     @RequestMapping(value = {"/magregarPlanificacion"}, method = RequestMethod.GET)
@@ -840,14 +862,21 @@ public class publicadorControlador {
                                                     @RequestParam(value = "hora", 
                                                     required = false) String hora,
                                                     @RequestParam(value = "nombreTienda", 
-                                                    required = false) String tienda){
+                                                    required = false) String tienda) throws ParseException{
         
         
         ModelAndView  model = getciagregarPlanificacion();
         int result = -999;
+        int result2= -999;
         String id_tienda = "NULL";
         String id_job = "NULL";        
         String id_user = "NULL";
+        Date fechaact = new Date();
+        String fechaparam = fecha+" "+hora;
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date2 = formatter.parse(fechaparam);
+        
+        if(date2.after(fechaact)){
                 try{
                     id_tienda = wsQuery.getConsulta("SELECT id_tienda FROM public.tiendas WHERE tienda='"+tienda+"'and activo=TRUE;");
                     id_tienda = id_tienda.substring(1, id_tienda.length()-1);
@@ -882,17 +911,23 @@ public class publicadorControlador {
                     
                     
                     result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+id_job+",'"+fecha+" "+hora+"',"+ id_user+");");
-                
+                    if(result>0){
+                    result2 = WsFuncion.getConsulta("public.insert_pasos_plan_ejecucion("+result+","+"'en espera'"+","+id_user+");");
+                    }
                 
                 } catch (ExcepcionServicio ex) {
                     Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
                 }
         
-                if(result>0){
+                if(result2>0){
                     model.addObject("mensaje","exito");                    
                 }else{
                     model.addObject("mensaje", "error");
                 }
+                
+        }else{
+        model.addObject("mensaje5","errorfecha"); 
+        }
         model.setViewName("magregarPlanificacion");
         return model;
     }
@@ -1024,15 +1059,26 @@ public class publicadorControlador {
                                                     @RequestParam(value = "hora", 
                                                     required = false) String hora,
                                                     @RequestParam(value = "nombreETL", 
-                                                    required = false) String nameETL){
+                                                    required = false) String nameETL) throws ParseException{
         
         ModelAndView model = new ModelAndView();
         model = getciagregarPlanETL();      
         int result = -999;
         int result2 = -999;
+        int result3 = -999;
         String id_tienda = "NULL";
         String id_job = "NULL";        
         String id_user = "NULL";
+        
+        Date fechaact = new Date();
+        String fechaparam = fecha+" "+hora;
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date2 = formatter.parse(fechaparam);
+        
+        if(date2.after(fechaact)){
+        
+   
+        
             if(!nameETL.equals("NONE")){
                 try{
                     id_tienda = wsQuery.getConsulta("SELECT id_tienda FROM public.tiendas WHERE tienda='"+nombreTiendaUser.getnombreTienda()+"'and activo=TRUE;");
@@ -1066,7 +1112,12 @@ public class publicadorControlador {
                     if(result >0 ){
                         result2 = WsFuncion.getConsulta("public.insert_parametros_ejecucion("+result+",'transformaciones','"+nameETL+"',"+id_user+");");
                         if(result2>0){
-                            model.addObject("mensaje2","exito");                    
+                        result3 = WsFuncion.getConsulta("public.insert_pasos_plan_ejecucion("+result2+","+"'en espera'"+","+id_user+");");
+                            if(result3>0){
+                                model.addObject("mensaje2","exito");                    
+                            }else{
+                                model.addObject("mensaje2", "error");
+                            }
                         }else{
                             model.addObject("mensaje2", "error");
                         }
@@ -1080,6 +1131,10 @@ public class publicadorControlador {
             }else{
                 model.addObject("mensaje2", "error");
             }
+            
+        }else{
+        model.addObject("mensaje5","errorfecha"); 
+        }
         model.setViewName("ciagregarPlanETL");
         return model;
     }
@@ -1209,15 +1264,27 @@ public class publicadorControlador {
                                                     @RequestParam(value = "hora", 
                                                     required = false) String hora,
                                                     @RequestParam(value = "nombreETL", 
-                                                    required = false) String nameETL){
+                                                    required = false) String nameETL) throws ParseException{
         
         ModelAndView model = new ModelAndView();
         model = getciagregarPlanETL();      
         int result = -999;
         int result2 = -999;
+        int result3 = -999;
         String id_tienda = "NULL";
         String id_job = "NULL";        
         String id_user = "NULL";
+        
+                
+        Date fechaact = new Date();
+        String fechaparam = fecha+" "+hora;
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date2 = formatter.parse(fechaparam);
+        
+        if(date2.after(fechaact)){
+        
+   
+  
             if(!nameETL.equals("NONE")){
                 try{
                     id_tienda = wsQuery.getConsulta("SELECT id_tienda FROM public.tiendas WHERE tienda='"+nombreTiendaUser.getnombreTienda()+"'and activo=TRUE;");
@@ -1250,9 +1317,14 @@ public class publicadorControlador {
                     result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+id_job+",'"+fecha+" "+hora+"',"+ id_user+");");
                     if(result >0 ){
                         result2 = WsFuncion.getConsulta("public.insert_parametros_ejecucion("+result+",'transformaciones','"+nameETL+"',"+id_user+");");
-                        if(result2>0){
-                            model.addObject("mensaje2","exito");                    
-                        }else{
+                         if(result2>0){
+                        result3 = WsFuncion.getConsulta("public.insert_pasos_plan_ejecucion("+result2+","+"'en espera'"+","+id_user+");");
+                            if(result3>0){
+                                model.addObject("mensaje2","exito");                    
+                            }else{
+                                model.addObject("mensaje2", "error");
+                            }
+                         }else{
                             model.addObject("mensaje2", "error");
                         }
                     }else{
@@ -1265,6 +1337,11 @@ public class publicadorControlador {
             }else{
                 model.addObject("mensaje2", "error");
             }
+            
+                        
+        }else{
+        model.addObject("mensaje5","errorfecha"); 
+        }
         model.setViewName("magregarPlanETL");
         return model;
     }

@@ -1007,7 +1007,7 @@ public class adminController {
         model.setViewName("CargasenParalelo");
         return model;
     }
-    @RequestMapping(value = {"/CargasenParalelo"}, method = {RequestMethod.POST})
+        @RequestMapping(value = {"/CargasenParalelo"}, method = {RequestMethod.POST})
         public ModelAndView postCargasenParalelo(@RequestParam (value = "cargas", required = false)
                                                     int cargas){
             
@@ -1057,16 +1057,34 @@ public class adminController {
                     try {
 
                     result = result.substring(1, result.length()-1);
-                    elementObject = parser.parse(result);
+                    elementObject = parser.parse(result);                   
+                    
                     jsonactual = elementObject.getAsJsonObject().get("json_config").getAsString();
+                        
                     id=elementObject.getAsJsonObject().get("id_config").getAsString();
+                    if(jsonactual.equals(" ")){
+                    Json = "{\"max_cargas_paralelas\":"+cargas+"}";    
+                    resultado = WsFuncion.getConsulta("public.update_config("+id+",'cluster','"+Json+"',"+usuario+");");
+                                      
+                    }else{
+                        
+                        
+                    if(existeCampo.existeCampo(jsonactual,"nodos" )){
                     elementObject2 = parser.parse(jsonactual);
-                    Json = "{\"max_cargas_paralelas\":"+cargas+""; 
+                    Json = "{\"max_cargas_paralelas\":"+cargas; 
                     nodos =",\"nodos\":"+ elementObject2.getAsJsonObject().get("nodos").toString()+"}";
                     jsonactual="";
                     jsonactual=Json+nodos;
 
-                    resultado = WsFuncion.getConsulta("public.update_config("+id+",'cluster','"+jsonactual+"',"+usuario+");");
+                    resultado = WsFuncion.getConsulta("public.update_config("+id+",'cluster','"+jsonactual+"',"+usuario+");");  
+                    }else{
+                    Json = "{\"max_cargas_paralelas\":"+cargas+"}";    
+                    resultado = WsFuncion.getConsulta("public.update_config("+id+",'cluster','"+Json+"',"+usuario+");");
+
+                    }
+                    
+                    }
+
                     } catch (ExcepcionServicio e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

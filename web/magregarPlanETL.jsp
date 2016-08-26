@@ -186,6 +186,13 @@
                     }
                 </script>   
             </c:if>
+            <c:if test="${mensaje5 == 'errorfecha'}">
+                <script language="JavaScript">
+                    {
+                        alert("La fecha debe ser mayor a la actual..!!");
+                    }
+                </script>   
+            </c:if>  
         </div>
     </div>        
     <br>

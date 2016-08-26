@@ -155,7 +155,7 @@
                 <h5>En caso de no existir la publicación requerida debe comunicarse con el Publicador</h5>   
                 <br>
                 <h2>Detalle de Publicación</h2>
-                <form class="form-horizontal" action="Suscriptor2" method="POSTopción">            
+                <form class="form-horizontal" action="Suscriptor2" method="POST">            
                     <select  name="listString2" class="form-control" onchange="this.form.submit()">
                         <option value="NONE">Seleccione una opción...</option>
                         <c:forEach items="${publicacion3}" var="item3">
