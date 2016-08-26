@@ -143,7 +143,7 @@
         <br>
         <form class="form-horizontal" action="eliminarNodo" method="POST">
             <h4>Nodo a Eliminar</h4>        
-            <select  name="nodoE" class="form-control" onchange="this.form.submit()">
+            <select  name="nodoE" class="form-control" onchange="pregunta()">
                 <option value="NONE">Seleccione un nodo...</option>
                 <c:forEach items="${nodoIP}" var="item2">
                     ${item2}
