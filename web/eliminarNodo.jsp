@@ -50,7 +50,14 @@
 			});
 		});
 	</script>
-        
+        <title>Confirmación de envío de formulario</title>
+            <script language="JavaScript">
+                function pregunta(){
+                    if (confirm('¿Estas seguro que desea eliminar?')){
+                       document.eliminar.submit()
+                    }
+                }
+            </script> 
     </head>
     
 <body>  
@@ -142,7 +149,7 @@
                     ${item2}
                 </c:forEach>
             </select>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <input type="hidden" onclick="pregunta()" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
         <c:if test="${mensaje == 'exito'}">
             <script language="JavaScript">
