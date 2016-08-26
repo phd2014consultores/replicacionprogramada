@@ -996,7 +996,6 @@ public class adminController {
         }else{
             model.addObject("mensaje","error");
         }
-        model.addObject("prueba",aux);
         model.setViewName("eliminarNodo");
         return model;
     }
