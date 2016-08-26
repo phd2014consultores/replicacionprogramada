@@ -164,8 +164,7 @@
                     alert("La IP suministrada ya existe..!!");
                 }
             </script>   
-        </c:if>           
-        ${prueba}
+        </c:if>         
     </div>
 
         <div class="row-fluid">

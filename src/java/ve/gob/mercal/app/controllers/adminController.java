@@ -774,7 +774,7 @@ public class adminController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if(!existeCampo.existeCampo(result,"\""+ip+"\"")){
+        if(!existeCampo.existeCampo(result,"\""+ip+"\\")){
             if(result.equals("[]")){
                 try {
                     json = "{\"nodos\":[{\"host\":\""+ip+"\",\"tipo\":\""+tipo+"\",\"status\":\"disponible\","
@@ -830,8 +830,6 @@ public class adminController {
         }else{
             model.addObject("mensaje","existe");
         }
-            
-         model.addObject("prueba",result);
         model.setViewName("agregarNodo");
         return model;
     }
