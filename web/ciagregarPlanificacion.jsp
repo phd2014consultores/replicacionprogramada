@@ -166,7 +166,7 @@
                         alert("La fecha debe ser mayor a la actual..!!");
                     }
                 </script>   
-            </c:if>  
+            </c:if> 
         </div>    
         
     </div>

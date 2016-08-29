@@ -715,7 +715,7 @@ public class publicadorControlador {
         try {
             s = wsQuery.getConsulta("SELECT t.tienda" +
                         " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
-                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager ;");
+                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager and t.activo=true ;");
             
             
         } catch (ExcepcionServicio e) {
@@ -809,7 +809,7 @@ public class publicadorControlador {
         
                 if(result2>0){
                     model.addObject("mensaje","exito");                    
-                }else{
+                }else{                   
                     model.addObject("mensaje", "error");
                 }
                 
@@ -830,7 +830,7 @@ public class publicadorControlador {
         try {
             s = wsQuery.getConsulta("SELECT t.tienda" +
                         " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
-                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager ;");
+                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager and t.activo=true;");
             
             
         } catch (ExcepcionServicio e) {
@@ -941,7 +941,7 @@ public class publicadorControlador {
         try {
             s = wsQuery.getConsulta("SELECT t.tienda" +
                         " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
-                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager ;");
+                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager and t.activo=true ;");
             
             
         } catch (ExcepcionServicio e) {
@@ -1148,7 +1148,7 @@ public class publicadorControlador {
         try {
             s = wsQuery.getConsulta("SELECT t.tienda" +
                         " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
-                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager ;");
+                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager and t.activo=true;");
             
             
         } catch (ExcepcionServicio e) {
