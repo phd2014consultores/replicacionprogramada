@@ -164,7 +164,7 @@
         <c:if test="${exito == 'Usuario Creado'}">
             <script language="JavaScript">
                 {
-                    alert("Usuario registradode manera exitosa..!!");
+                    alert("Usuario registrado de manera exitosa..!!");
                 }
             </script>   
         </c:if>
