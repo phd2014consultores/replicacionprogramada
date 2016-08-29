@@ -146,10 +146,22 @@
                         </c:forEach>
                     </select>
                     <input type="hidden" onclick="pregunta()" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form>      
-            <c:if test="${not empty exito}">
-                ${exito}              
-            </c:if>
+                </form>   
+                
+            <c:if test="${ exito == 'Usuario Eliminado'}">
+                    <script language="JavaScript">
+                        {
+                            alert("Usuario eliminado exitosamente");
+                        }
+                    </script>
+             </c:if>
+             <c:if test="${ exito == 'Error al eliminar'}">
+                    <script language="JavaScript">
+                        {
+                            alert("No se pudo eliminar el usuario");
+                        }
+                    </script>
+             </c:if>   
 
  	</div>
 
