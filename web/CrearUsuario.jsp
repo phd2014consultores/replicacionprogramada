@@ -161,8 +161,19 @@
             <input type="submit" value="Crear"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
-        <c:if test="${not empty exito}">
-                ${exito}         
+        <c:if test="${exito == 'Usuario Creado'}">
+            <script language="JavaScript">
+                {
+                    alert("Usuario registradode manera exitosa..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${exito == 'Fallo al crear el Usuario'}">
+            <script language="JavaScript">
+                {
+                    alert("Fallo al registrar el Usuario..!!");
+                }
+            </script>   
         </c:if>
     </div>
         
