@@ -167,7 +167,7 @@
                 <input type="text"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
                 <br><br><br>
                 <h4>Introduzca una Hora con el formato indicado (Formato Militar)</h4>
-                <input type="text" placeholder="hh-mm-ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
+                <input type="text" placeholder="hh:mm:ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
                 <br><br><br>
                 <input type="submit" value="planificar recuperación"/>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
