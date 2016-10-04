@@ -159,23 +159,23 @@
         <h4>Datos a Modificar</h4> 
 
             <label for="message">Nombre de la tienda</label> 
-            <input required name="nombre" type="text" placeholder="Nombre" value="${tienda}" />
+            <input required name="nombre" type="text" style="height:25px" placeholder="Nombre" value="${tienda}" />
             <br>
             <label for="message">Ip BdOracle</label> 
-            <input required name="host" type="text" placeholder="Host" value="${host}" />
+            <input required name="host" type="text" style="height:25px" placeholder="Host" value="${host}" />
             <br>
             <label for="message">BdOracle</label> 
-            <input required name="bdoracle" type="text" placeholder="BdOracle" value="${bd}" />
+            <input required name="bdoracle" type="text" style="height:25px" placeholder="BdOracle" value="${bd}" />
             <br>
             <label for="message">Usuario BdOracle</label> 
-            <input required name="user" ype="text" placeholder="Usuario" value="${user}" />
+            <input required name="user" type="text" style="height:25px" placeholder="Usuario" value="${user}" />
             <br>
             <label for="message">Contraña BdOracle</label> 
-            <input required name="pass" type="text" placeholder="Password" value="${pass}" />
+            <input required name="pass" type="text" style="height:25px" placeholder="Password" value="${pass}" />
             <br>
             <input name="idt" type="hidden" value=${idt}>
             <input name="idm" type="hidden" value=${idm}>
-            <input type="submit" value="Modificar"/>
+            <input type="submit" style="height:25px" value="Modificar"/>
             <br>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
         </form>

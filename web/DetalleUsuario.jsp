@@ -150,19 +150,19 @@
     <form class="form-horizontal" >
         <c:if test="${ empty exito}">   
             <label for="message">Pseudonimo :</label> 
-            <input disabled name="pseudonimo" type="text" placeholder="Pseudonimo" value="${pseudonimo}" />
+            <input disabled name="pseudonimo" type="text" style="height:25px" placeholder="Pseudonimo" value="${pseudonimo}" />
             <br>
             <label for="message">Nombre :</label> 
-            <input disabled name="nombre" type="text" placeholder="Nombre" value="${nombre}" />
+            <input disabled name="nombre" type="text" style="height:25px" placeholder="Nombre" value="${nombre}" />
             <br>
             <label for="message">Apellido :</label> 
-            <input disabled name="apellido" type="text" placeholder="Apellido" value="${apellido}" />
+            <input disabled name="apellido" type="text" style="height:25px" placeholder="Apellido" value="${apellido}" />
             <br>
             <label for="message">Email :</label> 
-            <input disabled name="email" ype="text" placeholder="Email" value="${email}" />
+            <input disabled name="email" ype="text" style="height:25px" placeholder="Email" value="${email}" />
             <br>
             <label for="message">Tipo Usuario Actual :</label> 
-            <input disabled name="tip" type="text" placeholder="Tipo" value="${tipo}" />
+            <input disabled name="tip" type="text" style="height:25px" placeholder="Tipo" value="${tipo}" />
             <br>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
         </form>

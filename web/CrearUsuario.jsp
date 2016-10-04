@@ -136,19 +136,19 @@
         <br>
         <form class="form-horizontal" action="CrearUsuario" method="POST">
             <label for="message">Pseudonimo :</label> 
-            <input name="pseudonimo" type="text" placeholder="Pseudonimo" required />
+            <input name="pseudonimo" type="text" style="height:25px" placeholder="Pseudonimo" required />
             <br>
             <label for="message">Nombre :</label> 
-            <input name="nombre" type="text" placeholder="Nombre" required />
+            <input name="nombre" type="text" style="height:25px" placeholder="Nombre" required />
             <br>
             <label for="message">Apellido :</label> 
-            <input name="apellido" type="text" placeholder="Apellido" required />
+            <input name="apellido" type="text" style="height:25px" placeholder="Apellido" required />
             <br>
             <label for="message">Email :</label> 
-            <input name="email" type="email" placeholder="Email" required />
+            <input name="email" type="email" style="height:25px" placeholder="Email" required />
             <br>
             <label for="message">Contraseña :</label> 
-            <input name="pass" type="password" placeholder="Contraseña" required />
+            <input name="pass" type="password" style="height:25px" placeholder="Contraseña" required />
             <br>
             <label for="message">Tipo Usuario :</label> 
                     <select  name="tipo" class="form-control" >
@@ -158,7 +158,7 @@
                     </select>
             <br>
             <br>
-            <input type="submit" value="Crear"/>
+            <input type="submit" style="height:25px" value="Crear"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
         <c:if test="${exito == 'Usuario Creado'}">

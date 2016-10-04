@@ -134,21 +134,21 @@
         <form class="form-horizontal" action="tiendaadmin" method="POST">
             <div id="parametros1">
                 <label for="message">Usuario</label> 
-                <input name="user" type="text" placeholder="User" required />
+                <input name="user" style="height:25px" type="text" placeholder="User" required />
                 <label for="message" >Nombre</label> 
-                <input name="nombre" type="text" placeholder="Name" required />
+                <input name="nombre" style="height:25px" type="text" placeholder="Name" required />
                 <label for="message">Fecha_base</label> 
-                <input name="fecha" type="text" placeholder="Date" required />
+                <input name="fecha" style="height:25px" type="text" placeholder="Date" required />
                 <label for="message">Formato_Fecha</label> 
-                <input name="format" type="text" placeholder="Format" required />
+                <input name="format" style="height:25px" type="text" placeholder="Format" required />
             </div>
             <div id="parametros2">
                 <label for="message">Contraseña</label> 
-                <input name="pass" type="text" placeholder="Password" required />
+                <input name="pass" style="height:25px" type="text" placeholder="Password" required />
                 <label for="message">HostBDOracle</label> 
-                <input name="host" type="text" placeholder="IP" required />
+                <input name="host" style="height:25px" type="text" placeholder="IP" required />
                 <label for="message">BDOralce</label> 
-                <input name="bd" type="text" placeholder="Name" required />
+                <input name="bd" style="height:25px" type="text" placeholder="Name" required />
                 <br>
                 <br>
                 <input type="submit" value="Agregar" />

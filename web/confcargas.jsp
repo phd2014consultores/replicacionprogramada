@@ -131,7 +131,7 @@
 	<br>
 
 <div id="cantcargas">
-	<span > Cantidad de Cargas en Paralelo: </span> <input type="text" placeholder="Nro. Cargas" required />
+	<span > Cantidad de Cargas en Paralelo: </span> <input type="text" style="height:25px" placeholder="Nro. Cargas" required />
 	<input type="submit" onclick=" this.value='Enviado'"value="Enviar"/>  
 </div>
 

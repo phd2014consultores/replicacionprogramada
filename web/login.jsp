@@ -159,11 +159,11 @@
 			<table>
 				<tr>
 					<td>Usuario:</td>
-					<td><input id="u" type='text' name='username' value=''></td>
+					<td><input id="u" type='text'style="height:25px" name='username' value=''></td>
 				</tr>
 				<tr>
 					<td>Contraseña:</td>
-					<td><input id="p" type='password' name='password' /></td>
+					<td><input id="p" type='password'style="height:25px" name='password' /></td>
 				</tr>
 				<tr>
                                     <td colspan='2'><div class="buttonHolder"><input name="submit" type="submit"value="Iniciar Sesión"></div></td> <!--//OJOOOOOOOOO onclick=" location.href='/PublicacionySuscripcion/admin.jsp'-->

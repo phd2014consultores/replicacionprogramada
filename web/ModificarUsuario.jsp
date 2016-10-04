@@ -158,22 +158,22 @@
         <c:if test="${ empty exito}">   
         <label for="message">Datos a Modificar :</label> 
             <label for="message">Pseudonimo :</label> 
-            <input required name="pseudonimo" type="text" placeholder="Pseudonimo" value="${pseudonimo}" />
+            <input required name="pseudonimo" type="text" style="height:25px" placeholder="Pseudonimo" value="${pseudonimo}" />
             <br>
             <label for="message">Nombre :</label> 
-            <input required name="nombre" type="text" placeholder="Nombre" value="${nombre}" />
+            <input required name="nombre" type="text" style="height:25px" placeholder="Nombre" value="${nombre}" />
             <br>
             <label for="message">Apellido :</label> 
-            <input required name="apellido" type="text" placeholder="Apellido" value="${apellido}" />
+            <input required name="apellido" type="text"style="height:25px" placeholder="Apellido" value="${apellido}" />
             <br>
             <label for="message">Email :</label> 
-            <input required name="email" ype="text" placeholder="Email" value="${email}" />
+            <input required name="email" ype="text" style="height:25px" placeholder="Email" value="${email}" />
             <br>
             <label for="message">Nueva Contraseña :</label> 
-            <input name="pass" type="password" placeholder="Contraseña" required />
+            <input name="pass" type="password" style="height:25px" placeholder="Contraseña" required />
             <br>
             <label for="message">Tipo Usuario Actual :</label> 
-            <input disabled name="tip" type="text" placeholder="Tipo" value="${tipo}" />
+            <input disabled name="tip" type="text" style="height:25px" placeholder="Tipo" value="${tipo}" />
             <br>
             <label for="message">Nuevo Tipo Usuario :</label> 
                     <select  name="tipo" class="form-control" >
@@ -183,7 +183,7 @@
                     </select>
             <br>
             <input name="id" type="hidden" value=${id}>
-            <input type="submit" value="Modificar"/>
+            <input type="submit" style="height:25px" value="Modificar"/>
             <br>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
         </form>

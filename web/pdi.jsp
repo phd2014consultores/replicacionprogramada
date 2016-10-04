@@ -138,35 +138,35 @@
         <form class="form-horizontal" action="pdi" method="POST">
             <div id="parametros1">
                 <label for="message" >Directorio PDI</label> 
-                <input name="directorioPDI" type="text" placeholder="Directorio Pdi" required />
+                <input name="directorioPDI" type="text" style="height:25px" placeholder="Directorio Pdi" required />
                 <label for="message">Nombre Repositorio</label> 
-                <input name="nombrePDI" type="text" placeholder="Nombre" required />
+                <input name="nombrePDI" type="text" style="height:25px" placeholder="Nombre" required />
                 <label for="message">Usuario Repositorio</label> 
-                <input name="user" type="text" placeholder="Usuario" required />
+                <input name="user" type="text" style="height:25px" placeholder="Usuario" required />
                 <label for="message">Contraseña Repositorio</label> 
-                <input name="pass" type="password" placeholder="Contraseña" required />          
+                <input name="pass" type="password" style="height:25px" placeholder="Contraseña" required />          
                 <label for="message">Directorio Logs</label> 
-                <input name="log" type="text" placeholder="Log" required />
+                <input name="log" type="text" style="height:25px" placeholder="Log" required />
                 <label for="message">Nivel Logs</label>            
-                <input name="nivel" type="text" placeholder="Nivel" required />
+                <input name="nivel" type="text" style="height:25px" placeholder="Nivel" required />
                 <label for="message">Nombre Job CargaInicial</label> 
-                <input name="nombreJOBCI" type="text" placeholder="Nombre Job" required />
+                <input name="nombreJOBCI" type="text" style="height:25px" placeholder="Nombre Job" required />
                 <label for="message">Directorio Job CargaInicial</label> 
-                <input name="directorioJOBCI" type="text" placeholder="Directorio Job" required />
+                <input name="directorioJOBCI" type="text" style="height:25px" placeholder="Directorio Job" required />
             </div>
             <div id="parametros1">               
                 <label for="message">Nombre Job Mediación</label> 
-                <input name="nombreJOBM" type="text" placeholder="Nombre Job" required />
+                <input name="nombreJOBM" type="text" style="height:25px" placeholder="Nombre Job" required />
                 <label for="message">Directorio Job Mediación</label> 
-                <input name="directorioJOBM" type="text" placeholder="Directorio Job" required />
+                <input name="directorioJOBM" type="text" style="height:25px" placeholder="Directorio Job" required />
                 <label for="message">Nombre Job CargaInicialETL</label> 
-                <input name="nombreJOBCIE" type="text" placeholder="Nombre Job" required />
+                <input name="nombreJOBCIE" type="text" style="height:25px" placeholder="Nombre Job" required />
                 <label for="message">Directorio Job CargaInicialETL</label> 
-                <input name="directorioJOBCIE" type="text" placeholder="Directorio Job" required />          
+                <input name="directorioJOBCIE" type="text" style="height:25px" placeholder="Directorio Job" required />          
                 <label for="message">Nombre Job MediaciónETL</label> 
-                <input name="nombreJOBME" type="text" placeholder="Nombre Job" required />
+                <input name="nombreJOBME" type="text" style="height:25px" placeholder="Nombre Job" required />
                 <label for="message">Directorio Job MediaciónETL</label> 
-                <input name="directorioJOBME" type="text" placeholder="Directorio Job" required />
+                <input name="directorioJOBME" type="text" style="height:25px" placeholder="Directorio Job" required />
                 <br>
                 <br>
                 <input type="submit" value="Enviar" />

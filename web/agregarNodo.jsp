@@ -133,13 +133,13 @@
         <form class="form-horizontal" action="agregarNodo" method="POST">
             <h4>Añadir Nodo</h4>
             <label for="message" >IP</label>
-            <input name="ip" type="text" placeholder="Ip Nodo" required />
+            <input name="ip" type="text" style="height:25px" placeholder="Ip Nodo" required />
             <label for="message">Tipo Nodo</label>
-            <input name="tipo" type="text" placeholder="Tipo" required />
+            <input name="tipo" type="text" style="height:25px" placeholder="Tipo" required />
             <label for="message">ColumnFamily</label>
-            <input name="column" type="text" placeholder="ColumnFamily" required />
+            <input name="column" type="text" style="height:25px" placeholder="ColumnFamily" required />
             <label for="message">KeySpace</label>
-            <input name="keyspace" type="text" placeholder="KeySpace" required />
+            <input name="keyspace" type="text" style="height:25px" placeholder="KeySpace" required />
             <br><br>
             <input type="submit" value="Agregar"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

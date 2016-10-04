@@ -132,8 +132,8 @@
     <div id="Bandejas">
         <form class="form-horizontal" action="CargasenParalelo" method="POST">
             <h4>Número de Cargas</h4>
-            <input name="cargas" type="number" min="1" placeholder="Nro. de Cargas" required />
-            <input type="submit" value="Aceptar"/>
+            <input name="cargas" type="number" style="height:25px" min="1" placeholder="Nro. de Cargas" required />
+            <input type="submit" style="height:25px" value="Aceptar"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
         

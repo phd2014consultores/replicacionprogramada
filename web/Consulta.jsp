@@ -127,13 +127,13 @@
         <div id="Bandejas">
             <form class="form-horizontal" action="Consulta" method="POST">
                 <h2>Consulta</h2>
-                <input name="query" type="text" placeholder="Select * From Prueba;" required />
+                <input name="query" type="text" style="height:25px" placeholder="Select * From Prueba;" required />
                 <label for="message">Inserte una Fecha de Inicio</label>
-                <input name="fechaIni" type="text" placeholder="F.Inicio (opcional)" required />
+                <input name="fechaIni" type="text" style="height:25px" placeholder="F.Inicio (opcional)" required />
                 <label for="message">Inserte una Fecha de Fin :</label>
-                <input name="fechaFin" type="text" placeholder="F.Fin (opcional)" required /> 
+                <input name="fechaFin" type="text" style="height:25px" placeholder="F.Fin (opcional)" required /> 
                 <br>
-                <input name="submit" type="submit"value="Consultar" />
+                <input name="submit" type="submit" style="height:25px" value="Consultar" />
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form> 
             <div>

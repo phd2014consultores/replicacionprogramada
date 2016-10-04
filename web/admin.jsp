@@ -137,8 +137,8 @@
     	<textarea id="lnodos" cols="50" rows="15" required></textarea>  <span> <input type="submit" onclick=" this.value='Cargado'"value="Cargar"/> </span>  
     <br>
     <br>
-    		<span > Desabilitar: </span> <input type="text" placeholder="Ip Nodo" required />
-	<input type="submit" onclick=" this.value='Enviado'"value="Enviar"/>  
+    		<span > Desabilitar: </span> <input type="text" style="height:25px" placeholder="Ip Nodo" required />
+	<input type="submit" style="height:25px" onclick=" this.value='Enviado'"value="Enviar"/>  
     </div>
 
     <br>
@@ -148,14 +148,14 @@
     <div id="agregarnodos">
     	<br>
     	<label for="message" >IP :</label> 
-    	<input type="text" placeholder="Ip Nodo" required />
+    	<input type="text" style="height:25px" placeholder="Ip Nodo" required />
     	<label for="message">Tipo Nodo :</label> 
-    	<input type="text" placeholder="Tipo" required />
+    	<input type="text" style="height:25px" placeholder="Tipo" required />
 
     	<label for="message">ColumnFamily :</label> 
-    	<input type="text" placeholder="ColumnFamily" required />
+    	<input type="text" style="height:25px" placeholder="ColumnFamily" required />
      	<label for="message">KeySpace :</label> 
-    	<input type="text" placeholder="KeySpace" required />
+    	<input type="text" style="height:25px" placeholder="KeySpace" required />
 		<br>
     	<input id="agregarnodoboton" type="submit" onclick=" this.value='Enviado'"value="Enviar"/> 
     <br>

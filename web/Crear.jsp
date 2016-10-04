@@ -137,22 +137,22 @@
         <br>
         <form class="form-horizontal" action="Crear" method="POST">
             <label for="message">Nombre de la tienda</label> 
-            <input name="nombre" type="text" placeholder="Nombre" required />
+            <input name="nombre" type="text" style="height:25px" placeholder="Nombre" required />
             <br>
             <label for="message">Ip BdOracle</label> 
-            <input name="host" type="text" placeholder="Host" required />
+            <input name="host" type="text" style="height:25px" placeholder="Host" required />
             <br>
             <label for="message">BdOracle</label> 
-            <input name="bdoracle" type="text" placeholder="BdOracle" required />
+            <input name="bdoracle" type="text" style="height:25px" placeholder="BdOracle" required />
             <br>
             <label for="message">Usuario BdOracle</label> 
-            <input name="user" ype="text" placeholder="Usuario" required />
+            <input name="user" ype="text" style="height:25px" placeholder="Usuario" required />
             <br>
             <label for="message">Contraseña BdOracle</label> 
-            <input name="pass" type="password" placeholder="Password" required />
+            <input name="pass" type="password" style="height:25px" placeholder="Password" required />
             <br>
             <br>
-            <input type="submit" value="Crear"/>          
+            <input type="submit" style="height:25px" value="Crear"/>          
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
         
