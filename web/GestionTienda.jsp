@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Crear Usuario</title>
+	<title>Gestionar Tiendas</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -116,10 +116,10 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestionar Usuario</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestionar Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Replicación</a></li>
-
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionTienda">Gestionar Tiendas</a></li>
+                                <li class="page_item page-item-22"><a href="/ReplicacionProgramada/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionPublicar">Gestionar Replicación</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/Psuscriptor">Replicaciones</a></li>
 							</ul>
 						</div>
 					</div>		
@@ -128,58 +128,19 @@
     	</div>    	
     </div>
 	    	<br>
-
-    <div id="Bandejas" >
-        <h2>Crear Usuario</h2>
-        <br>
-        <p>Indique datos del nuevo Usuario</p>
-        <br>
-        <form class="form-horizontal" action="CrearUsuario" method="POST">
-            <label for="message">Pseudonimo :</label> 
-            <input name="pseudonimo" type="text" style="height:25px" placeholder="Pseudonimo" required />
+	<div id="Bandejas">
+            <h2>Gestionar Tienda</h2>
             <br>
-            <label for="message">Nombre :</label> 
-            <input name="nombre" type="text" style="height:25px" placeholder="Nombre" required />
-            <br>
-            <label for="message">Apellido :</label> 
-            <input name="apellido" type="text" style="height:25px" placeholder="Apellido" required />
-            <br>
-            <label for="message">Email :</label> 
-            <input name="email" type="email" style="height:25px" placeholder="Email" required />
-            <br>
-            <label for="message">Contraseña :</label> 
-            <input name="pass" type="password" style="height:25px" placeholder="Contraseña" required />
-            <br>
-            <label for="message">Tipo Usuario :</label> 
-                    <select  name="tipo" class="form-control" >
-                        <option value="administrador">Administrador</option>
-                        <option value="publicador">Replicador</option>
+                    <select  name="listString" class="form-control" onchange="location = this.value;">
+                        <option value="NONE">Seleccione una opción...</option>
+                        <option value="/ReplicacionProgramada/Crear">Crear Tienda</option>
+                        <option value="/ReplicacionProgramada/Modificar">Modificar Tienda</option>
+                        <option value="/ReplicacionProgramada/Publicador">Eliminar Tienda</option>
+                        <option value="/ReplicacionProgramada/Detalle">Ver Detalle Tienda</option>
                     </select>
-            <br>
-            <br>
-            <input type="submit" style="height:25px" value="Crear"/>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        </form>
-        <c:if test="${exito == 'Usuario Creado'}">
-            <script language="JavaScript">
-                {
-                    alert("Usuario registrado de manera exitosa..!!");
-                }
-            </script>   
-        </c:if>
-        <c:if test="${exito == 'Fallo al crear el Usuario'}">
-            <script language="JavaScript">
-                {
-                    alert("Fallo al registrar el Usuario..!!");
-                }
-            </script>   
-        </c:if>
-    </div>
-        
 
-
-<br>
-
+                
+ 	</div>
 
     		<div class="row-fluid">
 				<div class="span12">

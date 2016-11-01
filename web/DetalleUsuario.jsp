@@ -1,11 +1,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
-    <head>
+        <head>
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Eliminar Tiendas</title>
+	<title>Detalle Usuario</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -50,14 +50,7 @@
 			});
 		});
 	</script>
-            <title>Confirmación de envío de formulario</title>
-            <script language="JavaScript">
-                function pregunta(){
-                    if (confirm('¿Estas seguro que desea eliminar?')){
-                       document.eliminar.submit()
-                    }
-                }
-            </script> 
+        
     </head>
     
 <body>  
@@ -123,10 +116,10 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
+<li class="page_item page-item-22"><a href="/ReplicacionProgramada/gestionusuarioadmin">Gestionar Usuario</a></li>
+<li class="page_item page-item-5"><a href="/ReplicacionProgramada/gestioncp">Gestionar Tienda</a></li>
+<li class="page_item page-item-10"><a href="/ReplicacionProgramada/gestioncargas">Gestionar Replicación</a></li>
+
 							</ul>
 						</div>
 					</div>		
@@ -135,35 +128,50 @@
     	</div>    	
     </div>
 	    	<br>
-	    	<div id="Bandejas">
-                <h2>Eliminar Tienda</h2>
-                <br>
-                    
-                <form name="eliminar" class="form-horizontal" action="Publicador" method="POST">
-                    <select  name="listString" class="form-control" onchange="pregunta()">
-                        <option value="NONE">Seleccione una tienda ...</option>
-                        <c:forEach items="${tienda2}" var="item">
+
+<div id="Bandejas" >
+
+            <h2>Detalle Usuario</h2>
+
+        <br>
+        <c:if test="${empty vaciar}">
+                <form class="form-horizontal" action="DetalleUsuario" method="POST">
+                    <select  name="listString" class="form-control" onchange="this.form.submit()">
+                        <option value="NONE">Seleccione un usuario...</option>
+                        <c:forEach items="${usuarios}" var="item">
                             ${item}
                         </c:forEach>
                     </select>
-                    <input type="hidden" onclick="pregunta()" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form>      
-            <c:if test="${mensaje == 'exito'}">
-                <script language="JavaScript">
-                    {
-                        alert("La tienda se eliminó Exitosamente..!!");
-                    }
-                </script>   
-            </c:if>
-            <c:if test="${mensaje == 'error'}">
-                <script language="JavaScript">
-                    {
-                        alert("Fallo al eliminar la tienda..!!");
-                    }
-                </script>   
-            </c:if>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+         </c:if>
+    <br>
+    <c:if test="${not empty pseudonimo}"> 
+    <form class="form-horizontal" >
+        <c:if test="${ empty exito}">   
+            <label for="message">Pseudonimo :</label> 
+            <input disabled name="pseudonimo" type="text" style="height:25px" placeholder="Pseudonimo" value="${pseudonimo}" />
+            <br>
+            <label for="message">Nombre :</label> 
+            <input disabled name="nombre" type="text" style="height:25px" placeholder="Nombre" value="${nombre}" />
+            <br>
+            <label for="message">Apellido :</label> 
+            <input disabled name="apellido" type="text" style="height:25px" placeholder="Apellido" value="${apellido}" />
+            <br>
+            <label for="message">Email :</label> 
+            <input disabled name="email" ype="text" style="height:25px" placeholder="Email" value="${email}" />
+            <br>
+            <label for="message">Tipo Usuario Actual :</label> 
+            <input disabled name="tip" type="text" style="height:25px" placeholder="Tipo" value="${tipo}" />
+            <br>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
+        </form>
+        </c:if>
+    </c:if>
 
- 	</div>
+</div>
+
+<br>
 
     		<div class="row-fluid">
 				<div class="span12">

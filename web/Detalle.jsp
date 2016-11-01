@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Administrar Tienda</title>
+	<title>Detalle Tiendas</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -116,9 +116,10 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestionar Usuario</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestionar Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Replicación</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionTienda">Gestionar Tiendas</a></li>
+                                <li class="page_item page-item-22"><a href="/ReplicacionProgramada/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionPublicar">Gestionar Replicación</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/Psuscriptor">Replicaciones</a></li>
 
 							</ul>
 						</div>
@@ -127,58 +128,63 @@
     		</div>
     	</div>    	
     </div>
-    <br>
-    <h1 align="center">Tienda Nueva</h1>
-    <br>
-    <div id="parametros">
-        <form class="form-horizontal" action="tiendaadmin" method="POST">
-            <div id="parametros1">
-                <label for="message">Usuario</label> 
-                <input name="user" style="height:25px" type="text" placeholder="User" required />
-                <label for="message" >Nombre</label> 
-                <input name="nombre" style="height:25px" type="text" placeholder="Name" required />
-                <label for="message">Fecha_base</label> 
-                <input name="fecha" style="height:25px" type="text" placeholder="Date" required />
-                <label for="message">Formato_Fecha</label> 
-                <input name="format" style="height:25px" type="text" placeholder="Format" required />
-            </div>
-            <div id="parametros2">
-                <label for="message">Contraseña</label> 
-                <input name="pass" style="height:25px" type="text" placeholder="Password" required />
-                <label for="message">Host Galera MariaDB</label> 
-                <input name="host" style="height:25px" type="text" placeholder="IP" required />
-                <label for="message">Galera MariaDB</label> 
-                <input name="bd" style="height:25px" type="text" placeholder="Name" required />
-                <br>
-                <br>
-                <input type="submit" value="Agregar" />
+	    	<br>
+
+<div id="Bandejas" >
+        <h2>Detalle de la Tienda</h2>
+        <br>
+        <c:if test="${empty vaciar}">
+                <form class="form-horizontal" action="Detalle" method="POST">
+                    <select  name="listString" class="form-control" onchange="this.form.submit()">
+                        <option value="NONE">Seleccione una tienda...</option>
+                        <c:forEach items="${tienda2}" var="item">
+                            ${item}
+                        </c:forEach>
+                    </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            </div>          
+                </form>
+        </c:if>
+    <br>
+    <c:if test="${not empty tienda}"> 
+    <form class="form-horizontal" >
+           
+        <label for="message">Datos :</label> 
+
+            <label for="message">Nombre de la tienda</label> 
+            <input disabled name="nombre" type="text" style="height:25px" placeholder="Nombre" value="${tienda}" />
+            <br>
+            <label for="message">Ip MariaDB</label> 
+            <input disabled name="host" type="text" style="height:25px" placeholder="Host" value="${host}" />
+            <br>
+            <label for="message">MariaDB</label> 
+            <input disabled name="bdoracle" type="text" style="height:25px" placeholder="MariaDB" value="${bd}" />
+            <br>
+            <label for="message">Usuario MariaDB</label> 
+            <input disabled name="user" type="text" style="height:25px" placeholder="Usuario" value="${user}" />
+            <br>
+            <label for="message">Contraseña MariaDB</label> 
+            <input disabled name="pass" type="text" style="height:25px" placeholder="Password" value="${pass}" />
+            <br>
+            <input name="idt" type="hidden" value=${idt}>
+            <input name="idm" type="hidden" value=${idm}>
+            <br>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
         </form>
-        <c:if test="${mensaje == 'exito'}">
-            <script language="JavaScript">
-                {
-                    alert("La tienda fue agregada correctamente..!!");
-                }
-            </script>   
-        </c:if>
-        <c:if test="${mensaje == 'error'}">
-            <script language="JavaScript">
-                {
-                    alert("Fallo al agregar la tienda..!!");
-                }
-            </script>   
-        </c:if>
-    </div>
-          
-        <div class="row-fluid">
-            <div class="span12">
-                <div id="copy" align="bottom">
-                        <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
-                        <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
-                </div>
-            </div>
-        </div> 
+    </c:if>
+
+
+</div>
+
+<br>
+
+    		<div class="row-fluid">
+				<div class="span12">
+					<div id="copy" align="bottom">
+						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
+					</div>
+				</div>
+			</div>  
 	
 
 

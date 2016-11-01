@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gestionar Cargas</title>
+	<title>Modificar Tiendas</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -116,9 +116,11 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestionar Usuario</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestionar Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Replicación</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionTienda">Gestionar Tiendas</a></li>
+                                <li class="page_item page-item-22"><a href="/ReplicacionProgramada/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionPublicar">Gestionar Replicación</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/Psuscriptor">Replicaciones</a></li>
+
 							</ul>
 						</div>
 					</div>		
@@ -126,120 +128,80 @@
     		</div>
     	</div>    	
     </div>
- 
-    <br>
+	    	<br>
 
 <div id="Bandejas" >
-	<h1 color="red">Listado de Replicación</h1>
-	<br>
-    <br>
-    <div>
-    	<h4>Replicaciones Planificadas</h4>
-        
-        
-        <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${planificado}" var="item2">&#9679${item2}</c:forEach>
-        </textarea>
-        <form class="form-horizontal" action="cargasplanif" method="POST">
-            <span> <input type="submit"  value="Ver Cargas"/> </span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        </form>
-       
 
-        <c:if test="${not empty plan_list}">
-            <h5>Anular Replicación</h5>
-            <form class="form-horizontal" action="planifica" method="POST">
-                <select  name="planificadas" class="form-control" onchange="this.form.submit()">
-                    <option value="NONE" >Seleccione planificación...</option>
-                    <c:forEach items="${plan_list}" var="item">
-                        ${item}
-                    </c:forEach>
-                </select>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            </form>
+        <h2>Modificar Tienda</h2>
+        <br>
+        <c:if test="${not empty existe}">
+            <script language="JavaScript">
+                {
+                    alert("No hay tiendas para modificar..!!");
+                }
+            </script>
         </c:if>
+        <c:if test="${empty vaciar}">
+                <form class="form-horizontal" action="Modificar" method="POST">
+                    <select  name="listString" class="form-control" onchange="this.form.submit()">
+                        <option value="NONE">Seleccione una tienda...</option>
+                        <c:forEach items="${tienda2}" var="item">
+                            ${item}
+                        </c:forEach>
+                    </select>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+         </c:if>
     <br>
-    
-    		
-    </div>
+    <c:if test="${not empty tienda}"> 
+    <form class="form-horizontal" action="Modificar2" method="POST">
+        <c:if test="${ empty exito}">   
+        <h4>Datos a Modificar</h4> 
 
-    <div>
-    	<h4>Replicación a Ejecución</h4> 
-        
-       
-        <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${ejecutado}" var="item2">&#9679${item2}</c:forEach>
-        </textarea>
-        <form class="form-horizontal" action="cargasejec" method="POST">
-            <span> <input type="submit"  value="Ver Cargas"/> </span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <label for="message">Nombre de la tienda</label> 
+            <input required name="nombre" type="text" style="height:25px" placeholder="Nombre" value="${tienda}" />
+            <br>
+            <label for="message">Ip MariaDB</label> 
+            <input required name="host" type="text" style="height:25px" placeholder="Host" value="${host}" />
+            <br>
+            <label for="message">MariaDB</label> 
+            <input required name="bdoracle" type="text" style="height:25px" placeholder="MariaDB" value="${bd}" />
+            <br>
+            <label for="message">Usuario MariaDB</label> 
+            <input required name="user" type="text" style="height:25px" placeholder="Usuario" value="${user}" />
+            <br>
+            <label for="message">Contraña MariaDB</label> 
+            <input required name="pass" type="text" style="height:25px" placeholder="Password" value="${pass}" />
+            <br>
+            <input name="idt" type="hidden" value=${idt}>
+            <input name="idm" type="hidden" value=${idm}>
+            <input type="submit" style="height:25px" value="Modificar"/>
+            <br>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
         </form>
-        
-        <c:if test="${not empty plan_ejec}">
-            <h5>Anular Replicación</h5>
-            <form class="form-horizontal" action="ejecucion" method="POST">
-                <select  name="ejecutadas" class="form-control" onchange="this.form.submit()">
-                    <option value="NONE" >Seleccione planificación...</option>
-                    <c:forEach items="${plan_ejec}" var="item">
-                        ${item}
-                    </c:forEach>
-                </select>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            </form>
         </c:if>
-    <br>
-    <c:if test="${not empty mensaje_plan}">
-            <script language="JavaScript">
-                {
-                    alert("No hay cargas planificadas..!!");
-                }
-            </script>
     </c:if>
-            
-    <c:if test="${not empty mensaje_ejec}">
-            <script language="JavaScript">
-                {
-                    alert("No hay cargas en ejecucion..!!");
-                }
-            </script>
-    </c:if>
-            
-    <c:if test="${ msj_planif == 'Planificacion anulada con Exito !!'}">
-            <script language="JavaScript">
-                {
-                    alert("Carga anulada exitosamente");
-                }
-            </script>
-     </c:if>
-     <c:if test="${ msj_planif == 'Error al anular la tarea planificada'}">
-            <script language="JavaScript">
-                {
-                    alert("No se pudo anular la carga planificada");
-                }
-            </script>
-     </c:if>    
-            
-            
-    <c:if test="${ msj_ejec == 'Planificacion anulada con Exito !!'}">
-            <script language="JavaScript">
-                {
-                    alert("Carga anulada exitosamente");
-                }
-            </script>
-     </c:if>
-     <c:if test="${ msj_ejec == 'Error al anular la tarea planificada'}">
-            <script language="JavaScript">
-                {
-                    alert("No se pudo anular la carga planificada");
-                }
-            </script>
-     </c:if> 
-            
-    <br>
-    		
-    </div>
-    
-</div>	
-	<br>
 
+            <c:if test="${ exito == 'Tienda Modificada'}">
+                    <script language="JavaScript">
+                        {
+                            alert("Tienda modificada exitosamente..!");
+                        }
+                    </script>
+             </c:if>
+             <c:if test="${ exito == 'Fallo al modifica la Tienda..!'}">
+                    <script language="JavaScript">
+                        {
+                            alert("No se pudo modificar la Tienda..!");
+                        }
+                    </script>
+             </c:if>       
+            
+
+
+</div>
+
+<br>
     		<div class="row-fluid">
 				<div class="span12">
 					<div id="copy" align="bottom">
@@ -247,7 +209,7 @@
                                                 <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
 					</div>
 				</div>
-			</div>  
+			</div> 
 	
 
 

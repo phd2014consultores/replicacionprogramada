@@ -5,23 +5,25 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Recuperar</title>
+	<title>Planificación CargaInicial</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
-        </style>    
-	<!-- CSS para el Responsive Slider-->
+        </style>   
+       
+        <!--CSS para el Responsive Slider-->
         <style type="text/css">
             <%@include file="css/flexslider.css" %>
         </style>
-	<!-- Bootstrap Responsive-->
+        <!--Bootstrap Responsive-->
         <style type="text/css">
             <%@include file="css/bootstrap-responsive.css" %>
         </style>
-	<!-- Estilos de Banner	-->
+        <!--Estilos de Banner	-->
         <style type="text/css">
             <%@include file="css/banner.css" %>
-        </style>		<!-- Estilos Personales	-->
+        </style>		
+        <!--Estilos Personales	-->
         <style type="text/css">
             <%@include file="css/miscss.css" %>
         </style>
@@ -30,15 +32,15 @@
         <script type="text/javascript" language="JavaScript">
             <%@ include file="jss/jquery-1.8.3.js" %>
         </script>
-	<!-- FlexSlider -->
+        <!--FlexSlider-->        
         <script type="text/javascript" language="JavaScript">
         <%@ include file="jss/jquery.flexslider.js" %>
         </script>
-	<!-- Bootstrap	-->
-       
+        <!--Bootstrap -->	
         <script type="text/javascript" language="JavaScript">
          <%@ include file="jss/bootstrap.js" %>
         </script>
+        
 
 	<script>
 		$(window).load(function(){
@@ -105,16 +107,16 @@
     	<div class="row-fluid">
             <div class="span12">
                 <div id="barra_navegacion_desk" class="container navbar visible-desktop">
-                    <div id="barra" class="row navbar-inner">
+                    <div id="barra">
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                             <span class="icon-th-list"></span>
 			</a>
 			<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
                             <ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionTienda">Gestionar Tiendas</a></li>
+                                <li class="page_item page-item-22"><a href="/ReplicacionProgramada/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionPublicar">Gestionar Replicación</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/Psuscriptor">Replicaciones</a></li>
                             </ul>
                         </div>
                     </div>		
@@ -125,32 +127,60 @@
     <br>
 
     <div id="Bandejas" >
-        <div>
-            <div id="Bandejas">
-                    <div id="Bandeja">
-                <h2>Seleccione acción a realizar</h2>
-            
-                <select  name="listString2" class="form-control" onchange="location = this.value;">
-                    <option value="NONE">Seleccione una opción...</option>
-                    <option value="/PublicacionySuscripcion/ciagregarPlanETL">Planificar Recuperación ETL Carga Inicial</option>
-                    <option value="/PublicacionySuscripcion/magregarPlanETL">Planificar Recuperación ETL Mediación</option>
+        <div>   
+             <form class="form-horizontal" action="ciagregarPlanificacion" method="POST">
+                <h2>Agregar Planificación Carga Inicial</h2>        
+                <select  name="nombreTienda" class="form-control">
+                    <option value="NONE">Seleccione una tienda...</option>
+                    <c:forEach items="${tienda}" var="item">
+                        ${item}
+                    </c:forEach>
                 </select>
+                <br><br><br>
+                <h4>Introduzca una Fecha en el formato Indicado</h4>
+                <input type="text" style="height:25px"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
+                <br><br><br>
+                <h4>Introduzca una Hora en el formato Indicado (Formato Militar)</h4>
+                <input type="text" style="height:25px" placeholder="hh:mm:ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
+                <br><br><br>
+                <input type="submit" value="planificar"/>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            </div>
-            </div>
-            <br>
-        </div>
+            </form>
+            <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("La planificación se agrego Exitosamente..!!");
+                }
+            </script>   
+            </c:if>
+            <c:if test="${mensaje == 'error'}">
+                <script language="JavaScript">
+                    {
+                        alert("Fallo al agregar la planificación..!!");
+                    }
+                </script>   
+            </c:if>
+            <c:if test="${mensaje5 == 'errorfecha'}">
+                <script language="JavaScript">
+                    {
+                        alert("La fecha debe ser mayor a la actual..!!");
+                    }
+                </script>   
+            </c:if> 
+        </div>    
+        
     </div>
+                
 
     <br>
     <div class="row-fluid">
-        <div class="span12">
+	<div class="span12">
             <div id="copy" align="bottom">
-                <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+		<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
                 <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
             </div>
         </div>
-    </div>
+    </div> 
 	
 
 

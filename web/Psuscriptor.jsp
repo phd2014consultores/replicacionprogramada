@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Modificar Tiendas</title>
+	<title>Gestionar Replicaciones</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -116,11 +116,10 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
-
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionTienda">Gestionar Tiendas</a></li>
+                                <li class="page_item page-item-22"><a href="/ReplicacionProgramada/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionPublicar">Gestionar Replicación</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/Psuscriptor">Replicaciones</a></li>
 							</ul>
 						</div>
 					</div>		
@@ -129,79 +128,74 @@
     	</div>    	
     </div>
 	    	<br>
+	<div id="Bandejas">
+            <c:if test="${not empty existe}">
+                <script language="JavaScript">
+                        {
+                            alert("No posee tiendas suscritas");
+                        }
+                    </script>
+            </c:if>
+            <c:if test="${empty vaciar}">
+                <h2>Replicaciones</h2>
 
-<div id="Bandejas" >
+                <div>
+                    <form class="form-horizontal" action="Psuscriptor" method="POST">
+                        <select  name="listString" class="form-control" onchange="this.form.submit()">
+                            <option value="NONE">Seleccione una tienda...</option>
+                            <c:forEach items="${tienda}" var="item">
+                                ${item}
+                            </c:forEach>
+                        </select>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    </form> 
+                </div>
+            </c:if>    
+            <c:if test="${not empty publicacionnull}">
+                <script language="JavaScript">
+                    {
+                        alert("No posee publicaciones asociadas");
+                    }
+                </script>
 
-        <h2>Modificar Tienda</h2>
-        <br>
-        <c:if test="${not empty existe}">
-            <script language="JavaScript">
-                {
-                    alert("No hay tiendas para modificar..!!");
-                }
-            </script>
-        </c:if>
-        <c:if test="${empty vaciar}">
-                <form class="form-horizontal" action="Modificar" method="POST">
-                    <select  name="listString" class="form-control" onchange="this.form.submit()">
-                        <option value="NONE">Seleccione una tienda...</option>
-                        <c:forEach items="${tienda2}" var="item">
-                            ${item}
-                        </c:forEach>
-                    </select>
+            </c:if>
+            <c:if test="${not empty publicacion}">    
+                
+                <h2>Replicaciones Ejecutadas</h2>
+                <br>
+                <h4>Tienda: ${publicacion2}</h4>
+                <br>
+                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${publicacion}" var="item2">&#9679${item2}</c:forEach>
+                </textarea>   
+            <h2>Ver Detalle Replicación</h2>
+            <form class="form-horizontal" action="Psuscriptor2" method="POST">             
+                <select  name="listString2" class="form-control" onchange="this.form.submit()">
+                    <option value="NONE">Seleccione una Replicación...</option>
+                    <c:forEach items="${publicacion3}" var="item3">
+                        <option value="${item3}" type="submit">Numero de Control: ${item3}</option>
+                    </c:forEach>
+                </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form>
-         </c:if>
-    <br>
-    <c:if test="${not empty tienda}"> 
-    <form class="form-horizontal" action="Modificar2" method="POST">
-        <c:if test="${ empty exito}">   
-        <h4>Datos a Modificar</h4> 
-
-            <label for="message">Nombre de la tienda</label> 
-            <input required name="nombre" type="text" style="height:25px" placeholder="Nombre" value="${tienda}" />
-            <br>
-            <label for="message">Ip MariaDB</label> 
-            <input required name="host" type="text" style="height:25px" placeholder="Host" value="${host}" />
-            <br>
-            <label for="message">MariaDB</label> 
-            <input required name="bdoracle" type="text" style="height:25px" placeholder="MariaDB" value="${bd}" />
-            <br>
-            <label for="message">Usuario MariaDB</label> 
-            <input required name="user" type="text" style="height:25px" placeholder="Usuario" value="${user}" />
-            <br>
-            <label for="message">Contraña MariaDB</label> 
-            <input required name="pass" type="text" style="height:25px" placeholder="Password" value="${pass}" />
-            <br>
-            <input name="idt" type="hidden" value=${idt}>
-            <input name="idm" type="hidden" value=${idm}>
-            <input type="submit" style="height:25px" value="Modificar"/>
-            <br>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   
-        </form>
-        </c:if>
-    </c:if>
-
-            <c:if test="${ exito == 'Tienda Modificada'}">
+      
+            </form>
+                
+               
+            </c:if>
+            <c:if test="${not empty detalle1}">
                     <script language="JavaScript">
                         {
-                            alert("Tienda modificada exitosamente..!");
+                            alert("No posee detalle de publicaciones asociadas");
                         }
-                    </script>
-             </c:if>
-             <c:if test="${ exito == 'Fallo al modifica la Tienda..!'}">
-                    <script language="JavaScript">
-                        {
-                            alert("No se pudo modificar la Tienda..!");
-                        }
-                    </script>
-             </c:if>       
-            
+                    </script> 
+            </c:if>
 
-
-</div>
-
-<br>
+            <c:if test="${not empty detalle}">
+                <h2>Listado de ETL</h2>
+                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${detalle}" var="item3">&#9679${item3}</c:forEach>
+                </textarea>      
+            </c:if>
+        </div>
+	<br>
     		<div class="row-fluid">
 				<div class="span12">
 					<div id="copy" align="bottom">

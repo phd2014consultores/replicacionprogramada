@@ -5,25 +5,23 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Planificación CargaInicial</title>
+	<title>Planificación CargaInicialETL</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
-        </style>   
-       
-        <!--CSS para el Responsive Slider-->
+        </style>    
+	<!-- CSS para el Responsive Slider-->
         <style type="text/css">
             <%@include file="css/flexslider.css" %>
         </style>
-        <!--Bootstrap Responsive-->
+	<!-- Bootstrap Responsive-->
         <style type="text/css">
             <%@include file="css/bootstrap-responsive.css" %>
         </style>
-        <!--Estilos de Banner	-->
+	<!-- Estilos de Banner	-->
         <style type="text/css">
             <%@include file="css/banner.css" %>
-        </style>		
-        <!--Estilos Personales	-->
+        </style>		<!-- Estilos Personales	-->
         <style type="text/css">
             <%@include file="css/miscss.css" %>
         </style>
@@ -32,15 +30,15 @@
         <script type="text/javascript" language="JavaScript">
             <%@ include file="jss/jquery-1.8.3.js" %>
         </script>
-        <!--FlexSlider-->        
+	<!-- FlexSlider -->
         <script type="text/javascript" language="JavaScript">
         <%@ include file="jss/jquery.flexslider.js" %>
         </script>
-        <!--Bootstrap -->	
+	<!-- Bootstrap	-->
+       
         <script type="text/javascript" language="JavaScript">
          <%@ include file="jss/bootstrap.js" %>
         </script>
-        
 
 	<script>
 		$(window).load(function(){
@@ -113,10 +111,10 @@
 			</a>
 			<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
                             <ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionTienda">Gestionar Tiendas</a></li>
+                                <li class="page_item page-item-22"><a href="/ReplicacionProgramada/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionPublicar">Gestionar Replicación</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/Psuscriptor">Replicaciones</a></li>
                             </ul>
                         </div>
                     </div>		
@@ -128,32 +126,65 @@
 
     <div id="Bandejas" >
         <div>   
-             <form class="form-horizontal" action="ciagregarPlanificacion" method="POST">
-                <h2>Agregar Planificación Carga Inicial</h2>        
-                <select  name="nombreTienda" class="form-control">
+            <form class="form-horizontal" action="ciagregarPlanETL" method="POST">
+                <h2>Agregar Recuperación ETL Carga Inicial</h2>          
+                <select  name="nombreTienda" class="form-control" onchange="this.form.submit()">
                     <option value="NONE">Seleccione una tienda...</option>
                     <c:forEach items="${tienda}" var="item">
                         ${item}
                     </c:forEach>
                 </select>
-                <br><br><br>
-                <h4>Introduzca una Fecha en el formato Indicado</h4>
-                <input type="text" style="height:25px"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
-                <br><br><br>
-                <h4>Introduzca una Hora en el formato Indicado (Formato Militar)</h4>
-                <input type="text" style="height:25px" placeholder="hh:mm:ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
-                <br><br><br>
-                <input type="submit" value="planificar"/>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
-            <c:if test="${mensaje == 'exito'}">
-            <script language="JavaScript">
-                {
-                    alert("La planificación se agrego Exitosamente..!!");
-                }
-            </script>   
+        </div>
+        <c:if test="${not empty titulo}">
+            <h4>Tienda: ${titulo}</h4>
+            <br><br>
+        </c:if>
+        <c:if test="${not empty mensaje}">
+        <script language="JavaScript">
+            {
+                alert("No existen Planificaciones Culminadas para la Tienda..!!");
+            }
+        </script>   
+        </c:if>
+        <div id="Bandeja1">
+            <h4 color="red">Etl ejecutados correctamente: </h4>
+            <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${correctos}" var="item2">&#9679${item2}</c:forEach>
+            </textarea>
+        </div>
+        <div id="Bandeja1">
+            <h4 color="red">Etl ejecutados con fallas:</h4>
+            <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${incorrectos}" var="item3">&#9679${item3}</c:forEach>
+            </textarea>
+        </div>
+        <div>   
+            <form class="form-horizontal" action="ci2agregarPlanETL" method="POST">
+                <h2>Seleccione ETL a recuperar</h2>        
+                <select  name="nombreETL" class="form-control">
+                    <option value="NONE">Seleccione un ETL...</option>
+                    <c:forEach items="${incorrectos2}" var="item2">
+                        ${item2}
+                    </c:forEach>
+                </select>
+                <br><br><br>
+                <h4>Introduzca una Fecha con el formato indicado</h4>
+                <input type="text" style="height:25px"  placeholder="yyyy-MM-dd" pattern="(?:20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" name="fecha" required/>
+                <br><br><br>
+                <h4>Introduzca una Hora en el formato indicado (Formato Militar)</h4>
+                <input type="text" style="height:25px" placeholder="hh:mm:ss" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" name="hora" required/>
+                <br><br><br>
+                <input type="submit" value="planificar recuperación"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </form>
+            <c:if test="${mensaje2 == 'exito'}">
+                <script language="JavaScript">
+                    {
+                        alert("La planificación se agrego Exitosamente..!!");
+                    }
+                </script>   
             </c:if>
-            <c:if test="${mensaje == 'error'}">
+            <c:if test="${mensaje2 == 'error'}">
                 <script language="JavaScript">
                     {
                         alert("Fallo al agregar la planificación..!!");
@@ -166,9 +197,8 @@
                         alert("La fecha debe ser mayor a la actual..!!");
                     }
                 </script>   
-            </c:if> 
-        </div>    
-        
+            </c:if>  
+        </div>
     </div>
                 
 

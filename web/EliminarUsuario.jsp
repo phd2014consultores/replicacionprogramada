@@ -1,11 +1,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
-        <head>
+    <head>
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gestionar Tiendas</title>
+	<title>Eliminar Usuario</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -50,7 +50,14 @@
 			});
 		});
 	</script>
-        
+            <title>Confirmación de envío de formulario</title>
+            <script language="JavaScript">
+                function pregunta(){
+                    if (confirm('¿Estas seguro que desea eliminar?')){
+                       document.eliminar.submit()
+                    }
+                }
+            </script> 
     </head>
     
 <body>  
@@ -116,10 +123,9 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
+<li class="page_item page-item-22"><a href="/ReplicacionProgramada/gestionusuarioadmin">Gestionar Usuario</a></li>
+<li class="page_item page-item-5"><a href="/ReplicacionProgramada/gestioncp">Gestionar Tienda</a></li>
+<li class="page_item page-item-10"><a href="/ReplicacionProgramada/gestioncargas">Gestionar Replicación</a></li>
 							</ul>
 						</div>
 					</div>		
@@ -128,18 +134,35 @@
     	</div>    	
     </div>
 	    	<br>
-	<div id="Bandejas">
-            <h2>Gestionar Tienda</h2>
-            <br>
-                    <select  name="listString" class="form-control" onchange="location = this.value;">
-                        <option value="NONE">Seleccione una opción...</option>
-                        <option value="/PublicacionySuscripcion/Crear">Crear Tienda</option>
-                        <option value="/PublicacionySuscripcion/Modificar">Modificar Tienda</option>
-                        <option value="/PublicacionySuscripcion/Publicador">Eliminar Tienda</option>
-                        <option value="/PublicacionySuscripcion/Detalle">Ver Detalle Tienda</option>
+	    	<div id="Bandejas">
+                <h2>Eliminar Usuario</h2>
+                <br>
+                    
+                <form name="eliminar" class="form-horizontal" action="EliminarUsuario" method="POST">
+                    <select  name="listString" class="form-control" onchange="pregunta()">
+                        <option value="NONE">Seleccione usuario a eliminar...</option>
+                        <c:forEach items="${usuarios}" var="item">
+                            ${item}
+                        </c:forEach>
                     </select>
-
+                    <input type="hidden" onclick="pregunta()" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>   
                 
+            <c:if test="${ exito == 'Usuario Eliminado'}">
+                    <script language="JavaScript">
+                        {
+                            alert("Usuario eliminado exitosamente");
+                        }
+                    </script>
+             </c:if>
+             <c:if test="${ exito == 'Error al eliminar'}">
+                    <script language="JavaScript">
+                        {
+                            alert("No se pudo eliminar el usuario");
+                        }
+                    </script>
+             </c:if>   
+
  	</div>
 
     		<div class="row-fluid">

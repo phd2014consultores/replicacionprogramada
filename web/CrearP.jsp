@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Configuración</title>
+	<title>Agregar Replicador</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -50,6 +50,13 @@
 			});
 		});
 	</script>
+        <script language="JavaScript">
+            function agregar(){
+                if (confirm('¿Esta seguro que desea agregar el publicador?')){
+                   document.crear.submit()
+                }
+            }
+        </script>
         
     </head>
     
@@ -116,33 +123,70 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestionar Usuario</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestionar Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Replicación</a></li>						</ul>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionTienda">Gestionar Tiendas</a></li>
+                                <li class="page_item page-item-22"><a href="/ReplicacionProgramada/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionPublicar">Gestionar Replicación</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/Psuscriptor">Replicaciones</a></li>
+
+							</ul>
 						</div>
 					</div>		
 				</div>
     		</div>
     	</div>    	
     </div>
- 
-    <br>
+	    	<br>
 
-	<div id="Bandejas">
-            <h2>Gestionar Tienda</h2>
-            <br>
-            <br>
-                    <select  name="listString" class="form-control" onchange="location = this.value;">
-                        <option value="NONE">Seleccione una opción...</option>
-                        <!--option value="/PublicacionySuscripcion/gestionNodo">Configurar Cluster</option-->
-                        <option value="/PublicacionySuscripcion/tiendaadmin">Configurar Tiendas</option>
-                        <option value="/PublicacionySuscripcion/pdi">Configurar PDI</option>
-                        <option value="/PublicacionySuscripcion/CargasenParalelo">Configurar Cargas en Paralelo</option>
-                    </select>
+    <div id="Bandejas" >
+        <h1>Agregar Replicador</h1>
+        <br>
+        <form name="crear" class="form-horizontal" method="POST" action="CrearP">    
+            <div>        
+                <select  name="nombreTienda" class="form-control">
+                    <option value="NONE">Seleccione una tienda...</option>
+                    <c:forEach items="${tienda}" var="item">
+                        ${item}
+                    </c:forEach>
+                </select>
+            </div>
+            <br> 
+            <select  name="namePub" class="form-control" onchange="agregar()">
+                <option value="NONE">Seleccione un Replicador...</option>
+                <c:forEach items="${publicador}" var="item4">
+                    ${item4}
+                </c:forEach>
+            </select>
+            <input type="hidden" onclick="agregar()" name="${_csrf.parameterName}" value="${_csrf.token}" />                
+        </form>
+        <br>
 
-                
- 	</div>
-	<br>
+        <c:if test="${mensaje == 'existe'}">
+            <script language="JavaScript">
+                {
+                    alert("El publicador ya fue agregado anteriormente..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("El publicador se agrego Exitosamente..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${mensaje == 'error'}">
+            <script language="JavaScript">
+                {
+                    alert("Fallo al agregar el publicador..!!");
+                }
+            </script>   
+        </c:if>
+    </div>
+        
+
+
+<br>
+
 
     		<div class="row-fluid">
 				<div class="span12">
@@ -151,7 +195,7 @@
                                                 <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
 					</div>
 				</div>
-			</div>  
+			</div> 
 	
 
 

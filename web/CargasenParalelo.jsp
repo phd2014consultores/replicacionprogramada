@@ -50,14 +50,7 @@
 			});
 		});
 	</script>
-        <title>Confirmación de envío de formulario</title>
-            <script language="JavaScript">
-                function pregunta(){
-                    if (confirm('¿Estas seguro que desea eliminar?')){
-                       document.eliminar.submit()
-                    }
-                }
-            </script> 
+        
     </head>
     
 <body>  
@@ -123,9 +116,9 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-<li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestionar Usuario</a></li>
-<li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestionar Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Replicación</a></li>						</ul>
+<li class="page_item page-item-22"><a href="/ReplicacionProgramada/gestionusuarioadmin">Gestionar Usuario</a></li>
+<li class="page_item page-item-5"><a href="/ReplicacionProgramada/gestioncp">Gestionar Tienda</a></li>
+<li class="page_item page-item-10"><a href="/ReplicacionProgramada/gestioncargas">Gestionar Replicación</a></li>							</ul>
 						</div>
 					</div>		
 				</div>
@@ -134,44 +127,34 @@
     </div>
     <br>
 
-    <h1 align="center">Configuración Cluster</h1>
+    <h1 align="center">Configurar Replicas en Paralelo</h1>
     <br>
     <div id="Bandejas">
-    	<h4>Nodos Activos</h4> 
-    	<textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${nodoActivo}" var="item3">&#9679${item3}</c:forEach>
-        </textarea>
-        <br>
-        <form name="eliminar" class="form-horizontal" action="eliminarNodo" method="POST">
-            <h4>Nodo a Eliminar</h4>        
-            <select  name="nodoE" class="form-control" onchange="pregunta()">
-                <option value="NONE">Seleccione un nodo...</option>
-                <c:forEach items="${nodoIP}" var="item2">
-                    ${item2}
-                </c:forEach>
-            </select>
-            <input type="hidden" onclick="pregunta()" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <form class="form-horizontal" action="CargasenParalelo" method="POST">
+            <h4>Número de Replicas</h4>
+            <input name="cargas" type="number" style="height:25px" min="1" placeholder="Nro. de Replicas" required />
+            <input type="submit" style="height:25px" value="Aceptar"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
+        
         <c:if test="${mensaje == 'exito'}">
             <script language="JavaScript">
                 {
-                    alert("Se eliminó el nodo Exitosamente..!!");
+                    alert("Cargas modificadas correctamente..!!");
                 }
             </script>   
         </c:if>
-        <c:if test="${mensaje == 'error'}">
+            
+        <c:if test="${mensaje == 'El valor debe ser un numero positivo'}">
             <script language="JavaScript">
                 {
-                    alert("Fallo al eliminar el nodo..!!");
+                    alert("El valor debe ser un número positivo..!!");
                 }
             </script>   
-        </c:if>
-        <c:if test="${mensaje == 'vacio'}">
-            <script language="JavaScript">
-                {
-                    alert("No existen nodos en el cluster..!!");
-                }
-            </script>   
-        </c:if>
+        </c:if>    
+        
+        
+        
     </div>
 
         <div class="row-fluid">

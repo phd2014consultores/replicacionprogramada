@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Replicar</title>
+	<title>Cluster</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -116,40 +116,65 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
-							</ul>
+<li class="page_item page-item-22"><a href="/ReplicacionProgramada/gestionusuarioadmin">Gestionar Usuario</a></li>
+<li class="page_item page-item-5"><a href="/ReplicacionProgramada/gestioncp">Gestionar Tienda</a></li>
+<li class="page_item page-item-10"><a href="/ReplicacionProgramada/gestioncargas">Gestionar Replicación</a></li>						</ul>
 						</div>
 					</div>		
 				</div>
     		</div>
     	</div>    	
     </div>
-	    	<br>
-	<div id="Bandejas">
-            <h2>Gestionar Replicación</h2>
+    <br>
 
-                    <select  name="listString" class="form-control" onchange="location = this.value;">
-                        <option value="NONE">Seleccione una opción...</option>
-                        <option value="/PublicacionySuscripcion/Publicar">Estado de Replicaciones</option>
-                        <option value="/PublicacionySuscripcion/agregarPlanificacion">Agregar Planificacion</option>
-                        <option value="/PublicacionySuscripcion/recuperarETL">Recuperar ETL</option>
-                        
-                    </select>
+    <h1 align="center">Configuración Cluster</h1>
+    <br>
+    <div id="Bandejas">
+        <form class="form-horizontal" action="agregarNodo" method="POST">
+            <h4>Añadir Nodo</h4>
+            <label for="message" >IP</label>
+            <input name="ip" type="text" style="height:25px" placeholder="Ip Nodo" required />
+            <label for="message">Tipo Nodo</label>
+            <input name="tipo" type="text" style="height:25px" placeholder="Tipo" required />
+            <label for="message">ColumnFamily</label>
+            <input name="column" type="text" style="height:25px" placeholder="ColumnFamily" required />
+            <label for="message">KeySpace</label>
+            <input name="keyspace" type="text" style="height:25px" placeholder="KeySpace" required />
+            <br><br>
+            <input type="submit" value="Agregar"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </form>
+        <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("Se agregó el nodo Exitosamente..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${mensaje == 'error'}">
+            <script language="JavaScript">
+                {
+                    alert("Fallo al agregar el nodo..!!");
+                }
+            </script>   
+        </c:if>
+        <c:if test="${mensaje == 'existe'}">
+            <script language="JavaScript">
+                {
+                    alert("La IP suministrada ya existe..!!");
+                }
+            </script>   
+        </c:if>         
+    </div>
 
-                
- 	</div>
-
-    		<div class="row-fluid">
-				<div class="span12">
-					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
-                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
-					</div>
-				</div>
-			</div> 
+        <div class="row-fluid">
+            <div class="span12">
+                    <div id="copy" align="bottom">
+                            <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                            <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
+                    </div>
+            </div>
+        </div>  
 	
 
 

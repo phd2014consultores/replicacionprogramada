@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Planificacion</title>
+	<title>Recuperar</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -111,10 +111,10 @@
 			</a>
 			<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
                             <ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionTienda">Gestionar Tiendas</a></li>
+                                <li class="page_item page-item-22"><a href="/ReplicacionProgramada/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/GestionPublicar">Gestionar Replicación</a></li>
+                                <li class="page_item page-item-5"><a href="/ReplicacionProgramada/Psuscriptor">Replicaciones</a></li>
                             </ul>
                         </div>
                     </div>		
@@ -126,29 +126,31 @@
 
     <div id="Bandejas" >
         <div>
-            <div id="Bandeja">
-                <h2>Agregar Planificación</h2>
+            <div id="Bandejas">
+                    <div id="Bandeja">
+                <h2>Seleccione acción a realizar</h2>
             
                 <select  name="listString2" class="form-control" onchange="location = this.value;">
                     <option value="NONE">Seleccione una opción...</option>
-                    <option value="/PublicacionySuscripcion/ciagregarPlanificacion">Planificar Carga Inicial</option>
-                    <option value="/PublicacionySuscripcion/magregarPlanificacion">Planificar Mediación</option>
+                    <option value="/ReplicacionProgramada/ciagregarPlanETL">Planificar Recuperación ETL Carga Inicial</option>
+                    <option value="/ReplicacionProgramada/magregarPlanETL">Planificar Recuperación ETL Mediación</option>
                 </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </div>
+            </div>
+            <br>
         </div>
-     </div>
-                
+    </div>
 
     <br>
     <div class="row-fluid">
-	<div class="span12">
+        <div class="span12">
             <div id="copy" align="bottom">
-		<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
                 <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
             </div>
         </div>
-    </div> 
+    </div>
 	
 
 

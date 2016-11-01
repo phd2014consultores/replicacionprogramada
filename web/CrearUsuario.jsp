@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Crear Tiendas</title>
+	<title>Crear Usuario</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -116,10 +116,9 @@
 						</a>
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
+<li class="page_item page-item-22"><a href="/ReplicacionProgramada/gestionusuarioadmin">Gestionar Usuario</a></li>
+<li class="page_item page-item-5"><a href="/ReplicacionProgramada/gestioncp">Gestionar Tienda</a></li>
+<li class="page_item page-item-10"><a href="/ReplicacionProgramada/gestioncargas">Gestionar Replicación</a></li>
 
 							</ul>
 						</div>
@@ -131,42 +130,47 @@
 	    	<br>
 
     <div id="Bandejas" >
-        <h2>Crear Tienda</h2>
+        <h2>Crear Usuario</h2>
         <br>
-        <p>Indique parametros de la nueva Tienda</p>
+        <p>Indique datos del nuevo Usuario</p>
         <br>
-        <form class="form-horizontal" action="Crear" method="POST">
-            <label for="message">Nombre de la tienda</label> 
+        <form class="form-horizontal" action="CrearUsuario" method="POST">
+            <label for="message">Pseudonimo :</label> 
+            <input name="pseudonimo" type="text" style="height:25px" placeholder="Pseudonimo" required />
+            <br>
+            <label for="message">Nombre :</label> 
             <input name="nombre" type="text" style="height:25px" placeholder="Nombre" required />
             <br>
-            <label for="message">Ip MariaDB</label> 
-            <input name="host" type="text" style="height:25px" placeholder="Host" required />
+            <label for="message">Apellido :</label> 
+            <input name="apellido" type="text" style="height:25px" placeholder="Apellido" required />
             <br>
-            <label for="message">MariaDB</label> 
-            <input name="bdoracle" type="text" style="height:25px" placeholder="MariaDB" required />
+            <label for="message">Email :</label> 
+            <input name="email" type="email" style="height:25px" placeholder="Email" required />
             <br>
-            <label for="message">Usuario MariaDB</label> 
-            <input name="user" ype="text" style="height:25px" placeholder="Usuario" required />
+            <label for="message">Contraseña :</label> 
+            <input name="pass" type="password" style="height:25px" placeholder="Contraseña" required />
             <br>
-            <label for="message">Contraseña MariaDB</label> 
-            <input name="pass" type="password" style="height:25px" placeholder="Password" required />
+            <label for="message">Tipo Usuario :</label> 
+                    <select  name="tipo" class="form-control" >
+                        <option value="administrador">Administrador</option>
+                        <option value="publicador">Replicador</option>
+                    </select>
             <br>
             <br>
-            <input type="submit" style="height:25px" value="Crear"/>          
+            <input type="submit" style="height:25px" value="Crear"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
-        
-        <c:if test="${mensaje == 'exito'}">
+        <c:if test="${exito == 'Usuario Creado'}">
             <script language="JavaScript">
                 {
-                    alert("La tienda se creó Exitosamente..!!");
+                    alert("Usuario registrado de manera exitosa..!!");
                 }
             </script>   
         </c:if>
-        <c:if test="${mensaje == 'error'}">
+        <c:if test="${exito == 'Fallo al crear el Usuario'}">
             <script language="JavaScript">
                 {
-                    alert("Fallo al crear la tienda..!!");
+                    alert("Fallo al registrar el Usuario..!!");
                 }
             </script>   
         </c:if>
