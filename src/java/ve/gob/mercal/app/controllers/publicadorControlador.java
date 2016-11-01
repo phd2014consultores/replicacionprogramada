@@ -861,6 +861,8 @@ public class publicadorControlador {
                                                     required = false) String fecha,
                                                     @RequestParam(value = "hora", 
                                                     required = false) String hora,
+                                                    @RequestParam(value = "dominio", 
+                                                    required = false) String dominio,
                                                     @RequestParam(value = "nombreTienda", 
                                                     required = false) String tienda) throws ParseException{
         
@@ -886,15 +888,15 @@ public class publicadorControlador {
                     id_tienda = elementObject.getAsJsonObject()
                     .get("id_tienda").getAsString();
                     
-                    id_job = wsQuery.getConsulta("SELECT id_job FROM public.jobs WHERE job='INICIAR_MEDIACION' and activo=TRUE;");
-                    id_job = id_job.substring(1, id_job.length()-1);
-                    JsonParser parser = new JsonParser();
-                    JsonElement elementObject2;
-                    elementObject2 = parser.parse(id_job);
-                    if(existeCampo.existeCampo(id_job,"id_job")){
-                        id_job = elementObject2.getAsJsonObject()
-                        .get("id_job").getAsString();
-                    }
+//                    id_job = wsQuery.getConsulta("SELECT id_job FROM public.jobs WHERE job='INICIAR_MEDIACION' and activo=TRUE;");
+//                    id_job = id_job.substring(1, id_job.length()-1);
+//                    JsonParser parser = new JsonParser();
+//                    JsonElement elementObject2;
+//                    elementObject2 = parser.parse(id_job);
+//                    if(existeCampo.existeCampo(id_job,"id_job")){
+//                        id_job = elementObject2.getAsJsonObject()
+//                        .get("id_job").getAsString();
+//                    }
                     
                     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                     String name = auth.getName(); //get logged in username
@@ -910,7 +912,7 @@ public class publicadorControlador {
                      
                     
                     
-                    result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+id_job+",'"+fecha+" "+hora+"',"+ id_user+");");
+                    result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+dominio+",'"+fecha+" "+hora+"',"+ id_user+");");
                     if(result>0){
                     result2 = WsFuncion.getConsulta("public.insert_pasos_plan_ejecucion("+result+","+"'en espera'"+","+id_user+");");
                     }

@@ -131,8 +131,8 @@
             
                 <select  name="listString2" class="form-control" onchange="location = this.value;">
                     <option value="NONE">Seleccione una opción...</option>
-                    <option value="/ReplicacionProgramada/ciagregarPlanificacion">Planificar Carga Inicial</option>
-                    <option value="/ReplicacionProgramada/magregarPlanificacion">Planificar Mediación</option>
+                    <option value="/ReplicacionProgramada/ciagregarPlanificacion">Planificar Replicación Completa</option>
+                    <option value="/ReplicacionProgramada/magregarPlanificacion">Planificar Replicación por Dominio</option>
                 </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </div>

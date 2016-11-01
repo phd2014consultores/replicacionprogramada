@@ -126,12 +126,21 @@
 
     <div id="Bandejas" >
         <form class="form-horizontal" action="magregarPlanificacion" method="POST">
-                <h2>Agregar Planificación de Mediación</h2>        
+                <h2>Agregar Planificación de Replicación por Dominio</h2>        
                 <select  name="nombreTienda" class="form-control">
                     <option value="NONE">Seleccione una tienda...</option>
                     <c:forEach items="${tienda}" var="item">
                         ${item}
                     </c:forEach>
+                </select>
+                <select  name="dominio" class="form-control">
+                    <option value="NONE">Seleccione un Dominio...</option>
+                    <option value="2">Tiendas</option>
+                    <option value="3">Usuarios</option>
+                    <option value="4">Productos</option>
+                    <option value="5">Proveedores</option>
+                    <option value="6">Inventarios</option>
+                    <option value="7">Ventas</option>
                 </select>
                 <br><br><br>
                 <h4>Introduzca una Fecha</h4>

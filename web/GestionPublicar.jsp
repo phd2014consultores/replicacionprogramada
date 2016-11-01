@@ -135,7 +135,7 @@
                         <option value="NONE">Seleccione una opción...</option>
                         <option value="/ReplicacionProgramada/Publicar">Estado de Replicaciones</option>
                         <option value="/ReplicacionProgramada/agregarPlanificacion">Agregar Planificacion</option>
-                        <option value="/ReplicacionProgramada/recuperarETL">Recuperar ETL</option>
+                        <!--option value="/ReplicacionProgramada/recuperarETL">Recuperar ETL</option-->
                         
                     </select>
 
