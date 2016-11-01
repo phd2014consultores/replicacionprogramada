@@ -43,8 +43,8 @@ public class HelloController {
 		if (logout != null) {
 			model.addObject("msg", "Salida de sesión exitosa.");
 		}
-                model.addObject("title", "Bienvenido al Sistema Centralizado de");
-		model.addObject("message", "Publicación y Suscripción de Tiendas ");
+                model.addObject("title", "Bienvenido al Sistema de Replicación");
+		model.addObject("message", "Programada de Tiendas ");
 		model.setViewName("login");
 
 		return model;

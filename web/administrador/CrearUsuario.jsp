@@ -153,8 +153,7 @@
             <label for="message">Tipo Usuario :</label> 
                     <select  name="tipo" class="form-control" >
                         <option value="administrador">Administrador</option>
-                        <option value="publicador">Publicador</option>
-                        <option value="suscriptor">Suscriptor</option>
+                        <option value="publicador">Replicador</option>
                     </select>
             <br>
             <br>
