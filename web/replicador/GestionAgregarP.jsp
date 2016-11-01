@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gestionar Publicador</title>
+	<title>Gestionar Replicador</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -117,9 +117,9 @@
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
                                 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Publicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Publicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Publicaciones</a></li>
+                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
+                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
 							</ul>
 						</div>
 					</div>		
@@ -132,12 +132,12 @@
             
             <form class="form-horizontal" action="GestionAgregarP" method="POST">
                 
-                <h2>Gestionar Publicador</h2>
+                <h2>Gestionar Replicador</h2>
             
                 <select  name="listString2" class="form-control" onchange="location = this.value;">
                     <option value="NONE">Seleccione una opción...</option>
-                    <option value="/PublicacionySuscripcion/CrearP">Agregar Publicador</option>
-                    <option value="/PublicacionySuscripcion/RetirarP">Retirar Publicador</option>
+                    <option value="/PublicacionySuscripcion/CrearP">Agregar Replicador</option>
+                    <option value="/PublicacionySuscripcion/RetirarP">Retirar Replicador</option>
                 </select>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>

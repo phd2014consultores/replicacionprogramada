@@ -117,9 +117,9 @@
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
                                 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Publicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Publicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Publicaciones</a></li>
+                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
+                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
 
 							</ul>
 						</div>
@@ -161,16 +161,16 @@
             <label for="message">Nombre de la tienda</label> 
             <input required name="nombre" type="text" style="height:25px" placeholder="Nombre" value="${tienda}" />
             <br>
-            <label for="message">Ip BdOracle</label> 
+            <label for="message">Ip MariaDB</label> 
             <input required name="host" type="text" style="height:25px" placeholder="Host" value="${host}" />
             <br>
-            <label for="message">BdOracle</label> 
-            <input required name="bdoracle" type="text" style="height:25px" placeholder="BdOracle" value="${bd}" />
+            <label for="message">MariaDB</label> 
+            <input required name="bdoracle" type="text" style="height:25px" placeholder="MariaDB" value="${bd}" />
             <br>
-            <label for="message">Usuario BdOracle</label> 
+            <label for="message">Usuario MariaDB</label> 
             <input required name="user" type="text" style="height:25px" placeholder="Usuario" value="${user}" />
             <br>
-            <label for="message">Contraña BdOracle</label> 
+            <label for="message">Contraña MariaDB</label> 
             <input required name="pass" type="text" style="height:25px" placeholder="Password" value="${pass}" />
             <br>
             <input name="idt" type="hidden" value=${idt}>

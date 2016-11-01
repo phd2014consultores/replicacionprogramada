@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Agregar Publicador</title>
+	<title>Agregar Replicador</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -124,9 +124,9 @@
 						<div class="span12 nav-collapse nav pull-left" style="text-align=center; width: 100%;">
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
                                 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionTienda">Gestionar Tiendas</a></li>
-                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Publicador</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Publicar</a></li>
-                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Publicaciones</a></li>
+                                <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/GestionAgregarP">Gestionar Replicador</a></li>
+                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/GestionPublicar">Replicar</a></li>
+                                <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/Psuscriptor">Replicaciones</a></li>
 
 							</ul>
 						</div>
@@ -138,7 +138,7 @@
 	    	<br>
 
     <div id="Bandejas" >
-        <h1>Agregar Publicador</h1>
+        <h1>Agregar Replicador</h1>
         <br>
         <form name="crear" class="form-horizontal" method="POST" action="CrearP">    
             <div>        
@@ -151,7 +151,7 @@
             </div>
             <br> 
             <select  name="namePub" class="form-control" onchange="agregar()">
-                <option value="NONE">seleccione un publicador...</option>
+                <option value="NONE">Seleccione un Replicador...</option>
                 <c:forEach items="${publicador}" var="item4">
                     ${item4}
                 </c:forEach>
