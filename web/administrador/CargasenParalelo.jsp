@@ -118,7 +118,7 @@
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
 <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestionar Usuario</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestionar Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>							</ul>
+<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Replicación</a></li>							</ul>
 						</div>
 					</div>		
 				</div>
@@ -127,12 +127,12 @@
     </div>
     <br>
 
-    <h1 align="center">Configurar Cargas en Paralelo</h1>
+    <h1 align="center">Configurar Replicas en Paralelo</h1>
     <br>
     <div id="Bandejas">
         <form class="form-horizontal" action="CargasenParalelo" method="POST">
-            <h4>Número de Cargas</h4>
-            <input name="cargas" type="number" style="height:25px" min="1" placeholder="Nro. de Cargas" required />
+            <h4>Número de Replicas</h4>
+            <input name="cargas" type="number" style="height:25px" min="1" placeholder="Nro. de Replicas" required />
             <input type="submit" style="height:25px" value="Aceptar"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>

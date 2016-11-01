@@ -118,7 +118,7 @@
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
 <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestionar Usuario</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestionar Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>							</ul>
+<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Replicación</a></li>						</ul>
 						</div>
 					</div>		
 				</div>
@@ -134,7 +134,7 @@
             <br>
                     <select  name="listString" class="form-control" onchange="location = this.value;">
                         <option value="NONE">Seleccione una opción...</option>
-                        <option value="/PublicacionySuscripcion/gestionNodo">Configurar Cluster</option>
+                        <!--option value="/PublicacionySuscripcion/gestionNodo">Configurar Cluster</option-->
                         <option value="/PublicacionySuscripcion/tiendaadmin">Configurar Tiendas</option>
                         <option value="/PublicacionySuscripcion/pdi">Configurar PDI</option>
                         <option value="/PublicacionySuscripcion/CargasenParalelo">Configurar Cargas en Paralelo</option>

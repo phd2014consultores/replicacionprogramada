@@ -118,7 +118,7 @@
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
 <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestionar Usuario</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestionar Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>
+<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Replicación</a></li>
 							</ul>
 						</div>
 					</div>		
@@ -130,11 +130,11 @@
     <br>
 
 <div id="Bandejas" >
-	<h1 color="red">Listado de Cargas</h1>
+	<h1 color="red">Listado de Replicación</h1>
 	<br>
     <br>
     <div>
-    	<h4>Cargas Planificadas</h4>
+    	<h4>Replicaciones Planificadas</h4>
         
         
         <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${planificado}" var="item2">&#9679${item2}</c:forEach>
@@ -146,7 +146,7 @@
        
 
         <c:if test="${not empty plan_list}">
-            <h5>Anular carga</h5>
+            <h5>Anular Replicación</h5>
             <form class="form-horizontal" action="planifica" method="POST">
                 <select  name="planificadas" class="form-control" onchange="this.form.submit()">
                     <option value="NONE" >Seleccione planificación...</option>
@@ -163,7 +163,7 @@
     </div>
 
     <div>
-    	<h4>Cargas a Ejecucion</h4> 
+    	<h4>Replicación a Ejecución</h4> 
         
        
         <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${ejecutado}" var="item2">&#9679${item2}</c:forEach>
@@ -174,7 +174,7 @@
         </form>
         
         <c:if test="${not empty plan_ejec}">
-            <h5>Anular carga</h5>
+            <h5>Anular Replicación</h5>
             <form class="form-horizontal" action="ejecucion" method="POST">
                 <select  name="ejecutadas" class="form-control" onchange="this.form.submit()">
                     <option value="NONE" >Seleccione planificación...</option>

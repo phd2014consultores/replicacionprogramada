@@ -118,7 +118,7 @@
 							<ul id="dropmenu" class="menu_redondeado" style="display:inline-block;">
 <li class="page_item page-item-22"><a href="/PublicacionySuscripcion/gestionusuarioadmin">Gestionar Usuario</a></li>
 <li class="page_item page-item-5"><a href="/PublicacionySuscripcion/gestioncp">Gestionar Tienda</a></li>
-<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Cargas</a></li>
+<li class="page_item page-item-10"><a href="/PublicacionySuscripcion/gestioncargas">Gestionar Replicación</a></li>
 
 							</ul>
 						</div>
@@ -145,9 +145,9 @@
             <div id="parametros2">
                 <label for="message">Contraseña</label> 
                 <input name="pass" style="height:25px" type="text" placeholder="Password" required />
-                <label for="message">HostBDOracle</label> 
+                <label for="message">Host Galera MariaDB</label> 
                 <input name="host" style="height:25px" type="text" placeholder="IP" required />
-                <label for="message">BDOralce</label> 
+                <label for="message">Galera MariaDB</label> 
                 <input name="bd" style="height:25px" type="text" placeholder="Name" required />
                 <br>
                 <br>
