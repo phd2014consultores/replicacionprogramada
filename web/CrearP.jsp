@@ -163,21 +163,21 @@
         <c:if test="${mensaje == 'existe'}">
             <script language="JavaScript">
                 {
-                    alert("El publicador ya fue agregado anteriormente..!!");
+                    alert("El replicador ya fue agregado anteriormente..!!");
                 }
             </script>   
         </c:if>
         <c:if test="${mensaje == 'exito'}">
             <script language="JavaScript">
                 {
-                    alert("El publicador se agrego Exitosamente..!!");
+                    alert("El replicador se agrego Exitosamente..!!");
                 }
             </script>   
         </c:if>
         <c:if test="${mensaje == 'error'}">
             <script language="JavaScript">
                 {
-                    alert("Fallo al agregar el publicador..!!");
+                    alert("Fallo al agregar el replicador..!!");
                 }
             </script>   
         </c:if>

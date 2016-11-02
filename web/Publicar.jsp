@@ -144,7 +144,7 @@
         </c:if>
         <div>
             <div id="Bandeja1">
-                <h4 color="red">Tareas planificadas</h4>
+                <h4 color="red">Replicaciones planificadas</h4>
                 <h5>${mensaje_plan}</h5>
                 
                 <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${planificado}" var="item2">&#9679${planificado}</c:forEach>
@@ -155,7 +155,7 @@
               
             </div>
             <div id="Bandeja1">
-                <h4 color="red">Tareas en ejecución</h4>
+                <h4 color="red">Replicaciones en ejecución</h4>
                 <h5>${mensaje_ejec}</h5>
                 <c:if test="${empty lista_etl_ejec}">
                     <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${ejecutado}" var="item2">&#9679${item2}</c:forEach>
@@ -181,7 +181,7 @@
                </c:if>               
             </div>
             <div id="Bandeja1">
-                <h4 color="red">Tareas culminadas</h4>
+                <h4 color="red">Replicaciones culminadas</h4>
                 <h5>${mensaje_ter}</h5>
                 <c:if test="${empty lista_etl_ter}">
                     <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${terminado}" var="item2">&#9679${item2}</c:forEach>

@@ -140,7 +140,7 @@
         <c:if test="${mensaje == 'exito'}">
             <script language="JavaScript">
                 {
-                    alert("Cargas modificadas correctamente..!!");
+                    alert("Replicas modificadas correctamente..!!");
                 }
             </script>   
         </c:if>

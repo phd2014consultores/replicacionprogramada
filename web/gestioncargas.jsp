@@ -189,7 +189,7 @@
     <c:if test="${not empty mensaje_plan}">
             <script language="JavaScript">
                 {
-                    alert("No hay cargas planificadas..!!");
+                    alert("No hay replicaciones planificadas..!!");
                 }
             </script>
     </c:if>
@@ -197,22 +197,22 @@
     <c:if test="${not empty mensaje_ejec}">
             <script language="JavaScript">
                 {
-                    alert("No hay cargas en ejecucion..!!");
+                    alert("No hay replicaciones en ejecucion..!!");
                 }
             </script>
     </c:if>
             
-    <c:if test="${ msj_planif == 'Planificacion anulada con Exito !!'}">
+    <c:if test="${ msj_planif == 'Planificación anulada con Exito !!'}">
             <script language="JavaScript">
                 {
-                    alert("Carga anulada exitosamente");
+                    alert("Replicación anulada exitosamente");
                 }
             </script>
      </c:if>
-     <c:if test="${ msj_planif == 'Error al anular la tarea planificada'}">
+     <c:if test="${ msj_planif == 'Error al anular la replicación planificada'}">
             <script language="JavaScript">
                 {
-                    alert("No se pudo anular la carga planificada");
+                    alert("No se pudo anular la replicación planificada");
                 }
             </script>
      </c:if>    
@@ -221,14 +221,14 @@
     <c:if test="${ msj_ejec == 'Planificacion anulada con Exito !!'}">
             <script language="JavaScript">
                 {
-                    alert("Carga anulada exitosamente");
+                    alert("Replicación anulada exitosamente");
                 }
             </script>
      </c:if>
      <c:if test="${ msj_ejec == 'Error al anular la tarea planificada'}">
             <script language="JavaScript">
                 {
-                    alert("No se pudo anular la carga planificada");
+                    alert("No se pudo anular la replicación planificada");
                 }
             </script>
      </c:if> 

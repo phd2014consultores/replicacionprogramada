@@ -154,7 +154,7 @@
             <c:if test="${not empty publicacionnull}">
                 <script language="JavaScript">
                     {
-                        alert("No posee publicaciones asociadas");
+                        alert("No posee replicaciones asociadas");
                     }
                 </script>
 
@@ -184,7 +184,7 @@
             <c:if test="${not empty detalle1}">
                     <script language="JavaScript">
                         {
-                            alert("No posee detalle de publicaciones asociadas");
+                            alert("No posee detalle de replicaciones asociadas");
                         }
                     </script> 
             </c:if>

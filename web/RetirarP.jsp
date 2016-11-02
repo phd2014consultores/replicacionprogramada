@@ -162,14 +162,14 @@
         <c:if test="${mensaje2 == 'exito'}">
             <script language="JavaScript">
                 {
-                    alert("El publicador fue retirado Exitosamente..!!");
+                    alert("El replicador fue retirado Exitosamente..!!");
                 }
             </script>   
         </c:if>
         <c:if test="${mensaje2 == 'error'}">
             <script language="JavaScript">
                 {
-                    alert("Fallo al retirar el publicador..!!");
+                    alert("Fallo al retirar el replicador..!!");
                 }
             </script>   
         </c:if>
