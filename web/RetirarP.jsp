@@ -52,7 +52,7 @@
 	</script>
         <script language="JavaScript">
             function retirar(){
-                if (confirm('¿Esta seguro que desea retirar el publicador?')){
+                if (confirm('¿Esta seguro que desea retirar el replicador?')){
                    document.eliminar.submit()
                 }
             }

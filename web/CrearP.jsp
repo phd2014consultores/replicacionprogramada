@@ -52,7 +52,7 @@
 	</script>
         <script language="JavaScript">
             function agregar(){
-                if (confirm('¿Esta seguro que desea agregar el publicador?')){
+                if (confirm('¿Esta seguro que desea agregar el replicador?')){
                    document.crear.submit()
                 }
             }
