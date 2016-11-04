@@ -129,7 +129,7 @@
     <div id="Bandejas" >
         <div>   
              <form class="form-horizontal" action="ciagregarPlanificacion" method="POST">
-                <h2>Agregar Planificación Carga Inicial</h2>        
+                <h2>Agregar Planificación de Replicación Completa</h2>        
                 <select  name="nombreTienda" class="form-control">
                     <option value="NONE">Seleccione una tienda...</option>
                     <c:forEach items="${tienda}" var="item">
