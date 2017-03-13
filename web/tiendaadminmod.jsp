@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gestionar Cargas</title>
+	<title>Administrar Tienda</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -119,6 +119,7 @@
 <li class="page_item page-item-22"><a href="/ReplicacionProgramada/gestionusuarioadmin">Gestionar Usuario</a></li>
 <li class="page_item page-item-5"><a href="/ReplicacionProgramada/gestioncp">Gestionar Tienda</a></li>
 <li class="page_item page-item-10"><a href="/ReplicacionProgramada/gestioncargas">Gestionar Replicación</a></li>
+
 							</ul>
 						</div>
 					</div>		
@@ -126,128 +127,79 @@
     		</div>
     	</div>    	
     </div>
- 
     <br>
+    <h1 align="center">Modificar Tienda</h1>
+    <br>
+    <div id="parametros">
+        <form class="form-horizontal" action="tiendaadminmod" method="POST">
+            <div id="parametros1">
 
-<div id="Bandejas" >
-	<h1 color="red">Listado de Replicación</h1>
-	<br>
-    <br>
-    <div>
-    	<h4>Replicaciones Planificadas</h4>
-        
-        
-        <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${planificado}" var="item2">&#9679${item2}</c:forEach>
-        </textarea>
-        <form class="form-horizontal" action="cargasplanif" method="POST">
-            <span> <input type="submit"  value="Ver Cargas"/> </span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <label for="message">Usuario</label> 
+                <input name="user" style="height:25px" type="text" placeholder="Usuario" value="${user}" title="Indique usuario de la Tienda" required  />
+
+
+                <label for="message" >Nombre</label> 
+                <input name="nombre" style="height:25px" type="text" placeholder="Nombre" value="${nombre}" title="Indique nombre de la Tienda" required />
+
+
+                <label for="message">Fecha_base</label> 
+                <input name="fecha" style="height:25px" type="text" placeholder="Fecha" value="${fecha}" title="Indique fecha creación Tienda" required />
+
+
+                <label for="message">Formato_Fecha</label> 
+                <input name="format" style="height:25px" type="text" placeholder="Formato" value="${format}" title="Indique Formato de Fecha" required />
+
+            </div>
+            <div id="parametros2">
+
+                <label for="message">Contraseña</label> 
+                <input name="pass" style="height:25px" type="text" placeholder="Contraseña" value="${pass}" title="Indique contraseña de la Tienda" required />
+
+
+                <label for="message">Host Galera MariaDB</label> 
+                <input name="host" style="height:25px" type="text" placeholder="IP" value="${host}" title="Indique Ip de la Tienda" required />
+
+
+                <label for="message">Galera MariaDB</label> 
+                <input name="bd" style="height:25px" type="text" placeholder="Name" value="${bd}" title="Indique nombre de la base de datos Galera" required />
+
+                <br>
+                <br>
+                <input type="submit" value="Modificar" />
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </div>          
         </form>
-       
-
-        <c:if test="${not empty plan_list}">
-            <h5>Anular Replicación</h5>
-            <form class="form-horizontal" action="planifica" method="POST">
-                <select  name="planificadas" class="form-control" onclick="alert('Realmente desea anular la Planificación');" onchange="this.form.submit()">
-                    <option value="NONE" >Seleccione planificación...</option>
-                    <c:forEach items="${plan_list}" var="item">
-                        ${item}
-                    </c:forEach>
-                </select>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            </form>
+        <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("La tienda fue modificada correctamente..!!");
+                }
+            </script>   
         </c:if>
-    <br>
-    
-    		
-    </div>
-
-    <div>
-    	<h4>Replicaciones a Ejecución</h4> 
-        
-       
-        <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${ejecutado}" var="item2">&#9679${item2}</c:forEach>
-        </textarea>
-        <form class="form-horizontal" action="cargasejec" method="POST">
-            <span> <input type="submit"  value="Ver Cargas"/> </span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        </form>
-        
-        <c:if test="${not empty plan_ejec}">
-            <h5>Anular Replicación</h5>
-            <form class="form-horizontal" action="ejecucion" method="POST">
-                <select  name="ejecutadas" class="form-control" onclick="alert('Realmente desea anular la Planificación');" onchange="this.form.submit()">
-                    <option value="NONE" >Seleccione planificación...</option>
-                    <c:forEach items="${plan_ejec}" var="item">
-                        ${item}
-                    </c:forEach>
-                </select>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            </form>
+        <c:if test="${mensaje == 'error'}">
+            <script language="JavaScript">
+                {
+                    alert("Fallo al modificar la tienda..!!");
+                }
+            </script>   
         </c:if>
-    <br>
-    <c:if test="${not empty mensaje_plan}">
-            <script language="JavaScript">
-                {
-                    alert("No hay replicaciones planificadas..!!");
-                }
-            </script>
-    </c:if>
             
-    <c:if test="${not empty mensaje_ejec}">
+        <c:if test="${mensaje == 'error2'}">
             <script language="JavaScript">
                 {
-                    alert("No hay replicaciones en ejecucion..!!");
+                    alert("No existe ninguna tienda Registrada..!!");
                 }
-            </script>
-    </c:if>
-            
-    <c:if test="${ msj_planif == 'Planificación anulada con Exito !!'}">
-            <script language="JavaScript">
-                {
-                    alert("Replicación anulada exitosamente");
-                }
-            </script>
-     </c:if>
-     <c:if test="${ msj_planif == 'Error al anular la replicación planificada'}">
-            <script language="JavaScript">
-                {
-                    alert("No se pudo anular la replicación planificada");
-                }
-            </script>
-     </c:if>    
-            
-            
-    <c:if test="${ msj_ejec == 'Planificacion anulada con Exito !!'}">
-            <script language="JavaScript">
-                {
-                    alert("Replicación anulada exitosamente");
-                }
-            </script>
-     </c:if>
-     <c:if test="${ msj_ejec == 'Error al anular la tarea planificada'}">
-            <script language="JavaScript">
-                {
-                    alert("No se pudo anular la replicación planificada");
-                }
-            </script>
-     </c:if> 
-            
-    <br>
-    		
+            </script>   
+        </c:if>    
     </div>
-    
-</div>	
-	<br>
-
-    		<div class="row-fluid">
-				<div class="span12">
-					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
-                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
-					</div>
-				</div>
-			</div>  
+        <div class="row-fluid">
+            <div class="span12">
+                <div id="copy" align="bottom">
+                        <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                        <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
+                </div>
+            </div>
+        </div> 
 	
 
 

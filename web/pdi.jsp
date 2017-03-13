@@ -137,36 +137,48 @@
     <div id="parametros">
         <form class="form-horizontal" action="pdi" method="POST">
             <div id="parametros1">
+
                 <label for="message" >Directorio PDI</label> 
-                <input name="directorioPDI" type="text" style="height:25px" placeholder="Directorio Pdi" required />
+                <input name="directorioPDI" type="text" style="height:25px" placeholder="Directorio Pdi" title="Indique directorio del Pentaho Data Integration" required />
+
+
                 <label for="message">Nombre Repositorio</label> 
-                <input name="nombrePDI" type="text" style="height:25px" placeholder="Nombre" required />
+                <input name="nombrePDI" type="text" style="height:25px" placeholder="Nombre" title="Indique nombre del Repositorio" required />
+
+
                 <label for="message">Usuario Repositorio</label> 
-                <input name="user" type="text" style="height:25px" placeholder="Usuario" required />
+                <input name="user" type="text" style="height:25px" placeholder="Usuario" title="Indique usuario del Repositorio" required />
+
+
                 <label for="message">Contraseña Repositorio</label> 
-                <input name="pass" type="password" style="height:25px" placeholder="Contraseña" required />          
+                <input name="pass" type="password" style="height:25px" placeholder="Contraseña" title="Indique contraseña del usuario del Repositorio" required />
+
+
                 <label for="message">Directorio Logs</label> 
-                <input name="log" type="text" style="height:25px" placeholder="Log" required />
+                <input name="log" type="text" style="height:25px" placeholder="Log" title="Indique directorio de logs del Repositorio" required />
+
+
                 <label for="message">Nivel Logs</label>            
-                <input name="nivel" type="text" style="height:25px" placeholder="Nivel" required />
+                <input name="nivel" type="text" style="height:25px" placeholder="Nivel" title="Indique nivel de detalle de logs del Repositorio" required />
+
+
                 <label for="message">Nombre Job CargaInicial</label> 
-                <input name="nombreJOBCI" type="text" style="height:25px" placeholder="Nombre Job" required />
+                <input name="nombreJOBCI" type="text" style="height:25px" placeholder="Nombre Job" title="Indique nombre de Job de Carga Inicial" required />
+
+
                 <label for="message">Directorio Job CargaInicial</label> 
-                <input name="directorioJOBCI" type="text" style="height:25px" placeholder="Directorio Job" required />
+                <input name="directorioJOBCI" type="text" style="height:25px" placeholder="Directorio Job" title="Indique directorio de Job de Carga Inicial" required />
+
             </div>
-            <div id="parametros1">               
+            <div id="parametros1">
+
                 <label for="message">Nombre Job Mediación</label> 
-                <input name="nombreJOBM" type="text" style="height:25px" placeholder="Nombre Job" required />
+                <input name="nombreJOBM" type="text" style="height:25px" placeholder="Nombre Job" title="Indique nombre de Job de Mediacion" required />
+
+
                 <label for="message">Directorio Job Mediación</label> 
-                <input name="directorioJOBM" type="text" style="height:25px" placeholder="Directorio Job" required />
-                <label for="message">Nombre Job CargaInicialETL</label> 
-                <input name="nombreJOBCIE" type="text" style="height:25px" placeholder="Nombre Job" required />
-                <label for="message">Directorio Job CargaInicialETL</label> 
-                <input name="directorioJOBCIE" type="text" style="height:25px" placeholder="Directorio Job" required />          
-                <label for="message">Nombre Job MediaciónETL</label> 
-                <input name="nombreJOBME" type="text" style="height:25px" placeholder="Nombre Job" required />
-                <label for="message">Directorio Job MediaciónETL</label> 
-                <input name="directorioJOBME" type="text" style="height:25px" placeholder="Directorio Job" required />
+                <input name="directorioJOBM" type="text" style="height:25px" placeholder="Directorio Job" title="Indique directorio de Job de Mediacion" required />
+
                 <br>
                 <br>
                 <input type="submit" value="Enviar" />

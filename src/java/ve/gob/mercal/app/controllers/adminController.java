@@ -157,8 +157,8 @@ public class adminController {
         
         try {
                 ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
-                            " FROM public.plan_ejecuciones  as pe, public.pasos_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
-                            "  WHERE pe.activo=TRUE and ppe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_ejecucion='en ejecucion';");
+                            " FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                            "  WHERE pe.activo=TRUE and ppe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion';");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -390,7 +390,7 @@ public class adminController {
         if(tipo.equals("administrador")){
          aux=1;
          }
-         if(tipo.equals("publicador")){
+         if(tipo.equals("Replicador")){
          aux=2;
          }
          if(tipo.equals("suscriptor")){
@@ -494,7 +494,7 @@ public class adminController {
          tipo="administrador";
          }
          if(tipo.equals("2")){
-         tipo="publicador";
+         tipo="replicador";
          }
          if(tipo.equals("3")){
          tipo="suscriptor";
@@ -530,7 +530,7 @@ public class adminController {
          if(tipo.equals("administrador")){
          aux=1;
          }
-         if(tipo.equals("publicador")){
+         if(tipo.equals("replicador")){
          aux=2;
          }
          if(tipo.equals("suscriptor")){
@@ -710,7 +710,7 @@ public class adminController {
          tipo="administrador";
          }
          if(tipo.equals("2")){
-         tipo="publicador";
+         tipo="replicador";
          }
          if(tipo.equals("3")){
          tipo="suscriptor";
@@ -1126,7 +1126,7 @@ public class adminController {
                                                             String bd){
         ModelAndView model= new ModelAndView();
         String Json="";
-        Json = "{\"usuario\":\""+user+"\",\"nombre\":\""+nombre+"\",\"fecha_base\":\""+fecha+"\",\"formato_fecha\":"+format+",\"contraseña\":\""+pass+"\",\"host_bd_oracle\":\""+host+"\",\"bd_oracle\":\""+bd+"\"}";
+        Json = "{\"usuario\":\""+user+"\",\"nombre\":\""+nombre+"\",\"fecha_base\":\""+fecha+"\",\"formato_fecha\":\""+format+"\",\"contraseña\":\""+pass+"\",\"host_bd_oracle\":\""+host+"\",\"bd_oracle\":\""+bd+"\"}";
         String result="";
         String usuario = "NULL";
         int resultado = -999;
@@ -1179,6 +1179,129 @@ public class adminController {
         model.setViewName("tiendaadmin");
         return model;
     }
+        
+     @RequestMapping(value = {"/tiendaadminmod"}, method = {RequestMethod.GET})
+        public ModelAndView gettiendaAdminmod(){
+        ModelAndView model= new ModelAndView();
+        String user="";
+        String nombre="";
+        String fechab="";
+        String format="";
+        String pass="";
+        String host="";
+        String bd="";
+        String query="";
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        String jsonactual = "NULL";
+
+
+        try {
+                query = wsQuery.getConsulta("SELECT json_config FROM public.config WHERE activo=true and elemento='tienda';");
+             if(!query.equals("[]")){  
+                 
+                query = query.substring(1, query.length()-1);
+                elementObject = parser.parse(query);
+                jsonactual = elementObject.getAsJsonObject().get("json_config").getAsString();
+                elementObject = parser.parse(jsonactual);
+             user = elementObject.getAsJsonObject().get("usuario").getAsString();
+             nombre = elementObject.getAsJsonObject().get("nombre").getAsString();
+             fechab = elementObject.getAsJsonObject().get("fecha_base").getAsString();
+             format = elementObject.getAsJsonObject().get("formato_fecha").getAsString();
+             pass = elementObject.getAsJsonObject().get("contraseña").getAsString();
+             host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
+             bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
+             }
+ 
+            } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
+        
+             if(!query.equals("[]")){
+            model.addObject("user",user);
+            model.addObject("nombre",nombre);
+            model.addObject("fecha",fechab);
+            model.addObject("format",format);
+            model.addObject("pass",pass);
+            model.addObject("host",host);
+            model.addObject("bd",bd);
+             }else{
+            model.addObject("mensaje","error2");
+         }
+        model.setViewName("tiendaadminmod");
+        return model;
+    }
+    @RequestMapping(value = {"/tiendaadminmod"}, method = {RequestMethod.POST})
+        public ModelAndView postiendaAdminmod(@RequestParam (value = "user", required = false)
+                                                    String user,
+                                            @RequestParam (value = "nombre", required = false)
+                                                            String nombre,
+                                            @RequestParam (value = "fecha", required = false)
+                                                            String fecha,
+                                            @RequestParam (value = "format", required = false)
+                                                            String format,
+                                            @RequestParam (value = "pass", required = false)
+                                                            String pass,
+                                            @RequestParam (value = "host", required = false)
+                                                            String host,
+                                            @RequestParam (value = "bd", required = false)
+                                                            String bd){
+        ModelAndView model= new ModelAndView();
+        String Json="";
+        Json = "{\"usuario\":\""+user+"\",\"nombre\":\""+nombre+"\",\"fecha_base\":\""+fecha+"\",\"formato_fecha\":\""+format+"\",\"contraseña\":\""+pass+"\",\"host_bd_oracle\":\""+host+"\",\"bd_oracle\":\""+bd+"\"}";
+        String result="";
+        String usuario = "NULL";
+        int resultado = -999;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        
+        try{
+            usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
+            usuario = usuario.substring(1, usuario.length()-1);
+            elementObject = parser.parse(usuario);
+            usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString(); 
+
+            result = wsQuery.getConsulta("SELECT id_config FROM public.config WHERE elemento ='tienda';");
+        } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        if(result.equals("[]")){
+            try {
+                resultado = WsFuncion.getConsulta("public.insert_config('tienda','"+Json+"',"+usuario+");");
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(resultado>0){
+                model.addObject("mensaje","exito");
+            }else{
+                model.addObject("mensaje","error");
+            }
+        }else{
+            try {
+                result = result.substring(1, result.length()-1);
+                elementObject = parser.parse(result);
+                result = elementObject.getAsJsonObject().get("id_config").getAsString(); 
+                
+                resultado = WsFuncion.getConsulta("public.update_config("+result+",'tienda','"+Json+"',"+usuario+");");
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(resultado>0){
+                model.addObject("mensaje","exito");
+            }else{
+                model.addObject("mensaje","error");
+            }
+        }
+        model.setViewName("tiendaadminmod");
+        return model;
+    }
     @RequestMapping(value = {"/pdi"}, method = {RequestMethod.GET})
         public ModelAndView getpdi(){
         ModelAndView model= new ModelAndView();
@@ -1205,24 +1328,16 @@ public class adminController {
                                     @RequestParam (value = "nombreJOBM", required = false)
                                                     String nombreJOBM,
                                     @RequestParam (value = "directorioJOBM", required = false)
-                                                    String directorioJOBM,
-                                    @RequestParam (value = "nombreJOBCIE", required = false)
-                                                    String nombreJOBCIE,
-                                    @RequestParam (value = "directorioJOBCIE", required = false)
-                                                    String directorioJOBCIE,
-                                    @RequestParam (value = "nombreJOBME", required = false)
-                                                    String nombreJOBME,
-                                    @RequestParam (value = "directorioJOBME", required = false)
-                                                    String directorioJOBME){
+                                                    String directorioJOBM){
+            
         ModelAndView model= new ModelAndView();
         String Json="";
         Json = "{\"directorio_pdi\":\""+directorioPDI+"\",\"repositorio\":\""+nombrePDI+"\","
                 + "\"usuario_repositorio\":\""+user+"\",\"password\":"+pass+","
                 + "\"directorio_logs\":\""+log+"\",\"nivel_logs\":\""+nivel+"\","
                 + "\"nombre_job_ci\":\""+nombreJOBCI+"\",\"directorio_job_ci\":\""+directorioJOBCI+"\","
-                + "\"nombre_job_m\":\""+nombreJOBM+"\",\"directorio_job_m\":\""+directorioJOBM+"\","
-                + "\"nombre_job_ci_etl\":\""+nombreJOBCIE+"\",\"directorio_job_ci_etl\":\""+directorioJOBCIE+"\","
-                + "\"nombre_job_m_etl\":\""+nombreJOBME+"\",\"directorio_job_m_etl\":\""+directorioJOBME+"\"}";
+                + "\"nombre_job_m\":\""+nombreJOBM+"\",\"directorio_job_m\":\""+directorioJOBM+"\"}";
+        
         String result="";
         String usuario = "NULL";
         int resultado = -999;
@@ -1273,6 +1388,67 @@ public class adminController {
             }
         }
         model.setViewName("pdi");
+        return model;
+    }
+        
+    @RequestMapping(value = {"/pdimod"}, method = {RequestMethod.GET})
+        public ModelAndView getpdimod(){     
+        ModelAndView model= new ModelAndView();
+        String directorioPDI="";
+        String nombrePDI="";
+        String user="";
+        String pass="";
+        String log="";
+        String nivel="";
+        String nombreJOBCI="";
+        String directorioJOBCI="";
+        String nombreJOBM="";
+        String directorioJOBM="";
+        String query="";
+        JsonParser parser = new JsonParser();
+        JsonElement elementObject;
+        String jsonactual="NULL";
+        
+        try {
+                query = wsQuery.getConsulta("SELECT json_config FROM public.config WHERE activo=true and elemento='pdi';");
+             if(!query.equals("[]")){  
+                 
+                query = query.substring(1, query.length()-1);
+                elementObject = parser.parse(query);
+                jsonactual = elementObject.getAsJsonObject().get("json_config").getAsString();
+                elementObject = parser.parse(jsonactual);
+             directorioPDI = elementObject.getAsJsonObject().get("directorio_pdi").getAsString();
+             nombrePDI = elementObject.getAsJsonObject().get("repositorio").getAsString();
+             user = elementObject.getAsJsonObject().get("usuario_repositorio").getAsString();
+             pass = elementObject.getAsJsonObject().get("password").getAsString();
+             log = elementObject.getAsJsonObject().get("directorio_logs").getAsString();
+             nivel = elementObject.getAsJsonObject().get("nivel_logs").getAsString();
+             nombreJOBCI = elementObject.getAsJsonObject().get("nombre_job_ci").getAsString();
+             directorioJOBCI = elementObject.getAsJsonObject().get("directorio_job_ci").getAsString();
+             nombreJOBM = elementObject.getAsJsonObject().get("nombre_job_m").getAsString();
+             directorioJOBM = elementObject.getAsJsonObject().get("directorio_job_m").getAsString();
+             }
+ 
+            } catch (ExcepcionServicio e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
+        
+             if(!query.equals("[]")){
+            model.addObject("directorioPDI",directorioPDI);
+            model.addObject("nombrePDI",nombrePDI);
+            model.addObject("user",user);
+            model.addObject("pass",pass);
+            model.addObject("log",log);
+            model.addObject("nivel",nivel);
+            model.addObject("nombreJOBCI",nombreJOBCI);
+            model.addObject("directorioJOBCI",directorioJOBCI);
+            model.addObject("nombreJOBM",nombreJOBM);
+            model.addObject("directorioJOBM",directorioJOBM);
+             }else{
+            model.addObject("mensaje","error2");
+         }
+        model.setViewName("pdimod");
         return model;
     }
 }

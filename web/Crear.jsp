@@ -166,7 +166,7 @@
         <c:if test="${mensaje == 'error'}">
             <script language="JavaScript">
                 {
-                    alert("Fallo al crear la tienda..!!");
+                    alert("Fallo al crear la tienda.. (Ya existe)!!");
                 }
             </script>   
         </c:if>

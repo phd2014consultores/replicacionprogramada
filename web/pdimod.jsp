@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gestionar Cargas</title>
+	<title>Administrar PDI</title>
 	<!-- Bootstrap -->
 	<style type="text/css">
             <%@include file="css/bootstrap.css" %>
@@ -119,6 +119,9 @@
 <li class="page_item page-item-22"><a href="/ReplicacionProgramada/gestionusuarioadmin">Gestionar Usuario</a></li>
 <li class="page_item page-item-5"><a href="/ReplicacionProgramada/gestioncp">Gestionar Tienda</a></li>
 <li class="page_item page-item-10"><a href="/ReplicacionProgramada/gestioncargas">Gestionar Replicación</a></li>
+
+
+
 							</ul>
 						</div>
 					</div>		
@@ -126,128 +129,94 @@
     		</div>
     	</div>    	
     </div>
- 
     <br>
+    <h1 align="center">Configuración del Repositorio Pentaho</h1>
+    <br>
+    <h3 align="center">Parámetros PDI</h3>
+    <br>
+    <div id="parametros">
+        <form class="form-horizontal" action="pdi" method="POST">
+            <div id="parametros1">
 
-<div id="Bandejas" >
-	<h1 color="red">Listado de Replicación</h1>
-	<br>
-    <br>
-    <div>
-    	<h4>Replicaciones Planificadas</h4>
-        
-        
-        <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${planificado}" var="item2">&#9679${item2}</c:forEach>
-        </textarea>
-        <form class="form-horizontal" action="cargasplanif" method="POST">
-            <span> <input type="submit"  value="Ver Cargas"/> </span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <label for="message" >Directorio PDI</label> 
+                <input name="directorioPDI" type="text" style="height:25px" placeholder="Directorio Pdi" value="${directorioPDI}" title="Indique directorio del Pentaho Data Integration" required />
+
+
+                <label for="message">Nombre Repositorio</label> 
+                <input name="nombrePDI" type="text" style="height:25px" placeholder="Nombre" value="${nombrePDI}" title="Indique nombre del Repositorio" required />
+
+
+                <label for="message">Usuario Repositorio</label> 
+                <input name="user" type="text" style="height:25px" placeholder="Usuario" value="${user}" title="Indique usuario del Repositorio" required />
+
+
+                <label for="message">Contraseña Repositorio</label> 
+                <input name="pass" type="password" style="height:25px" placeholder="Contraseña" value="${pass}" title="Indique contraseña del usuario del Repositorio" required />
+
+
+                <label for="message">Directorio Logs</label> 
+                <input name="log" type="text" style="height:25px" placeholder="Log" value="${log}" title="Indique directorio de logs del Repositorio" required />
+
+
+                <label for="message">Nivel Logs</label>            
+                <input name="nivel" type="text" style="height:25px" placeholder="Nivel" value="${nivel}" title="Indique nivel de detalle de logs del Repositorio" required />
+
+
+                <label for="message">Nombre Job CargaInicial</label> 
+                <input name="nombreJOBCI" type="text" style="height:25px" placeholder="Nombre Job" value="${nombreJOBCI}" title="Indique nombre de Job de Carga Inicial" required />
+
+
+                <label for="message">Directorio Job CargaInicial</label> 
+                <input name="directorioJOBCI" type="text" style="height:25px" placeholder="Directorio Job" value="${directorioJOBCI}" title="Indique directorio de Job de Carga Inicial" required />
+
+            </div>
+            <div id="parametros1">
+
+                <label for="message">Nombre Job Mediación</label> 
+                <input name="nombreJOBM" type="text" style="height:25px" placeholder="Nombre Job" value="${nombreJOBM}" title="Indique nombre de Job de Mediacion" required />
+
+
+                <label for="message">Directorio Job Mediación</label> 
+                <input name="directorioJOBM" type="text" style="height:25px" placeholder="Directorio Job" value="${directorioJOBM}" title="Indique directorio de Job de Mediacion" required />
+
+                <br>
+                <br>
+                <input type="submit" value="Modificar" />
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </div>
         </form>
-       
-
-        <c:if test="${not empty plan_list}">
-            <h5>Anular Replicación</h5>
-            <form class="form-horizontal" action="planifica" method="POST">
-                <select  name="planificadas" class="form-control" onclick="alert('Realmente desea anular la Planificación');" onchange="this.form.submit()">
-                    <option value="NONE" >Seleccione planificación...</option>
-                    <c:forEach items="${plan_list}" var="item">
-                        ${item}
-                    </c:forEach>
-                </select>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            </form>
-        </c:if>
-    <br>
-    
-    		
-    </div>
-
-    <div>
-    	<h4>Replicaciones a Ejecución</h4> 
         
-       
-        <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${ejecutado}" var="item2">&#9679${item2}</c:forEach>
-        </textarea>
-        <form class="form-horizontal" action="cargasejec" method="POST">
-            <span> <input type="submit"  value="Ver Cargas"/> </span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        </form>
-        
-        <c:if test="${not empty plan_ejec}">
-            <h5>Anular Replicación</h5>
-            <form class="form-horizontal" action="ejecucion" method="POST">
-                <select  name="ejecutadas" class="form-control" onclick="alert('Realmente desea anular la Planificación');" onchange="this.form.submit()">
-                    <option value="NONE" >Seleccione planificación...</option>
-                    <c:forEach items="${plan_ejec}" var="item">
-                        ${item}
-                    </c:forEach>
-                </select>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            </form>
+        <c:if test="${mensaje == 'exito'}">
+            <script language="JavaScript">
+                {
+                    alert("El repositorio fue configurado correctamente..!!");
+                }
+            </script>   
         </c:if>
-    <br>
-    <c:if test="${not empty mensaje_plan}">
+        <c:if test="${mensaje == 'error'}">
             <script language="JavaScript">
                 {
-                    alert("No hay replicaciones planificadas..!!");
+                    alert("Fallo al configurar el repositorio..!!");
                 }
-            </script>
-    </c:if>
+            </script>   
+        </c:if>
             
-    <c:if test="${not empty mensaje_ejec}">
+       <c:if test="${mensaje == 'error2'}">
             <script language="JavaScript">
                 {
-                    alert("No hay replicaciones en ejecucion..!!");
+                    alert("Fallo al modificar PDI..!!");
                 }
-            </script>
-    </c:if>
-            
-    <c:if test="${ msj_planif == 'Planificación anulada con Exito !!'}">
-            <script language="JavaScript">
-                {
-                    alert("Replicación anulada exitosamente");
-                }
-            </script>
-     </c:if>
-     <c:if test="${ msj_planif == 'Error al anular la replicación planificada'}">
-            <script language="JavaScript">
-                {
-                    alert("No se pudo anular la replicación planificada");
-                }
-            </script>
-     </c:if>    
-            
-            
-    <c:if test="${ msj_ejec == 'Planificacion anulada con Exito !!'}">
-            <script language="JavaScript">
-                {
-                    alert("Replicación anulada exitosamente");
-                }
-            </script>
-     </c:if>
-     <c:if test="${ msj_ejec == 'Error al anular la tarea planificada'}">
-            <script language="JavaScript">
-                {
-                    alert("No se pudo anular la replicación planificada");
-                }
-            </script>
-     </c:if> 
-            
-    <br>
-    		
+            </script>   
+        </c:if>     
     </div>
-    
-</div>	
-	<br>
-
-    		<div class="row-fluid">
-				<div class="span12">
-					<div id="copy" align="bottom">
-						<h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
-                                                <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
-					</div>
-				</div>
-			</div>  
+    <div class="row-fluid">
+        <div class="span12">
+            <div id="copy" align="bottom">
+                    <h4>Copyright (C) 2015 Mercado de Alimentos MERCAL, C.A. Rif: G-200035919</h4>
+                    <p align="center"><a  href="http://phd2014consultores.com/">Impulsado por PhD 2014 Consultores C.A.</a><p>
+            </div>
+        </div>
+    </div> 
 	
 
 

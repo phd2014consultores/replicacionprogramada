@@ -135,8 +135,10 @@
                     <select  name="listString" class="form-control" onchange="location = this.value;">
                         <option value="NONE">Seleccione una opción...</option>
                         <!--option value="/PublicacionySuscripcion/gestionNodo">Configurar Cluster</option-->
-                        <option value="/ReplicacionProgramada/tiendaadmin">Configurar Tiendas</option>
+                        <option value="/ReplicacionProgramada/tiendaadmin">Crear o Reemplazar Tienda</option>
+                        <option value="/ReplicacionProgramada/tiendaadminmod">Modificar Tienda</option>
                         <option value="/ReplicacionProgramada/pdi">Configurar PDI</option>
+                        <option value="/ReplicacionProgramada/pdimod">Modificar PDI</option>
                         <option value="/ReplicacionProgramada/CargasenParalelo">Configurar Replicas en Paralelo</option>
                     </select>
 

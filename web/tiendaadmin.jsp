@@ -133,22 +133,35 @@
     <div id="parametros">
         <form class="form-horizontal" action="tiendaadmin" method="POST">
             <div id="parametros1">
+
                 <label for="message">Usuario</label> 
-                <input name="user" style="height:25px" type="text" placeholder="User" required />
+                <input name="user" style="height:25px" type="text" placeholder="Usuario" title="Indique usuario de la Tienda"  required/>
+
+
                 <label for="message" >Nombre</label> 
-                <input name="nombre" style="height:25px" type="text" placeholder="Name" required />
+                <input name="nombre" style="height:25px" type="text" placeholder="Nombre" title="Indique nombre de la Tienda" required />
+
                 <label for="message">Fecha_base</label> 
-                <input name="fecha" style="height:25px" type="text" placeholder="Date" required />
+                <input name="fecha" style="height:25px" type="text" placeholder="Fecha" title="Indique fecha de registro de la Tienda" required />
+
+
                 <label for="message">Formato_Fecha</label> 
-                <input name="format" style="height:25px" type="text" placeholder="Format" required />
+                <input name="format" style="height:25px" type="text" placeholder="Formato" title="Indique formato de Fecha" required />
+
             </div>
             <div id="parametros2">
+
                 <label for="message">Contraseña</label> 
-                <input name="pass" style="height:25px" type="text" placeholder="Password" required />
+                <input name="pass" style="height:25px" type="text" placeholder="Contraseña" title="Indique contraseña de la Tienda" required />
+
+
                 <label for="message">Host Galera MariaDB</label> 
-                <input name="host" style="height:25px" type="text" placeholder="IP" required />
+                <input name="host" style="height:25px" type="text" placeholder="IP" title="Indique IP de la Tienda" required />
+
+
                 <label for="message">Galera MariaDB</label> 
-                <input name="bd" style="height:25px" type="text" placeholder="Name" required />
+                <input name="bd" style="height:25px" type="text" placeholder="Name" title="Indique nombre de la base de datos Galera" required />
+
                 <br>
                 <br>
                 <input type="submit" value="Agregar" />

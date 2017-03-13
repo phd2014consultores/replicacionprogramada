@@ -49,7 +49,7 @@
 		});
 	</script>
         
-<title>Publicación y Suscripción</title>
+<title>Replicación Programada</title>
 <style>
 .error {
 	padding: 15px;
