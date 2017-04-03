@@ -170,8 +170,8 @@
             <label for="message">Usuario MariaDB</label> 
             <input required name="user" type="text" style="height:25px" placeholder="Usuario" value="${user}" />
             <br>
-            <label for="message">Contraña MariaDB</label> 
-            <input required name="pass" type="text" style="height:25px" placeholder="Password" value="${pass}" />
+            <label for="message">Contraseña MariaDB</label> 
+            <input required name="pass" type="password" style="height:25px" placeholder="Password" value="${pass}" />
             <br>
             <input name="idt" type="hidden" value=${idt}>
             <input name="idm" type="hidden" value=${idm}>

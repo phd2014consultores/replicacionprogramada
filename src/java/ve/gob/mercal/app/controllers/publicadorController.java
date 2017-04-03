@@ -127,7 +127,7 @@ public class publicadorController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         try {
-            s = wsQuery.getConsulta("SELECT t.tienda FROM public.susc_tiendas as st"
+            s = wsQuery.getConsulta("SELECT t.tienda FROM public.pub_tiendas as st"
                     + ", public.tiendas as t, public.usuarios as u WHERE st.activo=TRUE and "
                     + "t.id_tienda=st.id_tienda and st.id_usuario=u.id_usuario and "
                     + "u.usuario='"+name+"';");
@@ -145,8 +145,7 @@ public class publicadorController {
                 elementObject = parser.parse(s);
                 this.tienda = elementObject.getAsJsonObject()
                         .get("tienda").getAsString();
-                listString.add("<option value="+this.tienda+ "type=\"submit\">"+
-                                        this.tienda+"</option>");            
+                listString.add("\"<option value=\""+this.tienda+ "\"type=submit>\""+this.tienda+"\"</option>\"");            
             }                          
             model.addObject("tienda", listString);
         }else{
@@ -165,12 +164,12 @@ public class publicadorController {
         List<String> listString3 = new ArrayList<>();
         model=gettiendaPsuscriptor();
         String s2 = "NULL";
-        nameTienda = nameTienda.substring(0,nameTienda.length()-13);
+        //nameTienda = nameTienda.substring(0,nameTienda.length()-13);
         if(!nameTienda.equals("NONE")) {
             String valor="";
             try {
                 s2 = wsQuery.getConsulta("SELECT pe.nro_control_plan, t.tienda, j.job, "
-                        + "pe.tipo_ejecucion, pe.timestamp_planificacion, pe.nro_control_ejec, "
+                        + "pe.tipo_ejecucion, (pe.timestamp_planificacion - interval '1 day') as timestamp_planificacion, pe.nro_control_ejec, "
                         + "pe.revisado, pe.observaciones FROM public.plan_ejecuciones as pe , "
                         + "public.tiendas as t, public.jobs as j WHERE pe.activo=TRUE and "
                         + "pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and "

@@ -153,7 +153,7 @@
             <label for="message">Tipo Usuario :</label> 
                     <select  name="tipo" class="form-control" >
                         <option value="administrador">Administrador</option>
-                        <option value="publicador">Replicador</option>
+                        <option value="replicador">Replicador</option>
                     </select>
             <br>
             <br>
@@ -170,7 +170,7 @@
         <c:if test="${exito == 'Fallo al crear el Usuario'}">
             <script language="JavaScript">
                 {
-                    alert("Fallo al registrar el Usuario..!!");
+                    alert("Fallo al registrar el Usuario (Posible causa: El usuario o correo ya existe)..!!");
                 }
             </script>   
         </c:if>

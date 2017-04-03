@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.codehaus.jettison.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
@@ -390,12 +391,12 @@ public class adminController {
         if(tipo.equals("administrador")){
          aux=1;
          }
-         if(tipo.equals("Replicador")){
+         if(tipo.equals("replicador")){
          aux=2;
          }
-         if(tipo.equals("suscriptor")){
-         aux=3;
-         }
+        // if(tipo.equals("suscriptor")){
+        // aux=3;
+        // }
         try {
                 name = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name +"';");
                 name = name.substring(1, name.length()-1);
@@ -496,9 +497,9 @@ public class adminController {
          if(tipo.equals("2")){
          tipo="replicador";
          }
-         if(tipo.equals("3")){
-         tipo="suscriptor";
-         }
+        // if(tipo.equals("3")){
+        // tipo="suscriptor";
+        // }
             model.addObject("vaciar","vaciar");
             model.addObject("id",id);
             model.addObject("pseudonimo",pseudonimo);
@@ -533,9 +534,9 @@ public class adminController {
          if(tipo.equals("replicador")){
          aux=2;
          }
-         if(tipo.equals("suscriptor")){
-         aux=3;
-         }
+         //if(tipo.equals("suscriptor")){
+         //aux=3;
+         //}
         
         try {
                 name = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name +"';");
@@ -712,9 +713,9 @@ public class adminController {
          if(tipo.equals("2")){
          tipo="replicador";
          }
-         if(tipo.equals("3")){
-         tipo="suscriptor";
-         }
+        // if(tipo.equals("3")){
+        // tipo="suscriptor";
+        // }
             model.addObject("vaciar","vaciar");
             model.addObject("pseudonimo",pseudonimo);
             model.addObject("nombre",nombre);
@@ -1114,26 +1115,21 @@ public class adminController {
                                                     String user,
                                             @RequestParam (value = "nombre", required = false)
                                                             String nombre,
-                                            @RequestParam (value = "fecha", required = false)
-                                                            String fecha,
-                                            @RequestParam (value = "format", required = false)
-                                                            String format,
                                             @RequestParam (value = "pass", required = false)
                                                             String pass,
                                             @RequestParam (value = "host", required = false)
-                                                            String host,
-                                            @RequestParam (value = "bd", required = false)
-                                                            String bd){
+                                                            String host){
         ModelAndView model= new ModelAndView();
-        String Json="";
-        Json = "{\"usuario\":\""+user+"\",\"nombre\":\""+nombre+"\",\"fecha_base\":\""+fecha+"\",\"formato_fecha\":\""+format+"\",\"contraseña\":\""+pass+"\",\"host_bd_oracle\":\""+host+"\",\"bd_oracle\":\""+bd+"\"}";
+        String Json2 ="";
         String result="";
+        String result2="";
         String usuario = "NULL";
         int resultado = -999;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         JsonParser parser = new JsonParser();
         JsonElement elementObject;
+        JsonElement elementObject2;
         
         try{
             usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
@@ -1141,15 +1137,17 @@ public class adminController {
             elementObject = parser.parse(usuario);
             usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString(); 
 
-            result = wsQuery.getConsulta("SELECT id_config FROM public.config WHERE elemento ='tienda';");
+            result = wsQuery.getConsulta("SELECT id_config FROM public.config WHERE elemento ='cluster';");
+            result2 = wsQuery.getConsulta("SELECT json_config FROM public.config WHERE elemento ='cluster';");
         } catch (ExcepcionServicio e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         
-        if(result.equals("[]")){
+        if(result2.equals("[]")){
             try {
-                resultado = WsFuncion.getConsulta("public.insert_config('tienda','"+Json+"',"+usuario+");");
+                Json2 = "{\"max_cargas_paralelas\":3,\"nodos\":[{\"tienda\":\""+nombre+"\",\"keyspace\":\""+user+"\",\"status\":\"activo\",\"tipo\":\"semilla\",\"columnFamily\":\""+pass+"\",\"host\":\""+host+"\"}]}";
+                resultado = WsFuncion.getConsulta("public.insert_config('cluster','"+Json2+"',"+usuario+");");
             } catch (ExcepcionServicio e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -1161,11 +1159,17 @@ public class adminController {
             }
         }else{
             try {
+                result2 = result2.substring(1, result2.length()-1);
                 result = result.substring(1, result.length()-1);
                 elementObject = parser.parse(result);
-                result = elementObject.getAsJsonObject().get("id_config").getAsString(); 
-                
-                resultado = WsFuncion.getConsulta("public.update_config("+result+",'tienda','"+Json+"',"+usuario+");");
+                elementObject2 = parser.parse(result2);
+                result2 = elementObject2.getAsJsonObject().get("json_config").getAsString();
+                elementObject2 = parser.parse(result2);
+                result2 = elementObject2.getAsJsonObject().get("max_cargas_paralelas").getAsString();
+                result = elementObject.getAsJsonObject().get("id_config").getAsString();
+                Json2 = "{\"max_cargas_paralelas\":"+result2+",\"nodos\":[{\"tienda\":\""+nombre+"\",\"keyspace\":\""+user+"\",\"status\":\"activo\",\"tipo\":\"semilla\",\"columnFamily\":\""+pass+"\",\"host\":\""+host+"\"}]}";
+                resultado = WsFuncion.getConsulta("public.update_config("+result+",'cluster','"+Json2+"',"+usuario+");");
+
             } catch (ExcepcionServicio e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -1184,9 +1188,6 @@ public class adminController {
         public ModelAndView gettiendaAdminmod(){
         ModelAndView model= new ModelAndView();
         String user="";
-        String nombre="";
-        String fechab="";
-        String format="";
         String pass="";
         String host="";
         String bd="";
@@ -1195,22 +1196,21 @@ public class adminController {
         JsonElement elementObject;
         String jsonactual = "NULL";
 
-
         try {
-                query = wsQuery.getConsulta("SELECT json_config FROM public.config WHERE activo=true and elemento='tienda';");
+                query = wsQuery.getConsulta("SELECT json_config FROM public.config WHERE activo=true and elemento='cluster';");
              if(!query.equals("[]")){  
                  
                 query = query.substring(1, query.length()-1);
                 elementObject = parser.parse(query);
                 jsonactual = elementObject.getAsJsonObject().get("json_config").getAsString();
                 elementObject = parser.parse(jsonactual);
-             user = elementObject.getAsJsonObject().get("usuario").getAsString();
-             nombre = elementObject.getAsJsonObject().get("nombre").getAsString();
-             fechab = elementObject.getAsJsonObject().get("fecha_base").getAsString();
-             format = elementObject.getAsJsonObject().get("formato_fecha").getAsString();
-             pass = elementObject.getAsJsonObject().get("contraseña").getAsString();
-             host = elementObject.getAsJsonObject().get("host_bd_oracle").getAsString();
-             bd = elementObject.getAsJsonObject().get("bd_oracle").getAsString();
+                jsonactual = elementObject.getAsJsonObject().get("nodos").getAsJsonArray().toString();
+                jsonactual = jsonactual.substring(1, jsonactual.length()-1);
+                elementObject = parser.parse(jsonactual);
+                user = elementObject.getAsJsonObject().get("keyspace").getAsString();
+                pass = elementObject.getAsJsonObject().get("columnFamily").getAsString();
+                host = elementObject.getAsJsonObject().get("host").getAsString();
+                bd = elementObject.getAsJsonObject().get("tienda").getAsString();
              }
  
             } catch (ExcepcionServicio e) {
@@ -1220,12 +1220,9 @@ public class adminController {
         
              if(!query.equals("[]")){
             model.addObject("user",user);
-            model.addObject("nombre",nombre);
-            model.addObject("fecha",fechab);
-            model.addObject("format",format);
             model.addObject("pass",pass);
             model.addObject("host",host);
-            model.addObject("bd",bd);
+            model.addObject("nombre",bd);
              }else{
             model.addObject("mensaje","error2");
          }
@@ -1237,26 +1234,21 @@ public class adminController {
                                                     String user,
                                             @RequestParam (value = "nombre", required = false)
                                                             String nombre,
-                                            @RequestParam (value = "fecha", required = false)
-                                                            String fecha,
-                                            @RequestParam (value = "format", required = false)
-                                                            String format,
                                             @RequestParam (value = "pass", required = false)
                                                             String pass,
                                             @RequestParam (value = "host", required = false)
-                                                            String host,
-                                            @RequestParam (value = "bd", required = false)
-                                                            String bd){
+                                                            String host){
         ModelAndView model= new ModelAndView();
         String Json="";
-        Json = "{\"usuario\":\""+user+"\",\"nombre\":\""+nombre+"\",\"fecha_base\":\""+fecha+"\",\"formato_fecha\":\""+format+"\",\"contraseña\":\""+pass+"\",\"host_bd_oracle\":\""+host+"\",\"bd_oracle\":\""+bd+"\"}";
         String result="";
+        String result2="";
         String usuario = "NULL";
         int resultado = -999;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         JsonParser parser = new JsonParser();
         JsonElement elementObject;
+        JsonElement elementObject2;
         
         try{
             usuario = wsQuery.getConsulta("SELECT id_usuario FROM usuarios WHERE usuario='"+name+"';");
@@ -1264,31 +1256,27 @@ public class adminController {
             elementObject = parser.parse(usuario);
             usuario = elementObject.getAsJsonObject().get("id_usuario").getAsString(); 
 
-            result = wsQuery.getConsulta("SELECT id_config FROM public.config WHERE elemento ='tienda';");
+            result = wsQuery.getConsulta("SELECT id_config FROM public.config WHERE elemento ='cluster';");
         } catch (ExcepcionServicio e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         
         if(result.equals("[]")){
-            try {
-                resultado = WsFuncion.getConsulta("public.insert_config('tienda','"+Json+"',"+usuario+");");
-            } catch (ExcepcionServicio e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            if(resultado>0){
-                model.addObject("mensaje","exito");
-            }else{
-                model.addObject("mensaje","error");
-            }
+            model.addObject("mensaje","error");
         }else{
             try {
+                result2 = wsQuery.getConsulta("SELECT json_config FROM public.config WHERE elemento ='cluster';");
+                result2 = result2.substring(1, result2.length()-1);
+                elementObject2 = parser.parse(result2);
+                result2 = elementObject2.getAsJsonObject().get("json_config").getAsString();
+                elementObject2 = parser.parse(result2);
+                result2 = elementObject2.getAsJsonObject().get("max_cargas_paralelas").getAsString();             
                 result = result.substring(1, result.length()-1);
                 elementObject = parser.parse(result);
-                result = elementObject.getAsJsonObject().get("id_config").getAsString(); 
-                
-                resultado = WsFuncion.getConsulta("public.update_config("+result+",'tienda','"+Json+"',"+usuario+");");
+                result = elementObject.getAsJsonObject().get("id_config").getAsString();  
+                Json = "{\"max_cargas_paralelas\":"+result2+",\"nodos\":[{\"tienda\":\""+nombre+"\",\"keyspace\":\""+user+"\",\"status\":\"activo\",\"tipo\":\"semilla\",\"columnFamily\":\""+pass+"\",\"host\":\""+host+"\"}]}";
+                resultado = WsFuncion.getConsulta("public.update_config("+result+",'cluster','"+Json+"',"+usuario+");");
             } catch (ExcepcionServicio e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

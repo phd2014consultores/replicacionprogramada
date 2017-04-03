@@ -136,11 +136,11 @@
                 <select  name="dominio" class="form-control">
                     <option value="NONE">Seleccione un Dominio...</option>
                     <option value="2">Tiendas</option>
-                    <option value="3">Usuarios</option>
                     <option value="4">Productos</option>
                     <option value="5">Proveedores</option>
-                    <option value="6">Inventarios</option>
-                    <option value="7">Ventas</option>
+                    <option value="3" disabled>Usuarios</option>
+                    <option value="6" disabled>Inventarios</option>
+                    <option value="7" disabled>Ventas</option>
                 </select>
                 <br><br><br>
                 <h4>Introduzca una Fecha</h4>
@@ -174,7 +174,6 @@
                 </script>   
             </c:if>    
     </div>
-                
 
     <br>
     <div class="row-fluid">

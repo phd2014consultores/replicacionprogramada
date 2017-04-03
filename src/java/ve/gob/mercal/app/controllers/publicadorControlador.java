@@ -364,7 +364,7 @@ public class publicadorControlador {
         int id_u = 0; //id del usuario a insertar
         int id_t = 0; //id de la tienda para asignar al usuario
         int id_m_p = 0; // id del usuario actual.
-        model = geteliminarPublicadores();
+        
         if(!nameTienda.equals("NONE")  && !namePub.equals("NONE") ) {
           try {
                 validar = wsQuery.getConsulta("SELECT pub.id_usuario" +
@@ -408,15 +408,17 @@ public class publicadorControlador {
                         Logger.getLogger(publicadorController.class.getName()).log(Level.SEVERE, null, ex);
                   }
                  if(funcion>0){
+                    model = geteliminarPublicadores();
                     model.addObject("mensaje2","exito");
                  }else{
-
+                 model = geteliminarPublicadores();
                  model.addObject("mensaje2", "error");
                  
                  }
                 
             }else{
                   //muestro msj de que el usuario no existe en pub_tiendas
+                 model = geteliminarPublicadores();
                  model.addObject("mensaje2", "existe");
             }
         
@@ -476,6 +478,10 @@ public class publicadorControlador {
     List<String> lista_ter = new ArrayList<>();
     List<String> lista_ejec = new ArrayList<>();
     nombreTiendaUser.setnombreTienda(nameTienda);
+    listStringEjec.clear();
+    lista_ejec.clear();
+    listStringPlan.clear();
+    lista_plan.clear();
     model = publicar();
 
         if(!nameTienda.equals("NONE")) {
@@ -530,14 +536,12 @@ public class publicadorControlador {
                     }
                     aux=elementObject.getAsJsonObject().get("id_plan_ejecucion").getAsString(); 
                     listStringPlan.add(result);
-                    lista_plan.add("<option value=\""+aux+ "\">"+
-                                    aux+"</option>");
+
                     valor="";
                     result="";
                     aux="";
                 }   
             model.addObject("planificado",listStringPlan);
-            model.addObject("plan_list", lista_plan); // para mostrar los id de las planificaciones
             }else{
             model.addObject("mensaje_plan","No hay tareas planificadas para la tienda");
             
@@ -547,8 +551,8 @@ public class publicadorControlador {
              
             try {
                 ejec=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones\n" +
-                    "FROM public.plan_ejecuciones  as pe, public.pasos_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
-                    "WHERE pe.activo=TRUE and ppe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_ejecucion='en ejecucion'\n" +
+                    "FROM public.plan_ejecuciones  as pe, public.pasos_plan_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
+                    "WHERE pe.activo=TRUE and ppe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_plan='a ejecucion'\n" +
                     "AND t.tienda='"+nameTienda+"';");
             } catch (ExcepcionServicio ex) {
                 Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -599,93 +603,19 @@ public class publicadorControlador {
                     }
                     aux=elementObject2.getAsJsonObject().get("id_plan_ejecucion").getAsString();; 
                     listStringEjec.add(result);
-                    lista_ejec.add("<option value=\""+aux+ "\">"+
-                                    aux+"</option>");
+
                     valor="";
                     result="";
                     aux="";
 
                 }
             model.addObject("ejecutado",listStringEjec);
-            model.addObject("plan_ejec",lista_ejec );
             }else{
             model.addObject("mensaje_ejec","No hay tareas en ejecucion para la tienda");
             
             }
-            // Terminadas
-            try {
-                ter=wsQuery.getConsulta("SELECT pe.id_plan_ejecucion,pe.nro_control_plan, t.tienda, j.job, pe.timestamp_planificacion, pe.nro_control_ejec, pe.revisado, pe.observaciones, ppe.status_ejecucion \n" +
-                    "FROM public.plan_ejecuciones  as pe, public.pasos_ejecucion as ppe, public.tiendas as t, public.jobs as j\n" +
-                    "WHERE pe.activo=TRUE and pe.id_tienda=t.id_tienda and pe.id_job=j.id_job and pe.id_plan_ejecucion=ppe.id_plan_ejecucion and ppe.status_ejecucion='finalizada' \n" +
-                    "AND t.tienda='"+nameTienda+"';");
-            } catch (ExcepcionServicio ex) {
-                Logger.getLogger(publicadorControlador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if(!ter.equals("[]")){
-                
-                JsonParser parser3 = new JsonParser();
-                JsonElement elementObject3;
-                ter = ter.substring(1, ter.length()-1);
-                StringTokenizer st3 = new StringTokenizer(ter,"}");
-                result="";
-                while (st3.hasMoreTokens()) {
-                    ter = st3.nextToken()+"}";
-                    if (ter.substring(0,1).equals(",")){
-                        ter = ter.substring(1);                          
-                    }
-                    elementObject3 = parser3.parse(ter);
-                    valor = elementObject3.getAsJsonObject().get("id_plan_ejecucion").getAsString();
-                    result= result + "Id Plan Ejecucion = "+valor+"\n";
-                    if(existeCampo.existeCampo(ter,"nro_control_pla")){
-                    valor = elementObject3.getAsJsonObject().get("nro_control_plan").getAsString();
-                    result= result + "Nro Control Plan = "+valor+"\n";
-                    }
-                    if(existeCampo.existeCampo(ter,"tienda")){
-                    valor = elementObject3.getAsJsonObject().get("tienda").getAsString();
-                    result= result + "Tienda = "+valor+"\n";
-                    }
-                    if(existeCampo.existeCampo(ter,"job")){
-                    valor = elementObject3.getAsJsonObject().get("job").getAsString();
-                    result= result + "Job = "+valor+"\n";
-                    }
-                    if(existeCampo.existeCampo(ter,"nro_control_ejec")){
-                    valor = elementObject3.getAsJsonObject().get("nro_control_ejec").getAsString();
-                    result= result + "Nro Control Ejecucion = "+valor+"\n";
-                    }
-                    if(existeCampo.existeCampo(ter,"revisado")){
-                        valor = elementObject3.getAsJsonObject().get("revisado").getAsString();
-                        result= result + "Revisado = "+valor+"\n";
-                    }
-                    if(existeCampo.existeCampo(ter,"observaciones")){
-                    valor = elementObject3.getAsJsonObject().get("observaciones").getAsString();
-                    result= result + "Observaciones = "+valor+"\n";
-                    }
-                    if(existeCampo.existeCampo(ter,"timestamp_planificacion")){
-                        valor = elementObject3.getAsJsonObject().get("timestamp_planificacion").getAsString();
-                        result= result + "Tiempo de la planificacion = "+valor+"\n";
-                    }
-                    aux=elementObject3.getAsJsonObject().get("id_plan_ejecucion").getAsString();; 
-                    listStringTer.add(result);
-                    lista_ter.add("<option value="+aux+ ">"+
-                                    aux+"</option>");
-                    
-                    
-                    valor="";
-                    result="";
-                    aux="";
-
-                }
-            
-               //model.addObject("tienda", nombreTiendaUser.getnombreTienda());
-                model.addObject("terminado",listStringTer);
-                model.addObject("plan_ter", lista_ter);
-                
-            }else{
-                model.addObject("mensaje_ter","No hay tareas terminadas para la tienda");   
-            }
-            
         }
-        
+    model.setViewName("Publicar");    
     return model;
     }
     
@@ -715,7 +645,7 @@ public class publicadorControlador {
         try {
             s = wsQuery.getConsulta("SELECT t.tienda" +
                         " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
-                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager and t.activo=true ;");
+                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and t.activo=true ;");
             
             
         } catch (ExcepcionServicio e) {
@@ -758,7 +688,47 @@ public class publicadorControlador {
         String id_job = "NULL";        
         String id_user = "NULL";
         Date fechaact = new Date();
-        String fechaparam = fecha+" "+hora;
+        String s="";
+        DateFormat formatter2 = new SimpleDateFormat("HH:mm:ss");
+        Date hora2 = formatter2.parse(hora);        
+        
+            try {
+                while(!s.equals("[]")){
+                    if (hora2.getMinutes()>9 && hora2.getSeconds()>9){
+                        s = wsQuery.getConsulta(" SELECT timestamp_planificacion\n" +
+                        "  FROM plan_ejecuciones\n" +
+                        "  WHERE timestamp_planificacion::text LIKE '%"+hora2.getHours()+":"+hora2.getMinutes()+":"+hora2.getSeconds()+"%';");       
+                    }else{
+                        if(hora2.getMinutes()<10 && hora2.getSeconds()<10){
+                            s = wsQuery.getConsulta(" SELECT timestamp_planificacion\n" +
+                            "  FROM plan_ejecuciones\n" +
+                            "  WHERE timestamp_planificacion::text LIKE '%"+hora2.getHours()+":0"+hora2.getMinutes()+":0"+hora2.getSeconds()+"%';");
+                        }else{
+                            if (hora2.getMinutes()<10){
+                                s = wsQuery.getConsulta(" SELECT timestamp_planificacion\n" +
+                                "  FROM plan_ejecuciones\n" +
+                                "  WHERE timestamp_planificacion::text LIKE '%"+hora2.getHours()+":0"+hora2.getMinutes()+":"+hora2.getSeconds()+"%';");
+                            }else{
+                                if (hora2.getSeconds()<10){
+                                    s = wsQuery.getConsulta(" SELECT timestamp_planificacion\n" +
+                                    "  FROM plan_ejecuciones\n" +
+                                    "  WHERE timestamp_planificacion::text LIKE '%"+hora2.getHours()+":"+hora2.getMinutes()+":0"+hora2.getSeconds()+"%';");
+                                }
+                            }
+                        }   
+                    }
+                    if(s.equals("[]")){
+                        break;
+                    }else{
+                        hora2.setSeconds(hora2.getSeconds()+45);
+                    }
+                }  
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        
+        String fechaparam = fecha+" "+hora2.getHours()+":"+hora2.getMinutes()+":"+hora2.getSeconds();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date2 = formatter.parse(fechaparam);
         
@@ -798,7 +768,7 @@ public class publicadorControlador {
                     id_user = elementObject1.getAsJsonObject()
                     .get("id_usuario").getAsString();    
                     
-                    result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+id_job+",'"+fecha+" "+hora+"',"+ id_user+");");
+                    result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+id_job+",'"+fecha+" "+hora2.getHours()+":"+hora2.getMinutes()+":"+hora2.getSeconds()+"',"+ id_user+");");
                     if(result>0){
                     result2 = WsFuncion.getConsulta("public.insert_pasos_plan_ejecucion("+result+","+"'en espera'"+","+id_user+");");
                     }
@@ -830,7 +800,7 @@ public class publicadorControlador {
         try {
             s = wsQuery.getConsulta("SELECT t.tienda" +
                         " FROM public.pub_tiendas as pt,public.tiendas as t,public.usuarios as u" +
-                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and u.id_usuario=t.id_manager and t.activo=true;");
+                        " WHERE pt.activo=TRUE and pt.id_tienda=t.id_tienda and pt.id_usuario=u.id_usuario and u.usuario='"+name+"' and t.activo=true;");
             
             
         } catch (ExcepcionServicio e) {
@@ -874,7 +844,49 @@ public class publicadorControlador {
         String id_job = "NULL";        
         String id_user = "NULL";
         Date fechaact = new Date();
-        String fechaparam = fecha+" "+hora;
+        String s="";
+        DateFormat formatter2 = new SimpleDateFormat("HH:mm:ss");
+        Date hora2 = formatter2.parse(hora);        
+
+            try {
+                while(!s.equals("[]")){
+                    
+                    if (hora2.getMinutes()>9 && hora2.getSeconds()>9){
+                        s = wsQuery.getConsulta(" SELECT timestamp_planificacion\n" +
+                        "  FROM plan_ejecuciones\n" +
+                        "  WHERE timestamp_planificacion::text LIKE '%"+hora2.getHours()+":"+hora2.getMinutes()+":"+hora2.getSeconds()+"%';");       
+                    }else{
+                        if(hora2.getMinutes()<10 && hora2.getSeconds()<10){
+                            s = wsQuery.getConsulta(" SELECT timestamp_planificacion\n" +
+                            "  FROM plan_ejecuciones\n" +
+                            "  WHERE timestamp_planificacion::text LIKE '%"+hora2.getHours()+":0"+hora2.getMinutes()+":0"+hora2.getSeconds()+"%';");
+                        }else{
+                            if (hora2.getMinutes()<10){
+                                s = wsQuery.getConsulta(" SELECT timestamp_planificacion\n" +
+                                "  FROM plan_ejecuciones\n" +
+                                "  WHERE timestamp_planificacion::text LIKE '%"+hora2.getHours()+":0"+hora2.getMinutes()+":"+hora2.getSeconds()+"%';");
+                            }else{
+                                if (hora2.getSeconds()<10){
+                                    s = wsQuery.getConsulta(" SELECT timestamp_planificacion\n" +
+                                    "  FROM plan_ejecuciones\n" +
+                                    "  WHERE timestamp_planificacion::text LIKE '%"+hora2.getHours()+":"+hora2.getMinutes()+":0"+hora2.getSeconds()+"%';");
+                                }
+                            }
+                        }   
+                    }
+                    
+                    if(s.equals("[]")){
+                        break;
+                    }else{
+                        hora2.setSeconds(hora2.getSeconds()+45);
+                    }
+                }  
+            } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        
+        String fechaparam = fecha+" "+hora2.getHours()+":"+hora2.getMinutes()+":"+hora2.getSeconds();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date2 = formatter.parse(fechaparam);
         
@@ -912,7 +924,7 @@ public class publicadorControlador {
                      
                     
                     
-                    result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+dominio+",'"+fecha+" "+hora+"',"+ id_user+");");
+                    result = WsFuncion.getConsulta("public.insert_plan_ejecuciones_planif("+id_tienda+","+dominio+",'"+fecha+" "+hora2.getHours()+":"+hora2.getMinutes()+":"+hora2.getSeconds()+"',"+ id_user+");");
                     if(result>0){
                     result2 = WsFuncion.getConsulta("public.insert_pasos_plan_ejecucion("+result+","+"'en espera'"+","+id_user+");");
                     }

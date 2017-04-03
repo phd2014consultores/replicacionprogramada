@@ -143,9 +143,7 @@
                     <form class="form-horizontal" action="Psuscriptor" method="POST">
                         <select  name="listString" class="form-control" onchange="this.form.submit()">
                             <option value="NONE">Seleccione una tienda...</option>
-                            <c:forEach items="${tienda}" var="item">
-                                ${item}
-                            </c:forEach>
+                            <c:forEach items="${tienda}" var="item" >${item}</c:forEach>
                         </select>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     </form> 
@@ -166,33 +164,7 @@
                 <h4>Tienda: ${publicacion2}</h4>
                 <br>
                 <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${publicacion}" var="item2">&#9679${item2}</c:forEach>
-                </textarea>   
-            <h2>Ver Detalle Replicación</h2>
-            <form class="form-horizontal" action="Psuscriptor2" method="POST">             
-                <select  name="listString2" class="form-control" onchange="this.form.submit()">
-                    <option value="NONE">Seleccione una Replicación...</option>
-                    <c:forEach items="${publicacion3}" var="item3">
-                        <option value="${item3}" type="submit">Numero de Control: ${item3}</option>
-                    </c:forEach>
-                </select>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-      
-            </form>
-                
-               
-            </c:if>
-            <c:if test="${not empty detalle1}">
-                    <script language="JavaScript">
-                        {
-                            alert("No posee detalle de replicaciones asociadas");
-                        }
-                    </script> 
-            </c:if>
-
-            <c:if test="${not empty detalle}">
-                <h2>Listado de ETL</h2>
-                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${detalle}" var="item3">&#9679${item3}</c:forEach>
-                </textarea>      
+                </textarea> 
             </c:if>
         </div>
 	<br>

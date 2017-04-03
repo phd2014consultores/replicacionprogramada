@@ -178,7 +178,7 @@
             <label for="message">Nuevo Tipo Usuario :</label> 
                     <select  name="tipo" class="form-control" >
                         <option value="administrador">Administrador</option>
-                        <option value="publicador">Replicador</option>
+                        <option value="replicador">Replicador</option>
                     </select>
             <br>
             <input name="id" type="hidden" value=${id}>
@@ -199,7 +199,7 @@
              <c:if test="${ exito == 'Fallo al modificar el usuario'}">
                     <script language="JavaScript">
                         {
-                            alert("No se pudo modificar el usuario");
+                            alert("No se pudo modificar el usuario  (Posible causa: El usuario o correo ya existe)...");
                         }
                     </script>
              </c:if>       

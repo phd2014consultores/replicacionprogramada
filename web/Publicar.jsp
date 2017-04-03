@@ -142,19 +142,15 @@
             <h4>Tienda: ${tienda2}</h4>
             <br><br>
         </c:if>
-        <div>
-            <div id="Bandeja1">
+        <div id="Bandejas">
+
                 <h4 color="red">Replicaciones planificadas</h4>
                 <h5>${mensaje_plan}</h5>
                 
-                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${planificado}" var="item2">&#9679${planificado}</c:forEach>
+                <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${planificado}" var="item1">&#9679${item1}</c:forEach>
                 </textarea>
                 <br>
-                
-                
-              
-            </div>
-            <div id="Bandeja1">
+
                 <h4 color="red">Replicaciones en ejecución</h4>
                 <h5>${mensaje_ejec}</h5>
                 <c:if test="${empty lista_etl_ejec}">
@@ -162,52 +158,7 @@
                     </textarea>
                 </c:if>
                 <h5>${msj_ejec}</h5>
-                <c:if test="${not empty plan_ejec}">
-                    <form class="form-horizontal" action="ejecutaETL" method="POST">
-                        <select  name="ejecutadas" class="form-control" onchange="this.form.submit()">
-                            <option value="NONE" >Ver detalle de planificación...</option>
-                            <c:forEach items="${plan_ejec}" var="item">
-                                ${item}
-                            </c:forEach>
-                        </select>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    </form>
-               </c:if>
-                
-                <c:if test="${not empty lista_etl_ejec}">
-                     <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${lista_etl_ejec}" var="item2">&#9679${item2}</c:forEach>
-                     </textarea>
-                   
-               </c:if>               
-            </div>
-            <div id="Bandeja1">
-                <h4 color="red">Replicaciones culminadas</h4>
-                <h5>${mensaje_ter}</h5>
-                <c:if test="${empty lista_etl_ter}">
-                    <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${terminado}" var="item2">&#9679${item2}</c:forEach>
-                    </textarea>
-                </c:if>
-                <h5>${msj_ter}</h5>
-                <c:if test="${not empty plan_ter}">
-                    <form class="form-horizontal" action="terminaETL" method="POST">
-                        <select  name="terminadas" class="form-control" onchange="this.form.submit()">
-                            <option value="NONE" >Ver detalle de planificación...</option>
-                            <c:forEach items="${plan_ter}" var="item">
-                                ${item}
-                            </c:forEach>
-                        </select>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    </form>
-                </c:if>
-                
-                <c:if test="${not empty lista_etl_ter}">
-                   <textarea id="message2" cols="30" rows="15" readonly style="text-align:left"><c:forEach items="${lista_etl_ter}" var="item2">&#9679${item2}</c:forEach>
-                   </textarea>
-                   
-               </c:if>
-            </div>
         </div>
-        <br>
      </div>
                 
 
