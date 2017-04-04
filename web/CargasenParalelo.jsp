@@ -132,11 +132,11 @@
     <div id="Bandejas">
         <form class="form-horizontal" action="CargasenParalelo" method="POST">
             <h4>Número de Replicas</h4>
-            <input name="cargas" type="number" style="height:25px" min="1" placeholder="Nro. de Replicas" required />
+            <input name="cargas" type="number" style="height:25px" min="1" placeholder="Nro. de Replicas"  value="${cargas}"   required />
             <input type="submit" style="height:25px" value="Aceptar"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
-        
+      
         <c:if test="${mensaje == 'exito'}">
             <script language="JavaScript">
                 {
