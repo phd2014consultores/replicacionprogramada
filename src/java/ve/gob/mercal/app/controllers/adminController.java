@@ -1005,6 +1005,23 @@ public class adminController {
     @RequestMapping(value = {"/CargasenParalelo"}, method = {RequestMethod.GET})
         public ModelAndView getCargasenParalelo(){
         ModelAndView model= new ModelAndView();
+        String result="";
+        JsonElement elementObject;
+        JsonParser parser = new JsonParser();
+        String jsonactual="";
+        
+        try{
+              result = wsQuery.getConsulta("SELECT id_config, elemento, json_config FROM public.config WHERE elemento ='cluster';");
+              result = result.substring(1, result.length()-1);
+              elementObject = parser.parse(result);                   
+              jsonactual = elementObject.getAsJsonObject().get("json_config").getAsString();    
+              elementObject = parser.parse(jsonactual);
+              jsonactual = elementObject.getAsJsonObject().get("max_cargas_paralelas").getAsString();
+        } catch (ExcepcionServicio e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } 
+        model.addObject("cargas",jsonactual);
         model.setViewName("CargasenParalelo");
         return model;
     }
