@@ -1067,6 +1067,7 @@ public class adminController {
                     e.printStackTrace();
                 }
                 if(resultado>0){
+                    model=getCargasenParalelo();
                     model.addObject("mensaje","exito");
                 }else{
                     model.addObject("mensaje","error");
@@ -1108,6 +1109,7 @@ public class adminController {
                         e.printStackTrace();
                     }
                     if(resultado>0){
+                        model=getCargasenParalelo();
                         model.addObject("mensaje","exito");
                     }else{
                         model.addObject("mensaje","error");
